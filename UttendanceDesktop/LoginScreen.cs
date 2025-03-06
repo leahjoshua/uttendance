@@ -12,7 +12,7 @@ namespace UttendanceDesktop
         private void button1_Click(object sender, EventArgs e)
         {
             Login login = new Login();
-            String netID = login.login(netIDTxtBox.Text);
+            String netID = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
             if (netID == "Incorrect NetID")
             {
                 MessageBox.Show("Incorrect NetID");

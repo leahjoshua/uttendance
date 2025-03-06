@@ -48,7 +48,7 @@
             netIDTxtBox.ForeColor = SystemColors.InactiveCaption;
             netIDTxtBox.Location = new Point(144, 487);
             netIDTxtBox.Name = "netIDTxtBox";
-            netIDTxtBox.Size = new Size(525, 61);
+            netIDTxtBox.Size = new Size(313, 61);
             netIDTxtBox.TabIndex = 0;
             netIDTxtBox.Text = "Enter your NetID";
             netIDTxtBox.Enter += netIDTxtBox_Enter;
@@ -96,7 +96,7 @@
             panel1.Controls.Add(welcomeLabel1);
             panel1.Location = new Point(63, 72);
             panel1.Name = "panel1";
-            panel1.Size = new Size(813, 893);
+            panel1.Size = new Size(813, 867);
             panel1.TabIndex = 3;
             // 
             // label2
@@ -118,7 +118,7 @@
             pwdTxtBox.ForeColor = SystemColors.InactiveCaption;
             pwdTxtBox.Location = new Point(144, 618);
             pwdTxtBox.Name = "pwdTxtBox";
-            pwdTxtBox.Size = new Size(525, 61);
+            pwdTxtBox.Size = new Size(313, 61);
             pwdTxtBox.TabIndex = 6;
             pwdTxtBox.Text = "Enter your Password";
             pwdTxtBox.Enter += pwdTxtBox_Enter;
@@ -183,6 +183,7 @@
             Controls.Add(panel1);
             DoubleBuffered = true;
             Name = "LoginScreen";
+            StartPosition = FormStartPosition.Manual;
             Text = "Uttendance";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
