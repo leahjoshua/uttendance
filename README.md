@@ -8,3 +8,8 @@ A UTD Attendance Application.
 - Aendri Singh
 - Joanna Yang
 - Judy Yang
+
+### Documentation Guides (In Progress)
+| Guide | Description |
+| ------------- | ------------- |
+| [Database Connection Guide](./Readable%20Files/DBCnctGuide.md) | Guide to install database software, connect database to application. |
