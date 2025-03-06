@@ -46,7 +46,7 @@
             netIDTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             netIDTxtBox.Font = new Font("Segoe UI", 25F);
             netIDTxtBox.ForeColor = SystemColors.InactiveCaption;
-            netIDTxtBox.Location = new Point(156, 709);
+            netIDTxtBox.Location = new Point(156, 663);
             netIDTxtBox.Name = "netIDTxtBox";
             netIDTxtBox.Size = new Size(737, 74);
             netIDTxtBox.TabIndex = 0;
@@ -105,7 +105,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Segoe UI", 15F);
             label2.ForeColor = Color.FromArgb(88, 108, 168);
-            label2.Location = new Point(156, 827);
+            label2.Location = new Point(156, 781);
             label2.Name = "label2";
             label2.Size = new Size(143, 41);
             label2.TabIndex = 7;
@@ -116,7 +116,7 @@
             pwdTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pwdTxtBox.Font = new Font("Segoe UI", 25F);
             pwdTxtBox.ForeColor = SystemColors.InactiveCaption;
-            pwdTxtBox.Location = new Point(156, 881);
+            pwdTxtBox.Location = new Point(156, 835);
             pwdTxtBox.Name = "pwdTxtBox";
             pwdTxtBox.Size = new Size(737, 74);
             pwdTxtBox.TabIndex = 6;
@@ -130,7 +130,7 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 15F);
             label1.ForeColor = Color.FromArgb(88, 108, 168);
-            label1.Location = new Point(266, 570);
+            label1.Location = new Point(279, 536);
             label1.Name = "label1";
             label1.Size = new Size(489, 41);
             label1.TabIndex = 5;
@@ -142,7 +142,7 @@
             netIDLabel.BackColor = Color.Transparent;
             netIDLabel.Font = new Font("Segoe UI", 15F);
             netIDLabel.ForeColor = Color.FromArgb(88, 108, 168);
-            netIDLabel.Location = new Point(156, 655);
+            netIDLabel.Location = new Point(156, 609);
             netIDLabel.Name = "netIDLabel";
             netIDLabel.Size = new Size(95, 41);
             netIDLabel.TabIndex = 4;
@@ -165,7 +165,7 @@
             welcomeLabel2.BackColor = Color.Transparent;
             welcomeLabel2.Font = new Font("Segoe UI", 40F);
             welcomeLabel2.ForeColor = Color.FromArgb(50, 56, 87);
-            welcomeLabel2.Location = new Point(287, 430);
+            welcomeLabel2.Location = new Point(295, 404);
             welcomeLabel2.Name = "welcomeLabel2";
             welcomeLabel2.Size = new Size(453, 106);
             welcomeLabel2.TabIndex = 2;
