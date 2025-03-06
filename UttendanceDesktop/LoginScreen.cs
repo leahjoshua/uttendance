@@ -7,7 +7,6 @@ namespace UttendanceDesktop
         public LoginScreen()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void button1_Click(object sender, EventArgs e)
