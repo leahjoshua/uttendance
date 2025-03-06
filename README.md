@@ -2,7 +2,7 @@
 
 A UTD Attendance Application.
 
-### Team Members:
+### Team Members
 - Leah Joshua
 - Parisa Nawar
 - Aendri Singh
