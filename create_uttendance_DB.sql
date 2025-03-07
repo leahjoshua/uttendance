@@ -74,12 +74,13 @@ CREATE TABLE IF NOT EXISTS `instructor` (
   `INetID` varchar(9) NOT NULL,
   `IFName` varchar(10) DEFAULT NULL,
   `ILName` varchar(10) DEFAULT NULL,
+  `IPassword` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`INetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.instructor: ~1 rows (approximately)
-INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`) VALUES
-	('SXH210003', 'Sooyoung', 'Han');
+INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
+	('SXH210003', 'Sooyoung', 'Han', 'sunfish');
 
 -- Dumping structure for table uttendance.question
 CREATE TABLE IF NOT EXISTS `question` (
