@@ -43,12 +43,12 @@
             // 
             // netIDTxtBox
             // 
-            netIDTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            netIDTxtBox.Font = new Font("Segoe UI", 20F);
+            netIDTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            netIDTxtBox.Font = new Font("Segoe UI", 15F);
             netIDTxtBox.ForeColor = SystemColors.InactiveCaption;
-            netIDTxtBox.Location = new Point(144, 487);
+            netIDTxtBox.Location = new Point(96, 433);
             netIDTxtBox.Name = "netIDTxtBox";
-            netIDTxtBox.Size = new Size(313, 61);
+            netIDTxtBox.Size = new Size(368, 47);
             netIDTxtBox.TabIndex = 0;
             netIDTxtBox.Text = "Enter your NetID";
             netIDTxtBox.Enter += netIDTxtBox_Enter;
@@ -56,12 +56,12 @@
             // 
             // welcomeLabel1
             // 
-            welcomeLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            welcomeLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             welcomeLabel1.AutoSize = true;
             welcomeLabel1.BackColor = Color.Transparent;
             welcomeLabel1.Font = new Font("Segoe UI", 30F);
             welcomeLabel1.ForeColor = Color.FromArgb(50, 56, 87);
-            welcomeLabel1.Location = new Point(212, 186);
+            welcomeLabel1.Location = new Point(105, 186);
             welcomeLabel1.Name = "welcomeLabel1";
             welcomeLabel1.Size = new Size(352, 81);
             welcomeLabel1.TabIndex = 1;
@@ -70,12 +70,13 @@
             // 
             // SignInBtn
             // 
+            SignInBtn.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             SignInBtn.BackColor = Color.FromArgb(233, 117, 2);
-            SignInBtn.Font = new Font("Segoe UI", 20F);
+            SignInBtn.Font = new Font("Segoe UI", 15F);
             SignInBtn.ForeColor = Color.White;
-            SignInBtn.Location = new Point(144, 708);
+            SignInBtn.Location = new Point(96, 709);
             SignInBtn.Name = "SignInBtn";
-            SignInBtn.Size = new Size(525, 86);
+            SignInBtn.Size = new Size(368, 60);
             SignInBtn.TabIndex = 2;
             SignInBtn.Text = "Sign In";
             SignInBtn.UseVisualStyleBackColor = false;
@@ -83,7 +84,7 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(235, 166, 176, 230);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(SignInBtn);
@@ -94,31 +95,32 @@
             panel1.Controls.Add(welcomeLabel2);
             panel1.Controls.Add(netIDTxtBox);
             panel1.Controls.Add(welcomeLabel1);
-            panel1.Location = new Point(63, 72);
+            panel1.Location = new Point(33, 32);
             panel1.Name = "panel1";
-            panel1.Size = new Size(813, 867);
+            panel1.Size = new Size(553, 899);
             panel1.TabIndex = 3;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 15F);
+            label2.Font = new Font("Segoe UI", 10F);
             label2.ForeColor = Color.FromArgb(88, 108, 168);
-            label2.Location = new Point(144, 564);
+            label2.Location = new Point(96, 510);
             label2.Name = "label2";
-            label2.Size = new Size(143, 41);
+            label2.Size = new Size(93, 28);
             label2.TabIndex = 7;
             label2.Text = "Password";
             // 
             // pwdTxtBox
             // 
-            pwdTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pwdTxtBox.Font = new Font("Segoe UI", 20F);
+            pwdTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pwdTxtBox.Font = new Font("Segoe UI", 15F);
             pwdTxtBox.ForeColor = SystemColors.InactiveCaption;
-            pwdTxtBox.Location = new Point(144, 618);
+            pwdTxtBox.Location = new Point(96, 551);
             pwdTxtBox.Name = "pwdTxtBox";
-            pwdTxtBox.Size = new Size(313, 61);
+            pwdTxtBox.Size = new Size(368, 47);
             pwdTxtBox.TabIndex = 6;
             pwdTxtBox.Text = "Enter your Password";
             pwdTxtBox.Enter += pwdTxtBox_Enter;
@@ -126,46 +128,49 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 15F);
+            label1.Font = new Font("Segoe UI", 10F);
             label1.ForeColor = Color.FromArgb(88, 108, 168);
-            label1.Location = new Point(166, 348);
+            label1.Location = new Point(117, 336);
             label1.Name = "label1";
-            label1.Size = new Size(489, 41);
+            label1.Size = new Size(319, 28);
             label1.TabIndex = 5;
             label1.Text = "You're free from eLearning Quizzes!";
             // 
             // netIDLabel
             // 
+            netIDLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             netIDLabel.AutoSize = true;
             netIDLabel.BackColor = Color.Transparent;
-            netIDLabel.Font = new Font("Segoe UI", 15F);
+            netIDLabel.Font = new Font("Segoe UI", 10F);
             netIDLabel.ForeColor = Color.FromArgb(88, 108, 168);
-            netIDLabel.Location = new Point(144, 433);
+            netIDLabel.Location = new Point(96, 402);
             netIDLabel.Name = "netIDLabel";
-            netIDLabel.Size = new Size(95, 41);
+            netIDLabel.Size = new Size(63, 28);
             netIDLabel.TabIndex = 4;
             netIDLabel.Text = "NetID";
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Github;
             panel2.BackgroundImageLayout = ImageLayout.Stretch;
-            panel2.Location = new Point(307, 58);
+            panel2.Location = new Point(198, 60);
             panel2.Name = "panel2";
             panel2.Size = new Size(146, 136);
             panel2.TabIndex = 3;
             // 
             // welcomeLabel2
             // 
-            welcomeLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            welcomeLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             welcomeLabel2.AutoSize = true;
             welcomeLabel2.BackColor = Color.Transparent;
             welcomeLabel2.Font = new Font("Segoe UI", 30F);
             welcomeLabel2.ForeColor = Color.FromArgb(50, 56, 87);
-            welcomeLabel2.Location = new Point(224, 267);
+            welcomeLabel2.Location = new Point(117, 255);
             welcomeLabel2.Name = "welcomeLabel2";
             welcomeLabel2.Size = new Size(340, 81);
             welcomeLabel2.TabIndex = 2;
@@ -179,9 +184,10 @@
             BackColor = Color.FromArgb(166, 176, 230);
             BackgroundImage = Properties.Resources.LoginBG;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1898, 1024);
+            ClientSize = new Size(1418, 968);
             Controls.Add(panel1);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "LoginScreen";
             StartPosition = FormStartPosition.Manual;
             Text = "Uttendance";
