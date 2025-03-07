@@ -4,23 +4,28 @@ namespace UttendanceDesktop
 {
     public partial class LoginScreen : Form
     {
-        private float APP_SCALE = 0.75f;
         public LoginScreen()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // parisa and leah worked on this
+        private void SignInBtn_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
-            String netID = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
-            if (netID == "Incorrect NetID")
+            LoginDAO login = new LoginDAO();
+            Instructor currentInstructor = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
+            if (currentInstructor.INetID == null)
             {
-                MessageBox.Show("Incorrect NetID");
+                MessageBox.Show("Incorrect NetID or Password");
             }
             else
             {
-                MessageBox.Show("Logged in as: " + netID);
+                if (rmbrMeCheck.Checked)
+                {
+                    Properties.Settings.Default.netID = currentInstructor.INetID;
+                    Properties.Settings.Default.Save();
+                }
+                MessageBox.Show("Logged in as: " + currentInstructor.INetID);
             }
 
         }
@@ -63,9 +68,12 @@ namespace UttendanceDesktop
 
         private void LoginScreen_Load(object sender, EventArgs e)
         {
-            //System.Drawing.Rectangle workingRectangle = Screen.PrimaryScreen.WorkingArea;
-            //this.Size = new System.Drawing.Size(Convert.ToInt32(APP_SCALE * workingRectangle.Width),
-            //    Convert.ToInt32(APP_SCALE * workingRectangle.Height));
+            this.ActiveControl = panel1;
+            if (Properties.Settings.Default.netID != string.Empty)
+            {
+                netIDTxtBox.Text = Properties.Settings.Default.netID;
+                netIDTxtBox.ForeColor = Color.Black;
+            }
         }
     }
 }
