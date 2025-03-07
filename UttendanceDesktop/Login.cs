@@ -13,24 +13,38 @@ namespace UttendanceDesktop
         string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
 
         // leah wrote this
-        public String login(String netID)
+        public String login(String netID, String Password)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            MySqlCommand cmd = new MySqlCommand("SELECT INetID FROM instructor WHERE INetID=@netID", connection);
+            MySqlCommand cmd = new MySqlCommand("SELECT INetID, IPassword FROM instructor WHERE INetID=@netID and IPassword=@password", connection);
             cmd.Parameters.AddWithValue("@netID", netID);
-            object resultNetID = cmd.ExecuteScalar();
+            cmd.Parameters.AddWithValue("@password", Password);
+            //object resultNetID = cmd.ExecuteScalar();
+            object netID1 = null;
+            object password1 = null;
+
+            using(MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    netID1 = reader.GetString(0);
+                    password1 = reader.GetString(1);
+                }
+            }
             connection.Close();
 
-            if (resultNetID != null)
+            if (netID1 != null)
             {
-                return resultNetID.ToString();
+                return netID1.ToString();
             }
             else
             {
                 return "Incorrect NetID";
             }
+
+            //return ""; 
         }
     }
 }
