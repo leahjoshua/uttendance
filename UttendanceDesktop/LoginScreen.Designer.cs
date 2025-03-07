@@ -32,6 +32,8 @@
             welcomeLabel1 = new Label();
             SignInBtn = new Button();
             panel1 = new Panel();
+            rmbrMeCheck = new CheckBox();
+            createAccount = new LinkLabel();
             label2 = new Label();
             pwdTxtBox = new TextBox();
             label1 = new Label();
@@ -70,7 +72,7 @@
             // 
             // SignInBtn
             // 
-            SignInBtn.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SignInBtn.Anchor = AnchorStyles.Bottom;
             SignInBtn.BackColor = Color.FromArgb(233, 117, 2);
             SignInBtn.Font = new Font("Segoe UI", 15F);
             SignInBtn.ForeColor = Color.White;
@@ -80,12 +82,13 @@
             SignInBtn.TabIndex = 2;
             SignInBtn.Text = "Sign In";
             SignInBtn.UseVisualStyleBackColor = false;
-            SignInBtn.Click += button1_Click;
+            SignInBtn.Click += SignInBtn_Click;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(235, 166, 176, 230);
+            panel1.Controls.Add(rmbrMeCheck);
+            panel1.Controls.Add(createAccount);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(SignInBtn);
             panel1.Controls.Add(pwdTxtBox);
@@ -99,6 +102,29 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(553, 899);
             panel1.TabIndex = 3;
+            // 
+            // rmbrMeCheck
+            // 
+            rmbrMeCheck.AutoSize = true;
+            rmbrMeCheck.BackColor = Color.Transparent;
+            rmbrMeCheck.Location = new Point(96, 642);
+            rmbrMeCheck.Name = "rmbrMeCheck";
+            rmbrMeCheck.Size = new Size(154, 29);
+            rmbrMeCheck.TabIndex = 9;
+            rmbrMeCheck.Text = "Remember Me";
+            rmbrMeCheck.UseVisualStyleBackColor = false;
+            // 
+            // createAccount
+            // 
+            createAccount.AutoSize = true;
+            createAccount.BackColor = Color.Transparent;
+            createAccount.LinkColor = Color.FromArgb(146, 67, 133);
+            createAccount.Location = new Point(308, 642);
+            createAccount.Name = "createAccount";
+            createAccount.Size = new Size(156, 25);
+            createAccount.TabIndex = 8;
+            createAccount.TabStop = true;
+            createAccount.Text = "Create an Account";
             // 
             // label2
             // 
@@ -154,13 +180,12 @@
             // 
             // panel2
             // 
-            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Github;
             panel2.BackgroundImageLayout = ImageLayout.Stretch;
-            panel2.Location = new Point(198, 60);
+            panel2.Location = new Point(204, 60);
             panel2.Name = "panel2";
-            panel2.Size = new Size(146, 136);
+            panel2.Size = new Size(134, 123);
             panel2.TabIndex = 3;
             // 
             // welcomeLabel2
@@ -188,6 +213,7 @@
             Controls.Add(panel1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "LoginScreen";
             StartPosition = FormStartPosition.Manual;
             Text = "Uttendance";
@@ -209,5 +235,7 @@
         private Label label2;
         private TextBox pwdTxtBox;
         private Label label1;
+        private LinkLabel createAccount;
+        private CheckBox rmbrMeCheck;
     }
 }
