@@ -4,6 +4,8 @@ namespace UttendanceDesktop
 {
     public partial class LoginScreen : Form
     {
+        private Instructor? currentInstructor;
+
         public LoginScreen()
         {
             InitializeComponent();
@@ -13,7 +15,7 @@ namespace UttendanceDesktop
         private void SignInBtn_Click(object sender, EventArgs e)
         {
             LoginDAO login = new LoginDAO();
-            Instructor currentInstructor = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
+            currentInstructor = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
             if (currentInstructor.INetID == null)
             {
                 MessageBox.Show("Incorrect NetID or Password");
@@ -68,12 +70,17 @@ namespace UttendanceDesktop
 
         private void LoginScreen_Load(object sender, EventArgs e)
         {
-            this.ActiveControl = panel1;
+            this.ActiveControl = logInPanel;
             if (Properties.Settings.Default.netID != string.Empty)
             {
                 netIDTxtBox.Text = Properties.Settings.Default.netID;
                 netIDTxtBox.ForeColor = Color.Black;
             }
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
