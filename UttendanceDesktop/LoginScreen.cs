@@ -4,6 +4,7 @@ namespace UttendanceDesktop
 {
     public partial class LoginScreen : Form
     {
+        private float APP_SCALE = 0.75f;
         public LoginScreen()
         {
             InitializeComponent();
@@ -58,6 +59,16 @@ namespace UttendanceDesktop
                 pwdTxtBox.Text = "Enter your Password";
                 pwdTxtBox.ForeColor = Color.Silver;
             }
+        }
+
+        private void LoginScreen_Load(object sender, EventArgs e)
+        {
+            System.Drawing.Rectangle workingRectangle = Screen.PrimaryScreen.WorkingArea;
+            Console.WriteLine(this.Size);
+            this.Size = new System.Drawing.Size(Convert.ToInt32(APP_SCALE * workingRectangle.Width),
+                Convert.ToInt32(APP_SCALE * workingRectangle.Height));
+            Console.WriteLine(this.Size);
+            this.Location = new System.Drawing.Point(10, 10);
         }
     }
 }
