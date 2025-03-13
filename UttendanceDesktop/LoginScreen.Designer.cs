@@ -221,7 +221,7 @@
             welcomeLabel2.BackColor = Color.Transparent;
             welcomeLabel2.Font = new Font("Segoe UI", 30F);
             welcomeLabel2.ForeColor = Color.FromArgb(50, 56, 87);
-            welcomeLabel2.Location = new Point(94, 204);
+            welcomeLabel2.Location = new Point(89, 204);
             welcomeLabel2.Margin = new Padding(2, 0, 2, 0);
             welcomeLabel2.Name = "welcomeLabel2";
             welcomeLabel2.Size = new Size(282, 67);
@@ -430,8 +430,8 @@
             BackColor = Color.FromArgb(50, 56, 87);
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1134, 774);
-            Controls.Add(createAccountPanel);
             Controls.Add(logInPanel);
+            Controls.Add(createAccountPanel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Margin = new Padding(2);
