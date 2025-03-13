@@ -427,8 +427,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(166, 176, 230);
-            BackgroundImage = Properties.Resources.LoginBG;
+            BackColor = Color.FromArgb(50, 56, 87);
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1134, 774);
             Controls.Add(createAccountPanel);
