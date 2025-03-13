@@ -6,6 +6,7 @@ namespace UttendanceDesktop
     {
         private Instructor? currentInstructor;
 
+        //leah
         public LoginScreen()
         {
             InitializeComponent();
@@ -31,43 +32,7 @@ namespace UttendanceDesktop
             }
 
         }
-
-        private void netIDTxtBox_Enter(object sender, EventArgs e)
-        {
-            if (netIDTxtBox.Text == "Enter your NetID")
-            {
-                netIDTxtBox.Text = "";
-                netIDTxtBox.ForeColor = Color.Black;
-            }
-        }
-
-        private void netIDTxtBox_Leave(object sender, EventArgs e)
-        {
-            if (netIDTxtBox.Text == "")
-            {
-                netIDTxtBox.Text = "Enter your NetID";
-                netIDTxtBox.ForeColor = Color.Silver;
-            }
-        }
-
-        private void pwdTxtBox_Enter(object sender, EventArgs e)
-        {
-            if (pwdTxtBox.Text == "Enter your Password")
-            {
-                pwdTxtBox.Text = "";
-                pwdTxtBox.ForeColor = Color.Black;
-            }
-        }
-
-        private void pwdTxtBox_Leave(object sender, EventArgs e)
-        {
-            if (pwdTxtBox.Text == "")
-            {
-                pwdTxtBox.Text = "Enter your Password";
-                pwdTxtBox.ForeColor = Color.Silver;
-            }
-        }
-
+        //leah
         private void LoginScreen_Load(object sender, EventArgs e)
         {
             this.ActiveControl = logInPanel;
@@ -78,9 +43,150 @@ namespace UttendanceDesktop
             }
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        //leah
+        private void createAccountBtn_Click(object sender, EventArgs e)
         {
+            Instructor instructor = new Instructor
+            {
+                INetID = createNetID.Text,
+                IFName = createFName.Text,
+                ILName = createLName.Text
+            };
 
+            LoginDAO login = new LoginDAO();
+            int result = login.createAccount(instructor, createPwd.Text);
+
+            if (result > 0)
+            {
+                MessageBox.Show("Account created for: " + instructor.IFName + " " + instructor.ILName + ".");
+            }
+            else
+            {
+                MessageBox.Show("Error in creating Account");
+            }
+
+            resetText(createFName, "Enter your First Name");
+            resetText(createLName, "Enter your Last Name");
+            resetText(createNetID, "Enter your NetID");
+            resetText(createPwd, "Enter your Password");
+        }
+
+        //leah
+        private void netIDTxtBox_Enter(object sender, EventArgs e)
+        {
+            if (netIDTxtBox.Text == "Enter your NetID")
+            {
+                netIDTxtBox.Text = "";
+                netIDTxtBox.ForeColor = Color.Black;
+            }
+        }
+
+        //leah
+        private void netIDTxtBox_Leave(object sender, EventArgs e)
+        {
+            if (netIDTxtBox.Text == "")
+            {
+                netIDTxtBox.Text = "Enter your NetID";
+                netIDTxtBox.ForeColor = Color.Silver;
+            }
+        }
+
+        //leah
+        private void pwdTxtBox_Enter(object sender, EventArgs e)
+        {
+            if (pwdTxtBox.Text == "Enter your Password")
+            {
+                pwdTxtBox.Text = "";
+                pwdTxtBox.ForeColor = Color.Black;
+            }
+        }
+
+        //leah
+        private void pwdTxtBox_Leave(object sender, EventArgs e)
+        {
+            if (pwdTxtBox.Text == "")
+            {
+                pwdTxtBox.Text = "Enter your Password";
+                pwdTxtBox.ForeColor = Color.Silver;
+            }
+        }
+
+        private void createFName_Enter(object sender, EventArgs e)
+        {
+            if (createFName.Text == "Enter your First Name")
+            {
+                createFName.Text = "";
+                createFName.ForeColor = Color.Black;
+            }
+        }
+
+        private void createFName_Leave(object sender, EventArgs e)
+        {
+            if (createFName.Text == "")
+            {
+                createFName.Text = "Enter your First Name";
+                createFName.ForeColor = Color.Silver;
+            }
+        }
+
+        private void createLName_Enter(object sender, EventArgs e)
+        {
+            if (createLName.Text == "Enter your Last Name")
+            {
+                createLName.Text = "";
+                createLName.ForeColor = Color.Black;
+            }
+        }
+
+        private void createLName_Leave(object sender, EventArgs e)
+        {
+            if (createLName.Text == "")
+            {
+                createLName.Text = "Enter your Last Name";
+                createLName.ForeColor = Color.Silver;
+            }
+        }
+
+        private void createNetID_Enter(object sender, EventArgs e)
+        {
+            if (createNetID.Text == "Enter your NetID")
+            {
+                createNetID.Text = "";
+                createNetID.ForeColor = Color.Black;
+            }
+        }
+
+        private void createNetID_Leave(object sender, EventArgs e)
+        {
+            if (createNetID.Text == "")
+            {
+                createNetID.Text = "Enter your NetID";
+                createNetID.ForeColor = Color.Silver;
+            }
+        }
+
+        private void createPwd_Enter(object sender, EventArgs e)
+        {
+            if (createPwd.Text == "Enter your Password")
+            {
+                createPwd.Text = "";
+                createPwd.ForeColor = Color.Black;
+            }
+        }
+
+        private void createPwd_Leave(object sender, EventArgs e)
+        {
+            if (createPwd.Text == "")
+            {
+                createPwd.Text = "Enter your Password";
+                createPwd.ForeColor = Color.Silver;
+            }
+        }
+
+        private void resetText(TextBox txtbox, string? placeholder)
+        {
+            txtbox.Text = placeholder;
+            txtbox.ForeColor = Color.Silver;
         }
     }
 }
