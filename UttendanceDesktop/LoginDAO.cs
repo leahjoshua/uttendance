@@ -10,10 +10,10 @@ namespace UttendanceDesktop
 {
     internal class LoginDAO
     {
-        string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+        private string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
 
         // leah and parisa wrote this
-        public Instructor login(String netID, String Password)
+        public Instructor login(string netID, string Password)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
@@ -40,6 +40,24 @@ namespace UttendanceDesktop
             connection.Close();
 
             return currentInstructor;
+        }
+        //leah
+        public int createAccount(Instructor instructor, string IPassword)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO instructor (INetID, IFName, ILName, IPassword)" +
+                "VALUES (@netID, @fName, @lName, @password)", connection);
+            cmd.Parameters.AddWithValue("@netID", instructor.INetID);
+            cmd.Parameters.AddWithValue("@fName", instructor.IFName);
+            cmd.Parameters.AddWithValue("@lName", instructor.ILName);
+            cmd.Parameters.AddWithValue("@password", IPassword);
+
+            int newRows = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            return newRows;
         }
     }
 }
