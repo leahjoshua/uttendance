@@ -11,26 +11,66 @@ namespace UttendanceDesktop
 {
     public partial class Homepage : Form
     {
+        private bool optionsVisible = false;
+
         public Homepage()
         {
             InitializeComponent();
+            ConfigureInitialState();
+        }
+
+        private void ConfigureInitialState()
+        {
+            //Trying to set initial buttons (hidden)
+            addCourseBtn.Visible = false;
+            dltCourseBtn.Visible = false;
+
+            //Styling the button
+            plusBtn.FlatStyle = FlatStyle.Flat;
+            plusBtn.Font = new Font("Segoe UI", 14f, FontStyle.Bold);
+            plusBtn.Size = new Size(40, 40);
+        }
+
+        private void plusBtn_Click(object sender, EventArgs e)
+        {
+            //Toggle visibility
+            optionsVisible = !obtionsVisible;
+            addCourseBtn.Visible = optionsVisible;
+            dltCourseBtn.Visible = optionsVisible;
         }
 
         private void addCourseBtn_Click(object sender, EventArgs e)
         {
-            AddCourse newCourse = new AddCourse();
-            newCourse.show();
+            using(AddCourse newCourse = new AddCourse())
+            {
+                if(newCourse.ShowDialog() == DialogResult.OK)
+                {
+                    //Refresh the course list after adding
+                    RefreshCourseCards();
+                }
+            }
         }
 
         private void dltCourseBtn_Click(object sender, EventArgs e)
         {
-            DeleteCourse dltCourse = new DeleteCourse();
-            dltCourse.show();
+            using (DeleteCourse dltCourse = new DeleteCourse())
+            {
+                if (dltCourse.ShowDialog() == DialogResult.OK)
+                {
+                    //Refresh the course list after adding
+                    RefreshCourseCards();
+                }
+            }
+        }
+
+        private void RefreshCourseCards()
+        {
+
         }
 
         private void CourseCard_Click(object sender, EventArgs e)
         {
-            CourseCard
+            var clickCard = (Panel)sender;
         }
 
     }
