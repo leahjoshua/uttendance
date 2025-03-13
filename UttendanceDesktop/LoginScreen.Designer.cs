@@ -41,7 +41,7 @@
             panel2 = new Panel();
             welcomeLabel2 = new Label();
             createAccountPanel = new Panel();
-            linkLabel1 = new LinkLabel();
+            backToLoginLink = new LinkLabel();
             createAccountBtn = new Button();
             createPwd = new TextBox();
             label8 = new Label();
@@ -145,6 +145,7 @@
             createAccount.TabIndex = 8;
             createAccount.TabStop = true;
             createAccount.Text = "Create an Account";
+            createAccount.LinkClicked += createAccount_LinkClicked;
             // 
             // label2
             // 
@@ -231,7 +232,7 @@
             // createAccountPanel
             // 
             createAccountPanel.BackColor = Color.FromArgb(235, 166, 176, 230);
-            createAccountPanel.Controls.Add(linkLabel1);
+            createAccountPanel.Controls.Add(backToLoginLink);
             createAccountPanel.Controls.Add(createAccountBtn);
             createAccountPanel.Controls.Add(createPwd);
             createAccountPanel.Controls.Add(label8);
@@ -249,18 +250,19 @@
             createAccountPanel.Size = new Size(442, 719);
             createAccountPanel.TabIndex = 4;
             // 
-            // linkLabel1
+            // backToLoginLink
             // 
-            linkLabel1.AutoSize = true;
-            linkLabel1.BackColor = Color.Transparent;
-            linkLabel1.LinkColor = Color.FromArgb(146, 67, 133);
-            linkLabel1.Location = new Point(189, 623);
-            linkLabel1.Margin = new Padding(2, 0, 2, 0);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(63, 20);
-            linkLabel1.TabIndex = 15;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Go Back";
+            backToLoginLink.AutoSize = true;
+            backToLoginLink.BackColor = Color.Transparent;
+            backToLoginLink.LinkColor = Color.FromArgb(146, 67, 133);
+            backToLoginLink.Location = new Point(189, 623);
+            backToLoginLink.Margin = new Padding(2, 0, 2, 0);
+            backToLoginLink.Name = "backToLoginLink";
+            backToLoginLink.Size = new Size(63, 20);
+            backToLoginLink.TabIndex = 15;
+            backToLoginLink.TabStop = true;
+            backToLoginLink.Text = "Go Back";
+            backToLoginLink.LinkClicked += backToLoginLink_LinkClicked;
             // 
             // createAccountBtn
             // 
@@ -465,7 +467,7 @@
         private Label label5;
         private Label label4;
         private Label label3;
-        private LinkLabel linkLabel1;
+        private LinkLabel backToLoginLink;
         private Button createAccountBtn;
         private TextBox createPwd;
         private Label label8;

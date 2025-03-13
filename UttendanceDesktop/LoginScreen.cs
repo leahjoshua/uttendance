@@ -10,6 +10,8 @@ namespace UttendanceDesktop
         public LoginScreen()
         {
             InitializeComponent();
+            createAccountPanel.Visible = false;
+            logInPanel.Visible = true;
         }
 
         // parisa and leah worked on this
@@ -187,6 +189,18 @@ namespace UttendanceDesktop
         {
             txtbox.Text = placeholder;
             txtbox.ForeColor = Color.Silver;
+        }
+
+        private void backToLoginLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            createAccountPanel.Visible = false;
+            logInPanel.Visible = true;
+        }
+
+        private void createAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            logInPanel.Visible = false;
+            createAccountPanel.Visible = true;
         }
     }
 }
