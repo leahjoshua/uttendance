@@ -17,6 +17,7 @@ namespace UttendanceDesktop
         public Coursepage()
         {
             InitializeComponent();
+            loadForm(new AttendanceForms());
         }
 
         public void loadForm(object Form)
@@ -70,12 +71,12 @@ namespace UttendanceDesktop
 
         private void studentsPanelBtn_Click(object sender, EventArgs e)
         {
-            //loadForm(new Students());
+            loadForm(new Students());
         }
 
         private void summaryPanelBtn_Click(object sender, EventArgs e)
         {
-
+            loadForm(new Summary());
         }
     }
 }

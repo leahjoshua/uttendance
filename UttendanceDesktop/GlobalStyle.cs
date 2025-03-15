@@ -17,5 +17,8 @@ namespace UttendanceDesktop
         public static Color DARKEST_PURPLE = Color.FromArgb(37, 42, 69);
         public static Color LAVENDER = Color.FromArgb(166, 176, 230);
         public static Color OFF_WHITE = Color.FromArgb(224, 224, 224);
+
+        //Location of headers
+        public static Point HEADING_POSITION = new Point(43, 37);
     }
 }

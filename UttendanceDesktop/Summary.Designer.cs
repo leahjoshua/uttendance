@@ -2,7 +2,7 @@
 
 namespace UttendanceDesktop
 {
-    partial class AttendanceForms
+    partial class Summary
     {
         /// <summary>
         /// Required designer variable.
@@ -30,47 +30,50 @@ namespace UttendanceDesktop
         /// </summary>
         private void InitializeComponent()
         {
-            attendanceFormPagePanel = new Panel();
-            attendanceFormsLabel = new Label();
-            attendanceFormPagePanel.SuspendLayout();
+            summaryPagePanel = new Panel();
+            summaryLabel = new Label();
+            summaryPagePanel.SuspendLayout();
             SuspendLayout();
             // 
-            // attendanceFormPagePanel
+            // summaryPagePanel
             // 
-            attendanceFormPagePanel.Controls.Add(attendanceFormsLabel);
-            attendanceFormPagePanel.Location = new Point(1, 3);
-            attendanceFormPagePanel.Name = "attendanceFormPagePanel";
-            attendanceFormPagePanel.Size = new Size(800, 449);
-            attendanceFormPagePanel.TabIndex = 0;
+            summaryPagePanel.BackColor = GlobalStyle.LAVENDER;
+            summaryPagePanel.Controls.Add(summaryLabel);
+            summaryPagePanel.Dock = DockStyle.Fill;
+            summaryPagePanel.Location = new Point(0, 0);
+            summaryPagePanel.Name = "summaryPagePanel";
+            summaryPagePanel.Size = new Size(800, 450);
+            summaryPagePanel.TabIndex = 0;
             // 
-            // attendanceFormsLabel
+            // summaryLabel
             // 
-            attendanceFormsLabel.AutoSize = true;
-            attendanceFormsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            attendanceFormsLabel.Location = new Point(40, 24);
-            attendanceFormsLabel.Name = "attendanceFormsLabel";
-            attendanceFormsLabel.Size = new Size(208, 32);
-            attendanceFormsLabel.TabIndex = 0;
-            attendanceFormsLabel.Text = "Attendance Forms";
+            summaryLabel.AutoSize = true;
+            summaryLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            summaryLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            summaryLabel.Location = GlobalStyle.HEADING_POSITION;
+            summaryLabel.Name = "summaryLabel";
+            summaryLabel.Size = new Size(115, 32);
+            summaryLabel.TabIndex = 0;
+            summaryLabel.Text = "Summary";
             // 
-            // AttendanceForms
+            // Summary
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(800, 450);
-            Controls.Add(attendanceFormPagePanel);
+            Controls.Add(summaryPagePanel);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "AttendanceForms";
-            Text = "Uttendance";
-            attendanceFormPagePanel.ResumeLayout(false);
-            attendanceFormPagePanel.PerformLayout();
+            Name = "Summary";
+            Text = "Summary";
+            summaryPagePanel.ResumeLayout(false);
+            summaryPagePanel.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel attendanceFormPagePanel;
-        private Label attendanceFormsLabel;
+        private Panel summaryPagePanel;
+        private Label summaryLabel;
     }
 }
