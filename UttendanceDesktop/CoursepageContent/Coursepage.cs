@@ -14,10 +14,11 @@ namespace UttendanceDesktop
     public partial class Coursepage : Form
     {
         bool sidebarExpand = true;
+        bool attendanceCollapsed = false;
         public Coursepage()
         {
             InitializeComponent();
-            loadForm(new AttendanceForms());
+            loadForm(new AttendanceForms_Listings());
         }
 
         public void loadForm(object Form)
@@ -66,7 +67,18 @@ namespace UttendanceDesktop
 
         private void attendanceFormsPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new AttendanceForms());
+            attendanceFormsTimer.Start();
+            loadForm(new AttendanceForms_Listings());
+        }
+
+        private void listingsBtn_Click(object sender, EventArgs e)
+        {
+            loadForm(new AttendanceForms_Listings());
+        }
+
+        private void questionBankBtn_Click(object sender, EventArgs e)
+        {
+            loadForm(new AttendanceForms_QuestionBank());
         }
 
         private void studentsPanelBtn_Click(object sender, EventArgs e)
@@ -77,6 +89,28 @@ namespace UttendanceDesktop
         private void summaryPanelBtn_Click(object sender, EventArgs e)
         {
             loadForm(new Summary());
+        }
+
+        private void attendanceFormsTimer_Tick(object sender, EventArgs e)
+        {
+            if (attendanceCollapsed)
+            {
+                attendanceFormsContainerPanel.Height += 10;
+                if (attendanceFormsContainerPanel.Height == attendanceFormsContainerPanel.MaximumSize.Height)
+                {
+                    attendanceCollapsed = false;
+                    attendanceFormsTimer.Stop();
+                }
+            }
+            else
+            {
+                attendanceFormsContainerPanel.Height -= 10;
+                if (attendanceFormsContainerPanel.Height == attendanceFormsContainerPanel.MinimumSize.Height)
+                {
+                    attendanceCollapsed = true;
+                    attendanceFormsTimer.Stop();
+                }
+            }
         }
     }
 }

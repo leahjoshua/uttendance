@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UttendanceDesktop
 {
-    public partial class AttendanceForms: Form
+    public partial class AttendanceForms_QuestionBank: Form
     {
-        public AttendanceForms()
+        public AttendanceForms_QuestionBank()
         {
             InitializeComponent();
         }

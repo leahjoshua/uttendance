@@ -35,6 +35,11 @@ namespace UttendanceDesktop
             titleSideBarPanel = new Panel();
             menuBtn = new Button();
             yourCoursesBtn = new Button();
+            attendanceFormsContainerPanel = new Panel();
+            questionBankBtnPanel = new Panel();
+            questionBankBtn = new Button();
+            listingsBtnPanel = new Panel();
+            listingsBtn = new Button();
             attendanceFormsPanel = new Panel();
             attendanceFormsPanelBtn = new Button();
             studentsPanel = new Panel();
@@ -45,8 +50,12 @@ namespace UttendanceDesktop
             headerPathTxt = new Label();
             mainPanel = new Panel();
             sidebarTimer = new System.Windows.Forms.Timer(components);
+            attendanceFormsTimer = new System.Windows.Forms.Timer(components);
             sidebar.SuspendLayout();
             titleSideBarPanel.SuspendLayout();
+            attendanceFormsContainerPanel.SuspendLayout();
+            questionBankBtnPanel.SuspendLayout();
+            listingsBtnPanel.SuspendLayout();
             attendanceFormsPanel.SuspendLayout();
             studentsPanel.SuspendLayout();
             summaryPanel.SuspendLayout();
@@ -57,7 +66,7 @@ namespace UttendanceDesktop
             // 
             sidebar.BackColor = Color.FromArgb(37, 42, 69);
             sidebar.Controls.Add(titleSideBarPanel);
-            sidebar.Controls.Add(attendanceFormsPanel);
+            sidebar.Controls.Add(attendanceFormsContainerPanel);
             sidebar.Controls.Add(studentsPanel);
             sidebar.Controls.Add(summaryPanel);
             sidebar.Dock = DockStyle.Left;
@@ -79,6 +88,7 @@ namespace UttendanceDesktop
             // 
             // menuBtn
             // 
+            menuBtn.Cursor = Cursors.Hand;
             menuBtn.FlatAppearance.BorderSize = 0;
             menuBtn.FlatStyle = FlatStyle.Flat;
             menuBtn.ForeColor = Color.White;
@@ -105,12 +115,70 @@ namespace UttendanceDesktop
             yourCoursesBtn.TextAlign = ContentAlignment.MiddleLeft;
             yourCoursesBtn.UseVisualStyleBackColor = true;
             // 
+            // attendanceFormsContainerPanel
+            // 
+            attendanceFormsContainerPanel.Controls.Add(questionBankBtnPanel);
+            attendanceFormsContainerPanel.Controls.Add(listingsBtnPanel);
+            attendanceFormsContainerPanel.Controls.Add(attendanceFormsPanel);
+            attendanceFormsContainerPanel.Location = new Point(3, 157);
+            attendanceFormsContainerPanel.MaximumSize = new Size(197, 134);
+            attendanceFormsContainerPanel.MinimumSize = new Size(197, 46);
+            attendanceFormsContainerPanel.Name = "attendanceFormsContainerPanel";
+            attendanceFormsContainerPanel.Size = new Size(197, 134);
+            attendanceFormsContainerPanel.TabIndex = 4;
+            // 
+            // questionBankBtnPanel
+            // 
+            questionBankBtnPanel.Controls.Add(questionBankBtn);
+            questionBankBtnPanel.Location = new Point(0, 90);
+            questionBankBtnPanel.Name = "questionBankBtnPanel";
+            questionBankBtnPanel.Size = new Size(197, 41);
+            questionBankBtnPanel.TabIndex = 2;
+            // 
+            // questionBankBtn
+            // 
+            questionBankBtn.FlatAppearance.BorderSize = 0;
+            questionBankBtn.FlatStyle = FlatStyle.Flat;
+            questionBankBtn.ForeColor = Color.White;
+            questionBankBtn.Location = new Point(0, 3);
+            questionBankBtn.Name = "questionBankBtn";
+            questionBankBtn.Padding = new Padding(75, 0, 0, 0);
+            questionBankBtn.Size = new Size(197, 30);
+            questionBankBtn.TabIndex = 0;
+            questionBankBtn.Text = "Question Bank";
+            questionBankBtn.TextAlign = ContentAlignment.MiddleLeft;
+            questionBankBtn.UseVisualStyleBackColor = true;
+            questionBankBtn.Click += questionBankBtn_Click;
+            // 
+            // listingsBtnPanel
+            // 
+            listingsBtnPanel.Controls.Add(listingsBtn);
+            listingsBtnPanel.Location = new Point(0, 51);
+            listingsBtnPanel.Name = "listingsBtnPanel";
+            listingsBtnPanel.Size = new Size(197, 41);
+            listingsBtnPanel.TabIndex = 1;
+            // 
+            // listingsBtn
+            // 
+            listingsBtn.FlatAppearance.BorderSize = 0;
+            listingsBtn.FlatStyle = FlatStyle.Flat;
+            listingsBtn.ForeColor = Color.White;
+            listingsBtn.Location = new Point(0, 3);
+            listingsBtn.Name = "listingsBtn";
+            listingsBtn.Padding = new Padding(75, 0, 0, 0);
+            listingsBtn.Size = new Size(197, 30);
+            listingsBtn.TabIndex = 0;
+            listingsBtn.Text = "Listings";
+            listingsBtn.TextAlign = ContentAlignment.MiddleLeft;
+            listingsBtn.UseVisualStyleBackColor = true;
+            listingsBtn.Click += listingsBtn_Click;
+            // 
             // attendanceFormsPanel
             // 
             attendanceFormsPanel.Controls.Add(attendanceFormsPanelBtn);
-            attendanceFormsPanel.Location = new Point(3, 157);
+            attendanceFormsPanel.Location = new Point(0, 3);
             attendanceFormsPanel.Name = "attendanceFormsPanel";
-            attendanceFormsPanel.Size = new Size(197, 37);
+            attendanceFormsPanel.Size = new Size(197, 42);
             attendanceFormsPanel.TabIndex = 1;
             // 
             // attendanceFormsPanelBtn
@@ -119,7 +187,7 @@ namespace UttendanceDesktop
             attendanceFormsPanelBtn.FlatAppearance.BorderColor = Color.FromArgb(50, 56, 87);
             attendanceFormsPanelBtn.FlatStyle = FlatStyle.Flat;
             attendanceFormsPanelBtn.ForeColor = Color.White;
-            attendanceFormsPanelBtn.Location = new Point(-3, -6);
+            attendanceFormsPanelBtn.Location = new Point(-3, 0);
             attendanceFormsPanelBtn.Name = "attendanceFormsPanelBtn";
             attendanceFormsPanelBtn.Padding = new Padding(50, 0, 0, 0);
             attendanceFormsPanelBtn.Size = new Size(200, 42);
@@ -132,9 +200,9 @@ namespace UttendanceDesktop
             // studentsPanel
             // 
             studentsPanel.Controls.Add(studentsPanelBtn);
-            studentsPanel.Location = new Point(3, 200);
+            studentsPanel.Location = new Point(3, 297);
             studentsPanel.Name = "studentsPanel";
-            studentsPanel.Size = new Size(197, 36);
+            studentsPanel.Size = new Size(197, 42);
             studentsPanel.TabIndex = 2;
             // 
             // studentsPanelBtn
@@ -143,7 +211,7 @@ namespace UttendanceDesktop
             studentsPanelBtn.FlatAppearance.BorderColor = Color.FromArgb(50, 56, 87);
             studentsPanelBtn.FlatStyle = FlatStyle.Flat;
             studentsPanelBtn.ForeColor = Color.White;
-            studentsPanelBtn.Location = new Point(-3, -6);
+            studentsPanelBtn.Location = new Point(-3, 0);
             studentsPanelBtn.Name = "studentsPanelBtn";
             studentsPanelBtn.Padding = new Padding(50, 0, 0, 0);
             studentsPanelBtn.Size = new Size(200, 42);
@@ -156,7 +224,7 @@ namespace UttendanceDesktop
             // summaryPanel
             // 
             summaryPanel.Controls.Add(summaryPanelBtn);
-            summaryPanel.Location = new Point(3, 242);
+            summaryPanel.Location = new Point(3, 345);
             summaryPanel.Name = "summaryPanel";
             summaryPanel.Size = new Size(197, 42);
             summaryPanel.TabIndex = 3;
@@ -167,10 +235,10 @@ namespace UttendanceDesktop
             summaryPanelBtn.FlatAppearance.BorderColor = Color.FromArgb(50, 56, 87);
             summaryPanelBtn.FlatStyle = FlatStyle.Flat;
             summaryPanelBtn.ForeColor = Color.White;
-            summaryPanelBtn.Location = new Point(-3, -2);
+            summaryPanelBtn.Location = new Point(-3, 0);
             summaryPanelBtn.Name = "summaryPanelBtn";
             summaryPanelBtn.Padding = new Padding(50, 0, 0, 0);
-            summaryPanelBtn.Size = new Size(200, 44);
+            summaryPanelBtn.Size = new Size(200, 39);
             summaryPanelBtn.TabIndex = 0;
             summaryPanelBtn.Text = "Summary";
             summaryPanelBtn.TextAlign = ContentAlignment.MiddleLeft;
@@ -209,6 +277,11 @@ namespace UttendanceDesktop
             sidebarTimer.Interval = 10;
             sidebarTimer.Tick += sidebarTimer_Tick;
             // 
+            // attendanceFormsTimer
+            // 
+            attendanceFormsTimer.Interval = 10;
+            attendanceFormsTimer.Tick += attendanceFormsTimer_Tick;
+            // 
             // Coursepage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -221,6 +294,9 @@ namespace UttendanceDesktop
             Text = "Uttendance";
             sidebar.ResumeLayout(false);
             titleSideBarPanel.ResumeLayout(false);
+            attendanceFormsContainerPanel.ResumeLayout(false);
+            questionBankBtnPanel.ResumeLayout(false);
+            listingsBtnPanel.ResumeLayout(false);
             attendanceFormsPanel.ResumeLayout(false);
             studentsPanel.ResumeLayout(false);
             summaryPanel.ResumeLayout(false);
@@ -245,5 +321,11 @@ namespace UttendanceDesktop
         private System.Windows.Forms.Timer sidebarTimer;
         private Button yourCoursesBtn;
         private Button menuBtn;
+        private Panel attendanceFormsContainerPanel;
+        private Button listingsBtn;
+        private Panel listingsBtnPanel;
+        private Panel questionBankBtnPanel;
+        private Button questionBankBtn;
+        private System.Windows.Forms.Timer attendanceFormsTimer;
     }
 }
