@@ -2,6 +2,8 @@
 
 namespace UttendanceDesktop
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 14, 2025.
+    // NetID: jxy210012
     partial class Coursepage
     {
         /// <summary>
@@ -31,10 +33,12 @@ namespace UttendanceDesktop
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Coursepage));
             sidebar = new FlowLayoutPanel();
             titleSideBarPanel = new Panel();
-            menuBtn = new Button();
+            courseLabel = new Label();
             yourCoursesBtn = new Button();
+            menuBtn = new Button();
             attendanceFormsContainerPanel = new Panel();
             questionBankBtnPanel = new Panel();
             questionBankBtn = new Button();
@@ -71,20 +75,48 @@ namespace UttendanceDesktop
             sidebar.Controls.Add(summaryPanel);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 39);
-            sidebar.MaximumSize = new Size(200, 411);
-            sidebar.MinimumSize = new Size(55, 411);
+            sidebar.MaximumSize = new Size(200, 500);
+            sidebar.MinimumSize = new Size(55, 500);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(200, 411);
+            sidebar.Size = new Size(200, 500);
             sidebar.TabIndex = 0;
             // 
             // titleSideBarPanel
             // 
-            titleSideBarPanel.Controls.Add(menuBtn);
+            titleSideBarPanel.Controls.Add(courseLabel);
             titleSideBarPanel.Controls.Add(yourCoursesBtn);
+            titleSideBarPanel.Controls.Add(menuBtn);
             titleSideBarPanel.Location = new Point(3, 3);
             titleSideBarPanel.Name = "titleSideBarPanel";
-            titleSideBarPanel.Size = new Size(197, 148);
+            titleSideBarPanel.Size = new Size(197, 159);
             titleSideBarPanel.TabIndex = 0;
+            // 
+            // courseLabel
+            // 
+            courseLabel.AutoSize = true;
+            courseLabel.ForeColor = Color.White;
+            courseLabel.Location = new Point(55, 55);
+            courseLabel.Name = "courseLabel";
+            courseLabel.Size = new Size(121, 45);
+            courseLabel.TabIndex = 0;
+            courseLabel.Text = "CS 4485.0w1 - \r\nCOMPUTER SCIENCE \r\nPROJECT";
+            // 
+            // yourCoursesBtn
+            // 
+            yourCoursesBtn.FlatAppearance.BorderSize = 0;
+            yourCoursesBtn.FlatStyle = FlatStyle.Flat;
+            yourCoursesBtn.ForeColor = Color.White;
+            yourCoursesBtn.Image = (Image)resources.GetObject("yourCoursesBtn.Image");
+            yourCoursesBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            yourCoursesBtn.Location = new Point(0, 3);
+            yourCoursesBtn.Name = "yourCoursesBtn";
+            yourCoursesBtn.Padding = new Padding(7, 0, 0, 0);
+            yourCoursesBtn.Size = new Size(200, 49);
+            yourCoursesBtn.TabIndex = 0;
+            yourCoursesBtn.Text = "      YOUR COURSES";
+            yourCoursesBtn.TextAlign = ContentAlignment.MiddleLeft;
+            yourCoursesBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            yourCoursesBtn.UseVisualStyleBackColor = true;
             // 
             // menuBtn
             // 
@@ -92,35 +124,25 @@ namespace UttendanceDesktop
             menuBtn.FlatAppearance.BorderSize = 0;
             menuBtn.FlatStyle = FlatStyle.Flat;
             menuBtn.ForeColor = Color.White;
-            menuBtn.Location = new Point(0, 55);
+            menuBtn.Image = (Image)resources.GetObject("menuBtn.Image");
+            menuBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            menuBtn.Location = new Point(-3, 114);
             menuBtn.Name = "menuBtn";
+            menuBtn.Padding = new Padding(10, 0, 0, 0);
             menuBtn.Size = new Size(197, 42);
             menuBtn.TabIndex = 1;
-            menuBtn.Text = "Menu";
+            menuBtn.Text = "     Menu";
             menuBtn.TextAlign = ContentAlignment.MiddleLeft;
+            menuBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             menuBtn.UseVisualStyleBackColor = true;
             menuBtn.Click += menuBtn_Click;
-            // 
-            // yourCoursesBtn
-            // 
-            yourCoursesBtn.FlatAppearance.BorderSize = 0;
-            yourCoursesBtn.FlatStyle = FlatStyle.Flat;
-            yourCoursesBtn.ForeColor = Color.White;
-            yourCoursesBtn.Location = new Point(-3, 0);
-            yourCoursesBtn.Name = "yourCoursesBtn";
-            yourCoursesBtn.Padding = new Padding(50, 0, 0, 0);
-            yourCoursesBtn.Size = new Size(200, 49);
-            yourCoursesBtn.TabIndex = 0;
-            yourCoursesBtn.Text = "YOUR COURSES";
-            yourCoursesBtn.TextAlign = ContentAlignment.MiddleLeft;
-            yourCoursesBtn.UseVisualStyleBackColor = true;
             // 
             // attendanceFormsContainerPanel
             // 
             attendanceFormsContainerPanel.Controls.Add(questionBankBtnPanel);
             attendanceFormsContainerPanel.Controls.Add(listingsBtnPanel);
             attendanceFormsContainerPanel.Controls.Add(attendanceFormsPanel);
-            attendanceFormsContainerPanel.Location = new Point(3, 157);
+            attendanceFormsContainerPanel.Location = new Point(3, 168);
             attendanceFormsContainerPanel.MaximumSize = new Size(197, 134);
             attendanceFormsContainerPanel.MinimumSize = new Size(197, 46);
             attendanceFormsContainerPanel.Name = "attendanceFormsContainerPanel";
@@ -146,7 +168,7 @@ namespace UttendanceDesktop
             questionBankBtn.Padding = new Padding(75, 0, 0, 0);
             questionBankBtn.Size = new Size(197, 30);
             questionBankBtn.TabIndex = 0;
-            questionBankBtn.Text = "Question Bank";
+            questionBankBtn.Text = "Question Banks";
             questionBankBtn.TextAlign = ContentAlignment.MiddleLeft;
             questionBankBtn.UseVisualStyleBackColor = true;
             questionBankBtn.Click += questionBankBtn_Click;
@@ -202,7 +224,7 @@ namespace UttendanceDesktop
             // studentsPanel
             // 
             studentsPanel.Controls.Add(studentsPanelBtn);
-            studentsPanel.Location = new Point(3, 297);
+            studentsPanel.Location = new Point(3, 308);
             studentsPanel.Name = "studentsPanel";
             studentsPanel.Size = new Size(197, 42);
             studentsPanel.TabIndex = 2;
@@ -226,7 +248,7 @@ namespace UttendanceDesktop
             // summaryPanel
             // 
             summaryPanel.Controls.Add(summaryPanelBtn);
-            summaryPanel.Location = new Point(3, 345);
+            summaryPanel.Location = new Point(3, 356);
             summaryPanel.Name = "summaryPanel";
             summaryPanel.Size = new Size(197, 42);
             summaryPanel.TabIndex = 3;
@@ -249,6 +271,7 @@ namespace UttendanceDesktop
             // 
             // headerPanel
             // 
+            headerPanel.BorderStyle = BorderStyle.Fixed3D;
             headerPanel.Controls.Add(headerPathTxt);
             headerPanel.Dock = DockStyle.Top;
             headerPanel.Location = new Point(0, 0);
@@ -296,6 +319,7 @@ namespace UttendanceDesktop
             Text = "Uttendance";
             sidebar.ResumeLayout(false);
             titleSideBarPanel.ResumeLayout(false);
+            titleSideBarPanel.PerformLayout();
             attendanceFormsContainerPanel.ResumeLayout(false);
             questionBankBtnPanel.ResumeLayout(false);
             listingsBtnPanel.ResumeLayout(false);
@@ -329,5 +353,6 @@ namespace UttendanceDesktop
         private Panel questionBankBtnPanel;
         private Button questionBankBtn;
         private System.Windows.Forms.Timer attendanceFormsTimer;
+        private Label courseLabel;
     }
 }

@@ -53,15 +53,15 @@ namespace UttendanceDesktop
             questionBankLabel.ForeColor = Color.FromArgb(37, 42, 69);
             questionBankLabel.Location = new Point(58, 69);
             questionBankLabel.Name = "questionBankLabel";
-            questionBankLabel.Size = new Size(134, 25);
+            questionBankLabel.Size = new Size(142, 25);
             questionBankLabel.TabIndex = 1;
-            questionBankLabel.Text = "Question Bank";
+            questionBankLabel.Text = "Question Banks";
             // 
             // attendanceFormsLabel
             // 
             attendanceFormsLabel.AutoSize = true;
             attendanceFormsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            attendanceFormsLabel.ForeColor = GlobalStyle.DARKEST_PURPLE;
+            attendanceFormsLabel.ForeColor = Color.FromArgb(37, 42, 69);
             attendanceFormsLabel.Location = new Point(43, 37);
             attendanceFormsLabel.Name = "attendanceFormsLabel";
             attendanceFormsLabel.Size = new Size(208, 32);
