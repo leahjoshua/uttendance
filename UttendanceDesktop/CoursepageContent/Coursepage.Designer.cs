@@ -33,7 +33,6 @@ namespace UttendanceDesktop
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Coursepage));
             sidebar = new FlowLayoutPanel();
             titleSideBarPanel = new Panel();
             courseLabel = new Label();
@@ -75,10 +74,10 @@ namespace UttendanceDesktop
             sidebar.Controls.Add(summaryPanel);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 39);
-            sidebar.MaximumSize = new Size(200, 500);
-            sidebar.MinimumSize = new Size(55, 500);
+            sidebar.MaximumSize = new Size(200, 525);
+            sidebar.MinimumSize = new Size(55, 525);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(200, 500);
+            sidebar.Size = new Size(200, 525);
             sidebar.TabIndex = 0;
             // 
             // titleSideBarPanel
@@ -106,7 +105,7 @@ namespace UttendanceDesktop
             yourCoursesBtn.FlatAppearance.BorderSize = 0;
             yourCoursesBtn.FlatStyle = FlatStyle.Flat;
             yourCoursesBtn.ForeColor = Color.White;
-            yourCoursesBtn.Image = (Image)resources.GetObject("yourCoursesBtn.Image");
+            yourCoursesBtn.Image = Properties.Resources.home_icon;
             yourCoursesBtn.ImageAlign = ContentAlignment.MiddleLeft;
             yourCoursesBtn.Location = new Point(0, 3);
             yourCoursesBtn.Name = "yourCoursesBtn";
@@ -124,7 +123,7 @@ namespace UttendanceDesktop
             menuBtn.FlatAppearance.BorderSize = 0;
             menuBtn.FlatStyle = FlatStyle.Flat;
             menuBtn.ForeColor = Color.White;
-            menuBtn.Image = (Image)resources.GetObject("menuBtn.Image");
+            menuBtn.Image = Properties.Resources.menu_icon;
             menuBtn.ImageAlign = ContentAlignment.MiddleLeft;
             menuBtn.Location = new Point(-3, 114);
             menuBtn.Name = "menuBtn";
