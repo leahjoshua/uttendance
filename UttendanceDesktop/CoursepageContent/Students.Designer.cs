@@ -32,29 +32,45 @@ namespace UttendanceDesktop
         {
             studentsPagePanel = new Panel();
             studentsLabel = new Label();
+            addStudentsBtn = new Button();
             studentsPagePanel.SuspendLayout();
             SuspendLayout();
             // 
             // studentsPagePanel
             // 
             studentsPagePanel.BackColor = Color.FromArgb(166, 176, 230);
+            studentsPagePanel.Controls.Add(addStudentsBtn);
             studentsPagePanel.Controls.Add(studentsLabel);
             studentsPagePanel.Dock = DockStyle.Fill;
             studentsPagePanel.Location = new Point(0, 0);
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
+            studentsPagePanel.Click += studentsPagePanel_Click;
             // 
             // studentsLabel
             // 
             studentsLabel.AutoSize = true;
             studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            studentsLabel.Location = GlobalStyle.HEADING_POSITION;
+            studentsLabel.Location = new Point(43, 37);
             studentsLabel.Name = "studentsLabel";
             studentsLabel.Size = new Size(107, 32);
             studentsLabel.TabIndex = 0;
             studentsLabel.Text = "Students";
+            // 
+            // addStudentsBtn
+            // 
+            addStudentsBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            addStudentsBtn.Cursor = Cursors.Hand;
+            addStudentsBtn.FlatAppearance.BorderSize = 0;
+            addStudentsBtn.FlatStyle = FlatStyle.Flat;
+            addStudentsBtn.Image = Properties.Resources.add_icon;
+            addStudentsBtn.Location = new Point(726, 378);
+            addStudentsBtn.Name = "addStudentsBtn";
+            addStudentsBtn.Size = new Size(47, 50);
+            addStudentsBtn.TabIndex = 1;
+            addStudentsBtn.UseVisualStyleBackColor = true;
             // 
             // Students
             // 
@@ -75,5 +91,6 @@ namespace UttendanceDesktop
 
         private Panel studentsPagePanel;
         private Label studentsLabel;
+        private Button addStudentsBtn;
     }
 }

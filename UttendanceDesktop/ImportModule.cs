@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace UttendanceDesktop
 {
-    public partial class Students : Form
+    public partial class ImportModule : Form
     {
-        public Students()
+        public ImportModule()
         {
             InitializeComponent();
         }
 
-        private void studentsPagePanel_Click(object sender, EventArgs e)
+        private void cancelBtn_Click(object sender, EventArgs e)
         {
-            ImportModule importModule = new ImportModule();
-            importModule.Show();
+
         }
     }
 }
