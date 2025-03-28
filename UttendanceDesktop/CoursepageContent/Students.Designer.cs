@@ -2,6 +2,8 @@
 
 namespace UttendanceDesktop
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 28, 2025.
+    // NetID: jxy210012
     partial class Students
     {
         /// <summary>

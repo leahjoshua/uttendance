@@ -3,7 +3,7 @@ using static UttendanceDesktop.GlobalStyle;
 
 namespace UttendanceDesktop
 {
-    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 28, 2025.
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 27, 2025.
     // NetID: jxy210012
     partial class ImportModule
     {
@@ -80,6 +80,7 @@ namespace UttendanceDesktop
             openBtn.TabIndex = 2;
             openBtn.Text = "Open";
             openBtn.UseVisualStyleBackColor = false;
+            openBtn.Click += openBtn_Click;
             // 
             // formatExampleLabel
             // 
@@ -88,9 +89,8 @@ namespace UttendanceDesktop
             formatExampleLabel.ForeColor = Color.FromArgb(37, 42, 69);
             formatExampleLabel.Location = new Point(38, 84);
             formatExampleLabel.Name = "formatExampleLabel";
-            formatExampleLabel.Size = new Size(45, 19);
+            formatExampleLabel.Size = new Size(0, 19);
             formatExampleLabel.TabIndex = 1;
-            formatExampleLabel.Text = "";
             // 
             // formatMsgLabel
             // 
