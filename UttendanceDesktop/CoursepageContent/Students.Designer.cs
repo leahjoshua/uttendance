@@ -31,8 +31,8 @@ namespace UttendanceDesktop
         private void InitializeComponent()
         {
             studentsPagePanel = new Panel();
-            studentsLabel = new Label();
             addStudentsBtn = new Button();
+            studentsLabel = new Label();
             studentsPagePanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -46,18 +46,6 @@ namespace UttendanceDesktop
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
-            studentsPagePanel.Click += studentsPagePanel_Click;
-            // 
-            // studentsLabel
-            // 
-            studentsLabel.AutoSize = true;
-            studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            studentsLabel.Location = new Point(43, 37);
-            studentsLabel.Name = "studentsLabel";
-            studentsLabel.Size = new Size(107, 32);
-            studentsLabel.TabIndex = 0;
-            studentsLabel.Text = "Students";
             // 
             // addStudentsBtn
             // 
@@ -71,6 +59,18 @@ namespace UttendanceDesktop
             addStudentsBtn.Size = new Size(47, 50);
             addStudentsBtn.TabIndex = 1;
             addStudentsBtn.UseVisualStyleBackColor = true;
+            addStudentsBtn.Click += addStudentsBtn_Click;
+            // 
+            // studentsLabel
+            // 
+            studentsLabel.AutoSize = true;
+            studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            studentsLabel.Location = new Point(43, 37);
+            studentsLabel.Name = "studentsLabel";
+            studentsLabel.Size = new Size(107, 32);
+            studentsLabel.TabIndex = 0;
+            studentsLabel.Text = "Students";
             // 
             // Students
             // 

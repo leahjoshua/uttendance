@@ -30,7 +30,7 @@ namespace UttendanceDesktop
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void InitializeComponent(string name, string[] attributeList)
         {
             importPagePanel = new Panel();
             cancelBtn = new Button();
@@ -57,6 +57,7 @@ namespace UttendanceDesktop
             cancelBtn.BackColor = Color.FromArgb(88, 101, 168);
             cancelBtn.Cursor = Cursors.Hand;
             cancelBtn.FlatAppearance.BorderSize = 0;
+            cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.ForeColor = Color.White;
             cancelBtn.Location = new Point(263, 156);
             cancelBtn.Name = "cancelBtn";
@@ -70,6 +71,7 @@ namespace UttendanceDesktop
             // 
             openBtn.BackColor = Color.FromArgb(146, 67, 133);
             openBtn.FlatAppearance.BorderSize = 0;
+            openBtn.FlatStyle = FlatStyle.Flat;
             openBtn.ForeColor = Color.White;
             openBtn.Location = new Point(355, 156);
             openBtn.Name = "openBtn";
@@ -82,19 +84,19 @@ namespace UttendanceDesktop
             // 
             formatExampleLabel.AutoSize = true;
             formatExampleLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            formatExampleLabel.ForeColor = GlobalStyle.DARKEST_PURPLE;
-            formatExampleLabel.Location = new Point(35, 82);
+            formatExampleLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            formatExampleLabel.Location = new Point(38, 84);
             formatExampleLabel.Name = "formatExampleLabel";
             formatExampleLabel.Size = new Size(45, 19);
             formatExampleLabel.TabIndex = 1;
-            formatExampleLabel.Text = "label1";
+            formatExampleLabel.Text = listToStr(attributeList);
             // 
             // formatMsgLabel
             // 
             formatMsgLabel.Anchor = AnchorStyles.Top;
             formatMsgLabel.AutoSize = true;
             formatMsgLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            formatMsgLabel.ForeColor = GlobalStyle.DARKEST_PURPLE;
+            formatMsgLabel.ForeColor = Color.FromArgb(37, 42, 69);
             formatMsgLabel.Location = new Point(38, 20);
             formatMsgLabel.Name = "formatMsgLabel";
             formatMsgLabel.Size = new Size(377, 38);
@@ -109,7 +111,7 @@ namespace UttendanceDesktop
             Controls.Add(importPagePanel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "ImportModule";
-            Text = "Import";
+            Text = "Import " + name;
             importPagePanel.ResumeLayout(false);
             importPagePanel.PerformLayout();
             ResumeLayout(false);

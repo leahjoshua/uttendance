@@ -12,15 +12,16 @@ namespace UttendanceDesktop
 {
     public partial class Students : Form
     {
+        private static string[] attributeList = { "Last Name", "First Name", "UTD-ID", "Net-ID"};
+        private ImportModule importMod = new ImportModule("Students", attributeList);
         public Students()
         {
             InitializeComponent();
         }
 
-        private void studentsPagePanel_Click(object sender, EventArgs e)
+        private void addStudentsBtn_Click(object sender, EventArgs e)
         {
-            ImportModule importModule = new ImportModule();
-            importModule.Show();
+            importMod.Show();
         }
     }
 }

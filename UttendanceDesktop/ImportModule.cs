@@ -12,14 +12,26 @@ namespace UttendanceDesktop
 {
     public partial class ImportModule : Form
     {
-        public ImportModule()
+        public ImportModule(string name, string[] attributeList)
         {
-            InitializeComponent();
+            InitializeComponent(name, attributeList);
+        }
+
+        private string listToStr(string[] list)
+        {
+            string ret = "";
+            for (int i = 0; i < list.Length - 1; i++)
+            {
+                ret += "\"" +  list[i] + "\", ";
+            }
+            ret += "\"" + list[list.Length - 1] + "\"";
+
+            return ret;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-
+            Visible = false;
         }
     }
 }

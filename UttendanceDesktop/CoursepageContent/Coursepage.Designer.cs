@@ -283,9 +283,9 @@ namespace UttendanceDesktop
             headerPathTxt.AutoSize = true;
             headerPathTxt.Location = new Point(12, 9);
             headerPathTxt.Name = "headerPathTxt";
-            headerPathTxt.Size = new Size(217, 15);
+            headerPathTxt.Size = new Size(220, 15);
             headerPathTxt.TabIndex = 0;
-            headerPathTxt.Text = "CS 4485.0w1- Computer Science Project";
+            headerPathTxt.Text = "CS 4485.0w1 - Computer Science Project";
             // 
             // mainPanel
             // 
