@@ -30,7 +30,10 @@ namespace UttendanceDesktop
                     Properties.Settings.Default.netID = currentInstructor.INetID;
                     Properties.Settings.Default.Save();
                 }
-                MessageBox.Show("Logged in as: " + currentInstructor.INetID);
+                //MessageBox.Show("Logged in as: " + currentInstructor.INetID);
+                Homepage newHomepage = new Homepage();
+                newHomepage.Show();
+                this.Hide();
             }
 
         }
@@ -45,7 +48,7 @@ namespace UttendanceDesktop
             }
         }
 
-        //leah
+        //leah (parisa added a couple lines)
         private void createAccountBtn_Click(object sender, EventArgs e)
         {
             Instructor instructor = new Instructor
@@ -61,6 +64,8 @@ namespace UttendanceDesktop
             if (result > 0)
             {
                 MessageBox.Show("Account created for: " + instructor.IFName + " " + instructor.ILName + ".");
+                createAccountPanel.Visible = false;
+                logInPanel.Visible = true;
             }
             else
             {
