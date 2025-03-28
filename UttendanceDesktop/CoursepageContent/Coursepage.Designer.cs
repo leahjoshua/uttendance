@@ -137,6 +137,7 @@ namespace UttendanceDesktop
             // 
             // questionBankBtn
             // 
+            questionBankBtn.Cursor = Cursors.Hand;
             questionBankBtn.FlatAppearance.BorderSize = 0;
             questionBankBtn.FlatStyle = FlatStyle.Flat;
             questionBankBtn.ForeColor = Color.White;
@@ -160,6 +161,7 @@ namespace UttendanceDesktop
             // 
             // listingsBtn
             // 
+            listingsBtn.Cursor = Cursors.Hand;
             listingsBtn.FlatAppearance.BorderSize = 0;
             listingsBtn.FlatStyle = FlatStyle.Flat;
             listingsBtn.ForeColor = Color.White;
