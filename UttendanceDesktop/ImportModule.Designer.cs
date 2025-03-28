@@ -1,4 +1,5 @@
-﻿using static UttendanceDesktop.GlobalStyle;
+﻿using System.Xml.Linq;
+using static UttendanceDesktop.GlobalStyle;
 
 namespace UttendanceDesktop
 {
@@ -30,7 +31,7 @@ namespace UttendanceDesktop
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(string name, string[] attributeList)
+        private void InitializeComponent()
         {
             importPagePanel = new Panel();
             cancelBtn = new Button();
@@ -89,7 +90,7 @@ namespace UttendanceDesktop
             formatExampleLabel.Name = "formatExampleLabel";
             formatExampleLabel.Size = new Size(45, 19);
             formatExampleLabel.TabIndex = 1;
-            formatExampleLabel.Text = listToStr(attributeList);
+            formatExampleLabel.Text = "";//listToStr(attributeList);
             // 
             // formatMsgLabel
             // 
@@ -111,7 +112,7 @@ namespace UttendanceDesktop
             Controls.Add(importPagePanel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "ImportModule";
-            Text = "Import " + name;
+            Text = "Import ";
             importPagePanel.ResumeLayout(false);
             importPagePanel.PerformLayout();
             ResumeLayout(false);

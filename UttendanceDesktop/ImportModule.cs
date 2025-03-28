@@ -14,7 +14,9 @@ namespace UttendanceDesktop
     {
         public ImportModule(string name, string[] attributeList)
         {
-            InitializeComponent(name, attributeList);
+            InitializeComponent();
+            Text += name;
+            formatExampleLabel.Text = listToStr(attributeList);
         }
 
         private string listToStr(string[] list)
