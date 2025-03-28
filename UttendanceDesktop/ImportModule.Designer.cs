@@ -90,7 +90,7 @@ namespace UttendanceDesktop
             formatExampleLabel.Name = "formatExampleLabel";
             formatExampleLabel.Size = new Size(45, 19);
             formatExampleLabel.TabIndex = 1;
-            formatExampleLabel.Text = "";//listToStr(attributeList);
+            formatExampleLabel.Text = "";
             // 
             // formatMsgLabel
             // 

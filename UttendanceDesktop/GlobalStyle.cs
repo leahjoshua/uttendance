@@ -21,8 +21,9 @@ namespace UttendanceDesktop
         public static Color PASTEL_BLUE = Color.FromArgb(88, 101, 168);
         public static Color MAROON = Color.FromArgb(146, 67, 133);
 
-        //Location of headers
+        //Location
         public static Point HEADING_POSITION = new Point(43, 37);
+        public static Point ADD_PANEL_POSITION = new Point(687, 314);
 
         //Fonts
         public static Font NORMALT_TXT = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
