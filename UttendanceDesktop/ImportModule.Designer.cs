@@ -98,11 +98,11 @@ namespace UttendanceDesktop
             formatMsgLabel.AutoSize = true;
             formatMsgLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             formatMsgLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            formatMsgLabel.Location = new Point(38, 20);
+            formatMsgLabel.Location = new Point(17, 22);
             formatMsgLabel.Name = "formatMsgLabel";
-            formatMsgLabel.Size = new Size(377, 38);
+            formatMsgLabel.Size = new Size(413, 19);
             formatMsgLabel.TabIndex = 0;
-            formatMsgLabel.Text = "Make sure the file is a .csv ifle and has the following column \r\nnames (any order is fine):\r\n";
+            formatMsgLabel.Text = "Make sure the file is a .csv file and has the following column names\r\n(or similar) in the following order:\r\n";
             // 
             // ImportModule
             // 

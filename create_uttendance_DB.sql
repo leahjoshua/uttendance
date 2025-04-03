@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `instructor` (
 
 -- Dumping data for table uttendance.instructor: ~1 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
-	('SinstructorXH210003', 'Sooyoung', 'Han', 'sunfish');
+	('SXH210003', 'Sooyoung', 'Han', 'sunfish');
 
 -- Dumping structure for table uttendance.question
 CREATE TABLE IF NOT EXISTS `question` (

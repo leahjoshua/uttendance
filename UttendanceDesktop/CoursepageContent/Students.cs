@@ -15,8 +15,11 @@ namespace UttendanceDesktop
     public partial class Students : Form
     {
         //Sets up parameter for import module
-        private static string[] attributeList = { "Last Name", "First Name", "UTD-ID", "Net-ID" };
-        private ImportModule importMod = new ImportModule("Students", attributeList);
+        private static string tableName = "student";
+        private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
+        private static string[] displayList = {"Last Name", "First Name", "Username", "Student ID"};
+        private static string[] typeList = { "string", "string", "string", "int" };
+        private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList);
         public Students()
         {
             InitializeComponent();
