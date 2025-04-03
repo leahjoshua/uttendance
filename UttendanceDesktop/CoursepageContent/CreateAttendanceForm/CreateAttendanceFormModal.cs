@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    public partial class CreateAttendanceForm : Form
+    public partial class CreateAttendanceFormModal : Form
     {
-        public CreateAttendanceForm()
+        public CreateAttendanceFormModal()
         {
             InitializeComponent();
         }

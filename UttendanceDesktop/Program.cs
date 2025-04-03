@@ -14,7 +14,7 @@ namespace UttendanceDesktop
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new Coursepage());
-            Application.Run(new CreateAttendanceForm());
+            Application.Run(new CreateFormQuestion());
         }
     }
 }
