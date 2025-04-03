@@ -22,13 +22,26 @@ namespace UttendanceDesktop
         private string[] attributes;
         private string[] display;
         private string[] types;
+
+        private string r_tableName;
+        private string[] r_attributes;
+        private string[] r_types;
+        private string r_fkey1;
+        private string r_fkey2;
         //Creates an import module based on the input passed
-        public ImportModule(string name, string table_name, string[] attributeList, string[] displayList, string[] typeList)
+        public ImportModule(string name, string table_name, string[] attributeList, string[] displayList, string[] typeList,
+            string relationTableName, string[] fkeysList, string[] fkeyTypeList, string fkey1, string pkeyName)
         {
             tableName = table_name;
             attributes = attributeList;
             display = displayList;
             types = typeList;
+
+            r_tableName = relationTableName;
+            r_attributes = fkeysList;
+            r_types = fkeyTypeList;
+            r_fkey1 = fkey1;
+            r_fkey2 = pkeyName;
 
             InitializeComponent();
             Text += name;
@@ -71,42 +84,13 @@ namespace UttendanceDesktop
             // Show the dialog and check if the user selected a file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                Visible = false;
                 // Retrieve the selected file path
                 string filePath = openFileDialog.FileName;
                 MessageBox.Show($"Selected File: {filePath}", "File Selected");
 
                 addToDatabase(filePath);
             }
-            Visible = false;
-        }
-
-        private string formatEntry(string[] values, int length)
-        {
-            //Specify the column order
-            var sql = "INSERT INTO `" + tableName + "` (";
-            for (int i = 0; i < length - 1; i++)
-            {
-                sql += "`" + attributes[i] + "`,";
-            }
-            sql += "`" + attributes[length - 1] + "`)\n";
-            
-            //Specify the values
-            sql += "VALUES(";
-            for (int i = 0; i < length - 1; i++)
-            {
-                if (types[i] == "int")
-                    sql += values[i];
-                else
-                    sql += "'" + values[i] + "'";
-                sql += ", ";
-            }
-            if (types[length - 1] == "int")
-                sql += values[length - 1];
-            else
-                sql += "'" + values[length - 1] + "'";
-            sql += ");";
-
-            return sql;
         }
         private void addToDatabase(string path)
         {
@@ -131,12 +115,23 @@ namespace UttendanceDesktop
                         //Check 
                         if (length == types.Length)
                         {
-                            var sql = formatEntry(values, length);
+                            var sql = formatEntry(tableName, attributes, types, values);
                             var cmd = new MySqlCommand();
                             cmd.CommandText = sql;
                             cmd.CommandType = System.Data.CommandType.Text;
                             cmd.Connection = connection;
                             cmd.ExecuteNonQuery();
+
+                            if(r_tableName != null)
+                            {
+                                Console.WriteLine("Adding to relational");
+                                string[] r_values = [r_fkey1, values[Array.IndexOf(attributes, r_fkey2)]];
+                                sql = formatEntry(r_tableName, r_attributes, r_types, r_values);
+
+                                cmd.CommandText = sql;
+                                cmd.CommandType = System.Data.CommandType.Text;
+                                cmd.ExecuteNonQuery();
+                            }
                         }
 
                     }
@@ -154,6 +149,40 @@ namespace UttendanceDesktop
                 MessageBox.Show("Failed to import students. " + ex.ToString());
             }
 
+        }
+
+        private bool isDuplicateEntry(string pkey)
+        {
+            return false;
+        }
+        private string formatEntry(string table, string[] attri, string[] type, string[] values)
+        {
+            //Specify the column order
+            int length = values.Length;
+            var sql = "INSERT INTO `" + table + "` (";
+            for (int i = 0; i < length - 1; i++)
+            {
+                sql += "`" + attri[i] + "`,";
+            }
+            sql += "`" + attri[length - 1] + "`)\n";
+            
+            //Specify the values
+            sql += "VALUES(";
+            for (int i = 0; i < length - 1; i++)
+            {
+                if (type[i] == "int")
+                    sql += values[i];
+                else
+                    sql += "'" + values[i] + "'";
+                sql += ", ";
+            }
+            if (type[length - 1] == "int")
+                sql += values[length - 1];
+            else
+                sql += "'" + values[length - 1] + "'";
+            sql += ");";
+
+            return sql;
         }
     }
 }
