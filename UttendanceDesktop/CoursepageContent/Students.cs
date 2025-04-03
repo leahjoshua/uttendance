@@ -22,11 +22,11 @@ namespace UttendanceDesktop
         private static string pkeyName = "UTDID";
 
         private static string relationTableName = "attends";
-        private static string[] fkeysList = {"FK_CourseNum", "FK_UTDID"};
+        private static string[] fkeysList = {"FK_UTDID", "FK_CourseNum"};
         private static string[] fkeyTypeList = { "int", "int" };
         private static string fk1 = "" + GlobalResource.CURRENT_CLASS_ID;
         private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList, 
-            relationTableName, fkeysList, fkeyTypeList, fk1, pkeyName);
+            pkeyName, relationTableName, fkeysList, fkeyTypeList, fk1);
         public Students()
         {
             InitializeComponent();

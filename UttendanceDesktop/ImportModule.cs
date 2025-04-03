@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using static Mysqlx.Expect.Open.Types.Condition.Types;
 using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop
@@ -26,11 +26,11 @@ namespace UttendanceDesktop
         private string r_tableName;
         private string[] r_attributes;
         private string[] r_types;
-        private string r_fkey1;
         private string r_fkey2;
+        private string pkey_fkey1;
         //Creates an import module based on the input passed
         public ImportModule(string name, string table_name, string[] attributeList, string[] displayList, string[] typeList,
-            string relationTableName, string[] fkeysList, string[] fkeyTypeList, string fkey1, string pkeyName)
+            string pkeyName, string relationTableName, string[] fkeysList, string[] fkeyTypeList, string fkey1)
         {
             tableName = table_name;
             attributes = attributeList;
@@ -40,8 +40,8 @@ namespace UttendanceDesktop
             r_tableName = relationTableName;
             r_attributes = fkeysList;
             r_types = fkeyTypeList;
-            r_fkey1 = fkey1;
-            r_fkey2 = pkeyName;
+            r_fkey2 = fkey1;
+            pkey_fkey1 = pkeyName;
 
             InitializeComponent();
             Text += name;
@@ -110,30 +110,42 @@ namespace UttendanceDesktop
                     var values = line.Split(',');
                     int length = values.Length;
                     //Ignore the heading & check if input has the correct number of columns
-                    if (lineNum != 0)
+                    if (lineNum != 0 && length == types.Length)
                     {
-                        //Check 
-                        if (length == types.Length)
+                        var pkey = values[Array.IndexOf(attributes, pkey_fkey1)];
+                        string t = types[Array.IndexOf(attributes, pkey_fkey1)];
+                        string sql;
+                        MySqlCommand cmd = new MySqlCommand();
+
+                        //Ignore duplicate entries
+                        if (!isDuplicateEntry_1_key(pkey, t, connection))
                         {
-                            var sql = formatEntry(tableName, attributes, types, values);
-                            var cmd = new MySqlCommand();
+                            //Add entry to database
+                            sql = formatEntry(tableName, attributes, types, values);
+
                             cmd.CommandText = sql;
                             cmd.CommandType = System.Data.CommandType.Text;
                             cmd.Connection = connection;
                             cmd.ExecuteNonQuery();
+                        }
 
-                            if(r_tableName != null)
+
+                        //Check if there is a relational table
+                        if (r_tableName != null)
+                        {
+                            string[] pkeys = [pkey, r_fkey2];
+                            //Ignore duplicate entries
+                            if(!isDuplicateEntry_2_key(pkeys, connection))
                             {
-                                Console.WriteLine("Adding to relational");
-                                string[] r_values = [r_fkey1, values[Array.IndexOf(attributes, r_fkey2)]];
+                                string[] r_values = [values[Array.IndexOf(attributes, pkey_fkey1)], r_fkey2];
                                 sql = formatEntry(r_tableName, r_attributes, r_types, r_values);
 
                                 cmd.CommandText = sql;
                                 cmd.CommandType = System.Data.CommandType.Text;
+                                cmd.Connection = connection;
                                 cmd.ExecuteNonQuery();
                             }
                         }
-
                     }
                     lineNum++;
 
@@ -145,16 +157,64 @@ namespace UttendanceDesktop
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.ToString());
+                Console.WriteLine("Exception:\n" + ex.ToString());
                 MessageBox.Show("Failed to import students. " + ex.ToString());
             }
 
         }
 
-        private bool isDuplicateEntry(string pkey)
+        private bool isDuplicateEntry_1_key(string pkey, string type, MySqlConnection connection)
         {
-            return false;
+           //Format the query
+            var query = "SELECT COUNT(*) FROM `"+ tableName + "` WHERE " + pkey_fkey1 + "=";
+            if (type == "int")
+                query += pkey;
+            else
+                query += "\'" + pkey + "\'";
+            query += ";";
+
+            //Execute query
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            //Return true if there already exists an entry with the same primary key
+            return count != 0;
         }
+
+        private bool isDuplicateEntry_2_key(string[] pkeys, MySqlConnection connection)
+        {
+            //Format the query
+            var query = "SELECT COUNT(*) FROM `" + r_tableName + "` WHERE " + r_attributes[0] + "=";
+            if (r_types[0] == "int")
+                query += pkeys[0];
+            else
+                query += "\'" + pkeys[0] + "\'";
+
+            query += " AND " + r_attributes[1] + "=";
+
+            if (r_types[1] == "int")
+                query += pkeys[1];
+            else
+                query += "\'" + pkeys[1] + "\'";
+
+            query += ";";
+
+            //Execute query
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            //Return true if there already exists an entry with the same primary key
+            return count != 0;
+        }
+
         private string formatEntry(string table, string[] attri, string[] type, string[] values)
         {
             //Specify the column order
@@ -173,13 +233,13 @@ namespace UttendanceDesktop
                 if (type[i] == "int")
                     sql += values[i];
                 else
-                    sql += "'" + values[i] + "'";
+                    sql += "\'" + values[i] + "\'";
                 sql += ", ";
             }
             if (type[length - 1] == "int")
                 sql += values[length - 1];
             else
-                sql += "'" + values[length - 1] + "'";
+                sql += "\'" + values[length - 1] + "\'";
             sql += ");";
 
             return sql;
