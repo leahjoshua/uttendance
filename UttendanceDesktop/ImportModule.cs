@@ -88,77 +88,74 @@ namespace UttendanceDesktop
                 // Retrieve the selected file path
                 string filePath = openFileDialog.FileName;
                 MessageBox.Show($"Selected File: {filePath}", "File Selected");
-
+                // Imports the data into the database
                 addToDatabase(filePath);
             }
         }
+        
+        //Reads each line of data from the given file and adds it to the appropriate table in the database
         private void addToDatabase(string path)
         {
             try
             {
+                //Open database connection
                 MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
 
                 //Open and read the file
-                StreamReader reader = new StreamReader(File.OpenRead(path));
+                StreamReader fileReader = new StreamReader(File.OpenRead(path));
                 int lineNum = 0;
-                while (!reader.EndOfStream)
+                while (!fileReader.EndOfStream)
                 {
                     //Read each line
-                    var line = reader.ReadLine();
-                    Console.WriteLine("Adding " + line);
+                    var line = fileReader.ReadLine();
                     var values = line.Split(',');
                     int length = values.Length;
+
                     //Ignore the heading & check if input has the correct number of columns
                     if (lineNum != 0 && length == types.Length)
                     {
+                        string query;
+                        MySqlCommand cmd;
+
+                        //Ignore duplicate entries with the same primary key
                         var pkey = values[Array.IndexOf(attributes, pkey_fkey1)];
                         string t = types[Array.IndexOf(attributes, pkey_fkey1)];
-                        string sql;
-                        MySqlCommand cmd = new MySqlCommand();
-
-                        //Ignore duplicate entries
                         if (!isDuplicateEntry_1_key(pkey, t, connection))
                         {
                             //Add entry to database
-                            sql = formatEntry(tableName, attributes, types, values);
-
-                            cmd.CommandText = sql;
-                            cmd.CommandType = System.Data.CommandType.Text;
-                            cmd.Connection = connection;
+                            query = formatEntry(tableName, attributes, types, values);
+                            cmd = new MySqlCommand(query, connection);
                             cmd.ExecuteNonQuery();
                         }
 
-
-                        //Check if there is a relational table
+                        //Check if there is a relational table that needs to be updated
                         if (r_tableName != null)
                         {
                             string[] pkeys = [pkey, r_fkey2];
-                            //Ignore duplicate entries
+                            //Ignore duplicate entries with the same primary keys
                             if(!isDuplicateEntry_2_key(pkeys, connection))
                             {
+                                //Add entry to database
                                 string[] r_values = [values[Array.IndexOf(attributes, pkey_fkey1)], r_fkey2];
-                                sql = formatEntry(r_tableName, r_attributes, r_types, r_values);
-
-                                cmd.CommandText = sql;
-                                cmd.CommandType = System.Data.CommandType.Text;
-                                cmd.Connection = connection;
+                                query = formatEntry(r_tableName, r_attributes, r_types, r_values);
+                                cmd = new MySqlCommand(query, connection);
                                 cmd.ExecuteNonQuery();
                             }
                         }
                     }
                     lineNum++;
-
                 }
-                reader.Close();
+
+                //Close connection
+                fileReader.Close();
                 connection.Close();
 
-                MessageBox.Show("Student's successfully imported!");
+                MessageBox.Show("Successfully imported!");
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Exception:\n" + ex.ToString());
-                MessageBox.Show("Failed to import students. " + ex.ToString());
+                MessageBox.Show("Failed to import.\n" + ex.ToString());
             }
 
         }
@@ -215,34 +212,35 @@ namespace UttendanceDesktop
             return count != 0;
         }
 
+        //Formats the query string
         private string formatEntry(string table, string[] attri, string[] type, string[] values)
         {
             //Specify the column order
             int length = values.Length;
-            var sql = "INSERT INTO `" + table + "` (";
+            string query = "INSERT INTO `" + table + "` (";
             for (int i = 0; i < length - 1; i++)
             {
-                sql += "`" + attri[i] + "`,";
+                query += "`" + attri[i] + "`,";
             }
-            sql += "`" + attri[length - 1] + "`)\n";
+            query += "`" + attri[length - 1] + "`)\n";
             
             //Specify the values
-            sql += "VALUES(";
+            query += "VALUES(";
             for (int i = 0; i < length - 1; i++)
             {
                 if (type[i] == "int")
-                    sql += values[i];
+                    query += values[i];
                 else
-                    sql += "\'" + values[i] + "\'";
-                sql += ", ";
+                    query += "\'" + values[i] + "\'";
+                query += ", ";
             }
             if (type[length - 1] == "int")
-                sql += values[length - 1];
+                query += values[length - 1];
             else
-                sql += "\'" + values[length - 1] + "\'";
-            sql += ");";
+                query += "\'" + values[length - 1] + "\'";
+            query += ");";
 
-            return sql;
+            return query;
         }
     }
 }

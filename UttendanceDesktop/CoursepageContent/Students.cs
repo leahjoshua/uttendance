@@ -17,21 +17,21 @@ namespace UttendanceDesktop
         //Sets up parameter for import module
         private static string tableName = "student";
         private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
-        private static string[] displayList = {"Last Name", "First Name", "Username", "Student ID"};
+        private static string[] displayList = { "Last Name", "First Name", "Username", "Student ID" };
         private static string[] typeList = { "string", "string", "string", "int" };
         private static string pkeyName = "UTDID";
 
         private static string relationTableName = "attends";
-        private static string[] fkeysList = {"FK_UTDID", "FK_CourseNum"};
+        private static string[] fkeysList = { "FK_UTDID", "FK_CourseNum" };
         private static string[] fkeyTypeList = { "int", "int" };
         private static string fk1 = "" + GlobalResource.CURRENT_CLASS_ID;
-        private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList, 
+        private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList,
             pkeyName, relationTableName, fkeysList, fkeyTypeList, fk1);
         public Students()
         {
             InitializeComponent();
         }
-        
+
         //Displays the options for adding students
         private void addBtn_Click(object sender, EventArgs e)
         {
