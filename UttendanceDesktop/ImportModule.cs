@@ -17,6 +17,7 @@ namespace UttendanceDesktop
     // NetID: jxy210012
     public partial class ImportModule : Form
     {
+        public event Action DatabaseUpdated;
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
         private string tableName;
         private string[] attributes;
@@ -46,8 +47,6 @@ namespace UttendanceDesktop
             InitializeComponent();
             Text += name;
             formatExampleLabel.Text = listToStr(display);
-
-            
         }
 
         //Parses the attribute list into a string to display to the user
@@ -152,6 +151,7 @@ namespace UttendanceDesktop
                 connection.Close();
 
                 MessageBox.Show("Successfully imported!");
+                DatabaseUpdated?.Invoke();
             }
             catch(Exception ex)
             {

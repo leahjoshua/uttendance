@@ -35,6 +35,7 @@ namespace UttendanceDesktop
         {
             InitializeComponent();
             PopulateStudentTable();
+            importMod.DatabaseUpdated += PopulateStudentTable;
         }
 
         private void PopulateStudentTable()
