@@ -35,9 +35,11 @@ namespace UttendanceDesktop
         {
             InitializeComponent();
             PopulateStudentTable();
+            //Subscribe to event to repopulate the data grid after import module is finished
             importMod.DatabaseUpdated += PopulateStudentTable;
         }
 
+        //Pulls the list of all students enrolled in the current class and displays it on the data grid
         private void PopulateStudentTable()
         {
             DataTable dataTable = new DataTable();
@@ -53,6 +55,7 @@ namespace UttendanceDesktop
                 //Open database connection
                 MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
+                //Select all student information from all students enrolled in the current class
                 var query = "SELECT student.* FROM student " +
                     "INNER JOIN attends ON student.UTDID=attends.FK_UTDID " +
                     "WHERE attends.FK_CourseNum=" + GlobalResource.CURRENT_CLASS_ID +
@@ -75,7 +78,7 @@ namespace UttendanceDesktop
                 }
                 databaseReader.Close();
                 connection.Close();
-
+                //Send data to data table
                 this.studentTable.DataSource = dataTable;
 
             }

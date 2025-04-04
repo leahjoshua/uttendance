@@ -151,6 +151,7 @@ namespace UttendanceDesktop
                 connection.Close();
 
                 MessageBox.Show("Successfully imported!");
+                //Raise the event flag
                 DatabaseUpdated?.Invoke();
             }
             catch(Exception ex)
