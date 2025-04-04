@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             createFormPanel = new Panel();
+            questionsListingPanel = new Panel();
+            defaultQuestionsTxt = new Label();
             label2 = new Label();
             dateTimePicker4 = new DateTimePicker();
             label4 = new Label();
@@ -37,13 +39,13 @@
             questionBankLabel = new Label();
             attendanceFormsLabel = new Label();
             addQuestionBtn = new Button();
-            defaultQuestionsTxt = new Label();
             createFormPanel.SuspendLayout();
             SuspendLayout();
             // 
             // createFormPanel
             // 
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
+            createFormPanel.Controls.Add(questionsListingPanel);
             createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(label2);
             createFormPanel.Controls.Add(dateTimePicker4);
@@ -57,12 +59,32 @@
             createFormPanel.Size = new Size(1143, 750);
             createFormPanel.TabIndex = 0;
             // 
+            // questionsListingPanel
+            // 
+            questionsListingPanel.AutoScroll = true;
+            questionsListingPanel.Location = new Point(83, 303);
+            questionsListingPanel.Name = "questionsListingPanel";
+            questionsListingPanel.Size = new Size(934, 392);
+            questionsListingPanel.TabIndex = 3;
+            // 
+            // defaultQuestionsTxt
+            // 
+            defaultQuestionsTxt.AutoSize = true;
+            defaultQuestionsTxt.Font = new Font("Segoe UI", 12F);
+            defaultQuestionsTxt.ForeColor = Color.FromArgb(58, 64, 99);
+            defaultQuestionsTxt.Location = new Point(111, 310);
+            defaultQuestionsTxt.Margin = new Padding(4, 0, 4, 0);
+            defaultQuestionsTxt.Name = "defaultQuestionsTxt";
+            defaultQuestionsTxt.Size = new Size(823, 64);
+            defaultQuestionsTxt.TabIndex = 10;
+            defaultQuestionsTxt.Text = "Looks like you currently don’t have any questions!\nLeave this section blank if you wish to create a default Attendance Check-in";
+            // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(37, 42, 69);
-            label2.Location = new Point(83, 254);
+            label2.Location = new Point(83, 248);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(210, 40);
@@ -73,7 +95,7 @@
             // 
             dateTimePicker4.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
             dateTimePicker4.Format = DateTimePickerFormat.Custom;
-            dateTimePicker4.Location = new Point(489, 207);
+            dateTimePicker4.Location = new Point(489, 201);
             dateTimePicker4.Name = "dateTimePicker4";
             dateTimePicker4.Size = new Size(340, 31);
             dateTimePicker4.TabIndex = 8;
@@ -83,7 +105,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
             label4.ForeColor = Color.FromArgb(37, 42, 69);
-            label4.Location = new Point(489, 165);
+            label4.Location = new Point(489, 159);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(129, 32);
@@ -94,7 +116,7 @@
             // 
             dateTimePicker1.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(111, 207);
+            dateTimePicker1.Location = new Point(111, 201);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(340, 31);
             dateTimePicker1.TabIndex = 4;
@@ -104,7 +126,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
             label1.ForeColor = Color.FromArgb(37, 42, 69);
-            label1.Location = new Point(111, 165);
+            label1.Location = new Point(111, 159);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(151, 32);
@@ -151,19 +173,7 @@
             addQuestionBtn.UseVisualStyleBackColor = false;
             addQuestionBtn.Click += addQuestionBtn_Click;
             // 
-            // defaultQuestionsTxt
-            // 
-            defaultQuestionsTxt.AutoSize = true;
-            defaultQuestionsTxt.Font = new Font("Segoe UI", 12F);
-            defaultQuestionsTxt.ForeColor = Color.FromArgb(58, 64, 99);
-            defaultQuestionsTxt.Location = new Point(111, 310);
-            defaultQuestionsTxt.Margin = new Padding(4, 0, 4, 0);
-            defaultQuestionsTxt.Name = "defaultQuestionsTxt";
-            defaultQuestionsTxt.Size = new Size(823, 64);
-            defaultQuestionsTxt.TabIndex = 10;
-            defaultQuestionsTxt.Text = "Looks like you currently don’t have any questions!\nLeave this section blank if you wish to create a default Attendance Check-in";
-            // 
-            // CreateAttendanceForm
+            // CreateAttendanceFormPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -171,7 +181,7 @@
             Controls.Add(addQuestionBtn);
             Controls.Add(createFormPanel);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "CreateAttendanceForm";
+            Name = "CreateAttendanceFormPage";
             Text = "CreateAttendanceForm";
             createFormPanel.ResumeLayout(false);
             createFormPanel.PerformLayout();
@@ -190,5 +200,6 @@
         private Label label2;
         private Button addQuestionBtn;
         private Label defaultQuestionsTxt;
+        private Panel questionsListingPanel;
     }
 }

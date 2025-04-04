@@ -9,7 +9,7 @@ namespace UttendanceDesktop.CoursepageContent.models
     public class Question
     {
         public int QuestionID { get; set; }
-        public string? ProblemStatement { get; set; }
-        public List<AnswerChoice>? AnswerChoices { get; set; }
+        public string ProblemStatement { get; set; }
+        public List<AnswerChoice> AnswerChoices { get; set; }
     }
 }
