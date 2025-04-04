@@ -19,10 +19,16 @@ namespace UttendanceDesktop
                 {
                     connection.Open();
 
-                    string query = @"INSERT INTO class 
-                                   (CourseNum, SectionNum, ClassSubject, ClassNum, ClassName) 
-                                   VALUES (@classId, @section, @prefix, @number, @name);
-                                   SELECT LAST_INSERT_ID();";
+                    string query = @"
+                INSERT INTO class 
+                    (CourseNum, SectionNum, ClassSubject, ClassNum, ClassName) 
+                    VALUES (@classId, @section, @prefix, @number, @name);
+                
+                SELECT LAST_INSERT_ID();
+
+                INSERT INTO teaches 
+                    (FK_INetID, FK_CourseNum) 
+                    VALUES (@netid, @classId);";
 
                     using (var cmd = new MySqlCommand(query, connection))
                     {
@@ -31,6 +37,7 @@ namespace UttendanceDesktop
                         cmd.Parameters.AddWithValue("@number", number);
                         cmd.Parameters.AddWithValue("@section", section);
                         cmd.Parameters.AddWithValue("@classId", classId);
+                        cmd.Parameters.AddWithValue("@netid", GlobalVariables.INetID);
 
                         object result = cmd.ExecuteScalar();
                         return $"Course added successfully!";

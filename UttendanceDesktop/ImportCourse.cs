@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.Devices;
 //parisa
 namespace UttendanceDesktop
 {
@@ -34,14 +35,44 @@ namespace UttendanceDesktop
                 RestoreDirectory = true
             };
 
+            string filePath = "";
+
             // Show the dialog and check if the user selected a file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 // Retrieve the selected file path
-                string filePath = openFileDialog.FileName;
+                filePath = openFileDialog.FileName;
                 MessageBox.Show($"Selected File: {filePath}", "File Selected");
             }
 
+            string[] lines = File.ReadAllLines(filePath);
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                string[] columns = lines[i].Split(',');
+
+                string CourseName = columns[0].Trim();
+                string ClassPrefix = columns[1].Trim();
+                int ClassNumber = int.Parse(columns[2].Trim());
+                int SectionNumber = int.Parse(columns[3].Trim());
+                int ClassID = int.Parse(columns[4].Trim());
+
+                Class cls = new Class();
+                string result = cls.AddClass(CourseName, ClassPrefix, ClassNumber, SectionNumber, ClassID);
+            }
+
+            MessageBox.Show("Courses Imported!");
+            Form[] openForms = Application.OpenForms.Cast<Form>().ToArray();
+
+            foreach (Form form in openForms)
+            {
+                if (form.GetType() == typeof(Homepage))
+                {
+                    form.Close();
+                }
+            }
+            Homepage newHomepage = new Homepage();
+            newHomepage.Show();
 
 
         }

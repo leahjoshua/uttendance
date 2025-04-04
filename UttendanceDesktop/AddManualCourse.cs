@@ -212,6 +212,18 @@ namespace UttendanceDesktop
                 MessageBox.Show("Course could not be added");
             }
 
+            Form[] openForms = Application.OpenForms.Cast<Form>().ToArray();
+
+            foreach (Form form in openForms)
+            {
+                if (form.GetType() == typeof(Homepage))
+                {
+                    form.Close(); 
+                }
+            }
+            Homepage newHomepage = new Homepage();
+            newHomepage.Show();
+
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

@@ -319,7 +319,6 @@
         private Label CPStarLabel;
         private Label CNStarLabel;
         private Label CIDStarLabel;
-        private TextBox textBox1;
         private TextBox classNumberTextBox;
         private TextBox classPrefixTextBox;
         private TextBox sectionNumberTextBox;

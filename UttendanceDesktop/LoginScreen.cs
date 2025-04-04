@@ -19,6 +19,7 @@ namespace UttendanceDesktop
         {
             LoginDAO login = new LoginDAO();
             currentInstructor = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
+            GlobalVariables.INetID = currentInstructor.INetID;
             if (currentInstructor.INetID == null)
             {
                 MessageBox.Show("Incorrect NetID or Password");
