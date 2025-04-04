@@ -1,6 +1,6 @@
 ﻿namespace UttendanceDesktop.CoursepageContent
 {
-    partial class CreateAttendanceFormModal
+    partial class CreateAttendanceFormPage
     {
         /// <summary>
         /// Required designer variable.

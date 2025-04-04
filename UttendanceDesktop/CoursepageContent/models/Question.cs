@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace UttendanceDesktop.CoursepageContent.models
 {
-    class AnswerChoiceModel
+    public class Question
     {
-        public int AnswerID { get; set; }
-        public bool isCorrect { get; set; }
-        public string? AnswerStatement { get; set; }
         public int QuestionID { get; set; }
+        public string? ProblemStatement { get; set; }
+        public List<AnswerChoice>? AnswerChoices { get; set; }
     }
 }
