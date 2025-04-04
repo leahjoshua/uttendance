@@ -33,26 +33,42 @@ namespace UttendanceDesktop
         private void InitializeComponent()
         {
             studentsPagePanel = new Panel();
+            studentsLabel = new Label();
             addPanel = new Panel();
             importStudentsBtn = new Button();
             addStudentsBtn = new Button();
+            studentTablePanel = new Panel();
+            studentTable = new DataGridView();
             addBtn = new Button();
-            studentsLabel = new Label();
             studentsPagePanel.SuspendLayout();
             addPanel.SuspendLayout();
+            studentTablePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)studentTable).BeginInit();
             SuspendLayout();
             // 
             // studentsPagePanel
             // 
             studentsPagePanel.BackColor = Color.FromArgb(166, 176, 230);
-            studentsPagePanel.Controls.Add(addPanel);
-            studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Controls.Add(studentsLabel);
+            studentsPagePanel.Controls.Add(addPanel);
+            studentsPagePanel.Controls.Add(studentTablePanel);
+            studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Dock = DockStyle.Fill;
             studentsPagePanel.Location = new Point(0, 0);
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
+            // 
+            // studentsLabel
+            // 
+            studentsLabel.AutoSize = true;
+            studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            studentsLabel.Location = new Point(43, 37);
+            studentsLabel.Name = "studentsLabel";
+            studentsLabel.Size = new Size(107, 32);
+            studentsLabel.TabIndex = 0;
+            studentsLabel.Text = "Students";
             // 
             // addPanel
             // 
@@ -91,6 +107,29 @@ namespace UttendanceDesktop
             addStudentsBtn.UseVisualStyleBackColor = false;
             addStudentsBtn.Click += addStudentsBtn_Click;
             // 
+            // studentTablePanel
+            // 
+            studentTablePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            studentTablePanel.Controls.Add(studentTable);
+            studentTablePanel.Location = new Point(43, 130);
+            studentTablePanel.Name = "studentTablePanel";
+            studentTablePanel.Size = new Size(677, 298);
+            studentTablePanel.TabIndex = 5;
+            // 
+            // studentTable
+            // 
+            studentTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            studentTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            studentTable.BackgroundColor = Color.FromArgb(37, 42, 69);
+            studentTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            studentTable.Location = new Point(19, 3);
+            studentTable.MultiSelect = false;
+            studentTable.Name = "studentTable";
+            studentTable.RowHeadersVisible = false;
+            studentTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            studentTable.Size = new Size(638, 266);
+            studentTable.TabIndex = 0;
+            // 
             // addBtn
             // 
             addBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -105,17 +144,6 @@ namespace UttendanceDesktop
             addBtn.UseVisualStyleBackColor = true;
             addBtn.Click += addBtn_Click;
             // 
-            // studentsLabel
-            // 
-            studentsLabel.AutoSize = true;
-            studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            studentsLabel.Location = new Point(43, 37);
-            studentsLabel.Name = "studentsLabel";
-            studentsLabel.Size = new Size(107, 32);
-            studentsLabel.TabIndex = 0;
-            studentsLabel.Text = "Students";
-            // 
             // Students
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -129,6 +157,8 @@ namespace UttendanceDesktop
             studentsPagePanel.ResumeLayout(false);
             studentsPagePanel.PerformLayout();
             addPanel.ResumeLayout(false);
+            studentTablePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)studentTable).EndInit();
             ResumeLayout(false);
         }
 
@@ -140,5 +170,7 @@ namespace UttendanceDesktop
         private Panel addPanel;
         private Button addStudentsBtn;
         private Button importStudentsBtn;
+        private Panel studentTablePanel;
+        private DataGridView studentTable;
     }
 }
