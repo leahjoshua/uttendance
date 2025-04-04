@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics.Metrics;
+using System.Windows.Forms;
 
 namespace UttendanceDesktop
 {
@@ -15,6 +16,7 @@ namespace UttendanceDesktop
     public partial class AttendanceForms_Listings : Form
     {
         private string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+        //UPDATE TO RECEIVE THIS FROM COURSE PAGE:
         private int courseNum = 123456; //temp value 
         private attendanceFormItem[] attendanceListItems;
 
@@ -235,5 +237,12 @@ namespace UttendanceDesktop
 
             return matchStatus && matchFilter; //True if both cases are true
         }
+
+        //Aendri 4/3/2025
+        // Receive event from child form item on selection. Update list of changes and deletion icon. 
+        /*void child_OnChildTextChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = (string)sender;
+        }*/
     }
 }

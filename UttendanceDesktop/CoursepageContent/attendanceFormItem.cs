@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UttendanceDesktop.CoursepageContent
 {
@@ -18,6 +19,8 @@ namespace UttendanceDesktop.CoursepageContent
         private AttendenceFormStatusOptions _statusOption;
         private int formId;
         private bool isEditMode = false;
+
+        public event EventHandler OnFormSelectChange;
 
         public attendanceFormItem()
         {
@@ -32,10 +35,12 @@ namespace UttendanceDesktop.CoursepageContent
         }
 
         //Aendri 4/3/2025
-        // When selected, update icon
+        // On selection/deselection of the form, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(titleLabel.Text + "SELECTED!");
+            //System.Diagnostics.Debug.WriteLine(titleLabel.Text + "SELECTED!");
+            if (OnFormSelectChange != null)
+                OnFormSelectChange(checkbox.Checked, null);
         }
 
         // Aendri: Options for the status of an attendence form
