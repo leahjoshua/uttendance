@@ -2,6 +2,8 @@
 
 namespace UttendanceDesktop
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 28, 2025.
+    // NetID: jxy210012
     partial class Students
     {
         /// <summary>
@@ -30,36 +32,35 @@ namespace UttendanceDesktop
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             studentsPagePanel = new Panel();
-            addStudentsBtn = new Button();
             studentsLabel = new Label();
+            addPanel = new Panel();
+            importStudentsBtn = new Button();
+            addStudentsBtn = new Button();
+            studentTablePanel = new Panel();
+            studentTable = new DataGridView();
+            addBtn = new Button();
             studentsPagePanel.SuspendLayout();
+            addPanel.SuspendLayout();
+            studentTablePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)studentTable).BeginInit();
             SuspendLayout();
             // 
             // studentsPagePanel
             // 
             studentsPagePanel.BackColor = Color.FromArgb(166, 176, 230);
-            studentsPagePanel.Controls.Add(addStudentsBtn);
             studentsPagePanel.Controls.Add(studentsLabel);
+            studentsPagePanel.Controls.Add(addPanel);
+            studentsPagePanel.Controls.Add(studentTablePanel);
+            studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Dock = DockStyle.Fill;
             studentsPagePanel.Location = new Point(0, 0);
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
-            // 
-            // addStudentsBtn
-            // 
-            addStudentsBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            addStudentsBtn.Cursor = Cursors.Hand;
-            addStudentsBtn.FlatAppearance.BorderSize = 0;
-            addStudentsBtn.FlatStyle = FlatStyle.Flat;
-            addStudentsBtn.Image = Properties.Resources.add_icon;
-            addStudentsBtn.Location = new Point(726, 378);
-            addStudentsBtn.Name = "addStudentsBtn";
-            addStudentsBtn.Size = new Size(47, 50);
-            addStudentsBtn.TabIndex = 1;
-            addStudentsBtn.UseVisualStyleBackColor = true;
-            addStudentsBtn.Click += addStudentsBtn_Click;
             // 
             // studentsLabel
             // 
@@ -72,6 +73,114 @@ namespace UttendanceDesktop
             studentsLabel.TabIndex = 0;
             studentsLabel.Text = "Students";
             // 
+            // addPanel
+            // 
+            addPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            addPanel.Controls.Add(importStudentsBtn);
+            addPanel.Controls.Add(addStudentsBtn);
+            addPanel.Location = new Point(674, 314);
+            addPanel.Name = "addPanel";
+            addPanel.Size = new Size(114, 66);
+            addPanel.TabIndex = 4;
+            addPanel.Visible = false;
+            // 
+            // importStudentsBtn
+            // 
+            importStudentsBtn.BackColor = Color.FromArgb(224, 224, 224);
+            importStudentsBtn.FlatStyle = FlatStyle.Flat;
+            importStudentsBtn.ForeColor = Color.FromArgb(37, 42, 69);
+            importStudentsBtn.Location = new Point(0, 33);
+            importStudentsBtn.Name = "importStudentsBtn";
+            importStudentsBtn.Size = new Size(110, 33);
+            importStudentsBtn.TabIndex = 5;
+            importStudentsBtn.Text = "Import Students";
+            importStudentsBtn.UseVisualStyleBackColor = false;
+            importStudentsBtn.Click += importStudentsBtn_Click;
+            // 
+            // addStudentsBtn
+            // 
+            addStudentsBtn.BackColor = Color.FromArgb(224, 224, 224);
+            addStudentsBtn.FlatStyle = FlatStyle.Flat;
+            addStudentsBtn.ForeColor = Color.FromArgb(37, 42, 69);
+            addStudentsBtn.Location = new Point(0, 0);
+            addStudentsBtn.Name = "addStudentsBtn";
+            addStudentsBtn.Size = new Size(110, 36);
+            addStudentsBtn.TabIndex = 5;
+            addStudentsBtn.Text = "Add Students";
+            addStudentsBtn.UseVisualStyleBackColor = false;
+            addStudentsBtn.Click += addStudentsBtn_Click;
+            // 
+            // studentTablePanel
+            // 
+            studentTablePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            studentTablePanel.Controls.Add(studentTable);
+            studentTablePanel.ForeColor = Color.Black;
+            studentTablePanel.Location = new Point(43, 130);
+            studentTablePanel.Name = "studentTablePanel";
+            studentTablePanel.Size = new Size(677, 298);
+            studentTablePanel.TabIndex = 5;
+            // 
+            // studentTable
+            // 
+            studentTable.AllowUserToAddRows = false;
+            studentTable.AllowUserToDeleteRows = false;
+            studentTable.AllowUserToResizeColumns = false;
+            studentTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(206, 212, 244);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.Padding = new Padding(10, 0, 0, 0);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            studentTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            studentTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            studentTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            studentTable.BackgroundColor = Color.FromArgb(37, 42, 69);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(10, 0, 0, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.DarkSlateBlue;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            studentTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            studentTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(222, 225, 241);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.Padding = new Padding(10, 0, 0, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(88, 101, 168);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            studentTable.DefaultCellStyle = dataGridViewCellStyle3;
+            studentTable.EnableHeadersVisualStyles = false;
+            studentTable.GridColor = Color.FromArgb(37, 42, 69);
+            studentTable.Location = new Point(19, 3);
+            studentTable.MultiSelect = false;
+            studentTable.Name = "studentTable";
+            studentTable.RowHeadersVisible = false;
+            studentTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            studentTable.Size = new Size(638, 266);
+            studentTable.TabIndex = 0;
+            studentTable.TabStop = false;
+            // 
+            // addBtn
+            // 
+            addBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            addBtn.Cursor = Cursors.Hand;
+            addBtn.FlatAppearance.BorderSize = 0;
+            addBtn.FlatStyle = FlatStyle.Flat;
+            addBtn.Image = Properties.Resources.add_icon;
+            addBtn.Location = new Point(726, 378);
+            addBtn.Name = "addBtn";
+            addBtn.Size = new Size(47, 50);
+            addBtn.TabIndex = 1;
+            addBtn.UseVisualStyleBackColor = true;
+            addBtn.Click += addBtn_Click;
+            // 
             // Students
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -79,11 +188,15 @@ namespace UttendanceDesktop
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(800, 450);
             Controls.Add(studentsPagePanel);
+            ForeColor = Color.Red;
             FormBorderStyle = FormBorderStyle.None;
             Name = "Students";
             Text = "Students";
             studentsPagePanel.ResumeLayout(false);
             studentsPagePanel.PerformLayout();
+            addPanel.ResumeLayout(false);
+            studentTablePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)studentTable).EndInit();
             ResumeLayout(false);
         }
 
@@ -91,6 +204,11 @@ namespace UttendanceDesktop
 
         private Panel studentsPagePanel;
         private Label studentsLabel;
+        private Button addBtn;
+        private Panel addPanel;
         private Button addStudentsBtn;
+        private Button importStudentsBtn;
+        private Panel studentTablePanel;
+        private DataGridView studentTable;
     }
 }
