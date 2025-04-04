@@ -16,7 +16,7 @@ namespace UttendanceDesktop
         //Colors
         public static Color DARKEST_PURPLE = Color.FromArgb(37, 42, 69);
         public static Color LAVENDER = Color.FromArgb(166, 176, 230);
-        public static Color OFF_WHITE = Color.FromArgb(224, 224, 224);
+        public static Color OFF_WHITE = Color.FromArgb(222, 225, 241);
 
         public static Color PASTEL_BLUE = Color.FromArgb(88, 101, 168);
         public static Color MAROON = Color.FromArgb(146, 67, 133);
