@@ -31,7 +31,7 @@ namespace UttendanceDesktop
         private void InitializeComponent()
         {
             attendanceFormPagePanel = new Panel();
-            button1 = new Button();
+            SaveEditIcon = new Button();
             filterButton = new Button();
             attendanceflowLayoutPanel = new FlowLayoutPanel();
             dateTimePicker = new DateTimePicker();
@@ -47,7 +47,7 @@ namespace UttendanceDesktop
             // 
             // attendanceFormPagePanel
             // 
-            attendanceFormPagePanel.Controls.Add(button1);
+            attendanceFormPagePanel.Controls.Add(SaveEditIcon);
             attendanceFormPagePanel.Controls.Add(filterButton);
             attendanceFormPagePanel.Controls.Add(attendanceflowLayoutPanel);
             attendanceFormPagePanel.Controls.Add(dateTimePicker);
@@ -65,18 +65,19 @@ namespace UttendanceDesktop
             attendanceFormPagePanel.Size = new Size(914, 600);
             attendanceFormPagePanel.TabIndex = 0;
             // 
-            // button1
+            // SaveEditIcon
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.BackColor = Color.FromArgb(0, 192, 0);
-            button1.FlatAppearance.BorderColor = Color.White;
-            button1.FlatAppearance.BorderSize = 2;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(862, 548);
-            button1.Name = "button1";
-            button1.Size = new Size(40, 40);
-            button1.TabIndex = 13;
-            button1.UseVisualStyleBackColor = false;
+            SaveEditIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            SaveEditIcon.BackColor = Color.FromArgb(0, 192, 0);
+            SaveEditIcon.FlatAppearance.BorderColor = Color.White;
+            SaveEditIcon.FlatAppearance.BorderSize = 2;
+            SaveEditIcon.FlatStyle = FlatStyle.Flat;
+            SaveEditIcon.Location = new Point(862, 548);
+            SaveEditIcon.Name = "SaveEditIcon";
+            SaveEditIcon.Size = new Size(40, 40);
+            SaveEditIcon.TabIndex = 13;
+            SaveEditIcon.UseVisualStyleBackColor = false;
+            SaveEditIcon.Click += SaveEditIcon_Click;
             // 
             // filterButton
             // 
@@ -216,6 +217,6 @@ namespace UttendanceDesktop
         private CoursepageContent.attendanceFormItem attendanceFormItem1;
         private FlowLayoutPanel attendanceflowLayoutPanel;
         private Button filterButton;
-        private Button button1;
+        private Button SaveEditIcon;
     }
 }

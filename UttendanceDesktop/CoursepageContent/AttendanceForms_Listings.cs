@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics.Metrics;
 using System.Windows.Forms;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace UttendanceDesktop
 {
@@ -18,13 +19,23 @@ namespace UttendanceDesktop
         private string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
         //UPDATE TO RECEIVE THIS FROM COURSE PAGE:
         private int courseNum = 123456; //temp value 
+
         private attendanceFormItem[] attendanceListItems;
+        private int numItemsToDelete = 0;
 
         //Aendri: 3/28/2025
         public AttendanceForms_Listings()
         {
             InitializeComponent();
             PopulateAttendanceFormList();
+        }
+
+        // Aendri 4/3/2025
+        // Resets the form listing page by fetching from the database, repopulating the list, and updating icons
+        private void ResetFormsListPage()
+        {
+            PopulateAttendanceFormList();
+            UpdateIcon();
         }
 
         // Aendri: Populate the list of Attendence Form Items
@@ -56,6 +67,7 @@ namespace UttendanceDesktop
                     return;
                 }
                 numAttendanceForms = Convert.ToInt32(result);
+                System.Diagnostics.Debug.WriteLine("NUM FORMS: " + numAttendanceForms);
 
                 // Exit if NO Attendence forms
                 if (numAttendanceForms == 0) { Console.WriteLine("NO FORMS FOUND!"); return; }
@@ -90,12 +102,13 @@ namespace UttendanceDesktop
                     attendanceListItems[i] = new attendanceFormItem();
 
                     attendanceListItems[i].FormID = Convert.ToInt32(reader[0]);
-                    attendanceListItems[i].Date = Convert.ToDateTime(reader[1]); //DateOnly.Parse(reader.GetString(1));
+                    attendanceListItems[i].Date = Convert.ToDateTime(reader[1]);
+                    attendanceListItems[i].OnFormSelectChange += new EventHandler(child_checkbox_CheckedChanged);
 
                     start = Convert.ToDateTime(reader[1]);
 
                     // CALCULATE FORM STATUS:
-                    if (reader[2] == null) // Form has no end time
+                    if (reader[2] == null || reader[2] == System.DBNull.Value) // Form has no end time
                     {
                         if (start > currentTime) // releases later 
                         {
@@ -146,7 +159,7 @@ namespace UttendanceDesktop
 
                     i++;
                 }
-
+                numItemsToDelete = 0;
                 reader.Close();
 
             }
@@ -173,7 +186,7 @@ namespace UttendanceDesktop
             //Set Filter
             if (filterDropdown.SelectedItem == null) filter = -1;
             else { filter = filterDropdown.SelectedIndex; }
- 
+
             DateTime time = dateTimePicker.Value;
 
             PopulateAttendanceFormList(); //REFRESH LIST
@@ -239,10 +252,107 @@ namespace UttendanceDesktop
         }
 
         //Aendri 4/3/2025
-        // Receive event from child form item on selection. Update list of changes and deletion icon. 
-        /*void child_OnChildTextChanged(object sender, EventArgs e)
+        // Update page icon to delete icon if items are selected, otherwise add icon
+        private void UpdateIcon()
         {
-            textBox1.Text = (string)sender;
-        }*/
+            if (numItemsToDelete > 0)
+            {
+                //Set icon to delete
+                SaveEditIcon.BackColor = Color.Red;
+            }
+            else
+            {
+                //Set icon to add
+                SaveEditIcon.BackColor = Color.Green;
+            }
+        }
+
+        // Aendri 4/3/2025
+        // Deletes the selected items by updating the database and repopulating the list 
+        private void DeleteItems()
+        {
+            // If no items to delete, exit
+            if (numItemsToDelete == 0) { return; }
+
+            // Open Connection to Database
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+
+            try
+            {
+                connection.Open();
+
+                // Build deleted items query:
+                String deleteQuery =
+                    "DELETE " +
+                    "FROM form " +
+                    "WHERE FormID IN (";
+
+                for (int j = 0; j < attendanceListItems.Length; j++)
+                {
+                    if (attendanceListItems[j].Selected)
+                    {
+                        deleteQuery += attendanceListItems[j].FormID + ",";
+                    }
+                }
+                deleteQuery = deleteQuery.Substring(0, deleteQuery.Length-1); // REMOVE last ,
+                deleteQuery += ")";
+
+                // Run deletion query
+                cmd = new MySqlCommand(deleteQuery, connection);
+                int result = cmd.ExecuteNonQuery();
+
+                // Error check:
+                if (result <= 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("ERROR: AttendanceForms_Listings.cs/DeleteItems(): NOTHING DELETED!");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: AttendanceForms_Listings.cs/DeleteItems(): " + ex.ToString());
+                connection.Close();
+                return;
+            }
+
+            connection.Close();
+
+            ResetFormsListPage(); // Update Page with new list
+        }
+
+        //Aendri 4/3/2025
+        // Receive event from child form item on selection. Update list of changes and deletion icon. 
+        void child_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            bool isChecked = (bool)sender;
+
+            if (isChecked) { numItemsToDelete++; }
+            else { numItemsToDelete--; }
+
+            // If first item selected, enter EDIT mode
+            // If no items selected, exit EDIT mode
+            if (numItemsToDelete == 0 || numItemsToDelete == 1)
+            {
+                UpdateIcon();
+            }
+
+            System.Diagnostics.Debug.WriteLine("A TEXTBOX WAS CHANGED! ");
+        }
+
+        // Aendri 4/4/2025
+        // On click of icon...
+        // Edit mode: delete selected items and refresh page
+        // New mode: go to create new form page
+        private void SaveEditIcon_Click(object sender, EventArgs e)
+        {
+            if (numItemsToDelete > 0)
+            {
+                DeleteItems();
+            } else
+            {
+                // MOVE THE CREATE FORM PAGE
+            }
+        }
     }
 }
