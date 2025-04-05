@@ -17,25 +17,18 @@ namespace UttendanceDesktop
     public partial class AttendanceForms_Listings : Form
     {
         private string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
-        //UPDATE TO RECEIVE THIS FROM COURSE PAGE:
-        private int courseNum = 123456; //temp value 
+        
+        private readonly int courseNum;
 
         private attendanceFormItem[] attendanceListItems;
         private int numItemsToDelete = 0;
 
         //Aendri: 3/28/2025
-        public AttendanceForms_Listings()
+        public AttendanceForms_Listings(int course)
         {
+            this.courseNum = course;
             InitializeComponent();
             PopulateAttendanceFormList();
-        }
-
-        // Aendri 4/3/2025
-        // Resets the form listing page by fetching from the database, repopulating the list, and updating icons
-        private void ResetFormsListPage()
-        {
-            PopulateAttendanceFormList();
-            UpdateIcon();
         }
 
         // Aendri: Populate the list of Attendence Form Items
@@ -85,7 +78,8 @@ namespace UttendanceDesktop
                 cmd = new MySqlCommand(
                         "SELECT FormID, ReleaseDateTime, CloseDateTime " +
                         "FROM form " +
-                        "WHERE FK_CourseNum=@CourseNum "
+                        "WHERE FK_CourseNum=@CourseNum " +
+                        "ORDER BY ReleaseDateTime"
                     , connection);
                 cmd.Parameters.AddWithValue("@CourseNum", courseNum);
                 reader = cmd.ExecuteReader();
@@ -159,7 +153,6 @@ namespace UttendanceDesktop
 
                     i++;
                 }
-                numItemsToDelete = 0;
                 reader.Close();
 
             }
@@ -171,6 +164,10 @@ namespace UttendanceDesktop
             }
 
             connection.Close();
+
+            // Update Page Icons
+            numItemsToDelete = 0;
+            UpdateIcon();
         }
 
         //Aendri 4/3/2025
@@ -278,6 +275,8 @@ namespace UttendanceDesktop
             MySqlConnection connection = new MySqlConnection(connectionString);
             MySqlCommand cmd;
 
+            DialogResult warnResult;
+
             try
             {
                 connection.Open();
@@ -288,15 +287,28 @@ namespace UttendanceDesktop
                     "FROM form " +
                     "WHERE FormID IN (";
 
+                // Build warning message
+                String dialog = "Removing " + numItemsToDelete + " form(s):\n";
+
                 for (int j = 0; j < attendanceListItems.Length; j++)
                 {
                     if (attendanceListItems[j].Selected)
                     {
                         deleteQuery += attendanceListItems[j].FormID + ",";
+                        dialog += attendanceListItems[j].Date.ToString("MM/dd/yy") + ", ";
                     }
                 }
-                deleteQuery = deleteQuery.Substring(0, deleteQuery.Length-1); // REMOVE last ,
+
+                //Remove last comma:
+                deleteQuery = deleteQuery.Substring(0, deleteQuery.Length-1); 
                 deleteQuery += ")";
+
+                dialog = dialog.Substring(0, dialog.Length - 2); 
+                dialog += "\nFrom course " + courseNum + "?";
+
+                // Prompt user to verify deletion
+                warnResult = MessageBox.Show(dialog, "Remove Form(s)", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (warnResult != DialogResult.Yes) { return; } // EXIT if user cancels!
 
                 // Run deletion query
                 cmd = new MySqlCommand(deleteQuery, connection);
@@ -318,7 +330,7 @@ namespace UttendanceDesktop
 
             connection.Close();
 
-            ResetFormsListPage(); // Update Page with new list
+            PopulateAttendanceFormList(); // Update Page with new list
         }
 
         //Aendri 4/3/2025
@@ -346,10 +358,10 @@ namespace UttendanceDesktop
         // New mode: go to create new form page
         private void SaveEditIcon_Click(object sender, EventArgs e)
         {
-            if (numItemsToDelete > 0)
-            {
+            if (numItemsToDelete > 0) //EDIT Mode
+            {              
                 DeleteItems();
-            } else
+            } else //NEW Mode
             {
                 // MOVE THE CREATE FORM PAGE
             }
