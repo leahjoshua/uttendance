@@ -22,6 +22,8 @@ namespace UttendanceDesktop.CoursepageContent
         public CreateAttendanceFormPage()
         {
             InitializeComponent();
+            releaseTimePicker.MinDate = DateTime.Now;
+            closeTimePicker.MinDate = DateTime.Now;
             PopulateQuestions();
             /*var og = new QuestionUserControl();
             questionsListingPanel.Controls.Add(og);
@@ -34,9 +36,11 @@ namespace UttendanceDesktop.CoursepageContent
         }
         public void PopulateQuestions()
         {
-            if (questionsListingPanel.Controls.Count > 0)
+            var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
+
+            foreach (var control in questionUserControls)
             {
-                questionsListingPanel.Controls.Clear();
+                createFormPanel.Controls.Remove(control);
             }
 
             for (int i = 0; i < questions.Count; i++)
@@ -45,7 +49,7 @@ namespace UttendanceDesktop.CoursepageContent
                 questionAdding.QuestionNumberText = i + 1 + " of " + questions.Count;
                 questionAdding.Location = new Point(
                     questionsListingPanel.Location.X,
-                    questionsListingPanel.Location.Y + (i * questionAdding.Height) + 5
+                    questionsListingPanel.Location.Y + (i * questionAdding.Height)
                 );
 
                 questionAdding.ChoiceA = "A. " + questions[i].AnswerChoices[0].AnswerStatement;
@@ -71,6 +75,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (createQMod.ShowDialog() == DialogResult.OK)
                 {
                     questions.Add(createQMod.question);
+                    defaultQuestionsTxt.Visible = false;
                     PopulateQuestions();
                 }
             }
@@ -78,9 +83,28 @@ namespace UttendanceDesktop.CoursepageContent
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(pwdTxtBox.Text))
+            {
+                MessageBox.Show("Please enter a password.");
+                return;
+            }
+
+            var todaysDate = DateTime.Now;
+            if (releaseTimePicker.Value < todaysDate || closeTimePicker.Value < todaysDate)
+            {
+                MessageBox.Show("Dates/Times cannot be in the past.");
+                return;
+            }
+
+            if (closeTimePicker.Value < closeTimePicker.Value)
+            {
+                MessageBox.Show("Close time cannot be before Release time.");
+                return;
+            }
+
             AttendanceForm newForm = new AttendanceForm
             {
-                PassWd = "test",
+                PassWd = pwdTxtBox.Text,
                 ReleaseDateTime = releaseTimePicker.Value,
                 CloseDateTime = closeTimePicker.Value,
                 CourseNum = GlobalResource.CURRENT_CLASS_ID
@@ -88,7 +112,10 @@ namespace UttendanceDesktop.CoursepageContent
 
             FormDAO formSaver = new FormDAO();
             int FormID = formSaver.SaveForm(newForm);
-            formSaver.SaveQuestions(questions, FormID);
+            if (questions.Count > 0)
+            {
+                formSaver.SaveQuestions(questions, FormID);
+            }
             MessageBox.Show("Attendance Form saved.");
         }
     }

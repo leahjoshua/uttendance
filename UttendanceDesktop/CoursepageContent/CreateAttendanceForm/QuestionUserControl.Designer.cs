@@ -36,6 +36,7 @@
             questionNumLabel = new Label();
             borderPanel = new Panel();
             problemStmtLabel = new Label();
+            panel1 = new Panel();
             answersPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -46,9 +47,10 @@
             answersPanel.Controls.Add(choiceCLabel);
             answersPanel.Controls.Add(choiceBLabel);
             answersPanel.Controls.Add(choiceALabel);
-            answersPanel.Location = new Point(19, 184);
+            answersPanel.Location = new Point(15, 147);
+            answersPanel.Margin = new Padding(2, 2, 2, 2);
             answersPanel.Name = "answersPanel";
-            answersPanel.Size = new Size(868, 189);
+            answersPanel.Size = new Size(694, 151);
             answersPanel.TabIndex = 0;
             // 
             // choiceDLabel
@@ -56,9 +58,10 @@
             choiceDLabel.AutoSize = true;
             choiceDLabel.Font = new Font("Segoe UI", 13F);
             choiceDLabel.ForeColor = Color.FromArgb(50, 56, 87);
-            choiceDLabel.Location = new Point(10, 127);
+            choiceDLabel.Location = new Point(8, 102);
+            choiceDLabel.Margin = new Padding(2, 0, 2, 0);
             choiceDLabel.Name = "choiceDLabel";
-            choiceDLabel.Size = new Size(0, 36);
+            choiceDLabel.Size = new Size(0, 30);
             choiceDLabel.TabIndex = 7;
             // 
             // choiceCLabel
@@ -66,9 +69,10 @@
             choiceCLabel.AutoSize = true;
             choiceCLabel.Font = new Font("Segoe UI", 13F);
             choiceCLabel.ForeColor = Color.FromArgb(50, 56, 87);
-            choiceCLabel.Location = new Point(10, 91);
+            choiceCLabel.Location = new Point(8, 73);
+            choiceCLabel.Margin = new Padding(2, 0, 2, 0);
             choiceCLabel.Name = "choiceCLabel";
-            choiceCLabel.Size = new Size(0, 36);
+            choiceCLabel.Size = new Size(0, 30);
             choiceCLabel.TabIndex = 6;
             // 
             // choiceBLabel
@@ -76,9 +80,10 @@
             choiceBLabel.AutoSize = true;
             choiceBLabel.Font = new Font("Segoe UI", 13F);
             choiceBLabel.ForeColor = Color.FromArgb(50, 56, 87);
-            choiceBLabel.Location = new Point(10, 55);
+            choiceBLabel.Location = new Point(8, 44);
+            choiceBLabel.Margin = new Padding(2, 0, 2, 0);
             choiceBLabel.Name = "choiceBLabel";
-            choiceBLabel.Size = new Size(0, 36);
+            choiceBLabel.Size = new Size(0, 30);
             choiceBLabel.TabIndex = 5;
             // 
             // choiceALabel
@@ -86,9 +91,10 @@
             choiceALabel.AutoSize = true;
             choiceALabel.Font = new Font("Segoe UI", 13F);
             choiceALabel.ForeColor = Color.FromArgb(50, 56, 87);
-            choiceALabel.Location = new Point(10, 19);
+            choiceALabel.Location = new Point(8, 15);
+            choiceALabel.Margin = new Padding(2, 0, 2, 0);
             choiceALabel.Name = "choiceALabel";
-            choiceALabel.Size = new Size(0, 36);
+            choiceALabel.Size = new Size(0, 30);
             choiceALabel.TabIndex = 4;
             // 
             // questionNumLabel
@@ -96,18 +102,20 @@
             questionNumLabel.AutoSize = true;
             questionNumLabel.Font = new Font("Segoe UI", 13F);
             questionNumLabel.ForeColor = Color.White;
-            questionNumLabel.Location = new Point(24, 78);
+            questionNumLabel.Location = new Point(19, 62);
+            questionNumLabel.Margin = new Padding(2, 0, 2, 0);
             questionNumLabel.Name = "questionNumLabel";
-            questionNumLabel.Size = new Size(108, 36);
+            questionNumLabel.Size = new Size(93, 30);
             questionNumLabel.TabIndex = 1;
             questionNumLabel.Text = "20 of 20";
             // 
             // borderPanel
             // 
             borderPanel.BackColor = Color.FromArgb(222, 225, 241);
-            borderPanel.Location = new Point(143, 15);
+            borderPanel.Location = new Point(114, 12);
+            borderPanel.Margin = new Padding(2, 2, 2, 2);
             borderPanel.Name = "borderPanel";
-            borderPanel.Size = new Size(4, 150);
+            borderPanel.Size = new Size(3, 120);
             borderPanel.TabIndex = 2;
             // 
             // problemStmtLabel
@@ -115,23 +123,34 @@
             problemStmtLabel.AutoSize = true;
             problemStmtLabel.Font = new Font("Segoe UI", 13F);
             problemStmtLabel.ForeColor = Color.White;
-            problemStmtLabel.Location = new Point(168, 15);
+            problemStmtLabel.Location = new Point(134, 12);
+            problemStmtLabel.Margin = new Padding(2, 0, 2, 0);
             problemStmtLabel.Name = "problemStmtLabel";
-            problemStmtLabel.Size = new Size(0, 36);
+            problemStmtLabel.Size = new Size(0, 30);
             problemStmtLabel.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(166, 176, 230);
+            panel1.Location = new Point(0, 314);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(726, 5);
+            panel1.TabIndex = 4;
             // 
             // QuestionUserControl
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(50, 56, 87);
+            Controls.Add(panel1);
             Controls.Add(problemStmtLabel);
             Controls.Add(borderPanel);
             Controls.Add(questionNumLabel);
             Controls.Add(answersPanel);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "QuestionUserControl";
-            Size = new Size(908, 392);
+            Size = new Size(726, 319);
             Load += QuestionUserControl_Load;
             answersPanel.ResumeLayout(false);
             answersPanel.PerformLayout();
@@ -149,5 +168,6 @@
         private Label choiceDLabel;
         private Label choiceCLabel;
         private Label choiceBLabel;
+        private Panel panel1;
     }
 }

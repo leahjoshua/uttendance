@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             createFormPanel = new Panel();
-            addQuestionBtn = new Button();
+            pwdTxtBox = new TextBox();
+            label3 = new Label();
             saveBtn = new Button();
             questionsListingPanel = new Panel();
             defaultQuestionsTxt = new Label();
@@ -40,6 +41,7 @@
             label1 = new Label();
             questionBankLabel = new Label();
             attendanceFormsLabel = new Label();
+            addQuestionBtn = new Button();
             createFormPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,7 +49,8 @@
             // 
             createFormPanel.AutoScroll = true;
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
-            createFormPanel.Controls.Add(addQuestionBtn);
+            createFormPanel.Controls.Add(pwdTxtBox);
+            createFormPanel.Controls.Add(label3);
             createFormPanel.Controls.Add(saveBtn);
             createFormPanel.Controls.Add(questionsListingPanel);
             createFormPanel.Controls.Add(defaultQuestionsTxt);
@@ -64,21 +67,24 @@
             createFormPanel.Size = new Size(914, 600);
             createFormPanel.TabIndex = 0;
             // 
-            // addQuestionBtn
+            // pwdTxtBox
             // 
-            addQuestionBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            addQuestionBtn.BackColor = Color.Transparent;
-            addQuestionBtn.Cursor = Cursors.Hand;
-            addQuestionBtn.FlatAppearance.BorderSize = 0;
-            addQuestionBtn.FlatStyle = FlatStyle.Flat;
-            addQuestionBtn.Image = Properties.Resources.add_icon;
-            addQuestionBtn.Location = new Point(779, 175);
-            addQuestionBtn.Margin = new Padding(3, 4, 3, 4);
-            addQuestionBtn.Name = "addQuestionBtn";
-            addQuestionBtn.Size = new Size(54, 66);
-            addQuestionBtn.TabIndex = 2;
-            addQuestionBtn.UseVisualStyleBackColor = false;
-            addQuestionBtn.Click += addQuestionBtn_Click;
+            pwdTxtBox.Font = new Font("Segoe UI", 10F);
+            pwdTxtBox.Location = new Point(89, 224);
+            pwdTxtBox.Name = "pwdTxtBox";
+            pwdTxtBox.Size = new Size(575, 30);
+            pwdTxtBox.TabIndex = 13;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.ForeColor = Color.FromArgb(37, 42, 69);
+            label3.Location = new Point(89, 192);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 28);
+            label3.TabIndex = 12;
+            label3.Text = "Password";
             // 
             // saveBtn
             // 
@@ -97,10 +103,10 @@
             // questionsListingPanel
             // 
             questionsListingPanel.AutoScroll = true;
-            questionsListingPanel.Location = new Point(89, 244);
+            questionsListingPanel.Location = new Point(65, 310);
             questionsListingPanel.Margin = new Padding(2);
             questionsListingPanel.Name = "questionsListingPanel";
-            questionsListingPanel.Size = new Size(747, 314);
+            questionsListingPanel.Size = new Size(747, 99);
             questionsListingPanel.TabIndex = 3;
             questionsListingPanel.Visible = false;
             // 
@@ -109,7 +115,7 @@
             defaultQuestionsTxt.AutoSize = true;
             defaultQuestionsTxt.Font = new Font("Segoe UI", 12F);
             defaultQuestionsTxt.ForeColor = Color.FromArgb(58, 64, 99);
-            defaultQuestionsTxt.Location = new Point(89, 244);
+            defaultQuestionsTxt.Location = new Point(89, 310);
             defaultQuestionsTxt.Name = "defaultQuestionsTxt";
             defaultQuestionsTxt.Size = new Size(663, 56);
             defaultQuestionsTxt.TabIndex = 10;
@@ -120,7 +126,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(37, 42, 69);
-            label2.Location = new Point(66, 194);
+            label2.Location = new Point(66, 267);
             label2.Name = "label2";
             label2.Size = new Size(177, 32);
             label2.TabIndex = 9;
@@ -190,11 +196,28 @@
             attendanceFormsLabel.TabIndex = 1;
             attendanceFormsLabel.Text = "New Attendance Form";
             // 
+            // addQuestionBtn
+            // 
+            addQuestionBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            addQuestionBtn.BackColor = Color.FromArgb(166, 176, 230);
+            addQuestionBtn.Cursor = Cursors.Hand;
+            addQuestionBtn.FlatAppearance.BorderSize = 0;
+            addQuestionBtn.FlatStyle = FlatStyle.Flat;
+            addQuestionBtn.Image = Properties.Resources.add_icon;
+            addQuestionBtn.Location = new Point(821, 529);
+            addQuestionBtn.Margin = new Padding(3, 4, 3, 4);
+            addQuestionBtn.Name = "addQuestionBtn";
+            addQuestionBtn.Size = new Size(43, 43);
+            addQuestionBtn.TabIndex = 2;
+            addQuestionBtn.UseVisualStyleBackColor = false;
+            addQuestionBtn.Click += addQuestionBtn_Click;
+            // 
             // CreateAttendanceFormPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 600);
+            Controls.Add(addQuestionBtn);
             Controls.Add(createFormPanel);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
@@ -219,5 +242,7 @@
         private Label defaultQuestionsTxt;
         private Panel questionsListingPanel;
         private Button saveBtn;
+        private TextBox pwdTxtBox;
+        private Label label3;
     }
 }
