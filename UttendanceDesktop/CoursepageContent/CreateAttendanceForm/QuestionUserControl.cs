@@ -7,15 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UttendanceDesktop.CoursepageContent.models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 {
     public partial class QuestionUserControl : UserControl
     {
-        public QuestionUserControl()
+        public QuestionUserControl(Question question)
         {
             InitializeComponent();
-            choiceALabel.Text = "sjdfhbgkjshdbfkjshdbfj,hsbdfjbsdjkfvsjdlbhfkhjsdbhfjhksdvbfjkhshvbdfjlshvbdkjfhbsdjkfbjsdkhbfkjshdhvfjhshdbfjhksdbfkjsdbhfjdsh";
+            Label[] labels = new Label[] { choiceALabel, choiceBLabel, choiceCLabel, choiceDLabel };
+
+            for (int i = 0; i < question.AnswerChoices.Count; i++)
+            {
+                if (question.AnswerChoices[i].isCorrect)
+                {
+                    labels[i].ForeColor = Color.Green;
+                    return;
+                }
+            }
         }
 
         private void QuestionUserControl_Load(object sender, EventArgs e)

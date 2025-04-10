@@ -10,8 +10,8 @@ namespace UttendanceDesktop.CoursepageContent.models
     {
         public int FormID { get; set; }
         public string? PassWd { get; set; }
-        public string? ReleaseDateTime { get; set; }
-        public string? CloseDateTime { get; set; }
+        public DateTime ReleaseDateTime { get; set; }
+        public DateTime CloseDateTime { get; set; }
         public int CourseNum { get; set; }
         public List<Question> Questions { get; set; }
     }

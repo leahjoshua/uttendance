@@ -29,6 +29,8 @@ namespace UttendanceDesktop.CoursepageContent
         {
             var choices = new List<AnswerChoice>();
             bool currentIsCorrect = false;
+            bool selectedCorrect = false;
+
             int numChoices = 0;
 
             if (!string.IsNullOrWhiteSpace(choiceATextbox.Text))
@@ -36,6 +38,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (correctABtn.Checked)
                 {
                     currentIsCorrect = true;
+                    selectedCorrect = true;
                 }
                 else
                 {
@@ -54,6 +57,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (correctBBtn.Checked)
                 {
                     currentIsCorrect = true;
+                    selectedCorrect = true;
                 }
                 else
                 {
@@ -72,6 +76,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (correctCBtn.Checked)
                 {
                     currentIsCorrect = true;
+                    selectedCorrect = true;
                 }
                 else
                 {
@@ -90,6 +95,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (correctDBtn.Checked)
                 {
                     currentIsCorrect = true;
+                    selectedCorrect = true;
                 }
                 else
                 {
@@ -104,8 +110,9 @@ namespace UttendanceDesktop.CoursepageContent
                 numChoices++;
             }
 
-            if (numChoices < 2 || string.IsNullOrWhiteSpace(problemStmtTextbox.Text))
+            if (numChoices < 2 || string.IsNullOrWhiteSpace(problemStmtTextbox.Text) || !selectedCorrect)
             {
+                MessageBox.Show("Make sure you have entered a problem statement and at least 2 answer choices, and a correct answer is selected for one filled in answer choice field.");
                 return;
             }
 

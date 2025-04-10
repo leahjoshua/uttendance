@@ -34,9 +34,9 @@
             questionsListingPanel = new Panel();
             defaultQuestionsTxt = new Label();
             label2 = new Label();
-            dateTimePicker4 = new DateTimePicker();
+            closeTimePicker = new DateTimePicker();
             label4 = new Label();
-            dateTimePicker1 = new DateTimePicker();
+            releaseTimePicker = new DateTimePicker();
             label1 = new Label();
             questionBankLabel = new Label();
             attendanceFormsLabel = new Label();
@@ -45,15 +45,16 @@
             // 
             // createFormPanel
             // 
+            createFormPanel.AutoScroll = true;
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
             createFormPanel.Controls.Add(addQuestionBtn);
             createFormPanel.Controls.Add(saveBtn);
             createFormPanel.Controls.Add(questionsListingPanel);
             createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(label2);
-            createFormPanel.Controls.Add(dateTimePicker4);
+            createFormPanel.Controls.Add(closeTimePicker);
             createFormPanel.Controls.Add(label4);
-            createFormPanel.Controls.Add(dateTimePicker1);
+            createFormPanel.Controls.Add(releaseTimePicker);
             createFormPanel.Controls.Add(label1);
             createFormPanel.Controls.Add(questionBankLabel);
             createFormPanel.Controls.Add(attendanceFormsLabel);
@@ -101,6 +102,7 @@
             questionsListingPanel.Name = "questionsListingPanel";
             questionsListingPanel.Size = new Size(747, 314);
             questionsListingPanel.TabIndex = 3;
+            questionsListingPanel.Visible = false;
             // 
             // defaultQuestionsTxt
             // 
@@ -124,15 +126,15 @@
             label2.TabIndex = 9;
             label2.Text = "Quiz Questions";
             // 
-            // dateTimePicker4
+            // closeTimePicker
             // 
-            dateTimePicker4.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
-            dateTimePicker4.Format = DateTimePickerFormat.Custom;
-            dateTimePicker4.Location = new Point(391, 157);
-            dateTimePicker4.Margin = new Padding(2);
-            dateTimePicker4.Name = "dateTimePicker4";
-            dateTimePicker4.Size = new Size(273, 27);
-            dateTimePicker4.TabIndex = 8;
+            closeTimePicker.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
+            closeTimePicker.Format = DateTimePickerFormat.Custom;
+            closeTimePicker.Location = new Point(391, 157);
+            closeTimePicker.Margin = new Padding(2);
+            closeTimePicker.Name = "closeTimePicker";
+            closeTimePicker.Size = new Size(273, 27);
+            closeTimePicker.TabIndex = 8;
             // 
             // label4
             // 
@@ -145,15 +147,15 @@
             label4.TabIndex = 7;
             label4.Text = "Close Date";
             // 
-            // dateTimePicker1
+            // releaseTimePicker
             // 
-            dateTimePicker1.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(89, 157);
-            dateTimePicker1.Margin = new Padding(2);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(273, 27);
-            dateTimePicker1.TabIndex = 4;
+            releaseTimePicker.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
+            releaseTimePicker.Format = DateTimePickerFormat.Custom;
+            releaseTimePicker.Location = new Point(89, 157);
+            releaseTimePicker.Margin = new Padding(2);
+            releaseTimePicker.Name = "releaseTimePicker";
+            releaseTimePicker.Size = new Size(273, 27);
+            releaseTimePicker.TabIndex = 4;
             // 
             // label1
             // 
@@ -209,8 +211,8 @@
         private Label attendanceFormsLabel;
         private Label questionBankLabel;
         private Label label1;
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker4;
+        private DateTimePicker releaseTimePicker;
+        private DateTimePicker closeTimePicker;
         private Label label4;
         private Label label2;
         private Button addQuestionBtn;

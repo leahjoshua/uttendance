@@ -41,11 +41,11 @@ namespace UttendanceDesktop.CoursepageContent
 
             for (int i = 0; i < questions.Count; i++)
             {
-                var questionAdding = new QuestionUserControl();
+                var questionAdding = new QuestionUserControl(questions[i]);
                 questionAdding.QuestionNumberText = i + 1 + " of " + questions.Count;
                 questionAdding.Location = new Point(
-                    questionAdding.Location.X,
-                    questionAdding.Location.Y + (i * questionAdding.Height) + 5
+                    questionsListingPanel.Location.X,
+                    questionsListingPanel.Location.Y + (i * questionAdding.Height) + 5
                 );
 
                 questionAdding.ChoiceA = "A. " + questions[i].AnswerChoices[0].AnswerStatement;
@@ -60,7 +60,7 @@ namespace UttendanceDesktop.CoursepageContent
                 }
                 questionAdding.ProblemStatement = questions[i].ProblemStatement;
 
-                questionsListingPanel.Controls.Add(questionAdding);
+                createFormPanel.Controls.Add(questionAdding);
             }
         }
 
@@ -78,7 +78,18 @@ namespace UttendanceDesktop.CoursepageContent
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            AttendanceForm newForm = new AttendanceForm
+            {
+                PassWd = "test",
+                ReleaseDateTime = releaseTimePicker.Value,
+                CloseDateTime = closeTimePicker.Value,
+                CourseNum = GlobalResource.CURRENT_CLASS_ID
+            };
 
+            FormDAO formSaver = new FormDAO();
+            int FormID = formSaver.SaveForm(newForm);
+            formSaver.SaveQuestions(questions, FormID);
+            MessageBox.Show("Attendance Form saved.");
         }
     }
 }
