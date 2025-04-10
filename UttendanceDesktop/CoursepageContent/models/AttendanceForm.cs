@@ -13,6 +13,6 @@ namespace UttendanceDesktop.CoursepageContent.models
         public string? ReleaseDateTime { get; set; }
         public string? CloseDateTime { get; set; }
         public int CourseNum { get; set; }
-        public List<Question>? Questions { get; set; }
+        public List<Question> Questions { get; set; }
     }
 }
