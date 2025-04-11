@@ -25,14 +25,6 @@ namespace UttendanceDesktop.CoursepageContent
             releaseTimePicker.MinDate = DateTime.Now;
             closeTimePicker.MinDate = DateTime.Now;
             PopulateQuestions();
-            /*var og = new QuestionUserControl();
-            questionsListingPanel.Controls.Add(og);
-            var test = new QuestionUserControl();
-            test.Location = new Point(
-                test.Location.X,
-                test.Location.Y + og.Height + 5
-            );
-            questionsListingPanel.Controls.Add(test);*/
         }
         public void PopulateQuestions()
         {
