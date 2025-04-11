@@ -1,7 +1,40 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+@inject NavigationManager navigateManager
 
-<h1>Hello, world!</h1>
+@* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 4, 2025
+	NetID: JXY200013
+*@
+<PageTitle>Login</PageTitle>
 
-Welcome to your new app.
+<h1>Welcome to Uttendence</h1>
+<p>You're free form eLearning quizzes!</p>
+
+<!-- Student Login and Password -->
+<p>UTD-ID</p>
+<!--
+<EditForm>
+    <label for="">UTD-ID</label>
+    <InputText id="" @bind-Value=""/>
+    <InputText></InputText>
+</EditForm>
+-->
+<input />
+<!-- Input field -->
+
+<p>Attendence Password</p>
+<!-- Input field -->
+<input/>
+<!-- Popup on what is a UTD-ID -->
+<p>What's an UTD-ID</p>
+
+<button class="btn btn-primary" @onclick="SignIn">Sign In</button>
+
+@code {
+
+    private void SignIn()
+    {
+        navigateManager.NavigateTo("/quiz");
+    }
+}
