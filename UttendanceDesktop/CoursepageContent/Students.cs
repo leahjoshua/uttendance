@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using UttendanceDesktop.CoursepageContent;
 using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop
@@ -31,12 +31,15 @@ namespace UttendanceDesktop
         private static string fk1 = "" + GlobalResource.CURRENT_CLASS_ID;
         private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList,
             pkeyName, relationTableName, fkeysList, fkeyTypeList, fk1);
+
+        private StudentModule studMod = new StudentModule();
         public Students()
         {
             InitializeComponent();
             PopulateStudentTable();
             //Subscribe to event to repopulate the data grid after import module is finished
             importMod.DatabaseUpdated += PopulateStudentTable;
+            studMod.StudentAdded += PopulateStudentTable;
         }
 
         //Pulls the list of all students enrolled in the current class and displays it on the data grid
@@ -99,6 +102,7 @@ namespace UttendanceDesktop
         private void addStudentsBtn_Click(object sender, EventArgs e)
         {
             //manually add
+            studMod.Show();
             addPanel.Visible = false;
         }
 

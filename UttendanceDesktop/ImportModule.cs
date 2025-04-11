@@ -17,7 +17,7 @@ namespace UttendanceDesktop
     // NetID: jxy210012
     public partial class ImportModule : Form
     {
-        public event Action DatabaseUpdated;
+        public event Action? DatabaseUpdated;
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
         private string tableName;
         private string[] attributes;
@@ -156,7 +156,7 @@ namespace UttendanceDesktop
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Failed to import.\n" + ex.ToString());
+                MessageBox.Show("Failed to import. Pleae check your values.\n");
             }
 
         }
