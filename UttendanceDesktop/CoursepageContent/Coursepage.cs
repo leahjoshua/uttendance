@@ -17,11 +17,13 @@ namespace UttendanceDesktop
     {
         bool sidebarExpand = true;
         bool attendanceCollapsed = false;
+
+        private int CourseNum = 123456; //TEMP VALUE, recieve from prev page in constructor
         public Coursepage()
         {
             InitializeComponent();
             //Make the Attendance Form the default first page that loads
-            loadForm(new AttendanceForms_Listings());
+            loadForm(new AttendanceForms_Listings(CourseNum));
         }
 
         // Loads the page that is defined by input 'Form', keeping the sidebar and header
@@ -76,13 +78,13 @@ namespace UttendanceDesktop
         private void attendanceFormsPanelBtn_Click(object sender, EventArgs e)
         {
             attendanceFormsTimer.Start();
-            loadForm(new AttendanceForms_Listings());
+            loadForm(new AttendanceForms_Listings(CourseNum));
         }
 
         //Calls the loadForm() method to load the Listings page when 'Listings' is clicked
         private void listingsBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new AttendanceForms_Listings());
+            loadForm(new AttendanceForms_Listings(CourseNum));
         }
 
         //Calls the loadForm() method to load the Question Banks page when 'Question Banks' is clicked
