@@ -19,19 +19,6 @@
 CREATE DATABASE IF NOT EXISTS `uttendance` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci */;
 USE `uttendance`;
 
--- Dumping structure for table uttendance.answerchoice
-CREATE TABLE IF NOT EXISTS `answerchoice` (
-  `AnswerID` int(11) NOT NULL,
-  `AnswerStatement` varchar(50) DEFAULT NULL,
-  `IsCorrect` bit(1) DEFAULT NULL,
-  `FK_QuestionID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`AnswerID`),
-  KEY `FK_QuestionID` (`FK_QuestionID`),
-  CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
--- Dumping data for table uttendance.answerchoice: ~0 rows (approximately)
-
 -- Dumping structure for table uttendance.attends
 CREATE TABLE IF NOT EXISTS `attends` (
   `FK_UTDID` int(11) NOT NULL,
@@ -65,8 +52,8 @@ INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `Cla
 CREATE TABLE IF NOT EXISTS `form` (
   `FormID` int(11) NOT NULL,
   `PassWd` varchar(40) DEFAULT NULL,
-  `ReleaseDateTime` datetime DEFAULT NULL,
-  `CloseDateTime` datetime DEFAULT NULL,
+  `ReleaseDataTime` varchar(10) DEFAULT NULL,
+  `CloseDateTime` varchar(10) DEFAULT NULL,
   `FK_CourseNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
@@ -93,15 +80,15 @@ CREATE TABLE IF NOT EXISTS `instructor` (
   PRIMARY KEY (`INetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.instructor: ~2 rows (approximately)
+-- Dumping data for table uttendance.instructor: ~1 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
-	('mxm123456', 'Meow', 'Meowington', 'password'),
-	('SXH210003', 'Sooyoung', 'Han', 'sunfish');
+	('Sinstruct', 'Sooyoung', 'Han', 'sunfish');
 
 -- Dumping structure for table uttendance.question
 CREATE TABLE IF NOT EXISTS `question` (
   `QuestionID` int(11) NOT NULL,
   `ProblemStatement` varchar(200) DEFAULT NULL,
+  `isCorrect` bit(1) DEFAULT NULL,
   `FK_FormID` int(11) DEFAULT NULL,
   PRIMARY KEY (`QuestionID`),
   KEY `FK_FormID` (`FK_FormID`),
