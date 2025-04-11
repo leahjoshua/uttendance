@@ -42,6 +42,7 @@ namespace UttendanceDesktop
             addStudentsBtn = new Button();
             studentTablePanel = new Panel();
             studentTable = new DataGridView();
+            deleteBtn = new Button();
             addBtn = new Button();
             studentsPagePanel.SuspendLayout();
             addPanel.SuspendLayout();
@@ -55,12 +56,14 @@ namespace UttendanceDesktop
             studentsPagePanel.Controls.Add(studentsLabel);
             studentsPagePanel.Controls.Add(addPanel);
             studentsPagePanel.Controls.Add(studentTablePanel);
+            studentsPagePanel.Controls.Add(deleteBtn);
             studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Dock = DockStyle.Fill;
             studentsPagePanel.Location = new Point(0, 0);
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
+            studentsPagePanel.Click += studentsPagePanel_Click;
             // 
             // studentsLabel
             // 
@@ -115,9 +118,9 @@ namespace UttendanceDesktop
             studentTablePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             studentTablePanel.Controls.Add(studentTable);
             studentTablePanel.ForeColor = Color.Black;
-            studentTablePanel.Location = new Point(43, 130);
+            studentTablePanel.Location = new Point(68, 130);
             studentTablePanel.Name = "studentTablePanel";
-            studentTablePanel.Size = new Size(677, 298);
+            studentTablePanel.Size = new Size(652, 288);
             studentTablePanel.TabIndex = 5;
             // 
             // studentTable
@@ -158,14 +161,29 @@ namespace UttendanceDesktop
             studentTable.DefaultCellStyle = dataGridViewCellStyle3;
             studentTable.EnableHeadersVisualStyles = false;
             studentTable.GridColor = Color.FromArgb(37, 42, 69);
-            studentTable.Location = new Point(19, 3);
-            studentTable.MultiSelect = false;
+            studentTable.Location = new Point(-7, 0);
             studentTable.Name = "studentTable";
             studentTable.RowHeadersVisible = false;
             studentTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            studentTable.Size = new Size(638, 266);
+            studentTable.Size = new Size(646, 298);
             studentTable.TabIndex = 0;
             studentTable.TabStop = false;
+            studentTable.CellClick += studentTable_CellClick;
+            // 
+            // deleteBtn
+            // 
+            deleteBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            deleteBtn.Cursor = Cursors.Hand;
+            deleteBtn.FlatAppearance.BorderSize = 0;
+            deleteBtn.FlatStyle = FlatStyle.Flat;
+            deleteBtn.Image = Properties.Resources.trash_icon;
+            deleteBtn.Location = new Point(726, 378);
+            deleteBtn.Name = "deleteBtn";
+            deleteBtn.Size = new Size(47, 50);
+            deleteBtn.TabIndex = 6;
+            deleteBtn.UseVisualStyleBackColor = true;
+            deleteBtn.Visible = false;
+            deleteBtn.Click += deleteBtn_Click;
             // 
             // addBtn
             // 
@@ -210,5 +228,6 @@ namespace UttendanceDesktop
         private Button importStudentsBtn;
         private Panel studentTablePanel;
         private DataGridView studentTable;
+        private Button deleteBtn;
     }
 }

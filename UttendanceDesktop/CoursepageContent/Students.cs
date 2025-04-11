@@ -18,6 +18,8 @@ namespace UttendanceDesktop
     public partial class Students : Form
     {
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
+        private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
+
         //Sets up parameter for import module
         private static string tableName = "student";
         private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
@@ -32,14 +34,13 @@ namespace UttendanceDesktop
         private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList,
             pkeyName, relationTableName, fkeysList, fkeyTypeList, fk1);
 
-        private StudentModule studMod = new StudentModule();
+        //private StudentModule studMod = new StudentModule();
         public Students()
         {
             InitializeComponent();
             PopulateStudentTable();
             //Subscribe to event to repopulate the data grid after import module is finished
             importMod.DatabaseUpdated += PopulateStudentTable;
-            studMod.StudentAdded += PopulateStudentTable;
         }
 
         //Pulls the list of all students enrolled in the current class and displays it on the data grid
@@ -48,7 +49,7 @@ namespace UttendanceDesktop
             DataTable dataTable = new DataTable();
 
             //Create the columns
-            for(int i = 0; i < displayList.Length; i++)
+            for (int i = 0; i < displayList.Length; i++)
             {
                 dataTable.Columns.Add(displayList[i]);
             }
@@ -63,7 +64,7 @@ namespace UttendanceDesktop
                     "INNER JOIN attends ON student.UTDID=attends.FK_UTDID " +
                     "WHERE attends.FK_CourseNum=" + GlobalResource.CURRENT_CLASS_ID +
                     " ORDER BY student.SLName;";
-                
+
                 //Execute query
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 //Read result
@@ -83,11 +84,10 @@ namespace UttendanceDesktop
                 connection.Close();
                 //Send data to data table
                 this.studentTable.DataSource = dataTable;
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to populate.\n" + ex.ToString());
+                MessageBox.Show("Failed to populate.");
             }
         }
 
@@ -101,7 +101,8 @@ namespace UttendanceDesktop
         //Displays the module to manually add students
         private void addStudentsBtn_Click(object sender, EventArgs e)
         {
-            //manually add
+            StudentModule studMod = new StudentModule();
+            studMod.StudentAdded += PopulateStudentTable;
             studMod.Show();
             addPanel.Visible = false;
         }
@@ -111,6 +112,71 @@ namespace UttendanceDesktop
         {
             importMod.Show();
             addPanel.Visible = false;
+        }
+
+        private void studentTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Replace add button with trash
+            addBtn.Visible = false;
+            deleteBtn.Visible = true;
+        }
+
+        private void studentsPagePanel_Click(object sender, EventArgs e)
+        {
+            studentTable.ClearSelection();
+            deleteBtn.Visible = false;
+            addBtn.Visible = true;
+        }
+
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            if (studentTable.SelectedRows.Count > 0)
+            {
+                //Open database connection
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                for(int i = 0; i < studentTable.SelectedRows.Count; i++)
+                {
+                    DataGridViewRow selectedRow = studentTable.SelectedRows[i];
+
+                    //Get the primary key of the selected row
+                    string utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
+                    removeStudent(utdID, connection);
+                }
+
+                connection.Close();
+
+                MessageBox.Show("Student(s) removed from course");
+                PopulateStudentTable();
+            }
+
+        }
+
+        private void removeStudent(string id, MySqlConnection connection)
+        {
+            //Remove student from the attends table
+            MySqlCommand cmd = new MySqlCommand("DELETE FROM attends WHERE FK_UTDID=@fkUtdID AND FK_CourseNum=@courseNum;", connection);
+            cmd.Parameters.AddWithValue("@fkUtdID", id);
+            cmd.Parameters.AddWithValue("@courseNum", courseNum);
+            cmd.ExecuteNonQuery();
+
+            //Check if the student is enrolled in any other classes
+            cmd = new MySqlCommand("SELECT COUNT(*) FROM attends WHERE FK_UTDID=@fkUtdID2;", connection);
+            cmd.Parameters.AddWithValue("@fkUtdID2", id);
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            //If not, then remove them from the student table
+            if(count == 0)
+            {
+                cmd = new MySqlCommand("DELETE FROM student WHERE UTDID=@utdID;", connection);
+                cmd.Parameters.AddWithValue("@utdID", id);
+                int newRows = cmd.ExecuteNonQuery();
+            }
         }
     }
 }

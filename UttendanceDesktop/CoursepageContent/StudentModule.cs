@@ -78,6 +78,7 @@ namespace UttendanceDesktop.CoursepageContent
                         MessageBox.Show("\'" + student.SFName + " " + student.SLName + "\' has been added to this class!");
                         //Raise the event flag
                         StudentAdded?.Invoke();
+                        Visible = false;
                     }
                     else
                     {
