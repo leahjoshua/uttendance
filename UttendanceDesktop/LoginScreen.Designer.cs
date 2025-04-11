@@ -31,24 +31,41 @@
             netIDTxtBox = new TextBox();
             welcomeLabel1 = new Label();
             SignInBtn = new Button();
-            panel1 = new Panel();
+            logInPanel = new Panel();
+            rmbrMeCheck = new CheckBox();
+            createAccount = new LinkLabel();
             label2 = new Label();
             pwdTxtBox = new TextBox();
             label1 = new Label();
             netIDLabel = new Label();
             panel2 = new Panel();
             welcomeLabel2 = new Label();
-            panel1.SuspendLayout();
+            createAccountPanel = new Panel();
+            backToLoginLink = new LinkLabel();
+            createAccountBtn = new Button();
+            createPwd = new TextBox();
+            label8 = new Label();
+            createNetID = new TextBox();
+            label7 = new Label();
+            createLName = new TextBox();
+            label6 = new Label();
+            createFName = new TextBox();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            logInPanel.SuspendLayout();
+            createAccountPanel.SuspendLayout();
             SuspendLayout();
             // 
             // netIDTxtBox
             // 
-            netIDTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            netIDTxtBox.Font = new Font("Segoe UI", 20F);
+            netIDTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            netIDTxtBox.Font = new Font("Segoe UI", 15F);
             netIDTxtBox.ForeColor = SystemColors.InactiveCaption;
-            netIDTxtBox.Location = new Point(144, 487);
+            netIDTxtBox.Location = new Point(77, 346);
+            netIDTxtBox.Margin = new Padding(2);
             netIDTxtBox.Name = "netIDTxtBox";
-            netIDTxtBox.Size = new Size(313, 61);
+            netIDTxtBox.Size = new Size(295, 41);
             netIDTxtBox.TabIndex = 0;
             netIDTxtBox.Text = "Enter your NetID";
             netIDTxtBox.Enter += netIDTxtBox_Enter;
@@ -56,69 +73,103 @@
             // 
             // welcomeLabel1
             // 
-            welcomeLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            welcomeLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             welcomeLabel1.AutoSize = true;
             welcomeLabel1.BackColor = Color.Transparent;
             welcomeLabel1.Font = new Font("Segoe UI", 30F);
             welcomeLabel1.ForeColor = Color.FromArgb(50, 56, 87);
-            welcomeLabel1.Location = new Point(212, 186);
+            welcomeLabel1.Location = new Point(84, 149);
+            welcomeLabel1.Margin = new Padding(2, 0, 2, 0);
             welcomeLabel1.Name = "welcomeLabel1";
-            welcomeLabel1.Size = new Size(352, 81);
+            welcomeLabel1.Size = new Size(293, 67);
             welcomeLabel1.TabIndex = 1;
             welcomeLabel1.Text = "Welcome to";
             welcomeLabel1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // SignInBtn
             // 
+            SignInBtn.Anchor = AnchorStyles.Bottom;
             SignInBtn.BackColor = Color.FromArgb(233, 117, 2);
-            SignInBtn.Font = new Font("Segoe UI", 20F);
+            SignInBtn.Font = new Font("Segoe UI", 15F);
             SignInBtn.ForeColor = Color.White;
-            SignInBtn.Location = new Point(144, 708);
+            SignInBtn.Location = new Point(77, 567);
+            SignInBtn.Margin = new Padding(2);
             SignInBtn.Name = "SignInBtn";
-            SignInBtn.Size = new Size(525, 86);
+            SignInBtn.Size = new Size(294, 48);
             SignInBtn.TabIndex = 2;
             SignInBtn.Text = "Sign In";
             SignInBtn.UseVisualStyleBackColor = false;
-            SignInBtn.Click += button1_Click;
+            SignInBtn.Click += SignInBtn_Click;
             // 
-            // panel1
+            // logInPanel
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel1.BackColor = Color.FromArgb(235, 166, 176, 230);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(SignInBtn);
-            panel1.Controls.Add(pwdTxtBox);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(netIDLabel);
-            panel1.Controls.Add(panel2);
-            panel1.Controls.Add(welcomeLabel2);
-            panel1.Controls.Add(netIDTxtBox);
-            panel1.Controls.Add(welcomeLabel1);
-            panel1.Location = new Point(63, 72);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(813, 867);
-            panel1.TabIndex = 3;
+            logInPanel.BackColor = Color.FromArgb(235, 166, 176, 230);
+            logInPanel.Controls.Add(rmbrMeCheck);
+            logInPanel.Controls.Add(createAccount);
+            logInPanel.Controls.Add(label2);
+            logInPanel.Controls.Add(SignInBtn);
+            logInPanel.Controls.Add(pwdTxtBox);
+            logInPanel.Controls.Add(label1);
+            logInPanel.Controls.Add(netIDLabel);
+            logInPanel.Controls.Add(panel2);
+            logInPanel.Controls.Add(welcomeLabel2);
+            logInPanel.Controls.Add(netIDTxtBox);
+            logInPanel.Controls.Add(welcomeLabel1);
+            logInPanel.Location = new Point(26, 26);
+            logInPanel.Margin = new Padding(2);
+            logInPanel.Name = "logInPanel";
+            logInPanel.Size = new Size(442, 719);
+            logInPanel.TabIndex = 3;
+            // 
+            // rmbrMeCheck
+            // 
+            rmbrMeCheck.AutoSize = true;
+            rmbrMeCheck.BackColor = Color.Transparent;
+            rmbrMeCheck.Location = new Point(77, 514);
+            rmbrMeCheck.Margin = new Padding(2);
+            rmbrMeCheck.Name = "rmbrMeCheck";
+            rmbrMeCheck.Size = new Size(129, 24);
+            rmbrMeCheck.TabIndex = 9;
+            rmbrMeCheck.Text = "Remember Me";
+            rmbrMeCheck.UseVisualStyleBackColor = false;
+            // 
+            // createAccount
+            // 
+            createAccount.AutoSize = true;
+            createAccount.BackColor = Color.Transparent;
+            createAccount.LinkColor = Color.FromArgb(146, 67, 133);
+            createAccount.Location = new Point(246, 514);
+            createAccount.Margin = new Padding(2, 0, 2, 0);
+            createAccount.Name = "createAccount";
+            createAccount.Size = new Size(130, 20);
+            createAccount.TabIndex = 8;
+            createAccount.TabStop = true;
+            createAccount.Text = "Create an Account";
+            createAccount.LinkClicked += createAccount_LinkClicked;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 15F);
+            label2.Font = new Font("Segoe UI", 10F);
             label2.ForeColor = Color.FromArgb(88, 108, 168);
-            label2.Location = new Point(144, 564);
+            label2.Location = new Point(77, 408);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(143, 41);
+            label2.Size = new Size(80, 23);
             label2.TabIndex = 7;
             label2.Text = "Password";
             // 
             // pwdTxtBox
             // 
-            pwdTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pwdTxtBox.Font = new Font("Segoe UI", 20F);
+            pwdTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pwdTxtBox.Font = new Font("Segoe UI", 15F);
             pwdTxtBox.ForeColor = SystemColors.InactiveCaption;
-            pwdTxtBox.Location = new Point(144, 618);
+            pwdTxtBox.Location = new Point(77, 441);
+            pwdTxtBox.Margin = new Padding(2);
             pwdTxtBox.Name = "pwdTxtBox";
-            pwdTxtBox.Size = new Size(313, 61);
+            pwdTxtBox.Size = new Size(295, 41);
             pwdTxtBox.TabIndex = 6;
             pwdTxtBox.Text = "Enter your Password";
             pwdTxtBox.Enter += pwdTxtBox_Enter;
@@ -126,25 +177,29 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 15F);
+            label1.Font = new Font("Segoe UI", 10F);
             label1.ForeColor = Color.FromArgb(88, 108, 168);
-            label1.Location = new Point(166, 348);
+            label1.Location = new Point(94, 269);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(489, 41);
+            label1.Size = new Size(281, 23);
             label1.TabIndex = 5;
             label1.Text = "You're free from eLearning Quizzes!";
             // 
             // netIDLabel
             // 
+            netIDLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             netIDLabel.AutoSize = true;
             netIDLabel.BackColor = Color.Transparent;
-            netIDLabel.Font = new Font("Segoe UI", 15F);
+            netIDLabel.Font = new Font("Segoe UI", 10F);
             netIDLabel.ForeColor = Color.FromArgb(88, 108, 168);
-            netIDLabel.Location = new Point(144, 433);
+            netIDLabel.Location = new Point(77, 322);
+            netIDLabel.Margin = new Padding(2, 0, 2, 0);
             netIDLabel.Name = "netIDLabel";
-            netIDLabel.Size = new Size(95, 41);
+            netIDLabel.Size = new Size(55, 23);
             netIDLabel.TabIndex = 4;
             netIDLabel.Text = "NetID";
             // 
@@ -153,40 +208,242 @@
             panel2.BackColor = Color.Transparent;
             panel2.BackgroundImage = Properties.Resources.Github;
             panel2.BackgroundImageLayout = ImageLayout.Stretch;
-            panel2.Location = new Point(307, 58);
+            panel2.Location = new Point(163, 48);
+            panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(146, 136);
+            panel2.Size = new Size(107, 98);
             panel2.TabIndex = 3;
             // 
             // welcomeLabel2
             // 
-            welcomeLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            welcomeLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             welcomeLabel2.AutoSize = true;
             welcomeLabel2.BackColor = Color.Transparent;
             welcomeLabel2.Font = new Font("Segoe UI", 30F);
             welcomeLabel2.ForeColor = Color.FromArgb(50, 56, 87);
-            welcomeLabel2.Location = new Point(224, 267);
+            welcomeLabel2.Location = new Point(89, 204);
+            welcomeLabel2.Margin = new Padding(2, 0, 2, 0);
             welcomeLabel2.Name = "welcomeLabel2";
-            welcomeLabel2.Size = new Size(340, 81);
+            welcomeLabel2.Size = new Size(282, 67);
             welcomeLabel2.TabIndex = 2;
             welcomeLabel2.Text = "Uttendance";
             welcomeLabel2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // createAccountPanel
+            // 
+            createAccountPanel.BackColor = Color.FromArgb(235, 166, 176, 230);
+            createAccountPanel.Controls.Add(backToLoginLink);
+            createAccountPanel.Controls.Add(createAccountBtn);
+            createAccountPanel.Controls.Add(createPwd);
+            createAccountPanel.Controls.Add(label8);
+            createAccountPanel.Controls.Add(createNetID);
+            createAccountPanel.Controls.Add(label7);
+            createAccountPanel.Controls.Add(createLName);
+            createAccountPanel.Controls.Add(label6);
+            createAccountPanel.Controls.Add(createFName);
+            createAccountPanel.Controls.Add(label5);
+            createAccountPanel.Controls.Add(label4);
+            createAccountPanel.Controls.Add(label3);
+            createAccountPanel.Location = new Point(26, 26);
+            createAccountPanel.Margin = new Padding(2);
+            createAccountPanel.Name = "createAccountPanel";
+            createAccountPanel.Size = new Size(442, 719);
+            createAccountPanel.TabIndex = 4;
+            // 
+            // backToLoginLink
+            // 
+            backToLoginLink.AutoSize = true;
+            backToLoginLink.BackColor = Color.Transparent;
+            backToLoginLink.LinkColor = Color.FromArgb(146, 67, 133);
+            backToLoginLink.Location = new Point(189, 623);
+            backToLoginLink.Margin = new Padding(2, 0, 2, 0);
+            backToLoginLink.Name = "backToLoginLink";
+            backToLoginLink.Size = new Size(63, 20);
+            backToLoginLink.TabIndex = 15;
+            backToLoginLink.TabStop = true;
+            backToLoginLink.Text = "Go Back";
+            backToLoginLink.LinkClicked += backToLoginLink_LinkClicked;
+            // 
+            // createAccountBtn
+            // 
+            createAccountBtn.Anchor = AnchorStyles.Bottom;
+            createAccountBtn.BackColor = Color.FromArgb(233, 117, 2);
+            createAccountBtn.Font = new Font("Segoe UI", 15F);
+            createAccountBtn.ForeColor = Color.White;
+            createAccountBtn.Location = new Point(77, 552);
+            createAccountBtn.Margin = new Padding(2);
+            createAccountBtn.Name = "createAccountBtn";
+            createAccountBtn.Size = new Size(294, 48);
+            createAccountBtn.TabIndex = 14;
+            createAccountBtn.Text = "Create Account";
+            createAccountBtn.UseVisualStyleBackColor = false;
+            createAccountBtn.Click += createAccountBtn_Click;
+            // 
+            // createPwd
+            // 
+            createPwd.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            createPwd.Font = new Font("Segoe UI", 15F);
+            createPwd.ForeColor = SystemColors.InactiveCaption;
+            createPwd.Location = new Point(77, 474);
+            createPwd.Margin = new Padding(2);
+            createPwd.Name = "createPwd";
+            createPwd.Size = new Size(295, 41);
+            createPwd.TabIndex = 13;
+            createPwd.Text = "Enter your Password";
+            createPwd.Enter += createPwd_Enter;
+            createPwd.Leave += createPwd_Leave;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("Segoe UI", 10F);
+            label8.ForeColor = Color.FromArgb(88, 108, 168);
+            label8.Location = new Point(77, 446);
+            label8.Margin = new Padding(2, 0, 2, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(80, 23);
+            label8.TabIndex = 12;
+            label8.Text = "Password";
+            // 
+            // createNetID
+            // 
+            createNetID.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            createNetID.Font = new Font("Segoe UI", 15F);
+            createNetID.ForeColor = SystemColors.InactiveCaption;
+            createNetID.Location = new Point(77, 398);
+            createNetID.Margin = new Padding(2);
+            createNetID.Name = "createNetID";
+            createNetID.Size = new Size(295, 41);
+            createNetID.TabIndex = 11;
+            createNetID.Text = "Enter your NetID";
+            createNetID.Enter += createNetID_Enter;
+            createNetID.Leave += createNetID_Leave;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Segoe UI", 10F);
+            label7.ForeColor = Color.FromArgb(88, 108, 168);
+            label7.Location = new Point(77, 370);
+            label7.Margin = new Padding(2, 0, 2, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(60, 23);
+            label7.TabIndex = 10;
+            label7.Text = "Net ID";
+            // 
+            // createLName
+            // 
+            createLName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            createLName.Font = new Font("Segoe UI", 15F);
+            createLName.ForeColor = SystemColors.InactiveCaption;
+            createLName.Location = new Point(77, 321);
+            createLName.Margin = new Padding(2);
+            createLName.Name = "createLName";
+            createLName.Size = new Size(295, 41);
+            createLName.TabIndex = 9;
+            createLName.Text = "Enter your Last Name";
+            createLName.Enter += createLName_Enter;
+            createLName.Leave += createLName_Leave;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Font = new Font("Segoe UI", 10F);
+            label6.ForeColor = Color.FromArgb(88, 108, 168);
+            label6.Location = new Point(77, 293);
+            label6.Margin = new Padding(2, 0, 2, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(91, 23);
+            label6.TabIndex = 8;
+            label6.Text = "Last Name";
+            // 
+            // createFName
+            // 
+            createFName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            createFName.Font = new Font("Segoe UI", 15F);
+            createFName.ForeColor = SystemColors.InactiveCaption;
+            createFName.Location = new Point(77, 243);
+            createFName.Margin = new Padding(2);
+            createFName.Name = "createFName";
+            createFName.Size = new Size(295, 41);
+            createFName.TabIndex = 7;
+            createFName.Text = "Enter your First Name";
+            createFName.Enter += createFName_Enter;
+            createFName.Leave += createFName_Leave;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Segoe UI", 10F);
+            label5.ForeColor = Color.FromArgb(88, 108, 168);
+            label5.Location = new Point(77, 215);
+            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(92, 23);
+            label5.TabIndex = 6;
+            label5.Text = "First Name";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 30F);
+            label4.ForeColor = Color.FromArgb(50, 56, 87);
+            label4.Location = new Point(118, 115);
+            label4.Margin = new Padding(2, 0, 2, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(209, 67);
+            label4.TabIndex = 3;
+            label4.Tag = "";
+            label4.Text = "Account";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 30F);
+            label3.ForeColor = Color.FromArgb(50, 56, 87);
+            label3.Location = new Point(102, 58);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(238, 67);
+            label3.TabIndex = 2;
+            label3.Tag = "";
+            label3.Text = "Create an";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // LoginScreen
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(166, 176, 230);
-            BackgroundImage = Properties.Resources.LoginBG;
+            BackColor = Color.FromArgb(50, 56, 87);
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1898, 1024);
-            Controls.Add(panel1);
+            ClientSize = new Size(1134, 774);
+            Controls.Add(logInPanel);
+            Controls.Add(createAccountPanel);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            Margin = new Padding(2);
+            MaximizeBox = false;
             Name = "LoginScreen";
             StartPosition = FormStartPosition.Manual;
             Text = "Uttendance";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Load += LoginScreen_Load;
+            logInPanel.ResumeLayout(false);
+            logInPanel.PerformLayout();
+            createAccountPanel.ResumeLayout(false);
+            createAccountPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -195,12 +452,27 @@
         private TextBox netIDTxtBox;
         private Label welcomeLabel1;
         private Button SignInBtn;
-        private Panel panel1;
+        private Panel logInPanel;
         private Label welcomeLabel2;
         private Panel panel2;
         private Label netIDLabel;
         private Label label2;
         private TextBox pwdTxtBox;
         private Label label1;
+        private LinkLabel createAccount;
+        private CheckBox rmbrMeCheck;
+        private Panel createAccountPanel;
+        private TextBox createFName;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private LinkLabel backToLoginLink;
+        private Button createAccountBtn;
+        private TextBox createPwd;
+        private Label label8;
+        private TextBox createNetID;
+        private Label label7;
+        private TextBox createLName;
+        private Label label6;
     }
 }
