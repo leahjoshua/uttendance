@@ -44,7 +44,9 @@ CREATE TABLE IF NOT EXISTS `class` (
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`FK_ImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.class: ~0 rows (approximately)
+-- Dumping data for table uttendance.class: ~1 rows (approximately)
+INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `ClassName`, `FK_ImageID`) VALUES
+	(123456, 123456, 'MATH', 123456, '123456', NULL);
 
 -- Dumping structure for table uttendance.form
 CREATE TABLE IF NOT EXISTS `form` (
@@ -80,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `instructor` (
 
 -- Dumping data for table uttendance.instructor: ~1 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
-	('SinstructorXH210003', 'Sooyoung', 'Han', 'sunfish');
+	('Sinstruct', 'Sooyoung', 'Han', 'sunfish');
 
 -- Dumping structure for table uttendance.question
 CREATE TABLE IF NOT EXISTS `question` (
