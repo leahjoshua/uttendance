@@ -75,8 +75,6 @@ namespace UttendanceDesktop.CoursepageContent
                         cmd.Parameters.AddWithValue("@courseNum", courseNum);
 
                         cmd.ExecuteNonQuery();
-                        MessageBox.Show("\'" + student.SFName + " " + student.SLName + "\' has been added to this class!");
-                        //Raise the event flag
                         StudentAdded?.Invoke();
                         Visible = false;
                     }

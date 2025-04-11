@@ -150,7 +150,6 @@ namespace UttendanceDesktop
                 fileReader.Close();
                 connection.Close();
 
-                MessageBox.Show("Successfully imported!");
                 //Raise the event flag
                 DatabaseUpdated?.Invoke();
             }

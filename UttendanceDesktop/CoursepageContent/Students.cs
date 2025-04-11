@@ -91,7 +91,6 @@ namespace UttendanceDesktop
             }
         }
 
-
         //Displays the options for adding students
         private void addBtn_Click(object sender, EventArgs e)
         {
@@ -114,13 +113,14 @@ namespace UttendanceDesktop
             addPanel.Visible = false;
         }
 
+        //Replace add button with trash when user selects a cell
         private void studentTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Replace add button with trash
             addBtn.Visible = false;
             deleteBtn.Visible = true;
         }
 
+        //Unselects the selected row when user clicks outside the data grid
         private void studentsPagePanel_Click(object sender, EventArgs e)
         {
             studentTable.ClearSelection();
@@ -128,11 +128,13 @@ namespace UttendanceDesktop
             addBtn.Visible = true;
         }
 
+        //Gets the list of selected rows and deletes them from the databse when the delete button is clicked
         private void deleteBtn_Click(object sender, EventArgs e)
         {
             int numRows = studentTable.SelectedRows.Count;
             if (numRows > 0)
             {
+                //Confirmation message
                 string confirmMsg = "Remove " + numRows + " student(s) from this class?";
                 DialogResult result = MessageBox.Show(confirmMsg, "Confirmation", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
@@ -144,25 +146,19 @@ namespace UttendanceDesktop
                     for (int i = 0; i < numRows; i++)
                     {
                         DataGridViewRow selectedRow = studentTable.SelectedRows[i];
-
                         //Get the primary key of the selected row
                         string utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
                         removeStudent(utdID, connection);
                     }
 
                     connection.Close();
-
-                    MessageBox.Show(numRows + " student(s) removed from course");
                     PopulateStudentTable();
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    // User clicked Cancel
                 }
             }
 
         }
 
+        //Remove a student from the class given their UTD-ID
         private void removeStudent(string id, MySqlConnection connection)
         {
             //Remove student from the attends table
