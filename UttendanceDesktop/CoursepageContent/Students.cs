@@ -130,25 +130,35 @@ namespace UttendanceDesktop
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
-            if (studentTable.SelectedRows.Count > 0)
+            int numRows = studentTable.SelectedRows.Count;
+            if (numRows > 0)
             {
-                //Open database connection
-                MySqlConnection connection = new MySqlConnection(connectionString);
-                connection.Open();
-
-                for(int i = 0; i < studentTable.SelectedRows.Count; i++)
+                string confirmMsg = "Remove " + numRows + " student(s) from this class?";
+                DialogResult result = MessageBox.Show(confirmMsg, "Confirmation", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
                 {
-                    DataGridViewRow selectedRow = studentTable.SelectedRows[i];
+                    //Open database connection
+                    MySqlConnection connection = new MySqlConnection(connectionString);
+                    connection.Open();
 
-                    //Get the primary key of the selected row
-                    string utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
-                    removeStudent(utdID, connection);
+                    for (int i = 0; i < numRows; i++)
+                    {
+                        DataGridViewRow selectedRow = studentTable.SelectedRows[i];
+
+                        //Get the primary key of the selected row
+                        string utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
+                        removeStudent(utdID, connection);
+                    }
+
+                    connection.Close();
+
+                    MessageBox.Show(numRows + " student(s) removed from course");
+                    PopulateStudentTable();
                 }
-
-                connection.Close();
-
-                MessageBox.Show("Student(s) removed from course");
-                PopulateStudentTable();
+                else if (result == DialogResult.Cancel)
+                {
+                    // User clicked Cancel
+                }
             }
 
         }
@@ -175,7 +185,7 @@ namespace UttendanceDesktop
             {
                 cmd = new MySqlCommand("DELETE FROM student WHERE UTDID=@utdID;", connection);
                 cmd.Parameters.AddWithValue("@utdID", id);
-                int newRows = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
             }
         }
     }
