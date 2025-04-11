@@ -42,13 +42,16 @@
             questionBankLabel = new Label();
             attendanceFormsLabel = new Label();
             addQuestionBtn = new Button();
+            button1 = new Button();
             createFormPanel.SuspendLayout();
             SuspendLayout();
             // 
             // createFormPanel
             // 
+            createFormPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             createFormPanel.AutoScroll = true;
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
+            createFormPanel.Controls.Add(button1);
             createFormPanel.Controls.Add(pwdTxtBox);
             createFormPanel.Controls.Add(label3);
             createFormPanel.Controls.Add(saveBtn);
@@ -212,6 +215,20 @@
             addQuestionBtn.UseVisualStyleBackColor = false;
             addQuestionBtn.Click += addQuestionBtn_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(88, 101, 160);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = SystemColors.Control;
+            button1.Location = new Point(742, 104);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 37);
+            button1.TabIndex = 14;
+            button1.Text = "Cancel";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // CreateAttendanceFormPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -244,5 +261,6 @@
         private Button saveBtn;
         private TextBox pwdTxtBox;
         private Label label3;
+        private Button button1;
     }
 }

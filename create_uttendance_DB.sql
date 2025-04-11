@@ -19,6 +19,22 @@
 CREATE DATABASE IF NOT EXISTS `uttendance` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci */;
 USE `uttendance`;
 
+-- Dumping structure for table uttendance.answerchoice
+CREATE TABLE IF NOT EXISTS `answerchoice` (
+  `AnswerID` int(11) NOT NULL,
+  `AnswerStatement` varchar(50) DEFAULT NULL,
+  `IsCorrect` bit(1) DEFAULT NULL,
+  `FK_QuestionID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`AnswerID`),
+  KEY `FK_QuestionID` (`FK_QuestionID`),
+  CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Dumping data for table uttendance.answerchoice: ~2 rows (approximately)
+INSERT INTO `answerchoice` (`AnswerID`, `AnswerStatement`, `IsCorrect`, `FK_QuestionID`) VALUES
+	(1, 'sdf', b'1', 1),
+	(2, 'sdf', b'0', 1);
+
 -- Dumping structure for table uttendance.attends
 CREATE TABLE IF NOT EXISTS `attends` (
   `FK_UTDID` int(11) NOT NULL,
@@ -52,15 +68,19 @@ INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `Cla
 CREATE TABLE IF NOT EXISTS `form` (
   `FormID` int(11) NOT NULL,
   `PassWd` varchar(40) DEFAULT NULL,
-  `ReleaseDataTime` varchar(10) DEFAULT NULL,
-  `CloseDateTime` varchar(10) DEFAULT NULL,
+  `ReleaseDateTime` datetime DEFAULT NULL,
+  `CloseDateTime` datetime DEFAULT NULL,
   `FK_CourseNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.form: ~0 rows (approximately)
+-- Dumping data for table uttendance.form: ~3 rows (approximately)
+INSERT INTO `form` (`FormID`, `PassWd`, `ReleaseDateTime`, `CloseDateTime`, `FK_CourseNum`) VALUES
+	(1, 'dfdsf', '2025-04-12 13:44:47', '2025-04-19 13:44:47', 123456),
+	(2, 'test', '2025-04-12 13:47:56', '2025-04-16 13:47:56', 123456),
+	(3, 'rtrs', '2025-04-12 13:48:17', '2025-05-02 13:48:17', 123456);
 
 -- Dumping structure for table uttendance.images
 CREATE TABLE IF NOT EXISTS `images` (
@@ -80,22 +100,24 @@ CREATE TABLE IF NOT EXISTS `instructor` (
   PRIMARY KEY (`INetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.instructor: ~1 rows (approximately)
+-- Dumping data for table uttendance.instructor: ~2 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
-	('Sinstruct', 'Sooyoung', 'Han', 'sunfish');
+	('mxm123456', 'Meow', 'Meowington', 'password'),
+	('SXH210003', 'Sooyoung', 'Han', 'sunfish');
 
 -- Dumping structure for table uttendance.question
 CREATE TABLE IF NOT EXISTS `question` (
   `QuestionID` int(11) NOT NULL,
   `ProblemStatement` varchar(200) DEFAULT NULL,
-  `isCorrect` bit(1) DEFAULT NULL,
   `FK_FormID` int(11) DEFAULT NULL,
   PRIMARY KEY (`QuestionID`),
   KEY `FK_FormID` (`FK_FormID`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.question: ~0 rows (approximately)
+-- Dumping data for table uttendance.question: ~1 rows (approximately)
+INSERT INTO `question` (`QuestionID`, `ProblemStatement`, `FK_FormID`) VALUES
+	(1, 'sdf', 1);
 
 -- Dumping structure for table uttendance.student
 CREATE TABLE IF NOT EXISTS `student` (

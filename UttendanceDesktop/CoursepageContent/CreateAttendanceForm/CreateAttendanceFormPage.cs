@@ -109,6 +109,14 @@ namespace UttendanceDesktop.CoursepageContent
                 formSaver.SaveQuestions(questions, FormID);
             }
             MessageBox.Show("Attendance Form saved.");
+            GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Listings(GlobalResource.CURRENT_CLASS_ID));
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Listings(GlobalResource.CURRENT_CLASS_ID));
+            this.Close();
         }
     }
 }
