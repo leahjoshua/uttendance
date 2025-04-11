@@ -361,9 +361,9 @@ namespace UttendanceDesktop
             if (numItemsToDelete > 0) //EDIT Mode
             {              
                 DeleteItems();
-            } else //NEW Mode
+            } else //NEW Mode (written by Lee)
             {
-                // MOVE THE CREATE FORM PAGE
+                GlobalResource.COURSEPAGE.loadForm(new CreateAttendanceFormPage());
             }
         }
     }

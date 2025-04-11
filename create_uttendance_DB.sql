@@ -22,8 +22,8 @@ USE `uttendance`;
 -- Dumping structure for table uttendance.answerchoice
 CREATE TABLE IF NOT EXISTS `answerchoice` (
   `AnswerID` int(11) NOT NULL,
-  `AnswerStatement` int(11) DEFAULT NULL,
-  `IsCorrect` int(11) DEFAULT NULL,
+  `AnswerStatement` varchar(50) DEFAULT NULL,
+  `IsCorrect` bit(1) DEFAULT NULL,
   `FK_QuestionID` int(11) DEFAULT NULL,
   PRIMARY KEY (`AnswerID`),
   KEY `FK_QuestionID` (`FK_QuestionID`),
@@ -57,14 +57,16 @@ CREATE TABLE IF NOT EXISTS `class` (
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`FK_ImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.class: ~0 rows (approximately)
+-- Dumping data for table uttendance.class: ~1 rows (approximately)
+INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `ClassName`, `FK_ImageID`) VALUES
+	(123456, 123456, 'MATH', 123456, '123456', NULL);
 
 -- Dumping structure for table uttendance.form
 CREATE TABLE IF NOT EXISTS `form` (
   `FormID` int(11) NOT NULL,
   `PassWd` varchar(40) DEFAULT NULL,
-  `ReleaseDataTime` varchar(10) DEFAULT NULL,
-  `CloseDateTime` varchar(10) DEFAULT NULL,
+  `ReleaseDateTime` datetime DEFAULT NULL,
+  `CloseDateTime` datetime DEFAULT NULL,
   `FK_CourseNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
@@ -91,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `instructor` (
   PRIMARY KEY (`INetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.instructor: ~3 rows (approximately)
+-- Dumping data for table uttendance.instructor: ~2 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
 	('mxm123456', 'Meow', 'Meowington', 'password'),
 	('SXH210003', 'Sooyoung', 'Han', 'sunfish');
