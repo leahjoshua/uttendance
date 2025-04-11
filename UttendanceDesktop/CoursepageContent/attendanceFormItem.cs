@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace UttendanceDesktop.CoursepageContent
 {
@@ -45,6 +46,30 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
+        // ----- ITEM EVENTS ----- //
+        private void attendanceFormItem_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+        private void statusLabel_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+
+        private void titleLabel_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+        private void statusDisplayLabel_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+        // ---- SPECIAL FUNCTIONS/ENUMS ---- //
+
         // Aendri: Options for the status of an attendence form
         public enum AttendenceFormStatusOptions
         {
@@ -53,6 +78,15 @@ namespace UttendanceDesktop.CoursepageContent
             Closed
         }
 
+        // Aendri (4/11/25): Opens the form page
+        private void openPage()
+        {
+            // *** REPLACE WITH PAGE LOADER CODE ***
+            String dialog = "Loading " + titleLabel.Text + " (id = " + formId + ")";
+            DialogResult warnResult = MessageBox.Show(dialog, "TEMP", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        }
+
+        //---- DATA ----//
 
         // Aendri
         [Category("Item Values")]
@@ -62,7 +96,7 @@ namespace UttendanceDesktop.CoursepageContent
             set
             {
                 _date = value;
-                titleLabel.Text = value.ToString("MM/dd/yyyy") + " Attendence Form";
+                titleLabel.Text = value.ToString("MM/dd/yyyy") + " Attendence Form (" + value.ToString("hh:mm tt") + ")";
             }
         }
 

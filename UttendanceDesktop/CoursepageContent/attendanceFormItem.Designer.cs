@@ -46,6 +46,7 @@
             statusLabel.TabIndex = 1;
             statusLabel.Text = "Status";
             statusLabel.TextAlign = ContentAlignment.MiddleRight;
+            statusLabel.Click += statusLabel_Click;
             // 
             // statusDisplayLabel
             // 
@@ -59,6 +60,7 @@
             statusDisplayLabel.TabIndex = 2;
             statusDisplayLabel.Text = "CLOSED";
             statusDisplayLabel.TextAlign = ContentAlignment.MiddleCenter;
+            statusDisplayLabel.Click += statusDisplayLabel_Click;
             // 
             // checkbox
             // 
@@ -108,6 +110,7 @@
             titleLabel.TabIndex = 4;
             titleLabel.Text = "XX/XX/XX Attendence Form";
             titleLabel.TextAlign = ContentAlignment.MiddleLeft;
+            titleLabel.Click += titleLabel_Click;
             // 
             // attendanceFormItem
             // 
@@ -122,6 +125,7 @@
             Name = "attendanceFormItem";
             Padding = new Padding(10);
             Size = new Size(750, 62);
+            Click += attendanceFormItem_Click;
             ResumeLayout(false);
         }
 

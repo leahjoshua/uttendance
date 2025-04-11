@@ -46,6 +46,7 @@
             QuestionLabel.TabIndex = 5;
             QuestionLabel.Text = "Questions";
             QuestionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            QuestionLabel.Click += QuestionLabel_Click;
             // 
             // TitleLabel
             // 
@@ -60,6 +61,7 @@
             TitleLabel.Size = new Size(494, 42);
             TitleLabel.TabIndex = 9;
             TitleLabel.TextAlign = ContentAlignment.MiddleLeft;
+            TitleLabel.Click += TitleLabel_Click;
             // 
             // checkboxPadding
             // 
@@ -107,6 +109,7 @@
             QuestionDisplayLabel.TabIndex = 6;
             QuestionDisplayLabel.Text = "0";
             QuestionDisplayLabel.TextAlign = ContentAlignment.MiddleCenter;
+            QuestionDisplayLabel.Click += QuestionDisplayLabel_Click;
             // 
             // QuestionBankItem
             // 
@@ -121,6 +124,7 @@
             Name = "QuestionBankItem";
             Padding = new Padding(10);
             Size = new Size(750, 62);
+            Click += QuestionBankItem_Click;
             ResumeLayout(false);
         }
 

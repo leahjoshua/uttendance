@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    public partial class QuestionBankItem: UserControl
+    public partial class QuestionBankItem : UserControl
     {
         public event EventHandler OnBankSelectChange;
 
@@ -30,6 +30,28 @@ namespace UttendanceDesktop.CoursepageContent
             base.SetBoundsCore(x, y, 750, 62, specified);
         }
 
+        // ----- ITEM EVENTS ----- //
+
+        private void TitleLabel_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+        private void QuestionLabel_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+        private void QuestionDisplayLabel_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
+        private void QuestionBankItem_Click(object sender, EventArgs e)
+        {
+            openPage();
+        }
+
         //Aendri 4/4/2025
         // On selection/deselection of the question bank, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
@@ -40,6 +62,18 @@ namespace UttendanceDesktop.CoursepageContent
                 OnBankSelectChange(checkbox.Checked, null);
             }
         }
+
+        // ---- SPECIAL FUNCTIONS/ENUMS ---- //
+
+        // Aendri (4/11/25): Opens the question bank page
+        private void openPage()
+        {
+            // *** REPLACE WITH PAGE LOADER CODE ***
+            String dialog = "Loading " + _title + " (id = " + _bankID + ")";
+            DialogResult warnResult = MessageBox.Show(dialog, "TEMP", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        }
+
+        //---- DATA ----//
 
         // Aendri 4/4/2025
         // Title of the question bank
@@ -60,7 +94,8 @@ namespace UttendanceDesktop.CoursepageContent
         public int Count
         {
             get { return _numQuestions; }
-            set { 
+            set
+            {
                 _numQuestions = value;
                 QuestionDisplayLabel.Text = _numQuestions.ToString();
             }
