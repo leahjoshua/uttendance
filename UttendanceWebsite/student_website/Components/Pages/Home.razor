@@ -1,31 +1,34 @@
 ﻿@page "/"
-@rendermode InteractiveServer
-
-@inject NavigationManager navigateManager
 
 @* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 4, 2025
 	NetID: JXY200013
 *@
+
+@rendermode InteractiveServer
+
+@inject NavigationManager navigateManager
+
+@using student_website.Models
+
+
 <PageTitle>Login</PageTitle>
 
 <h1>Welcome to Uttendence</h1>
 <p>You're free form eLearning quizzes!</p>
 
 <!-- Student Login and Password -->
-<p>UTD-ID</p>
-<!--
-<EditForm>
-    <label for="">UTD-ID</label>
-    <InputText id="" @bind-Value=""/>
-    <InputText></InputText>
+<EditForm Model="student">
+    <label for="studentId">UTD-ID</label>
+    <br/>
+    <InputText id="studentId" @bind-Value="student.SNetID"/>
 </EditForm>
--->
-<input />
-<!-- Input field -->
 
-<p>Attendence Password</p>
-<!-- Input field -->
-<input/>
+<EditForm Model="form">
+    <label for="">Attendance Password</label>
+    <br/>
+    <InputText id="password" @bind-Value="form.PassWd"/>
+</EditForm>
+
 <!-- Popup on what is a UTD-ID -->
 <p>What's an UTD-ID</p>
 
@@ -37,4 +40,7 @@
     {
         navigateManager.NavigateTo("/quiz");
     }
+
+    private Student student = new();
+    private Form form = new();
 }
