@@ -1,5 +1,8 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
+	NetID: JXY200013*/
+    background: #A6B0E6;
 }
 
 a, .btn-link {
@@ -8,8 +11,15 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
+    background-color: #E97502;
     border-color: #1861ac;
+}
+
+/*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
+    NetID: JXY200013*/
+.btn-primary:hover {
+    background-color: #E97502;
+    color: #000000;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -48,4 +58,20 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+/*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
+	NetID: JXY200013*/
+.image-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.btn-submit {
+    color: #fff;
+    background-color: #323857;
+    border-color: #1861ac;
+    display: block;
+    margin: auto;
 }

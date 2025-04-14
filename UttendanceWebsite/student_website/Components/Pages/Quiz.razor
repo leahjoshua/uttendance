@@ -1,6 +1,8 @@
 ﻿@page "/quiz"
 @rendermode InteractiveServer
 
+@inject NavigationManager navigateManager
+
 <PageTitle>Attendance Quiz</PageTitle>
 
 <h1>Quiz</h1>
@@ -9,11 +11,18 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<button class="btn btn-submit" @onclick="Submit">Submit</button>
+
 @code {
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private void Submit()
+    {
+        navigateManager.NavigateTo("/submission");
     }
 }
