@@ -1,4 +1,12 @@
-﻿@page "/submission"
+﻿@* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
+	NetID: JXY200013
+*@
+
+@page "/submission"
+
+@rendermode InteractiveServer
+
+@inject NavigationManager navigateManager
 
 <h3>Form Submitted!</h3>
 
@@ -6,6 +14,12 @@
 	<img src="~/success.png" max-width="350" height="300" />
 </div>
 
+<button class="btn btn-primary" @onclick="ReturnHome">Back to Home Page</button>
+
 @code {
+	private void ReturnHome()
+	{
+		navigateManager.NavigateTo("/");
+	}
 
 }
