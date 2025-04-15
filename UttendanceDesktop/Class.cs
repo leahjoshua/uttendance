@@ -37,7 +37,7 @@ namespace UttendanceDesktop
                         cmd.Parameters.AddWithValue("@number", number);
                         cmd.Parameters.AddWithValue("@section", section);
                         cmd.Parameters.AddWithValue("@classId", classId);
-                        cmd.Parameters.AddWithValue("@netid", GlobalVariables.INetID);
+                        cmd.Parameters.AddWithValue("@netid", GlobalResource.INetID);
 
                         object result = cmd.ExecuteScalar();
                         return $"Course added successfully!";

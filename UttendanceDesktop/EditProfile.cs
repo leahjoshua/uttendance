@@ -26,7 +26,7 @@ namespace UttendanceDesktop
 
         public void RetrieveAndPopulateTextBoxes()
         {
-            string netID = GlobalVariables.INetID;
+            string netID = GlobalResource.INetID;
             string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
             string query = "SELECT IFName, ILName, IPassword FROM instructor WHERE INetID = @globalNetID";
 
@@ -79,7 +79,7 @@ namespace UttendanceDesktop
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            string netID = GlobalVariables.INetID;
+            string netID = GlobalResource.INetID;
             string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
             string query = "UPDATE instructor SET IFName = @firstName, ILName = @lastName, IPassword = @password WHERE INetID = @inetId";
 
@@ -130,7 +130,7 @@ namespace UttendanceDesktop
             if (result == DialogResult.OK)
             {
                 MessageBox.Show("We are so sad to see you go! Your account will be deleted. Thank you for your service!", "Account Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                string netID = GlobalVariables.INetID;
+                string netID = GlobalResource.INetID;
                 string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
 
                 string deleteChildQuery = "DELETE FROM teaches WHERE FK_INetID = @netid";

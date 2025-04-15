@@ -33,17 +33,30 @@ namespace UttendanceDesktop
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            AddCoursePictureBox.Visible = !AddCoursePictureBox.Visible;
+            addCourseManualButton.Visible = false;
+            importCourseButton.Visible = false;
 
+            Panel scrollablePanel = this.Controls.OfType<Panel>().FirstOrDefault(p => p.Name == "scrollablePanel");
+            if (scrollablePanel != null)
+            {
+                foreach (Panel tile in scrollablePanel.Controls.OfType<Panel>())
+                {
+                    PictureBox trashIcon = tile.Controls.OfType<PictureBox>().FirstOrDefault(p => p.Name == "trashIcon");
+                    if (trashIcon != null)
+                        trashIcon.Visible = !trashIcon.Visible;
+                }
+            }
         }
 
         private void LoadClassTiles()
         {
             string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
             string query = @"
-                SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
-                FROM class AS c
-                INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
-                WHERE t.FK_INetID = @netID";
+        SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
+        FROM class AS c
+        INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
+        WHERE t.FK_INetID = @netID";
 
             try
             {
@@ -53,7 +66,7 @@ namespace UttendanceDesktop
 
                     using (var cmd = new MySqlCommand(query, connection))
                     {
-                        cmd.Parameters.AddWithValue("@netID", GlobalVariables.INetID);
+                        cmd.Parameters.AddWithValue("@netID", GlobalResource.INetID);
 
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -69,62 +82,73 @@ namespace UttendanceDesktop
                                 this.Controls.Add(scrollablePanel);
                             }
 
-                            // Clear existing tiles to avoid duplicates
                             scrollablePanel.Controls.Clear();
 
-                            // Tile dimensions and spacing
-                            int tileWidth = 400;
-                            int tileHeight = 300;
-                            int horizontalSpacing = 20; // Space between tiles horizontally
-                            int verticalSpacing = 20;   // Space between rows
-                            int tilesPerRow = 3;
-
-                            // Starting position for the first tile
-                            int startX = 50;
-                            int startY = 220;
-
-                            int currentX = startX;
-                            int currentY = startY;
-                            int columnCount = 0;
+                            int tileWidth = 400, tileHeight = 300;
+                            int horizontalSpacing = 20, verticalSpacing = 20, tilesPerRow = 3;
+                            int startX = 50, startY = 220, currentX = startX, currentY = startY, columnCount = 0;
 
                             while (reader.Read())
                             {
-                                // Retrieve data for each class
                                 string courseName = reader["ClassName"].ToString();
                                 string classPrefix = reader["ClassSubject"].ToString();
                                 string classNumber = reader["ClassNum"].ToString();
                                 string sectNumber = reader["SectionNum"].ToString();
+                                string courseNum = reader["CourseNum"].ToString();
 
-                                Button tileButton = new Button
+                                Panel tilePanel = new Panel
                                 {
-                                    Text = $"{courseName}\n{classPrefix} {classNumber}.{sectNumber}",
                                     Size = new Size(tileWidth, tileHeight),
                                     Location = new Point(currentX, currentY),
                                     BackColor = Color.FromArgb(222, 225, 241),
-                                    Font = new Font("Afacad", 10, FontStyle.Regular),
-                                    FlatStyle = FlatStyle.Flat
+                                    BorderStyle = BorderStyle.FixedSingle,
+                                    Tag = courseNum 
                                 };
-                                tileButton.FlatAppearance.BorderSize = 1;
 
-                                // Add click event for the tile
-                                tileButton.Click += (s, e) =>
+                                Label infoLabel = new Label
                                 {
-                                    MessageBox.Show($"You clicked on {courseName}", "Tile Clicked");
+                                    Text = $"{courseName}\n{classPrefix} {classNumber}.{sectNumber}",
+                                    Font = new Font("Afacad", 10, FontStyle.Regular),
+                                    AutoSize = false,
+                                    Size = new Size(tileWidth - 40, tileHeight - 40),
+                                    Location = new Point(20, 40),
+                                    TextAlign = ContentAlignment.MiddleCenter
                                 };
+                                tilePanel.Controls.Add(infoLabel);
 
-                                // Add the tile to the scrollable panel
-                                scrollablePanel.Controls.Add(tileButton);
+                                Color tileDefaultColor = Color.FromArgb(222, 225, 241);
+                                Color tileHoverColor = Color.FromArgb(200, 210, 230);
 
-                                // Update position for next tile
+                                tilePanel.MouseEnter += (s, e) => { tilePanel.BackColor = tileHoverColor; };
+                                tilePanel.MouseLeave += (s, e) => { tilePanel.BackColor = tileDefaultColor; };
+                                infoLabel.MouseEnter += (s, e) => { tilePanel.BackColor = tileHoverColor; };
+                                infoLabel.MouseLeave += (s, e) => { tilePanel.BackColor = tileDefaultColor; };
+
+                                PictureBox trashIcon = new PictureBox
+                                {
+                                    Name = "trashIcon",
+                                    Image = Properties.Resources.trash_icon2,
+                                    SizeMode = PictureBoxSizeMode.Zoom,
+                                    Size = new Size(32, 32),
+                                    Location = new Point(10, 10),
+                                    Cursor = Cursors.Hand,
+                                    Visible = false
+                                };
+                                trashIcon.Click += trashPictureBox_Click;
+                                tilePanel.Controls.Add(trashIcon);
+
+                                tilePanel.Click += TilePanel_Click;
+                                infoLabel.Click += TilePanel_Click;
+
+                                scrollablePanel.Controls.Add(tilePanel);
+
                                 columnCount++;
                                 if (columnCount < tilesPerRow)
                                 {
-                                    // Move right for the next tile in the same row
                                     currentX += tileWidth + horizontalSpacing;
                                 }
                                 else
                                 {
-                                    // Reset to start new row
                                     columnCount = 0;
                                     currentX = startX;
                                     currentY += tileHeight + verticalSpacing;
@@ -137,6 +161,102 @@ namespace UttendanceDesktop
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void trashPictureBox_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox trashIcon && trashIcon.Parent is Panel tilePanel)
+            {
+                var result = MessageBox.Show("WARNING: Deleting a course cannot be recovered. Are you sure you would like to delete this course?", "Delete Course", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    Panel scrollablePanel = this.Controls.OfType<Panel>().FirstOrDefault(p => p.Name == "scrollablePanel");
+                    if (scrollablePanel != null)
+                    {
+                        string courseNum = tilePanel.Tag?.ToString();
+                        if (string.IsNullOrEmpty(courseNum))
+                        {
+                            MessageBox.Show("Error: Course not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+                        try
+                        {
+                            using (var connection = new MySqlConnection(connectionString))
+                            {
+                                connection.Open();
+                                using (var transaction = connection.BeginTransaction())
+                                {
+                                    string deleteTeachesQuery = @" DELETE FROM teaches WHERE FK_CourseNum = @courseNum AND FK_INetID = @netID";
+
+                                    using (var cmd = new MySqlCommand(deleteTeachesQuery, connection, transaction))
+                                    {
+                                        cmd.Parameters.AddWithValue("@courseNum", courseNum);
+                                        cmd.Parameters.AddWithValue("@netID", GlobalResource.INetID);
+                                        cmd.ExecuteNonQuery();
+                                    }
+
+                                    string deleteClassQuery = @"DELETE FROM class WHERE CourseNum = @courseNum";
+
+                                    using (var cmd = new MySqlCommand(deleteClassQuery, connection, transaction))
+                                    {
+                                        cmd.Parameters.AddWithValue("@courseNum", courseNum);
+                                        cmd.ExecuteNonQuery();
+                                    }
+
+                                    transaction.Commit();
+                                }
+                            }
+
+                            scrollablePanel.Controls.Remove(tilePanel);
+
+                            int tileWidth = 400, tileHeight = 300;
+                            int horizontalSpacing = 20, verticalSpacing = 20, tilesPerRow = 3;
+                            int startX = 50, startY = 220;
+                            int currentX = startX, currentY = startY, columnCount = 0;
+
+                            foreach (Panel remainingTile in scrollablePanel.Controls.OfType<Panel>())
+                            {
+                                remainingTile.Location = new Point(currentX, currentY);
+
+                                columnCount++;
+                                if (columnCount < tilesPerRow)
+                                {
+                                    currentX += tileWidth + horizontalSpacing;
+                                }
+                                else
+                                {
+                                    columnCount = 0;
+                                    currentX = startX;
+                                    currentY += tileHeight + verticalSpacing;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error deleting course: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void TilePanel_Click(object sender, EventArgs e)
+        {
+            Panel tilePanel = sender as Panel;
+            if (tilePanel == null && sender is Label label && label.Parent is Panel)
+                tilePanel = label.Parent as Panel;
+
+            if (tilePanel != null)
+            {
+                string courseNum = tilePanel.Tag?.ToString();
+                if (!string.IsNullOrEmpty(courseNum))
+                {
+                    GlobalResource.CURRENT_CLASS_ID = Convert.ToInt32(courseNum);
+                    var result = MessageBox.Show("WARNING: Deleting a course cannot be recovered. Are you sure you would like to delete this course?", "Delete Course", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
             }
         }
 
