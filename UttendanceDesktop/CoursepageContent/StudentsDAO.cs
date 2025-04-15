@@ -3,17 +3,64 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
-
 using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    //started 4/13/2025
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
+    // NetID: jxy210012
     internal class StudentsDAO
     {
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
+        private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
+
+        public bool updateStudentID(int oldID, int newID)
+        {
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            //Check if the new UTD-ID does not already exist in the table
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM student WHERE UTDID=@newUTDID;", connection);
+            cmd.Parameters.AddWithValue("@newUTDID", newID);
+
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            //If the ID already exists, return false
+            if (count != 0)
+            {
+                connection.Close();
+                return false;
+            }
+
+            //Update student's UTD-ID
+            cmd = new MySqlCommand("UPDATE student SET UTDID=@newID WHERE UTDID=@oldID;", connection);
+            cmd.Parameters.AddWithValue("@newID", newID);
+            cmd.Parameters.AddWithValue("@oldID", oldID);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+
+            return true;
+        }
+        public void updateStudentInfo(int studentID, int columnToUpdate, string newInfo)
+        {
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand("UPDATE student SET " + attributeList[columnToUpdate]
+                    + "=@newInfo WHERE UTDID=@utdID;", connection);
+            cmd.Parameters.AddWithValue("@newInfo", newInfo);
+            cmd.Parameters.AddWithValue("@utdID", studentID);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
 
         //Remove a student from a specific class given their UTD-ID
         public void removeStudentsFromClass(string id, int courseNum)
@@ -59,6 +106,7 @@ namespace UttendanceDesktop.CoursepageContent
             connection.Close();
         }
 
+        //Pulls the list of all students enrolled in the current class and displays it on the data grid
         public DataTable getAllStudentInfo(string[] displayList, int courseNum)
         {
             DataTable dataTable = new DataTable();
@@ -94,7 +142,6 @@ namespace UttendanceDesktop.CoursepageContent
 
                     dataTable.Rows.Add(row);
                 }
-
             }
 
             connection.Close();

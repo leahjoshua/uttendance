@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +34,8 @@ namespace UttendanceDesktop
         private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList,
             pkeyName, relationTableName, fkeysList, fkeyTypeList, fk1);
 
-        //private StudentModule studMod = new StudentModule();
+        private object editOldValue;
+
         public Students()
         {
             InitializeComponent();
@@ -42,7 +44,7 @@ namespace UttendanceDesktop
             importMod.DatabaseUpdated += PopulateStudentTable;
         }
 
-        //Pulls the list of all students enrolled in the current class and displays it on the data grid
+        //Populates the datagrid with information of all the students in the current class
         private void PopulateStudentTable()
         {
             StudentsDAO studentInfo = new StudentsDAO();
@@ -102,7 +104,7 @@ namespace UttendanceDesktop
                     {
                         DataGridViewRow selectedRow = studentTable.SelectedRows[i];
                         //Get the primary key of the selected row
-                        string utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
+                        var utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
                         studentInfo.removeStudentsFromClass(utdID, courseNum);
                     }
                     PopulateStudentTable();
@@ -110,5 +112,55 @@ namespace UttendanceDesktop
             }
 
         }
+
+        //Keep track of the old value when the user starts editing a cell
+        private void studentTable_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            editOldValue = studentTable[e.ColumnIndex, e.RowIndex].Value;
+        }
+
+        private void studentTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var editNewValue = studentTable[e.ColumnIndex, e.RowIndex].Value;
+            int col = e.ColumnIndex;
+
+            //If the value changed
+            if (!Equals(editOldValue, editNewValue))
+            {
+                StudentsDAO studentInfo = new StudentsDAO();
+                //If the UTD-ID is being changed
+                if (col == 3)
+                {
+                    if(editNewValue != null && int.TryParse(editNewValue.ToString(), out int newID)
+                        && editOldValue !=null && int.TryParse(editOldValue.ToString(), out int oldID))
+                    {
+                        if(!studentInfo.updateStudentID(oldID, newID))
+                            MessageBox.Show("UTD-ID is already taken");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Input.");
+                    }
+                }
+                else
+                {
+                    // Get the student ID
+                    var tryStudentID = studentTable.Rows[e.RowIndex].Cells["UTD-ID"].Value;
+                    if (editNewValue != null && editOldValue != null
+                        && tryStudentID != null && int.TryParse(tryStudentID.ToString(), out int studentID))
+                    {
+                        studentInfo.updateStudentInfo(studentID, col, editNewValue?.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Input.");
+                    }
+                }
+            }
+
+        }
+
+
+
     }
 }

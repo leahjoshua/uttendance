@@ -168,7 +168,9 @@ namespace UttendanceDesktop
             studentTable.Size = new Size(646, 298);
             studentTable.TabIndex = 0;
             studentTable.TabStop = false;
+            studentTable.CellBeginEdit += studentTable_CellBeginEdit;
             studentTable.CellClick += studentTable_CellClick;
+            studentTable.CellEndEdit += studentTable_CellEndEdit;
             // 
             // deleteBtn
             // 
