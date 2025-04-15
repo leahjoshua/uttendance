@@ -121,7 +121,7 @@ namespace UttendanceDesktop
 
         private void studentTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            var editNewValue = studentTable[e.ColumnIndex, e.RowIndex].Value;
+            var editNewValue = studentTable[e.ColumnIndex, e.RowIndex].Value.ToString();
             int col = e.ColumnIndex;
 
             //If the value changed
@@ -135,18 +135,24 @@ namespace UttendanceDesktop
                         && editOldValue !=null && int.TryParse(editOldValue.ToString(), out int oldID))
                     {
                         if(!studentInfo.updateStudentID(oldID, newID))
-                            MessageBox.Show("UTD-ID is already taken");
+                        {
+                            MessageBox.Show("UTD-ID " + newID + " is already taken");
+                            studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
+                        }
+                            
                     }
                     else
                     {
                         MessageBox.Show("Invalid Input.");
+                        studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
                     }
                 }
                 else
                 {
                     // Get the student ID
                     var tryStudentID = studentTable.Rows[e.RowIndex].Cells["UTD-ID"].Value;
-                    if (editNewValue != null && editOldValue != null
+                    //Make sure the field isn't empty and that the student ID is an integer
+                    if (!string.IsNullOrWhiteSpace(editNewValue) && editOldValue != null
                         && tryStudentID != null && int.TryParse(tryStudentID.ToString(), out int studentID))
                     {
                         studentInfo.updateStudentInfo(studentID, col, editNewValue?.ToString());
@@ -154,6 +160,7 @@ namespace UttendanceDesktop
                     else
                     {
                         MessageBox.Show("Invalid Input.");
+                        studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
                     }
                 }
             }

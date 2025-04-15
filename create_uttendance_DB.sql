@@ -22,15 +22,18 @@ USE `uttendance`;
 -- Dumping structure for table uttendance.answerchoice
 CREATE TABLE IF NOT EXISTS `answerchoice` (
   `AnswerID` int(11) NOT NULL,
-  `AnswerStatement` int(11) DEFAULT NULL,
-  `IsCorrect` int(11) DEFAULT NULL,
+  `AnswerStatement` varchar(50) DEFAULT NULL,
+  `IsCorrect` bit(1) DEFAULT NULL,
   `FK_QuestionID` int(11) DEFAULT NULL,
   PRIMARY KEY (`AnswerID`),
   KEY `FK_QuestionID` (`FK_QuestionID`),
   CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.answerchoice: ~0 rows (approximately)
+-- Dumping data for table uttendance.answerchoice: ~2 rows (approximately)
+INSERT INTO `answerchoice` (`AnswerID`, `AnswerStatement`, `IsCorrect`, `FK_QuestionID`) VALUES
+	(1, 'sdf', b'1', 1),
+	(2, 'sdf', b'0', 1);
 
 -- Dumping structure for table uttendance.attends
 CREATE TABLE IF NOT EXISTS `attends` (
@@ -38,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `attends` (
   `FK_CourseNum` int(11) NOT NULL,
   PRIMARY KEY (`FK_UTDID`,`FK_CourseNum`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
-  CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`),
+  CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE,
   CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
@@ -57,21 +60,39 @@ CREATE TABLE IF NOT EXISTS `class` (
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`FK_ImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.class: ~0 rows (approximately)
+-- Dumping data for table uttendance.class: ~1 rows (approximately)
+INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `ClassName`, `FK_ImageID`) VALUES
+	(123456, 123456, 'MATH', 123456, '123456', NULL);
 
 -- Dumping structure for table uttendance.form
 CREATE TABLE IF NOT EXISTS `form` (
   `FormID` int(11) NOT NULL,
   `PassWd` varchar(40) DEFAULT NULL,
-  `ReleaseDataTime` varchar(10) DEFAULT NULL,
-  `CloseDateTime` varchar(10) DEFAULT NULL,
+  `ReleaseDateTime` datetime DEFAULT NULL,
+  `CloseDateTime` datetime DEFAULT NULL,
   `FK_CourseNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.form: ~0 rows (approximately)
+-- Dumping data for table uttendance.form: ~3 rows (approximately)
+INSERT INTO `form` (`FormID`, `PassWd`, `ReleaseDateTime`, `CloseDateTime`, `FK_CourseNum`) VALUES
+	(1, 'dfdsf', '2025-04-12 13:44:47', '2025-04-19 13:44:47', 123456),
+	(2, 'test', '2025-04-12 13:47:56', '2025-04-16 13:47:56', 123456),
+	(3, 'rtrs', '2025-04-12 13:48:17', '2025-05-02 13:48:17', 123456);
+
+-- Dumping structure for table uttendance.has
+CREATE TABLE IF NOT EXISTS `has` (
+  `FK_QuizID` int(11) NOT NULL,
+  `FK_QuestionID` int(11) NOT NULL,
+  PRIMARY KEY (`FK_QuizID`,`FK_QuestionID`),
+  KEY `FK__question` (`FK_QuestionID`),
+  CONSTRAINT `FK__form` FOREIGN KEY (`FK_QuizID`) REFERENCES `form` (`FormID`),
+  CONSTRAINT `FK__question` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='Relationship between Form and Question';
+
+-- Dumping data for table uttendance.has: ~0 rows (approximately)
 
 -- Dumping structure for table uttendance.images
 CREATE TABLE IF NOT EXISTS `images` (
@@ -91,22 +112,45 @@ CREATE TABLE IF NOT EXISTS `instructor` (
   PRIMARY KEY (`INetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.instructor: ~3 rows (approximately)
+-- Dumping data for table uttendance.instructor: ~2 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
 	('mxm123456', 'Meow', 'Meowington', 'password'),
 	('SXH210003', 'Sooyoung', 'Han', 'sunfish');
+
+-- Dumping structure for table uttendance.qbank
+CREATE TABLE IF NOT EXISTS `qbank` (
+  `BankID` int(10) unsigned NOT NULL,
+  `BankTitle` varchar(64) DEFAULT '',
+  `FK_INetID` varchar(9) NOT NULL,
+  PRIMARY KEY (`BankID`),
+  KEY `FK_qbank_instructor` (`FK_INetID`),
+  CONSTRAINT `FK_qbank_instructor` FOREIGN KEY (`FK_INetID`) REFERENCES `instructor` (`INetID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='A question bank ';
+
+-- Dumping data for table uttendance.qbank: ~5 rows (approximately)
+INSERT INTO `qbank` (`BankID`, `BankTitle`, `FK_INetID`) VALUES
+	(1, 'Omnisicient Reader', 'SXH210003'),
+	(2, 'Three Ways to Survive in a Ruined World', 'SXH210003'),
+	(3, 'I\'m Kim Dokja', 'SXH210003'),
+	(4, 'Hehehe', 'mxm123456'),
+	(5, 'Kekeke', 'mxm123456');
 
 -- Dumping structure for table uttendance.question
 CREATE TABLE IF NOT EXISTS `question` (
   `QuestionID` int(11) NOT NULL,
   `ProblemStatement` varchar(200) DEFAULT NULL,
-  `FK_FormID` int(11) DEFAULT NULL,
+  `FK_BankID` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`QuestionID`),
-  KEY `FK_FormID` (`FK_FormID`),
-  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`)
+  KEY `FK_question_qbank` (`FK_BankID`),
+  CONSTRAINT `FK_question_qbank` FOREIGN KEY (`FK_BankID`) REFERENCES `qbank` (`BankID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.question: ~0 rows (approximately)
+-- Dumping data for table uttendance.question: ~4 rows (approximately)
+INSERT INTO `question` (`QuestionID`, `ProblemStatement`, `FK_BankID`) VALUES
+	(1, 'sdf', NULL),
+	(2, 'Where can you find the whole ORV webnovel?', 1),
+	(3, 'What\'s Kim Dokja\'s Favorite turn?', 3),
+	(4, 'What is wrong with you bro?', 1);
 
 -- Dumping structure for table uttendance.student
 CREATE TABLE IF NOT EXISTS `student` (
@@ -141,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `submission` (
   KEY `FK_FormID` (`FK_FormID`),
   KEY `FK_UTDID` (`FK_UTDID`),
   CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`),
-  CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`)
+  CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.submission: ~0 rows (approximately)
