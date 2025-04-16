@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UttendanceDesktop;
 
 namespace UttendanceDesktop.CoursepageContent
 {
@@ -68,9 +69,7 @@ namespace UttendanceDesktop.CoursepageContent
         // Aendri (4/11/25): Opens the question bank page
         private void openPage()
         {
-            // *** REPLACE WITH PAGE LOADER CODE ***
-            String dialog = "Loading " + _title + " (id = " + _bankID + ")";
-            DialogResult warnResult = MessageBox.Show(dialog, "TEMP", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_QuestionBank_Details(_bankID, _title));
         }
 
         //---- DATA ----//

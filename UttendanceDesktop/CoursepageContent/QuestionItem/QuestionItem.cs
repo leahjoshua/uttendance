@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace UttendanceDesktop.CoursepageContent.QuestionItem
+{
+    public partial class QuestionItem : UserControl
+    {
+        private QuestionAnswerItem[] _answersList;
+        private String _questionValue;
+        private int _questionNumber;
+        private bool isMinimized = true;
+        private int _questionID;
+
+        public QuestionItem()
+        {
+            InitializeComponent();
+            ShowHideList();
+        }
+
+        public QuestionItem(String questionValue, QuestionAnswerItem[] answersList)
+        {
+            InitializeComponent();
+            ShowHideList();
+
+            QuestionValue = questionValue;
+            AnswerList = answersList;
+        }
+
+        // ------ Item Values ------ //
+        // Aendri 4/13/2025
+        // The number of the question
+        [Category("Item Values")]
+        public int QuestionNumber
+        {
+            get { return _questionNumber; }
+            set
+            {
+                _questionNumber = value;
+                questionChoiceLabel.Text = value.ToString();
+            }
+        }
+
+        // Aendri 4/13/2025
+        // The question value
+        [Category("Item Values")]
+        public String QuestionValue
+        {
+            get { return _questionValue; }
+            set
+            {
+                _questionValue = value;
+                if (value != null)
+                {
+                    QuestionLabel.Text = value.ToString();
+                }
+                
+            }
+        }
+
+        // Aendri 4/13/2025
+        // The list of answers
+        [Category("Item Values")]
+        public QuestionAnswerItem[] AnswerList
+        {
+            get { return _answersList; }
+            set
+            {
+                if (value != null)
+                {
+                    _answersList = value;
+                    FillAnswerChoices();
+                }   
+            }
+        }
+
+        // Aendri 4/14/2025
+        // The question ID associated with the question
+        [Category("Item Values")]
+        public int QuestionID
+        {
+            get { return _questionID; }
+            set { _questionID = value; }
+        }
+
+        // ----- SPECIAL FUNCTIONS ------ //
+
+        // Aendri 4/13/2025 
+        // Fills the layout panel with the answer choices 
+        private void FillAnswerChoices()
+        {
+            answerChoiceTable.Controls.Clear();
+            if (_answersList != null)
+            {
+                for (int i = 0; i < _answersList.Count(); i++)
+                {
+                    answerChoiceTable.Controls.Add(_answersList[i]);
+                }
+            }
+            ShowHideList();
+        }
+
+        // Aendri 4/14/2025
+        // Shows or hides the answer choice list based on the state of the question item
+        private void ShowHideList()
+        {
+            answerChoiceTable.Visible = !isMinimized;
+        }
+
+        //----- EVENTS ----- //
+        // Aendri 4/13/2025 
+        // On click switch the state and update
+        private void QuestionLabel_Click(object sender, EventArgs e)
+        {
+            isMinimized = !isMinimized; //Flip the state
+            ShowHideList();
+        }
+
+        // Aendri 4/13/2025 
+        // On click switch the state and update
+        private void questionChoiceLabel_Click(object sender, EventArgs e)
+        {
+            isMinimized = !isMinimized; //Flip the state
+            ShowHideList();
+        }
+
+        // Aendri 4/13/2025 
+        // On click switch the state and update
+        private void topFlowLayout_Click(object sender, EventArgs e)
+        {
+            isMinimized = !isMinimized; //Flip the state
+            ShowHideList();
+        }
+
+        
+
+    }
+}

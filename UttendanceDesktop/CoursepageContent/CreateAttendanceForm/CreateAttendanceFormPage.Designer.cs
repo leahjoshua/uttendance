@@ -106,10 +106,10 @@
             // questionsListingPanel
             // 
             questionsListingPanel.AutoScroll = true;
-            questionsListingPanel.Location = new Point(65, 310);
+            questionsListingPanel.Location = new Point(40, 310);
             questionsListingPanel.Margin = new Padding(2);
             questionsListingPanel.Name = "questionsListingPanel";
-            questionsListingPanel.Size = new Size(747, 99);
+            questionsListingPanel.Size = new Size(784, 340);
             questionsListingPanel.TabIndex = 3;
             questionsListingPanel.Visible = false;
             // 
