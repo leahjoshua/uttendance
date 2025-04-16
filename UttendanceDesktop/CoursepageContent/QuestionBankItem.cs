@@ -69,11 +69,7 @@ namespace UttendanceDesktop.CoursepageContent
         // Aendri (4/11/25): Opens the question bank page
         private void openPage()
         {
-            //loadForm(new AttendanceForms_QuestionBank_Details());
-            // *** REPLACE WITH PAGE LOADER CODE ***
-            /*String dialog = "Loading " + _title + " (id = " + _bankID + ")";
-            DialogResult warnResult = MessageBox.Show(dialog, "TEMP", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            */
+            GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_QuestionBank_Details(_bankID, _title));
         }
 
         //---- DATA ----//

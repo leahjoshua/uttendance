@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using UttendanceDesktop.CoursepageContent.CreateAttendanceForm;
 using UttendanceDesktop.CoursepageContent.models;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UttendanceDesktop.CoursepageContent
 {
@@ -19,6 +20,9 @@ namespace UttendanceDesktop.CoursepageContent
         private List<Question> questions = new List<Question>();
         private List<QuestionUserControl> questionListings = new List<QuestionUserControl>();
 
+        private List<QuestionItem.QuestionItem> questionList = new List<QuestionItem.QuestionItem>();
+        private FormDAO DB = new FormDAO();
+
         public CreateAttendanceFormPage()
         {
             InitializeComponent();
@@ -26,9 +30,33 @@ namespace UttendanceDesktop.CoursepageContent
             closeTimePicker.MinDate = DateTime.Now;
             PopulateQuestions();
         }
+
+        // (Updated 4/15/25 by Aendri)
+        // Populates the list of question items and displays on the page.
         public void PopulateQuestions()
         {
             var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
+            foreach (var control in questionUserControls)
+            {
+                createFormPanel.Controls.Remove(control);
+            }
+
+            // Add questions to page:
+            //questionsListingPanel.Controls.Clear();
+
+            for (int i = 0; i < questionList.Count; i++)
+            {
+                questionList[i].QuestionNumber = i + 1; // Number the questions
+
+                // Set location
+                questionList[i].Location = new Point(
+                    questionsListingPanel.Location.X,
+                    questionsListingPanel.Location.Y + (i * questionList[i].Height)
+                );
+                createFormPanel.Controls.Add(questionList[i]);
+            }
+
+            /*var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
 
             foreach (var control in questionUserControls)
             {
@@ -57,9 +85,12 @@ namespace UttendanceDesktop.CoursepageContent
                 questionAdding.ProblemStatement = questions[i].ProblemStatement;
 
                 createFormPanel.Controls.Add(questionAdding);
-            }
+            }*/
         }
 
+        // Lee
+        // (Updated 4/15/25 by Aendri)
+        // Opens the module for adding a new question and saves the question to be displayed
         private void addQuestionBtn_Click(object sender, EventArgs e)
         {
             using (CreateFormQuestion createQMod = new CreateFormQuestion())
@@ -67,6 +98,12 @@ namespace UttendanceDesktop.CoursepageContent
                 if (createQMod.ShowDialog() == DialogResult.OK)
                 {
                     questions.Add(createQMod.question);
+
+                    questionList.Add(new QuestionItem.QuestionItem (
+                        createQMod.questionItem.QuestionValue,
+                        createQMod.questionItem.AnswerList
+                        ));
+
                     defaultQuestionsTxt.Visible = false;
                     PopulateQuestions();
                 }

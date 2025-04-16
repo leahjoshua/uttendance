@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             questionsLabel = new Label();
-            formTitle = new Label();
+            bankTitleLabel = new Label();
             flowLayoutPanel = new FlowLayoutPanel();
+            questionItem1 = new UttendanceDesktop.CoursepageContent.QuestionItem.QuestionItem();
             SaveEditIcon = new Button();
+            flowLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
             // questionsLabel
@@ -45,26 +47,43 @@
             questionsLabel.TabIndex = 3;
             questionsLabel.Text = "Questions";
             // 
-            // formTitle
+            // bankTitleLabel
             // 
-            formTitle.AutoSize = true;
-            formTitle.Font = new Font("Segoe UI", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            formTitle.ForeColor = Color.FromArgb(37, 42, 69);
-            formTitle.Location = new Point(53, 48);
-            formTitle.Name = "formTitle";
-            formTitle.Size = new Size(75, 41);
-            formTitle.TabIndex = 2;
-            formTitle.Text = "Title";
-            formTitle.TextAlign = ContentAlignment.MiddleLeft;
+            bankTitleLabel.AutoSize = true;
+            bankTitleLabel.Font = new Font("Segoe UI", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            bankTitleLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            bankTitleLabel.Location = new Point(53, 48);
+            bankTitleLabel.Name = "bankTitleLabel";
+            bankTitleLabel.Size = new Size(75, 41);
+            bankTitleLabel.TabIndex = 2;
+            bankTitleLabel.Text = "Title";
+            bankTitleLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // flowLayoutPanel
             // 
             flowLayoutPanel.Anchor = AnchorStyles.Top;
             flowLayoutPanel.AutoScroll = true;
+            flowLayoutPanel.Controls.Add(questionItem1);
             flowLayoutPanel.Location = new Point(53, 148);
             flowLayoutPanel.Name = "flowLayoutPanel";
             flowLayoutPanel.Size = new Size(779, 466);
             flowLayoutPanel.TabIndex = 15;
+            // 
+            // questionItem1
+            // 
+            questionItem1.AutoSize = true;
+            questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            questionItem1.BackColor = Color.FromArgb(50, 56, 87);
+            questionItem1.Location = new Point(0, 0);
+            questionItem1.Margin = new Padding(0);
+            questionItem1.MaximumSize = new Size(750, 0);
+            questionItem1.MinimumSize = new Size(750, 0);
+            questionItem1.Name = "questionItem1";
+            questionItem1.Padding = new Padding(5);
+            questionItem1.QuestionNumber = 0;
+            questionItem1.QuestionValue = null;
+            questionItem1.Size = new Size(750, 211);
+            questionItem1.TabIndex = 0;
             // 
             // SaveEditIcon
             // 
@@ -88,10 +107,12 @@
             Controls.Add(SaveEditIcon);
             Controls.Add(flowLayoutPanel);
             Controls.Add(questionsLabel);
-            Controls.Add(formTitle);
+            Controls.Add(bankTitleLabel);
             FormBorderStyle = FormBorderStyle.None;
             Name = "AttendanceForms_QuestionBank_Details";
             Text = "QuestionBank_Details";
+            flowLayoutPanel.ResumeLayout(false);
+            flowLayoutPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -99,8 +120,9 @@
         #endregion
 
         private Label questionsLabel;
-        private Label formTitle;
+        private Label bankTitleLabel;
         private FlowLayoutPanel flowLayoutPanel;
         private Button SaveEditIcon;
+        private QuestionItem.QuestionItem questionItem1;
     }
 }
