@@ -12,28 +12,37 @@
 
 
 <PageTitle>Login</PageTitle>
+<div class="panel">
 
-<h1>Welcome to UTtenDance</h1>
-<p>You're free form eLearning quizzes!</p>
+    <img src="icon.png" width="100" height="100">
+    <h1>Welcome to UTtenDance</h1>
+    <span>You're free form eLearning quizzes!</span>
 
-<!-- Student Login and Password -->
-<EditForm Model="student">
-    <label for="studentId">UTD-ID</label>
-    <br/>
-    <InputText id="studentId" @bind-Value="student.SNetID"/>
-</EditForm>
-<br/>
+    <!-- Student Login and Password -->
+    <div class="input-section">
+        <EditForm Model="student">
+            <label for="studentId">UTD-ID</label>
+            <br/>
+            <InputText id="studentId" @bind-Value="student.SNetID"/>
+        </EditForm>
+        <br/>
 
-<EditForm Model="form">
-    <label for="">Attendance Password</label>
-    <br/>
-    <InputText id="password" @bind-Value="form.PassWd"/>
-</EditForm>
+        <EditForm Model="form">
+            <label for="">Attendance Password</label>
+            <br/>
+            <InputText id="password" @bind-Value="form.PassWd"/>
+        </EditForm>
 
-<!-- Popup on what is a UTD-ID -->
-<p>What's an UTD-ID</p>
+        <!-- Popup on what is a UTD-ID -->
+        <br/>
+        <div class="popup">
+            <span>What's an UTD-ID</span>
+        </div>
+        
+    </div>
 
-<button class="btn btn-primary" @onclick="SignIn">Sign In</button>
+    <button class="btn btn-primary" @onclick="SignIn">Start Attendance</button>
+</div>
 
 @code {
 
