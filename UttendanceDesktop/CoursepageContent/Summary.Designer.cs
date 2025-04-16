@@ -97,6 +97,7 @@ namespace UttendanceDesktop
             summaryTable.Size = new Size(646, 298);
             summaryTable.TabIndex = 0;
             summaryTable.TabStop = false;
+            summaryTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             // 
             // summaryLabel
             // 

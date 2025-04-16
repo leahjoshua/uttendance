@@ -51,6 +51,7 @@ namespace UttendanceDesktop.CoursepageContent
             dataTable.Columns.Add("Last Name");
             dataTable.Columns.Add("First Name");
             dataTable.Columns.Add("Net-ID");
+            dataTable.Columns.Add("Unexused Absences");
 
             DateTime localDate = DateTime.Now;
             //Get the count closed forms for this class
@@ -71,7 +72,7 @@ namespace UttendanceDesktop.CoursepageContent
                 {
                     currNum++;
                     dataTable.Columns.Add("Form #" + currNum + "\r\n" + 
-                        ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd/yy"));
+                        ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
                     formList.Add(databaseReader["FormID"].ToString());
                 }
             }
@@ -82,21 +83,33 @@ namespace UttendanceDesktop.CoursepageContent
                 "WHERE attends.FK_CourseNum=@courseNum ORDER BY student.SLName;", connection);
             cmd.Parameters.AddWithValue("@courseNum", courseNum);
 
-            ////Execute query
-            //MySqlCommand cmd = new MySqlCommand(query, connection);
-            ////Read result
-            //using (MySqlDataReader databaseReader = cmd.ExecuteReader())
-            //{
-            //    while (databaseReader.Read())
-            //    {
-            //        var row = dataTable.NewRow();
+            //Read result
+            using (MySqlDataReader databaseReader = cmd.ExecuteReader())
+            {
+                while (databaseReader.Read())
+                {
+                    var row = dataTable.NewRow();
+                    //Fill in student information
+                    row["Last Name"] = databaseReader["SLName"].ToString();
+                    row["First Name"] = databaseReader["SFName"].ToString();
+                    row["Net-ID"] = databaseReader["SNetID"].ToString();
 
-            //        row["Last Name"] = databaseReader["SLName"].ToString();
-            //        row["First Name"] = databaseReader["SFName"].ToString();
+                    var studentID = databaseReader["UTDID"].ToString();
+                    //Fill in status for each form
+                    for(int i = 0; i < formList.Count; i++)
+                    {
+                        cmd = new MySqlCommand("SELECT AttendanceStatus " +
+                        "WHERE submissions.FK_UTDID=@utdID AND FK_FormID=@formID;", connection);
+                        cmd.Parameters.AddWithValue("@utdID", studentID);
+                        cmd.Parameters.AddWithValue("@formID", formList[i]);
 
-            //        dataTable.Rows.Add(row);
-            //    }
-            //}
+                        //MySqlDataReader statusReader = cmd.ExecuteReader();
+                        //reader.Read();
+                    }
+
+                    dataTable.Rows.Add(row);
+                }
+            }
 
             //connection.Close();
             ////Send data to data table
