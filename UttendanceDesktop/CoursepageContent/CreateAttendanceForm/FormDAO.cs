@@ -216,7 +216,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
-        // 4/14/2025
+        // 4/14/2025 Aendri 
         // Returns a list of Questions (as QuestionItems) for the given question bank
         public QuestionItem.QuestionItem[] GetBankQuestionList(int bankID)
         {
@@ -267,7 +267,59 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return questionItemList.ToArray();
         }
 
-        // 4/14/2025
+        // 4/16/2025 Aendri
+        // Returns a list of Questions (as QuestionItems) for the given attendance form
+        public QuestionItem.QuestionItem[] GetFormQuestionList(int formID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            List<QuestionItem.QuestionItem> questionItemList = new List<QuestionItem.QuestionItem>();
+
+            try
+            {
+                connection.Open();
+
+                // Get a list of all questions associated with the bank
+                cmd = new MySqlCommand(
+                    "SELECT QuestionID, ProblemStatement " +
+                    "FROM question, has " +
+                    "WHERE FK_FormID=@FormID " +
+                    "AND FK_QuestionID = QuestionID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                reader = cmd.ExecuteReader();
+
+                // Get Answers for each question
+                int i = 0;
+
+                while (reader.Read())
+                {
+                    QuestionItem.QuestionItem currItem = new QuestionItem.QuestionItem();
+
+                    currItem.QuestionNumber = i + 1;
+                    currItem.QuestionID = Convert.ToInt32(reader[0]);
+
+                    if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString(); }
+                    else { currItem.QuestionValue = ""; }
+
+                    currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
+
+                    questionItemList.Add(currItem);
+                    i++;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetFormQuestionList: " + ex.ToString());
+            }
+            connection.Close();
+            return questionItemList.ToArray();
+        }
+
+        // 4/14/2025 Aendri 
         // Returns a list of answers (as QuestionAnswerItems) for the given question
         public QuestionItem.QuestionAnswerItem[] GetQuestionAnswerList(int questionID)
         {
@@ -318,6 +370,88 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             connection.Close();
             
             return questionItemList.ToArray();
+        }
+
+        // 4/16/2025 Aendri 
+        // Returns detailed information on the given attendance form 
+        public AttendanceForm GetFormData(int formID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            AttendanceForm formData = new AttendanceForm();
+            formData.FormID = formID;
+
+            // Return if invalid form id
+            if (formID < 0)
+            {
+                formData.FormID = -1;
+                return formData;
+            }
+
+            try
+            {
+                connection.Open();
+
+                // Form Data:
+                cmd = new MySqlCommand(
+                    "SELECT PassWd, ReleaseDateTime, CloseDateTime " +
+                    "FROM form " +
+                    "WHERE FormID=@FormID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                // Check if any results found, return with error if not found
+                if (!reader.HasRows)
+                {
+                    formData.FormID = -1;
+                    connection.Close();
+                    return formData;
+                }
+
+                formData.PassWd = reader[0].ToString();
+                formData.ReleaseDateTime = Convert.ToDateTime(reader[1]);
+                formData.CloseDateTime = Convert.ToDateTime(reader[2]);
+                reader.Close();
+
+                // Submission Data:
+                cmd = new MySqlCommand(
+                    "SELECT COUNT(DISTINCT FK_UTDID) " +
+                    "FROM submission " +
+                    "WHERE FK_FormID=@FormID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                formData.TotalSubmissions = Convert.ToInt32(reader[0]);
+                reader.Close();
+
+                // Student Data:
+                cmd = new MySqlCommand(
+                    "SELECT COUNT(DISTINCT FK_UTDID) " +
+                    "FROM attends " +
+                    "WHERE FK_CourseNum=@CourseNum "
+                    , connection);
+                cmd.Parameters.AddWithValue("@CourseNum", GlobalResource.CURRENT_CLASS_ID);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                formData.TotalStudents = Convert.ToInt32(reader[0]);
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetFormItem: " + ex.ToString());
+                formData.FormID = -1;
+            }
+            connection.Close();
+
+            return formData;
         }
     }
 }

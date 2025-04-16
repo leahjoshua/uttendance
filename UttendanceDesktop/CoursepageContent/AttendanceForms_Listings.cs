@@ -96,7 +96,8 @@ namespace UttendanceDesktop
                     attendanceListItems[i] = new attendanceFormItem();
 
                     attendanceListItems[i].FormID = Convert.ToInt32(reader[0]);
-                    attendanceListItems[i].Date = Convert.ToDateTime(reader[1]);
+                    attendanceListItems[i].ReleaseDate = Convert.ToDateTime(reader[1]);
+                    attendanceListItems[i].CloseDate = Convert.ToDateTime(reader[2]);
                     attendanceListItems[i].OnFormSelectChange += new EventHandler(child_checkbox_CheckedChanged);
 
                     start = Convert.ToDateTime(reader[1]);
@@ -215,13 +216,13 @@ namespace UttendanceDesktop
             switch (filter)
             {
                 case 0: //BEFORE
-                    matchFilter = item.Date.Date < time.Date;
+                    matchFilter = item.ReleaseDate.Date < time.Date;
                     break;
                 case 1: //AFTER
-                    matchFilter = item.Date.Date > time.Date;
+                    matchFilter = item.ReleaseDate.Date > time.Date;
                     break;
                 case 2: //ON
-                    matchFilter = item.Date.Date == time.Date;
+                    matchFilter = item.ReleaseDate.Date == time.Date;
                     break;
                 default: //ALL
                     matchFilter = true;
@@ -295,7 +296,7 @@ namespace UttendanceDesktop
                     if (attendanceListItems[j].Selected)
                     {
                         deleteQuery += attendanceListItems[j].FormID + ",";
-                        dialog += attendanceListItems[j].Date.ToString("MM/dd/yy") + ", ";
+                        dialog += attendanceListItems[j].ReleaseDate.ToString("MM/dd/yy") + ", ";
                     }
                 }
 

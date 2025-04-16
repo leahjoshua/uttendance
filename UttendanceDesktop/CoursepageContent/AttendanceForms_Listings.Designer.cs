@@ -95,7 +95,6 @@ namespace UttendanceDesktop
             // 
             // attendanceflowLayoutPanel
             // 
-            attendanceflowLayoutPanel.Anchor = AnchorStyles.Top;
             attendanceflowLayoutPanel.AutoScroll = true;
             attendanceflowLayoutPanel.Location = new Point(72, 216);
             attendanceflowLayoutPanel.Name = "attendanceflowLayoutPanel";

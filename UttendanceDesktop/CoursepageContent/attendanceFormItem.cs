@@ -14,11 +14,10 @@ namespace UttendanceDesktop.CoursepageContent
 {
     public partial class attendanceFormItem : UserControl
     {
-        string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
-
-        private DateTime _date;
+        private DateTime _releaseDate;
+        private DateTime _closeDate;
         private AttendenceFormStatusOptions _statusOption;
-        private int formId;
+        private int _formId;
         private bool isEditMode = false;
 
         public event EventHandler OnFormSelectChange;
@@ -26,6 +25,15 @@ namespace UttendanceDesktop.CoursepageContent
         public attendanceFormItem()
         {
             InitializeComponent();
+        }
+
+        public attendanceFormItem(DateTime releaseDate, AttendenceFormStatusOptions status, int formID)
+        {
+            InitializeComponent();
+
+            ReleaseDate = releaseDate;
+            Status = status;
+            FormID = formID;
         }
 
         // Aendri: Fix the height and width of the component
@@ -81,23 +89,28 @@ namespace UttendanceDesktop.CoursepageContent
         // Aendri (4/11/25): Opens the form page
         private void openPage()
         {
-            // *** REPLACE WITH PAGE LOADER CODE ***
-            String dialog = "Loading " + titleLabel.Text + " (id = " + formId + ")";
-            DialogResult warnResult = MessageBox.Show(dialog, "TEMP", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Details(FormID));
         }
 
         //---- DATA ----//
 
         // Aendri
         [Category("Item Values")]
-        public DateTime Date
+        public DateTime ReleaseDate
         {
-            get { return _date; }
+            get { return _releaseDate; }
             set
             {
-                _date = value;
+                _releaseDate = value;
                 titleLabel.Text = value.ToString("MM/dd/yyyy") + " Attendence Form (" + value.ToString("hh:mm tt") + ")";
             }
+        }
+
+        [Category("Item Values")]
+        public DateTime CloseDate
+        {
+            get { return _closeDate; }
+            set {  _closeDate = value; }
         }
 
         // Aendri
@@ -135,8 +148,8 @@ namespace UttendanceDesktop.CoursepageContent
         [Category("Item Values")]
         public int FormID
         {
-            get { return formId; }
-            set { formId = value; }
+            get { return _formId; }
+            set { _formId = value; }
         }
 
         // Aendri 4/3/2025 
