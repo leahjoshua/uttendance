@@ -17,6 +17,7 @@ namespace UttendanceDesktop.CoursepageContent
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
         private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
 
+        //Updates the UTD-ID for a student given their new and old id
         public bool updateStudentID(int oldID, int newID)
         {
             //Open database connection
@@ -49,6 +50,8 @@ namespace UttendanceDesktop.CoursepageContent
 
             return true;
         }
+
+        //Updates the student's information given their UTD-ID and the new value
         public void updateStudentInfo(int studentID, int columnToUpdate, string newInfo)
         {
             //Open database connection
