@@ -88,3 +88,21 @@ h1:focus {
     margin: auto;
     margin-top: 20px;
 }
+
+/*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 15, 2025
+	NetID: JXY200013*/
+.banner {
+    height: 75px;
+    background-color: #323857;
+    color: #DEE1F1;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    font-size: 40px;
+}
+
+.image-header {
+    max-height: 50px;
+    aspect-ratio: 4/3;
+    margin-right: 20px;
+}
