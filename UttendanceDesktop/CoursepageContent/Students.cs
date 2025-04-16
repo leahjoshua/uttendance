@@ -39,13 +39,13 @@ namespace UttendanceDesktop
         public Students()
         {
             InitializeComponent();
-            PopulateStudentTable();
+            populateStudentTable();
             //Subscribe to event to repopulate the data grid after import module is finished
-            importMod.DatabaseUpdated += PopulateStudentTable;
+            importMod.DatabaseUpdated += populateStudentTable;
         }
 
         //Populates the datagrid with information of all the students in the current class
-        private void PopulateStudentTable()
+        private void populateStudentTable()
         {
             StudentsDAO studentInfo = new StudentsDAO();
             this.studentTable.DataSource = studentInfo.getAllStudentInfo(displayList, courseNum);
@@ -61,7 +61,7 @@ namespace UttendanceDesktop
         private void addStudentsBtn_Click(object sender, EventArgs e)
         {
             StudentModule studMod = new StudentModule();
-            studMod.StudentAdded += PopulateStudentTable;
+            studMod.StudentAdded += populateStudentTable;
             studMod.Show();
             addPanel.Visible = false;
         }
@@ -107,7 +107,7 @@ namespace UttendanceDesktop
                         var utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
                         studentInfo.removeStudentsFromClass(utdID, courseNum);
                     }
-                    PopulateStudentTable();
+                    populateStudentTable();
                 }
             }
 
@@ -119,6 +119,7 @@ namespace UttendanceDesktop
             editOldValue = studentTable[e.ColumnIndex, e.RowIndex].Value;
         }
 
+        //Updates the database based on the new value in the cell
         private void studentTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var editNewValue = studentTable[e.ColumnIndex, e.RowIndex].Value.ToString();
@@ -131,9 +132,11 @@ namespace UttendanceDesktop
                 //If the UTD-ID is being changed
                 if (col == 3)
                 {
+                    //Check if the inputted value is an int
                     if(editNewValue != null && int.TryParse(editNewValue.ToString(), out int newID)
                         && editOldValue !=null && int.TryParse(editOldValue.ToString(), out int oldID))
                     {
+                        //If the update was unsucessful, display error message
                         if(!studentInfo.updateStudentID(oldID, newID))
                         {
                             MessageBox.Show("UTD-ID " + newID + " is already taken");
@@ -143,6 +146,7 @@ namespace UttendanceDesktop
                     }
                     else
                     {
+                        //Display error message for invalid input
                         MessageBox.Show("Invalid Input.");
                         studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
                     }
@@ -159,6 +163,7 @@ namespace UttendanceDesktop
                     }
                     else
                     {
+                        //Display error message for invalid input
                         MessageBox.Show("Invalid Input.");
                         studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
                     }

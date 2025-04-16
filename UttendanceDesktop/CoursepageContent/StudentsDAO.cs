@@ -124,13 +124,10 @@ namespace UttendanceDesktop.CoursepageContent
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             //Select all student information from all students enrolled in the current class
-            var query = "SELECT student.* FROM student " +
+            MySqlCommand cmd = new MySqlCommand("SELECT student.* FROM student " +
                 "INNER JOIN attends ON student.UTDID=attends.FK_UTDID " +
-                "WHERE attends.FK_CourseNum=" + GlobalResource.CURRENT_CLASS_ID +
-                " ORDER BY student.SLName;";
-
-            //Execute query
-            MySqlCommand cmd = new MySqlCommand(query, connection);
+                "WHERE attends.FK_CourseNum=@courseNum ORDER BY student.SLName;", connection);
+                cmd.Parameters.AddWithValue("@courseNum", courseNum);
             //Read result
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
