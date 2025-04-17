@@ -71,8 +71,6 @@ namespace UttendanceDesktop.CoursepageContent
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            //int formID = int.Parse(getCloseFormList(courseNum)[formNum].ToString());
-
             MessageBox.Show("FORM ID IS " + formID);
 
             //Check if submissionID exists
