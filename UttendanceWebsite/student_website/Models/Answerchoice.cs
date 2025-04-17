@@ -1,13 +1,23 @@
-﻿namespace student_website.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace student_website.Models
 {
     /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 10, 2025
+     * parisa wrote some lines
         NetID: JXY200013
     */
     public class Answerchoice
     {
+        [Key]
         public int AnswerID { get; set; }
-        public int? AnswerStatement { get; set; }
-        public int? IsCorrect { get; set; }
+
+        public string AnswerStatement { get; set; }
+        public bool? IsCorrect { get; set; }
+
         public int? FK_QuestionID { get; set; }
+
+        [ForeignKey("FK_QuestionID")]
+        public Question Question { get; set; }
     }
 }

@@ -13,47 +13,40 @@
 @using Microsoft.EntityFrameworkCore
 @using System.ComponentModel.DataAnnotations
 
-<PageTitle>Instructor Login</PageTitle> 
+<PageTitle>Student Login</PageTitle>
 <div class="panel">
     <img src="icon.png" width="100" height="100">
     <h1>Welcome to UTtenDance</h1>
-    <span>Instructor login</span>
+    <span>Student Login</span>
 
     <div class="input-section">
-        <EditForm Model="instructor" OnValidSubmit="SignIn">
+        <EditForm Model="student" OnValidSubmit="SignIn">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <div class="form-group">
-                <label for="instructorId">Instructor NetID</label>
-                <InputText id="instructorId" @bind-Value="instructor.INetID" class="form-control" />
-                <ValidationMessage For="@(() => instructor.INetID)" />
+                <label for="utdid">UTD-ID</label>
+                <InputNumber id="utdid" @bind-Value="student.UTDID" class="form-control" />
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
-                <InputText id="password" type="password" @bind-Value="instructor.IPassword" class="form-control" />
-                <ValidationMessage For="@(() => instructor.IPassword)" />
+                <label for="snetid">NetID</label>
+                <InputText id="snetid" @bind-Value="student.SNetID" class="form-control" />
             </div>
 
             <button type="submit" class="btn btn-primary" disabled="@isLoading">
-                @(isLoading ? "Authenticating..." : "Login")
+                @(isLoading ? "Logging In..." : "Login")
             </button>
         </EditForm>
 
-        @if (!string.IsNullOrEmpty(errorMessage))
-        {
-            <div class="alert alert-danger mt-3">@errorMessage</div>
-        }
-
         <div class="popup mt-2">
-            <span>What's an Instructor NetID?</span>
+            <span>What is a UTD-ID?</span>
         </div>
     </div>
 </div>
 
 @code {
-    private Instructor instructor = new Instructor();
+    private Student student = new Student();
     private string errorMessage = "";
     private bool isLoading = false;
 
@@ -66,30 +59,29 @@
         {
             using var db = DbContextFactory.CreateDbContext();
 
-            var validInstructor = await db.Instructor
+            var validStudent = await db.Student
                 .AsNoTracking()
-                .FirstOrDefaultAsync(i => i.INetID == instructor.INetID && i.IPassword == instructor.IPassword);
+                .FirstOrDefaultAsync(s => s.UTDID == student.UTDID && s.SNetID == student.SNetID);
 
-            if (validInstructor != null)
+            if (validStudent != null)
             {
                 navigateManager.NavigateTo("/quiz");
             }
             else
             {
-                errorMessage = "Invalid NetID or password.";
+                errorMessage = "Invalid UTD-ID or NetID.";
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             errorMessage = $"Error: {ex.Message}";
         }
         finally
         {
             isLoading = false;
-            instructor.INetID = string.Empty;
-            instructor.IPassword = string.Empty;
+            student.UTDID = 0;
+            student.SNetID = string.Empty;
             StateHasChanged();
         }
     }
-
 }
