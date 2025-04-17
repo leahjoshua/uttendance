@@ -42,9 +42,9 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO form (FormID, PassWd, ReleaseDateTime, CloseDateTime, FK_CourseNum)" +
-                "VALUES (@formID, @password, @release, @close, @courseNum)", connection);
-            cmd.Parameters.AddWithValue("@formID", formID);
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO form (PassWd, ReleaseDateTime, CloseDateTime, FK_CourseNum)" +
+                "VALUES (@password, @release, @close, @courseNum)", connection);
+            //cmd.Parameters.AddWithValue("@formID", formID);
             cmd.Parameters.AddWithValue("@password", form.PassWd);
             cmd.Parameters.AddWithValue("@release", form.ReleaseDateTime);
             cmd.Parameters.AddWithValue("@close", form.CloseDateTime);
