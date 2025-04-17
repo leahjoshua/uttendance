@@ -21,6 +21,8 @@ namespace UttendanceDesktop
         public Summary()
         {
             InitializeComponent();
+            SummaryDAO summaryInfo = new SummaryDAO();
+            totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(courseNum);
             populateSummaryTable();
         }
 

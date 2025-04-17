@@ -46,7 +46,7 @@ namespace UttendanceDesktop.CoursepageContent
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            ArrayList formList = new ArrayList();
+            int formCount = 0;
 
             ////Create the columns
             dataTable.Columns.Add("Last Name");
@@ -61,22 +61,15 @@ namespace UttendanceDesktop.CoursepageContent
                 "AND CloseDateTime < @now ORDER BY ReleaseDateTime ASC", connection);
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
-            //Read result
-            MySqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            int count = reader.GetInt32(0);
-            reader.Close();
 
             //Create column headers
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
-                int currNum = 0;
                 while (databaseReader.Read())
                 {
-                    currNum++;
-                    dataTable.Columns.Add("Form #" + currNum + "\r\n" + 
+                    formCount++;
+                    dataTable.Columns.Add("Form #" + formCount + "\r\n" + 
                         ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
-                    formList.Add(databaseReader["FormID"].ToString());
                 }
             }
 
@@ -95,6 +88,7 @@ namespace UttendanceDesktop.CoursepageContent
             //Read result
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
+                //For each student
                 while (databaseReader.Read())
                 {
                     var row = dataTable.NewRow();
@@ -107,18 +101,21 @@ namespace UttendanceDesktop.CoursepageContent
                     var studentID = databaseReader["UTDID"].ToString();
                     //Fill in status for each form
                     int absenceCount = 0;
-                    for (int i = 0; i < formList.Count; i++)
+                    for (int i = 0; i < formCount; i++)
                     {
                         var status = databaseReader["AttendanceStatus"];
+                        //If attendance status is null, then they don't have a submission for this form
+                        //meaning they're absent
                         if (status == DBNull.Value)
                         {
                             absenceCount++;
                             status = "A";
                         }
+                        //Add status to the appropriate form/column
                         row["Form #" + (i + 1) + "\r\n"
                             + ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd")]
                             = status.ToString();
-                        if (i < formList.Count - 1)
+                        if (i < formCount - 1)
                         {
                             databaseReader.Read();
                         }
@@ -129,8 +126,8 @@ namespace UttendanceDesktop.CoursepageContent
                 }
             }
 
-            //connection.Close();
-            ////Send data to data table
+            connection.Close();
+            //Send data to data table
 
             return dataTable;
         }

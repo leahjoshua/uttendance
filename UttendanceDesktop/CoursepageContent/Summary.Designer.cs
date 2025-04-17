@@ -35,6 +35,7 @@ namespace UttendanceDesktop
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             summaryPagePanel = new Panel();
+            totalCountLabel = new Label();
             keyPanel = new Panel();
             keyLabel = new Label();
             summaryTable = new DataGridView();
@@ -47,6 +48,7 @@ namespace UttendanceDesktop
             // summaryPagePanel
             // 
             summaryPagePanel.BackColor = Color.FromArgb(166, 176, 230);
+            summaryPagePanel.Controls.Add(totalCountLabel);
             summaryPagePanel.Controls.Add(keyPanel);
             summaryPagePanel.Controls.Add(summaryTable);
             summaryPagePanel.Controls.Add(summaryLabel);
@@ -55,6 +57,17 @@ namespace UttendanceDesktop
             summaryPagePanel.Name = "summaryPagePanel";
             summaryPagePanel.Size = new Size(800, 450);
             summaryPagePanel.TabIndex = 0;
+            // 
+            // totalCountLabel
+            // 
+            totalCountLabel.AutoSize = true;
+            totalCountLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            totalCountLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            totalCountLabel.Location = new Point(71, 120);
+            totalCountLabel.Name = "totalCountLabel";
+            totalCountLabel.Size = new Size(253, 34);
+            totalCountLabel.TabIndex = 1;
+            totalCountLabel.Text = "Total (Closed) Attendance Form Count: \r\n\r\n";
             // 
             // keyPanel
             // 
@@ -91,7 +104,6 @@ namespace UttendanceDesktop
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             summaryTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            summaryTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             summaryTable.BackgroundColor = Color.FromArgb(37, 42, 69);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);
@@ -158,5 +170,6 @@ namespace UttendanceDesktop
         private DataGridView summaryTable;
         private Panel keyPanel;
         private Label keyLabel;
+        private Label totalCountLabel;
     }
 }
