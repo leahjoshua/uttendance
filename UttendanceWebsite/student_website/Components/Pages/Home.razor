@@ -1,56 +1,95 @@
 ﻿@page "/"
-
-@* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 4, 2025
-	NetID: JXY200013
-*@
-
 @rendermode InteractiveServer
 
+@* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 4, 2025
+    parisa wrote some
+    NetID: JXY200013
+*@
+
 @inject NavigationManager navigateManager
-
+@inject IDbContextFactory<ApplicationDbContext> DbContextFactory
 @using student_website.Models
+@using student_website.Services
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
 
-
-<PageTitle>Login</PageTitle>
+<PageTitle>Instructor Login</PageTitle> 
 <div class="panel">
-
     <img src="icon.png" width="100" height="100">
     <h1>Welcome to UTtenDance</h1>
-    <span>You're free form eLearning quizzes!</span>
+    <span>Instructor login</span>
 
-    <!-- Student Login and Password -->
     <div class="input-section">
-        <EditForm Model="student">
-            <label for="studentId">UTD-ID</label>
-            <br/>
-            <InputText id="studentId" @bind-Value="student.SNetID"/>
-        </EditForm>
-        <br/>
+        <EditForm Model="instructor" OnValidSubmit="SignIn">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <EditForm Model="form">
-            <label for="">Attendance Password</label>
-            <br/>
-            <InputText id="password" @bind-Value="form.PassWd"/>
+            <div class="form-group">
+                <label for="instructorId">Instructor NetID</label>
+                <InputText id="instructorId" @bind-Value="instructor.INetID" class="form-control" />
+                <ValidationMessage For="@(() => instructor.INetID)" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText id="password" type="password" @bind-Value="instructor.IPassword" class="form-control" />
+                <ValidationMessage For="@(() => instructor.IPassword)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary" disabled="@isLoading">
+                @(isLoading ? "Authenticating..." : "Login")
+            </button>
         </EditForm>
 
-        <!-- Popup on what is a UTD-ID -->
-        <br/>
-        <div class="popup">
-            <span>What's an UTD-ID</span>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger mt-3">@errorMessage</div>
+        }
+
+        <div class="popup mt-2">
+            <span>What's an Instructor NetID?</span>
         </div>
-        
     </div>
-
-    <button class="btn btn-primary" @onclick="SignIn">Start Attendance</button>
 </div>
 
 @code {
+    private Instructor instructor = new Instructor();
+    private string errorMessage = "";
+    private bool isLoading = false;
 
-    private void SignIn()
+    private async Task SignIn()
     {
-        navigateManager.NavigateTo("/quiz");
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            using var db = DbContextFactory.CreateDbContext();
+
+            var validInstructor = await db.Instructor
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i => i.INetID == instructor.INetID && i.IPassword == instructor.IPassword);
+
+            if (validInstructor != null)
+            {
+                navigateManager.NavigateTo("/quiz");
+            }
+            else
+            {
+                errorMessage = "Invalid NetID or password.";
+            }
+        }
+        catch(Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            instructor.INetID = string.Empty;
+            instructor.IPassword = string.Empty;
+            StateHasChanged();
+        }
     }
 
-    private Student student = new();
-    private Form form = new();
 }
