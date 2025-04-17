@@ -39,6 +39,79 @@ namespace UttendanceDesktop.CoursepageContent
             return count;
         }
 
+        private ArrayList getCloseFormList(int courseNum)
+        {
+            ArrayList list = new ArrayList();
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            DateTime localDate = DateTime.Now;
+            MySqlCommand cmd = new MySqlCommand("SELECT FormID FROM form " +
+               "WHERE FK_CourseNum=@courseNum AND CloseDateTime < @now " +
+               "ORDER BY ReleaseDateTime ASC;", connection);
+            cmd.Parameters.AddWithValue("@courseNum", courseNum);
+            cmd.Parameters.AddWithValue("@now", localDate);
+
+            //Read the list of forms
+            using (MySqlDataReader databaseReader = cmd.ExecuteReader())
+            {
+                while (databaseReader.Read())
+                {
+                    list.Add(databaseReader["FormID"]);
+                }
+            }
+
+            return list;
+        }
+
+        public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
+        {
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            //int formID = int.Parse(getCloseFormList(courseNum)[formNum].ToString());
+
+            MessageBox.Show("FORM ID IS " + formID);
+
+            //Check if submissionID exists
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM submission " +
+               "WHERE submission.FK_FormID=@checkformID AND submission.FK_UTDID=@checkUtdID;", connection);
+            cmd.Parameters.AddWithValue("@checkformID", formID);
+            cmd.Parameters.AddWithValue("@checkUtdID", studentID);
+
+            //Read count
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+            //If is no submission by the student
+            if(count == 0)
+            {
+                //Insert row into table
+                cmd = new MySqlCommand("INSERT INTO submission (AttendanceStatus, IPAddress, DateTime, FK_FormID, FK_UTDID)" +
+                    "VALUES (@status, NULL, NULL, @formID, @utdID);", connection);
+                cmd.Parameters.AddWithValue("@status", newValue);
+                cmd.Parameters.AddWithValue("@formID", formID);
+                cmd.Parameters.AddWithValue("@utdID", studentID);
+                cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                //Update the entry in the table
+                cmd = new MySqlCommand("UPDATE submission SET AttendanceStatus=@status " +
+                    "WHERE submission.FK_FormID=@formID AND submission.FK_UTDID=@utdID;", connection);
+                cmd.Parameters.AddWithValue("@status", newValue);
+                cmd.Parameters.AddWithValue("@formID", formID);
+                cmd.Parameters.AddWithValue("@utdID", studentID);
+                cmd.ExecuteNonQuery();
+            }
+            connection.Close();
+
+            return true;
+        }
+
         public DataTable getSummaryInfo(int courseNum)
         {
             DataTable dataTable = new DataTable();
@@ -62,6 +135,7 @@ namespace UttendanceDesktop.CoursepageContent
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
 
+            int colNum = 5;
             //Create column headers
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
@@ -70,6 +144,8 @@ namespace UttendanceDesktop.CoursepageContent
                     formCount++;
                     dataTable.Columns.Add("Form #" + formCount + "\r\n" + 
                         ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
+                    dataTable.Columns[colNum].ExtendedProperties["FormID"] = databaseReader["FormID"].ToString();
+                    colNum++;
                 }
             }
 
@@ -106,7 +182,7 @@ namespace UttendanceDesktop.CoursepageContent
                         var status = databaseReader["AttendanceStatus"];
                         //If attendance status is null, then they don't have a submission for this form
                         //meaning they're absent
-                        if (status == DBNull.Value)
+                        if (status == DBNull.Value || status.ToString() == "A")
                         {
                             absenceCount++;
                             status = "A";

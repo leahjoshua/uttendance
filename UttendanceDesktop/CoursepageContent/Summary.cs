@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,10 @@ namespace UttendanceDesktop
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 15, 2025.
     // NetID: jxy210012
-    public partial class Summary: Form
+    public partial class Summary : Form
     {
         private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
+        private object editOldValue;
 
         public Summary()
         {
@@ -33,7 +35,7 @@ namespace UttendanceDesktop
 
 
             //Make the student info column and attendance count column readonly and sticky
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 summaryTable.Columns[i].ReadOnly = true;
                 summaryTable.Columns[i].Frozen = true;
@@ -48,6 +50,48 @@ namespace UttendanceDesktop
             for (int i = 5; i < summaryTable.Columns.Count; i++)
             {
                 summaryTable.Columns[i].Width = 70;
+            }
+        }
+
+        private void summaryTable_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            editOldValue = summaryTable[e.ColumnIndex, e.RowIndex].Value;
+        }
+
+        private void summaryTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var editNewValue = summaryTable[e.ColumnIndex, e.RowIndex].Value.ToString();
+            editNewValue = editNewValue.ToUpper();
+            summaryTable[e.ColumnIndex, e.RowIndex].Value = editNewValue;
+
+            if (!Equals(editOldValue, editNewValue))
+            {
+                //Input validation
+                if (editNewValue == "P" || editNewValue == "E" || editNewValue == "A")
+                {
+                    //int form = e.ColumnIndex - 5;
+                    SummaryDAO summaryInfo = new SummaryDAO();
+
+                    //Get the formID
+                    DataTable boundTable = (DataTable)summaryTable.DataSource;
+                    string colName = summaryTable.Columns[e.ColumnIndex].Name;
+                    DataColumn col = boundTable.Columns[colName];
+                    int formID = int.Parse(col.ExtendedProperties["FormID"].ToString());
+
+                    int studentID = int.Parse(summaryTable.Rows[e.RowIndex].Cells["UTD-ID"].Value.ToString());
+                    summaryInfo.updateStatus(studentID, formID, editNewValue, courseNum);
+
+                    //Update the Abscene count
+                    if (editOldValue.ToString() == "A")
+                    {
+                        summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) - 1;
+                    }
+            }
+                else
+                {
+                    MessageBox.Show("Invalid input. Please enter either a \'P\', \'E\', or \'A\'");
+                    summaryTable[e.ColumnIndex, e.RowIndex].Value = editOldValue.ToString().ToUpper();
+                }
             }
         }
     }

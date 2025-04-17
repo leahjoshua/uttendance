@@ -35,21 +35,19 @@ namespace UttendanceDesktop
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             summaryPagePanel = new Panel();
-            totalCountLabel = new Label();
-            keyPanel = new Panel();
             keyLabel = new Label();
+            totalCountLabel = new Label();
             summaryTable = new DataGridView();
             summaryLabel = new Label();
             summaryPagePanel.SuspendLayout();
-            keyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)summaryTable).BeginInit();
             SuspendLayout();
             // 
             // summaryPagePanel
             // 
             summaryPagePanel.BackColor = Color.FromArgb(166, 176, 230);
+            summaryPagePanel.Controls.Add(keyLabel);
             summaryPagePanel.Controls.Add(totalCountLabel);
-            summaryPagePanel.Controls.Add(keyPanel);
             summaryPagePanel.Controls.Add(summaryTable);
             summaryPagePanel.Controls.Add(summaryLabel);
             summaryPagePanel.Dock = DockStyle.Fill;
@@ -58,8 +56,22 @@ namespace UttendanceDesktop
             summaryPagePanel.Size = new Size(800, 450);
             summaryPagePanel.TabIndex = 0;
             // 
+            // keyLabel
+            // 
+            keyLabel.Anchor = AnchorStyles.Top;
+            keyLabel.AutoSize = true;
+            keyLabel.BackColor = Color.FromArgb(222, 225, 241);
+            keyLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            keyLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            keyLabel.Location = new Point(474, 102);
+            keyLabel.Name = "keyLabel";
+            keyLabel.Size = new Size(243, 34);
+            keyLabel.TabIndex = 0;
+            keyLabel.Text = "Key: \r\nP = Present    E = Excused    A = Absent\r\n";
+            // 
             // totalCountLabel
             // 
+            totalCountLabel.Anchor = AnchorStyles.Top;
             totalCountLabel.AutoSize = true;
             totalCountLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             totalCountLabel.ForeColor = Color.FromArgb(37, 42, 69);
@@ -68,27 +80,6 @@ namespace UttendanceDesktop
             totalCountLabel.Size = new Size(253, 34);
             totalCountLabel.TabIndex = 1;
             totalCountLabel.Text = "Total (Closed) Attendance Form Count: \r\n\r\n";
-            // 
-            // keyPanel
-            // 
-            keyPanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            keyPanel.BackColor = Color.FromArgb(222, 225, 241);
-            keyPanel.Controls.Add(keyLabel);
-            keyPanel.Location = new Point(467, 98);
-            keyPanel.Name = "keyPanel";
-            keyPanel.Size = new Size(243, 36);
-            keyPanel.TabIndex = 1;
-            // 
-            // keyLabel
-            // 
-            keyLabel.AutoSize = true;
-            keyLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            keyLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            keyLabel.Location = new Point(0, 2);
-            keyLabel.Name = "keyLabel";
-            keyLabel.Size = new Size(243, 34);
-            keyLabel.TabIndex = 0;
-            keyLabel.Text = "Key: \r\nP = Present    E = Excused    A = Absent\r\n";
             // 
             // summaryTable
             // 
@@ -104,6 +95,7 @@ namespace UttendanceDesktop
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             summaryTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            summaryTable.Anchor = AnchorStyles.Top;
             summaryTable.BackgroundColor = Color.FromArgb(37, 42, 69);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);
@@ -133,6 +125,8 @@ namespace UttendanceDesktop
             summaryTable.Size = new Size(646, 254);
             summaryTable.TabIndex = 0;
             summaryTable.TabStop = false;
+            summaryTable.CellBeginEdit += summaryTable_CellBeginEdit;
+            summaryTable.CellEndEdit += summaryTable_CellEndEdit;
             // 
             // summaryLabel
             // 
@@ -157,8 +151,6 @@ namespace UttendanceDesktop
             Text = "Summary";
             summaryPagePanel.ResumeLayout(false);
             summaryPagePanel.PerformLayout();
-            keyPanel.ResumeLayout(false);
-            keyPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)summaryTable).EndInit();
             ResumeLayout(false);
         }
@@ -168,8 +160,7 @@ namespace UttendanceDesktop
         private Panel summaryPagePanel;
         private Label summaryLabel;
         private DataGridView summaryTable;
-        private Panel keyPanel;
-        private Label keyLabel;
         private Label totalCountLabel;
+        private Label keyLabel;
     }
 }

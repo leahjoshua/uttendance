@@ -100,6 +100,7 @@ namespace UttendanceDesktop
             // 
             // addStudentsBtn
             // 
+            addStudentsBtn.Anchor = AnchorStyles.Top;
             addStudentsBtn.BackColor = Color.FromArgb(224, 224, 224);
             addStudentsBtn.FlatStyle = FlatStyle.Flat;
             addStudentsBtn.ForeColor = Color.FromArgb(37, 42, 69);
@@ -125,6 +126,7 @@ namespace UttendanceDesktop
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             studentTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            studentTable.Anchor = AnchorStyles.Top;
             studentTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             studentTable.BackgroundColor = Color.FromArgb(37, 42, 69);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
