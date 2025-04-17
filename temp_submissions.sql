@@ -1,0 +1,3 @@
+INSERT INTO submission (SubmissionID, AttendanceStatus, IFName, IPAddress, DatTime, FK_FormID, FK_UTDID) VALUES (1, 'P', NULL, NULL, NULL, 4, 2021188666);
+INSERT INTO submission (SubmissionID, AttendanceStatus, IFName, IPAddress, DatTime, FK_FormID, FK_UTDID) VALUES (2, 'P', NULL, NULL, NULL, 5, 2021308444);
+INSERT INTO submission (SubmissionID, AttendanceStatus, IFName, IPAddress, DatTime, FK_FormID, FK_UTDID) VALUES (3, 'P', NULL, NULL, NULL, 4, 2021308444);

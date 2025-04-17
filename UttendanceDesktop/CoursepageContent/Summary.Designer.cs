@@ -35,15 +35,19 @@ namespace UttendanceDesktop
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             summaryPagePanel = new Panel();
+            keyPanel = new Panel();
+            keyLabel = new Label();
             summaryTable = new DataGridView();
             summaryLabel = new Label();
             summaryPagePanel.SuspendLayout();
+            keyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)summaryTable).BeginInit();
             SuspendLayout();
             // 
             // summaryPagePanel
             // 
             summaryPagePanel.BackColor = Color.FromArgb(166, 176, 230);
+            summaryPagePanel.Controls.Add(keyPanel);
             summaryPagePanel.Controls.Add(summaryTable);
             summaryPagePanel.Controls.Add(summaryLabel);
             summaryPagePanel.Dock = DockStyle.Fill;
@@ -51,6 +55,27 @@ namespace UttendanceDesktop
             summaryPagePanel.Name = "summaryPagePanel";
             summaryPagePanel.Size = new Size(800, 450);
             summaryPagePanel.TabIndex = 0;
+            // 
+            // keyPanel
+            // 
+            keyPanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            keyPanel.BackColor = Color.FromArgb(222, 225, 241);
+            keyPanel.Controls.Add(keyLabel);
+            keyPanel.Location = new Point(467, 98);
+            keyPanel.Name = "keyPanel";
+            keyPanel.Size = new Size(243, 36);
+            keyPanel.TabIndex = 1;
+            // 
+            // keyLabel
+            // 
+            keyLabel.AutoSize = true;
+            keyLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            keyLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            keyLabel.Location = new Point(0, 2);
+            keyLabel.Name = "keyLabel";
+            keyLabel.Size = new Size(243, 34);
+            keyLabel.TabIndex = 0;
+            keyLabel.Text = "Key: \r\nP = Present    E = Excused    A = Absent\r\n";
             // 
             // summaryTable
             // 
@@ -67,7 +92,6 @@ namespace UttendanceDesktop
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             summaryTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             summaryTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            summaryTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             summaryTable.BackgroundColor = Color.FromArgb(37, 42, 69);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);
@@ -90,14 +114,13 @@ namespace UttendanceDesktop
             summaryTable.DefaultCellStyle = dataGridViewCellStyle3;
             summaryTable.EnableHeadersVisualStyles = false;
             summaryTable.GridColor = Color.FromArgb(37, 42, 69);
-            summaryTable.Location = new Point(71, 113);
+            summaryTable.Location = new Point(71, 157);
             summaryTable.Name = "summaryTable";
             summaryTable.RowHeadersVisible = false;
             summaryTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            summaryTable.Size = new Size(646, 298);
+            summaryTable.Size = new Size(646, 254);
             summaryTable.TabIndex = 0;
             summaryTable.TabStop = false;
-            summaryTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             // 
             // summaryLabel
             // 
@@ -122,6 +145,8 @@ namespace UttendanceDesktop
             Text = "Summary";
             summaryPagePanel.ResumeLayout(false);
             summaryPagePanel.PerformLayout();
+            keyPanel.ResumeLayout(false);
+            keyPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)summaryTable).EndInit();
             ResumeLayout(false);
         }
@@ -131,5 +156,7 @@ namespace UttendanceDesktop
         private Panel summaryPagePanel;
         private Label summaryLabel;
         private DataGridView summaryTable;
+        private Panel keyPanel;
+        private Label keyLabel;
     }
 }
