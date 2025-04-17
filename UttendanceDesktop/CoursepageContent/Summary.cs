@@ -31,7 +31,7 @@ namespace UttendanceDesktop
 
 
             //Make the student info column and attendance count column readonly and sticky
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < 5; i++)
             {
                 summaryTable.Columns[i].ReadOnly = true;
                 summaryTable.Columns[i].Frozen = true;
@@ -39,9 +39,11 @@ namespace UttendanceDesktop
             }
 
             //Set the unexcused absence count column to be smaller
+            summaryTable.Columns[2].Width = 90;
             summaryTable.Columns[3].Width = 90;
+            summaryTable.Columns[4].Width = 90;
 
-            for (int i = 4; i < summaryTable.Columns.Count; i++)
+            for (int i = 5; i < summaryTable.Columns.Count; i++)
             {
                 summaryTable.Columns[i].Width = 70;
             }

@@ -51,12 +51,13 @@ namespace UttendanceDesktop.CoursepageContent
             dataTable.Columns.Add("Last Name");
             dataTable.Columns.Add("First Name");
             dataTable.Columns.Add("Net-ID");
+            dataTable.Columns.Add("UTD-ID");
             dataTable.Columns.Add("Unexused Absences");
 
             DateTime localDate = DateTime.Now;
             //Get the count closed forms for this class
             MySqlCommand cmd = new MySqlCommand("SELECT FormID, DATE(ReleaseDateTime) AS ReleaseDate FROM form WHERE FK_CourseNum=@fkcourseNum " +
-                "AND CloseDateTime < @now ORDER BY ReleaseDateTime", connection);
+                "AND CloseDateTime < @now ORDER BY ReleaseDateTime ASC", connection);
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
             //Read result
@@ -78,38 +79,49 @@ namespace UttendanceDesktop.CoursepageContent
             }
 
             //Select student information from all students enrolled in the current class
-            cmd = new MySqlCommand("SELECT student.* FROM student " +
-                "INNER JOIN attends ON student.UTDID=attends.FK_UTDID " +
-                "WHERE attends.FK_CourseNum=@courseNum ORDER BY student.SLName;", connection);
-            cmd.Parameters.AddWithValue("@courseNum", courseNum);
+            //cmd = new MySqlCommand("SELECT student.* FROM student " +
+            //    "INNER JOIN attends ON student.UTDID=attends.FK_UTDID " +
+            //    "WHERE attends.FK_CourseNum=@courseNum ORDER BY student.SLName;", connection);
+            //cmd.Parameters.AddWithValue("@courseNum", courseNum);
 
             //Read result
-            using (MySqlDataReader databaseReader = cmd.ExecuteReader())
-            {
-                while (databaseReader.Read())
-                {
-                    var row = dataTable.NewRow();
-                    //Fill in student information
-                    row["Last Name"] = databaseReader["SLName"].ToString();
-                    row["First Name"] = databaseReader["SFName"].ToString();
-                    row["Net-ID"] = databaseReader["SNetID"].ToString();
+            //using (MySqlDataReader databaseReader = cmd.ExecuteReader())
+            //{
+            //    while (databaseReader.Read())
+            //    {
+            //        var row = dataTable.NewRow();
+            //        //Fill in student information
+            //        row["Last Name"] = databaseReader["SLName"].ToString();
+            //        row["First Name"] = databaseReader["SFName"].ToString();
+            //        row["Net-ID"] = databaseReader["SNetID"].ToString();
+            //        row["UTD-ID"] = databaseReader["UTDID"].ToString();
 
-                    var studentID = databaseReader["UTDID"].ToString();
-                    //Fill in status for each form
-                    for(int i = 0; i < formList.Count; i++)
-                    {
-                        cmd = new MySqlCommand("SELECT AttendanceStatus " +
-                        "WHERE submissions.FK_UTDID=@utdID AND FK_FormID=@formID;", connection);
-                        cmd.Parameters.AddWithValue("@utdID", studentID);
-                        cmd.Parameters.AddWithValue("@formID", formList[i]);
+            //        var studentID = databaseReader["UTDID"].ToString();
+            //        //Fill in status for each form
+            //        for(int i = 0; i < formList.Count; i++)
+            //        {
+            //            cmd = new MySqlCommand("SELECT AttendanceStatus " +
+            //            "WHERE submissions.FK_UTDID=@utdID AND FK_FormID=@formID;", connection);
+            //            cmd.Parameters.AddWithValue("@utdID", studentID);
+            //            cmd.Parameters.AddWithValue("@formID", formList[i]);
 
-                        //MySqlDataReader statusReader = cmd.ExecuteReader();
-                        //reader.Read();
-                    }
+            //            //MySqlDataReader statusReader = cmd.ExecuteReader();
+            //            //reader.Read();
+            //        }
 
-                    dataTable.Rows.Add(row);
-                }
-            }
+            //        dataTable.Rows.Add(row);
+            //    }
+            //}
+
+            cmd = new MySqlCommand("SELECT student.*, formID, AttendanceStatus " +
+                "FROM student s" +
+                "JOIN attends a ON s.UTDID=a.FK_UTDID " +
+                "JOIN form f ON a.FK_CourseNum=f.FK_CourseNum " +
+                "LEFT JOIN submissions sub ON sub.FK_FormID=f.FormID AND sub.FK_UTDID=s.UTDID " +
+                "WHERE a.FK_CourseNum=@courseNum AND f.CloseDateTime < @today " +
+                "ORDER BY s.SLName ASC, f.ReleaseDateTime ASC", connection);
+            cmd.Parameters.AddWithValue("@courseNum", courseNum);
+            cmd.Parameters.AddWithValue("@today", courseNum);
 
             //connection.Close();
             ////Send data to data table
