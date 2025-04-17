@@ -20,6 +20,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private bool _isSelectable = false;
 
         public event EventHandler OnQuestionSelectChange;
+        public event EventHandler OnClickEdit;
 
         public QuestionItem()
         {
@@ -100,7 +101,8 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         public bool IsSelectable
         {
             get { return _isSelectable; }
-            set { 
+            set
+            {
                 _isSelectable = value;
                 ToggleSelect();
             }
@@ -179,6 +181,16 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             if (OnQuestionSelectChange != null)
             {
                 OnQuestionSelectChange(checkbox.Checked, null);
+            }
+        }
+
+        // Aendri 4/17/2025
+        // On click, creates an event and raises it to the parent control with the question's ID
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            if (OnClickEdit != null)
+            {
+                OnClickEdit(_questionID, null);
             }
         }
     }

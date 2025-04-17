@@ -33,6 +33,7 @@
             questionChoiceLabel = new Label();
             splitter1 = new Splitter();
             QuestionLabel = new Label();
+            editButton = new Button();
             TopPanel = new Panel();
             answerChoiceTable = new TableLayoutPanel();
             questionAnswerItem1 = new QuestionAnswerItem();
@@ -52,8 +53,9 @@
             topFlowLayout.Controls.Add(QuestionLabel);
             topFlowLayout.Dock = DockStyle.Top;
             topFlowLayout.Location = new Point(0, 0);
+            topFlowLayout.MaximumSize = new Size(660, 0);
             topFlowLayout.Name = "topFlowLayout";
-            topFlowLayout.Size = new Size(740, 78);
+            topFlowLayout.Size = new Size(660, 78);
             topFlowLayout.TabIndex = 12;
             topFlowLayout.Click += topFlowLayout_Click;
             // 
@@ -109,21 +111,34 @@
             QuestionLabel.ForeColor = Color.FromArgb(222, 225, 241);
             QuestionLabel.Location = new Point(158, 0);
             QuestionLabel.Margin = new Padding(0);
-            QuestionLabel.MaximumSize = new Size(660, 0);
-            QuestionLabel.MinimumSize = new Size(400, 0);
+            QuestionLabel.MaximumSize = new Size(500, 0);
+            QuestionLabel.MinimumSize = new Size(404, 0);
             QuestionLabel.Name = "QuestionLabel";
             QuestionLabel.Padding = new Padding(10);
-            QuestionLabel.Size = new Size(400, 78);
+            QuestionLabel.Size = new Size(500, 78);
             QuestionLabel.TabIndex = 11;
             QuestionLabel.Text = "Question answer\r\n";
             QuestionLabel.TextAlign = ContentAlignment.MiddleLeft;
             QuestionLabel.Click += QuestionLabel_Click;
+            // 
+            // editButton
+            // 
+            editButton.Dock = DockStyle.Right;
+            editButton.Location = new Point(660, 0);
+            editButton.Margin = new Padding(14);
+            editButton.Name = "editButton";
+            editButton.Size = new Size(80, 78);
+            editButton.TabIndex = 14;
+            editButton.Text = "edit";
+            editButton.UseVisualStyleBackColor = true;
+            editButton.Click += editButton_Click;
             // 
             // TopPanel
             // 
             TopPanel.AutoSize = true;
             TopPanel.BackColor = Color.FromArgb(222, 225, 241);
             TopPanel.Controls.Add(topFlowLayout);
+            TopPanel.Controls.Add(editButton);
             TopPanel.Dock = DockStyle.Top;
             TopPanel.Location = new Point(5, 5);
             TopPanel.Name = "TopPanel";
@@ -211,5 +226,6 @@
         private QuestionAnswerItem questionAnswerItem1;
         private QuestionAnswerItem questionAnswerItem2;
         private CheckBox checkbox;
+        private Button editButton;
     }
 }
