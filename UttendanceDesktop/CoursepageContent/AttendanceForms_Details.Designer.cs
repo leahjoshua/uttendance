@@ -56,6 +56,7 @@
             questionItem1.AutoSize = true;
             questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             questionItem1.BackColor = Color.FromArgb(50, 56, 87);
+            questionItem1.IsSelectable = false;
             questionItem1.Location = new Point(0, 0);
             questionItem1.Margin = new Padding(0);
             questionItem1.MaximumSize = new Size(750, 0);
@@ -65,6 +66,7 @@
             questionItem1.QuestionID = 0;
             questionItem1.QuestionNumber = 0;
             questionItem1.QuestionValue = null;
+            questionItem1.Selected = false;
             questionItem1.Size = new Size(750, 84);
             questionItem1.TabIndex = 0;
             // 
