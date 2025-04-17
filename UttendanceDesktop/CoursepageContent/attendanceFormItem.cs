@@ -47,7 +47,6 @@ namespace UttendanceDesktop.CoursepageContent
         // On selection/deselection of the form, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine(titleLabel.Text + " CLICKED!");
             if (OnFormSelectChange != null)
             {
                 OnFormSelectChange(checkbox.Checked, null);

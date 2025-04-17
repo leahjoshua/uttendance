@@ -17,17 +17,22 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private int _questionNumber;
         private bool isMinimized = true;
         private int _questionID;
+        private bool _isSelectable = false;
+
+        public event EventHandler OnQuestionSelectChange;
 
         public QuestionItem()
         {
             InitializeComponent();
             ShowHideList();
+            ToggleSelect();
         }
 
         public QuestionItem(String questionValue, QuestionAnswerItem[] answersList)
         {
             InitializeComponent();
             ShowHideList();
+            ToggleSelect();
 
             QuestionValue = questionValue;
             AnswerList = answersList;
@@ -60,7 +65,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
                 {
                     QuestionLabel.Text = value.ToString();
                 }
-                
+
             }
         }
 
@@ -76,7 +81,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
                 {
                     _answersList = value;
                     FillAnswerChoices();
-                }   
+                }
             }
         }
 
@@ -87,6 +92,26 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         {
             get { return _questionID; }
             set { _questionID = value; }
+        }
+
+        // Aendri 4/17/2025
+        // If the question is selectable or not
+        [Category("Item Values")]
+        public bool IsSelectable
+        {
+            get { return _isSelectable; }
+            set { 
+                _isSelectable = value;
+                ToggleSelect();
+            }
+        }
+
+        // Aendri 4/17/2025
+        [Category("Item Values")]
+        public bool Selected
+        {
+            get { return checkbox.Checked; }
+            set { checkbox.Checked = value; }
         }
 
         // ----- SPECIAL FUNCTIONS ------ //
@@ -113,7 +138,16 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             answerChoiceTable.Visible = !isMinimized;
         }
 
-        //----- EVENTS ----- //
+        // Aendri 4/17/2025
+        // Display mode: hide select box, show label
+        // Select mode: show select box, hide label
+        private void ToggleSelect()
+        {
+            checkbox.Visible = _isSelectable;
+            questionChoiceLabel.Visible = !_isSelectable;
+        }
+
+        // ----------- EVENTS ----------- //
         // Aendri 4/13/2025 
         // On click switch the state and update
         private void QuestionLabel_Click(object sender, EventArgs e)
@@ -138,7 +172,14 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             ShowHideList();
         }
 
-        
-
+        // Aendri 4/17/2025
+        // On selection/deselection of the item, create event and raise to parent control. 
+        private void checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (OnQuestionSelectChange != null)
+            {
+                OnQuestionSelectChange(checkbox.Checked, null);
+            }
+        }
     }
 }
