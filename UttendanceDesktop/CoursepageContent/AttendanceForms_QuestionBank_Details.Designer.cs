@@ -61,16 +61,18 @@
             // 
             // flowLayoutPanel
             // 
-            flowLayoutPanel.Anchor = AnchorStyles.Top;
-            flowLayoutPanel.AutoScroll = true;
+            flowLayoutPanel.AutoSize = true;
             flowLayoutPanel.Controls.Add(questionItem1);
             flowLayoutPanel.Location = new Point(53, 148);
+            flowLayoutPanel.MaximumSize = new Size(779, 0);
+            flowLayoutPanel.MinimumSize = new Size(779, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
             flowLayoutPanel.Size = new Size(779, 466);
             flowLayoutPanel.TabIndex = 15;
             // 
             // questionItem1
             // 
+            questionItem1.AnswerList = null;
             questionItem1.AutoSize = true;
             questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             questionItem1.BackColor = Color.FromArgb(50, 56, 87);
@@ -80,9 +82,10 @@
             questionItem1.MinimumSize = new Size(750, 0);
             questionItem1.Name = "questionItem1";
             questionItem1.Padding = new Padding(5);
+            questionItem1.QuestionID = 0;
             questionItem1.QuestionNumber = 0;
             questionItem1.QuestionValue = null;
-            questionItem1.Size = new Size(750, 211);
+            questionItem1.Size = new Size(750, 84);
             questionItem1.TabIndex = 0;
             // 
             // SaveEditIcon
@@ -92,7 +95,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(862, 548);
+            SaveEditIcon.Location = new Point(778, 604);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
@@ -102,6 +105,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoSize = true;
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(914, 600);
             Controls.Add(SaveEditIcon);

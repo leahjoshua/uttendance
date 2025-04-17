@@ -67,7 +67,6 @@ namespace UttendanceDesktop
             // 
             // flowLayoutPanel
             // 
-            flowLayoutPanel.Anchor = AnchorStyles.Top;
             flowLayoutPanel.AutoScroll = true;
             flowLayoutPanel.Location = new Point(66, 151);
             flowLayoutPanel.Name = "flowLayoutPanel";

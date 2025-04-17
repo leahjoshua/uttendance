@@ -14,22 +14,23 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
 {
     public partial class QuestionAnswerItem: UserControl
     {
-        public QuestionAnswerItem()
-        {
-            InitializeComponent();
-        }
-
         private String _answerValue;
         private bool _isCorrect;
         private char _choiceLetter;
         private int _answerID;
 
-        public QuestionAnswerItem(char choiceLetter, String problemStatement, bool isCorrect)
+
+        public QuestionAnswerItem()
+        {
+            InitializeComponent();
+        }
+
+        public QuestionAnswerItem(char choiceLetter, String answerValue, bool isCorrect)
         {
             InitializeComponent();
 
             ChoiceLetter = choiceLetter;
-            AnswerValue = problemStatement;
+            AnswerValue = answerValue;
             IsCorrect = isCorrect;
         }
 
