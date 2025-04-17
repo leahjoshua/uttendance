@@ -73,7 +73,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 //cmd.Parameters.AddWithValue("@formID", FormID);
                 cmd.ExecuteNonQuery();
 
-                cmd = new MySqlCommand("INSERT INTO has (FK_QuizID, FK_QuestionID)" +
+                cmd = new MySqlCommand("INSERT INTO has (FK_FormID, FK_QuestionID)" +
                     "VALUES (@formID, @questionID)", connection);
                 cmd.Parameters.AddWithValue("@formID", FormID);
                 cmd.Parameters.AddWithValue("@questionID", questionPK);
