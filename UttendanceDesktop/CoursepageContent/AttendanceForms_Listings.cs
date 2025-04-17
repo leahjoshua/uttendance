@@ -255,12 +255,12 @@ namespace UttendanceDesktop
             if (numItemsToDelete > 0)
             {
                 //Set icon to delete
-                SaveEditIcon.BackColor = Color.Red;
+                SaveEditIcon.BackgroundImage = Properties.Resources.trash_icon;
             }
             else
             {
                 //Set icon to add
-                SaveEditIcon.BackColor = Color.Green;
+                SaveEditIcon.BackgroundImage = Properties.Resources.add_icon;
             }
         }
 
@@ -308,7 +308,7 @@ namespace UttendanceDesktop
 
                 // Prompt user to verify deletion
                 warnResult = MessageBox.Show(dialog, "Remove Form(s)", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (warnResult != DialogResult.Yes) { return; } // EXIT if user cancels!
+                if (warnResult == DialogResult.Yes) { return; } // EXIT if user cancels!
 
                 // Run deletion query
                 cmd = new MySqlCommand(deleteQuery, connection);
@@ -361,7 +361,8 @@ namespace UttendanceDesktop
             if (numItemsToDelete > 0) //EDIT Mode
             {              
                 DeleteItems();
-            } else //NEW Mode (written by Lee)
+            } 
+            else //NEW Mode (written by Lee)
             {
                 GlobalResource.COURSEPAGE.loadForm(new CreateAttendanceFormPage());
             }

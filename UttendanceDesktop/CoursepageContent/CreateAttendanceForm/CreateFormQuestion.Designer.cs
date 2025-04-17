@@ -77,9 +77,9 @@
             createQuestionPanel.Controls.Add(asteriskLabel);
             createQuestionPanel.Controls.Add(problemStmtLabel);
             createQuestionPanel.Location = new Point(0, 0);
-            createQuestionPanel.Margin = new Padding(2);
+            createQuestionPanel.Margin = new Padding(2, 3, 2, 3);
             createQuestionPanel.Name = "createQuestionPanel";
-            createQuestionPanel.Size = new Size(518, 366);
+            createQuestionPanel.Size = new Size(592, 488);
             createQuestionPanel.TabIndex = 0;
             // 
             // createBtn
@@ -90,9 +90,10 @@
             createBtn.FlatStyle = FlatStyle.Flat;
             createBtn.Font = new Font("Segoe UI", 10F);
             createBtn.ForeColor = Color.White;
-            createBtn.Location = new Point(399, 323);
+            createBtn.Location = new Point(456, 431);
+            createBtn.Margin = new Padding(3, 4, 3, 4);
             createBtn.Name = "createBtn";
-            createBtn.Size = new Size(87, 25);
+            createBtn.Size = new Size(99, 33);
             createBtn.TabIndex = 30;
             createBtn.Text = "Create";
             createBtn.UseVisualStyleBackColor = false;
@@ -106,9 +107,10 @@
             cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.Font = new Font("Segoe UI", 10F);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(296, 323);
+            cancelBtn.Location = new Point(338, 431);
+            cancelBtn.Margin = new Padding(3, 4, 3, 4);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(87, 25);
+            cancelBtn.Size = new Size(99, 33);
             cancelBtn.TabIndex = 29;
             cancelBtn.Text = "Cancel";
             cancelBtn.UseVisualStyleBackColor = false;
@@ -117,20 +119,18 @@
             // correctDBtn
             // 
             correctDBtn.AutoSize = true;
-            correctDBtn.Location = new Point(56, 287);
-            correctDBtn.Margin = new Padding(3, 2, 3, 2);
+            correctDBtn.Location = new Point(64, 383);
             correctDBtn.Name = "correctDBtn";
-            correctDBtn.Size = new Size(14, 13);
+            correctDBtn.Size = new Size(17, 16);
             correctDBtn.TabIndex = 28;
             correctDBtn.TabStop = true;
             correctDBtn.UseVisualStyleBackColor = true;
             // 
             // choiceDTextbox
             // 
-            choiceDTextbox.Location = new Point(149, 283);
-            choiceDTextbox.Margin = new Padding(3, 2, 3, 2);
+            choiceDTextbox.Location = new Point(170, 377);
             choiceDTextbox.Name = "choiceDTextbox";
-            choiceDTextbox.Size = new Size(337, 23);
+            choiceDTextbox.Size = new Size(385, 27);
             choiceDTextbox.TabIndex = 27;
             // 
             // choiceDLabel
@@ -139,29 +139,27 @@
             choiceDLabel.BackColor = Color.Transparent;
             choiceDLabel.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             choiceDLabel.ForeColor = Color.Black;
-            choiceDLabel.Location = new Point(101, 280);
+            choiceDLabel.Location = new Point(115, 373);
             choiceDLabel.Name = "choiceDLabel";
-            choiceDLabel.Size = new Size(29, 25);
+            choiceDLabel.Size = new Size(36, 31);
             choiceDLabel.TabIndex = 26;
             choiceDLabel.Text = "D.";
             // 
             // correctCBtn
             // 
             correctCBtn.AutoSize = true;
-            correctCBtn.Location = new Point(56, 253);
-            correctCBtn.Margin = new Padding(3, 2, 3, 2);
+            correctCBtn.Location = new Point(64, 337);
             correctCBtn.Name = "correctCBtn";
-            correctCBtn.Size = new Size(14, 13);
+            correctCBtn.Size = new Size(17, 16);
             correctCBtn.TabIndex = 25;
             correctCBtn.TabStop = true;
             correctCBtn.UseVisualStyleBackColor = true;
             // 
             // choiceCTextbox
             // 
-            choiceCTextbox.Location = new Point(149, 250);
-            choiceCTextbox.Margin = new Padding(3, 2, 3, 2);
+            choiceCTextbox.Location = new Point(170, 333);
             choiceCTextbox.Name = "choiceCTextbox";
-            choiceCTextbox.Size = new Size(337, 23);
+            choiceCTextbox.Size = new Size(385, 27);
             choiceCTextbox.TabIndex = 24;
             // 
             // choiceCLabel
@@ -170,29 +168,27 @@
             choiceCLabel.BackColor = Color.Transparent;
             choiceCLabel.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             choiceCLabel.ForeColor = Color.Black;
-            choiceCLabel.Location = new Point(101, 247);
+            choiceCLabel.Location = new Point(115, 329);
             choiceCLabel.Name = "choiceCLabel";
-            choiceCLabel.Size = new Size(28, 25);
+            choiceCLabel.Size = new Size(34, 31);
             choiceCLabel.TabIndex = 23;
             choiceCLabel.Text = "C.";
             // 
             // correctBBtn
             // 
             correctBBtn.AutoSize = true;
-            correctBBtn.Location = new Point(56, 221);
-            correctBBtn.Margin = new Padding(3, 2, 3, 2);
+            correctBBtn.Location = new Point(64, 295);
             correctBBtn.Name = "correctBBtn";
-            correctBBtn.Size = new Size(14, 13);
+            correctBBtn.Size = new Size(17, 16);
             correctBBtn.TabIndex = 22;
             correctBBtn.TabStop = true;
             correctBBtn.UseVisualStyleBackColor = true;
             // 
             // choiceBTextbox
             // 
-            choiceBTextbox.Location = new Point(149, 217);
-            choiceBTextbox.Margin = new Padding(3, 2, 3, 2);
+            choiceBTextbox.Location = new Point(170, 289);
             choiceBTextbox.Name = "choiceBTextbox";
-            choiceBTextbox.Size = new Size(337, 23);
+            choiceBTextbox.Size = new Size(385, 27);
             choiceBTextbox.TabIndex = 21;
             // 
             // choiceBLabel
@@ -201,29 +197,27 @@
             choiceBLabel.BackColor = Color.Transparent;
             choiceBLabel.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             choiceBLabel.ForeColor = Color.Black;
-            choiceBLabel.Location = new Point(101, 215);
+            choiceBLabel.Location = new Point(115, 287);
             choiceBLabel.Name = "choiceBLabel";
-            choiceBLabel.Size = new Size(29, 25);
+            choiceBLabel.Size = new Size(35, 31);
             choiceBLabel.TabIndex = 20;
             choiceBLabel.Text = "B.";
             // 
             // correctABtn
             // 
             correctABtn.AutoSize = true;
-            correctABtn.Location = new Point(56, 188);
-            correctABtn.Margin = new Padding(3, 2, 3, 2);
+            correctABtn.Location = new Point(64, 251);
             correctABtn.Name = "correctABtn";
-            correctABtn.Size = new Size(14, 13);
+            correctABtn.Size = new Size(17, 16);
             correctABtn.TabIndex = 19;
             correctABtn.TabStop = true;
             correctABtn.UseVisualStyleBackColor = true;
             // 
             // choiceATextbox
             // 
-            choiceATextbox.Location = new Point(149, 185);
-            choiceATextbox.Margin = new Padding(3, 2, 3, 2);
+            choiceATextbox.Location = new Point(170, 247);
             choiceATextbox.Name = "choiceATextbox";
-            choiceATextbox.Size = new Size(337, 23);
+            choiceATextbox.Size = new Size(385, 27);
             choiceATextbox.TabIndex = 18;
             // 
             // label1
@@ -232,9 +226,9 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(146, 67, 133);
-            label1.Location = new Point(152, 133);
+            label1.Location = new Point(184, 177);
             label1.Name = "label1";
-            label1.Size = new Size(20, 25);
+            label1.Size = new Size(24, 31);
             label1.TabIndex = 14;
             label1.Text = "*";
             // 
@@ -244,9 +238,9 @@
             choiceALabel.BackColor = Color.Transparent;
             choiceALabel.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             choiceALabel.ForeColor = Color.Black;
-            choiceALabel.Location = new Point(101, 181);
+            choiceALabel.Location = new Point(115, 241);
             choiceALabel.Name = "choiceALabel";
-            choiceALabel.Size = new Size(30, 25);
+            choiceALabel.Size = new Size(36, 31);
             choiceALabel.TabIndex = 17;
             choiceALabel.Text = "A.";
             // 
@@ -255,9 +249,9 @@
             correctLabel.AutoSize = true;
             correctLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             correctLabel.ForeColor = Color.FromArgb(88, 101, 100);
-            correctLabel.Location = new Point(38, 163);
+            correctLabel.Location = new Point(43, 217);
             correctLabel.Name = "correctLabel";
-            correctLabel.Size = new Size(54, 19);
+            correctLabel.Size = new Size(66, 23);
             correctLabel.TabIndex = 15;
             correctLabel.Text = "Correct";
             // 
@@ -266,19 +260,18 @@
             answerChoicesLabel.AutoSize = true;
             answerChoicesLabel.Font = new Font("Segoe UI", 13F);
             answerChoicesLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            answerChoicesLabel.Location = new Point(21, 133);
+            answerChoicesLabel.Location = new Point(24, 177);
             answerChoicesLabel.Name = "answerChoicesLabel";
-            answerChoicesLabel.Size = new Size(136, 25);
+            answerChoicesLabel.Size = new Size(165, 30);
             answerChoicesLabel.TabIndex = 13;
             answerChoicesLabel.Text = "Answer Choices";
             // 
             // problemStmtTextbox
             // 
-            problemStmtTextbox.Location = new Point(21, 48);
-            problemStmtTextbox.Margin = new Padding(3, 2, 3, 2);
+            problemStmtTextbox.Location = new Point(24, 64);
             problemStmtTextbox.Multiline = true;
             problemStmtTextbox.Name = "problemStmtTextbox";
-            problemStmtTextbox.Size = new Size(465, 78);
+            problemStmtTextbox.Size = new Size(531, 103);
             problemStmtTextbox.TabIndex = 12;
             // 
             // asteriskLabel
@@ -287,9 +280,9 @@
             asteriskLabel.BackColor = Color.Transparent;
             asteriskLabel.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
             asteriskLabel.ForeColor = Color.FromArgb(146, 67, 133);
-            asteriskLabel.Location = new Point(176, 11);
+            asteriskLabel.Location = new Point(215, 15);
             asteriskLabel.Name = "asteriskLabel";
-            asteriskLabel.Size = new Size(20, 25);
+            asteriskLabel.Size = new Size(24, 31);
             asteriskLabel.TabIndex = 11;
             asteriskLabel.Text = "*";
             // 
@@ -298,19 +291,19 @@
             problemStmtLabel.AutoSize = true;
             problemStmtLabel.Font = new Font("Segoe UI", 13F);
             problemStmtLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            problemStmtLabel.Location = new Point(21, 14);
+            problemStmtLabel.Location = new Point(24, 19);
             problemStmtLabel.Name = "problemStmtLabel";
-            problemStmtLabel.Size = new Size(164, 25);
+            problemStmtLabel.Size = new Size(199, 30);
             problemStmtLabel.TabIndex = 10;
             problemStmtLabel.Text = "Problem Statement";
             // 
             // CreateFormQuestion
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(515, 365);
+            ClientSize = new Size(589, 487);
             Controls.Add(createQuestionPanel);
-            Margin = new Padding(2);
+            Margin = new Padding(2, 3, 2, 3);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "CreateFormQuestion";

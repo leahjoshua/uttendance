@@ -66,11 +66,17 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
             for (int i = 0; i < questions.Count; i++)
             {
-                cmd = new MySqlCommand("INSERT INTO question (QuestionID, ProblemStatement, FK_FormID)" +
-                    "VALUES (@questionID, @problemStmt, @formID)", connection);
+                cmd = new MySqlCommand("INSERT INTO question (QuestionID, ProblemStatement)" +
+                    "VALUES (@questionID, @problemStmt)", connection);
                 cmd.Parameters.AddWithValue("@questionID", questionPK);
                 cmd.Parameters.AddWithValue("@problemStmt", questions[i].ProblemStatement);
+                //cmd.Parameters.AddWithValue("@formID", FormID);
+                cmd.ExecuteNonQuery();
+
+                cmd = new MySqlCommand("INSERT INTO has (FK_QuizID, FK_QuestionID)" +
+                    "VALUES (@formID, @questionID)", connection);
                 cmd.Parameters.AddWithValue("@formID", FormID);
+                cmd.Parameters.AddWithValue("@questionID", questionPK);
                 cmd.ExecuteNonQuery();
 
                 for (int j = 0; j < questions[i].AnswerChoices.Count; j++)
@@ -185,8 +191,9 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                 // Prompt user to verify deletion
                 warnResult = MessageBox.Show(dialog, "Remove Question Bank(s)", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (warnResult != DialogResult.OK) {
-                    return false; 
+                if (warnResult != DialogResult.OK)
+                {
+                    return false;
                 } // EXIT if user cancels!
 
                 // Run deletion query
@@ -198,7 +205,8 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 {
                     System.Diagnostics.Debug.WriteLine("ERROR: AttendanceForms_Listings.cs/DeleteItems(): NOTHING DELETED!");
                     return false;
-                } else
+                }
+                else
                 {
                     System.Diagnostics.Debug.WriteLine("DELETED THINGS!!!!");
                 }
@@ -241,7 +249,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                 // Get Answers for each question
                 int i = 0;
-                
+
                 while (reader.Read())
                 {
                     QuestionItem.QuestionItem currItem = new QuestionItem.QuestionItem();
@@ -249,7 +257,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     currItem.QuestionNumber = i + 1;
                     currItem.QuestionID = Convert.ToInt32(reader[0]);
 
-                    if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString();}
+                    if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString(); }
                     else { currItem.QuestionValue = ""; }
 
                     currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
@@ -257,8 +265,8 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     questionItemList.Add(currItem);
                     i++;
                 }
-                
-            } 
+
+            }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetBankQuestionList: " + ex.ToString());
@@ -295,7 +303,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 while (reader.Read())
                 {
                     QuestionItem.QuestionAnswerItem currItem = new QuestionItem.QuestionAnswerItem();
-                    
+
                     // Answer ID
                     currItem.AnswerID = Convert.ToInt32(reader[0]);
                     // Answer Statement
@@ -316,7 +324,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetQuestionAnswerList: " + ex.ToString());
             }
             connection.Close();
-            
+
             return questionItemList.ToArray();
         }
     }

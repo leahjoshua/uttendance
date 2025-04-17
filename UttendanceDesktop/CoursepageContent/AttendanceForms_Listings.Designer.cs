@@ -68,13 +68,14 @@ namespace UttendanceDesktop
             // SaveEditIcon
             // 
             SaveEditIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            SaveEditIcon.BackColor = Color.FromArgb(0, 192, 0);
+            SaveEditIcon.BackColor = Color.Transparent;
+            SaveEditIcon.BackgroundImage = Properties.Resources.add_icon;
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
-            SaveEditIcon.FlatAppearance.BorderSize = 2;
+            SaveEditIcon.FlatAppearance.BorderSize = 0;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(862, 548);
+            SaveEditIcon.Location = new Point(852, 532);
             SaveEditIcon.Name = "SaveEditIcon";
-            SaveEditIcon.Size = new Size(40, 40);
+            SaveEditIcon.Size = new Size(45, 49);
             SaveEditIcon.TabIndex = 13;
             SaveEditIcon.UseVisualStyleBackColor = false;
             SaveEditIcon.Click += SaveEditIcon_Click;
@@ -218,5 +219,7 @@ namespace UttendanceDesktop
         private FlowLayoutPanel attendanceflowLayoutPanel;
         private Button filterButton;
         private Button SaveEditIcon;
+        private Panel addPanel;
+        private Button importStudentsBtn;
     }
 }

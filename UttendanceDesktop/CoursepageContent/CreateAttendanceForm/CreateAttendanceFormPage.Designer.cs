@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             createFormPanel = new Panel();
+            button1 = new Button();
             pwdTxtBox = new TextBox();
             label3 = new Label();
             saveBtn = new Button();
@@ -41,8 +42,9 @@
             label1 = new Label();
             questionBankLabel = new Label();
             attendanceFormsLabel = new Label();
+            openOptionsBtn = new Button();
             addQuestionBtn = new Button();
-            button1 = new Button();
+            importQuestionBtn = new Button();
             createFormPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,6 +71,20 @@
             createFormPanel.Name = "createFormPanel";
             createFormPanel.Size = new Size(914, 600);
             createFormPanel.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(88, 101, 160);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = SystemColors.Control;
+            button1.Location = new Point(742, 104);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 37);
+            button1.TabIndex = 14;
+            button1.Text = "Cancel";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // pwdTxtBox
             // 
@@ -199,35 +215,53 @@
             attendanceFormsLabel.TabIndex = 1;
             attendanceFormsLabel.Text = "New Attendance Form";
             // 
+            // openOptionsBtn
+            // 
+            openOptionsBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            openOptionsBtn.BackColor = Color.FromArgb(166, 176, 230);
+            openOptionsBtn.Cursor = Cursors.Hand;
+            openOptionsBtn.FlatAppearance.BorderSize = 0;
+            openOptionsBtn.FlatStyle = FlatStyle.Flat;
+            openOptionsBtn.Image = Properties.Resources.add_icon;
+            openOptionsBtn.Location = new Point(821, 529);
+            openOptionsBtn.Margin = new Padding(3, 4, 3, 4);
+            openOptionsBtn.Name = "openOptionsBtn";
+            openOptionsBtn.Size = new Size(43, 43);
+            openOptionsBtn.TabIndex = 2;
+            openOptionsBtn.UseVisualStyleBackColor = false;
+            openOptionsBtn.Click += addQuestionBtn_Click;
+            // 
             // addQuestionBtn
             // 
             addQuestionBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            addQuestionBtn.BackColor = Color.FromArgb(166, 176, 230);
-            addQuestionBtn.Cursor = Cursors.Hand;
-            addQuestionBtn.FlatAppearance.BorderSize = 0;
+            addQuestionBtn.BackColor = Color.FromArgb(224, 224, 224);
             addQuestionBtn.FlatStyle = FlatStyle.Flat;
-            addQuestionBtn.Image = Properties.Resources.add_icon;
-            addQuestionBtn.Location = new Point(821, 529);
+            addQuestionBtn.ForeColor = Color.FromArgb(37, 42, 69);
+            addQuestionBtn.Location = new Point(726, 426);
             addQuestionBtn.Margin = new Padding(3, 4, 3, 4);
             addQuestionBtn.Name = "addQuestionBtn";
-            addQuestionBtn.Size = new Size(43, 43);
-            addQuestionBtn.TabIndex = 2;
+            addQuestionBtn.Size = new Size(138, 48);
+            addQuestionBtn.TabIndex = 15;
+            addQuestionBtn.Text = "Add Question";
             addQuestionBtn.UseVisualStyleBackColor = false;
-            addQuestionBtn.Click += addQuestionBtn_Click;
+            addQuestionBtn.Visible = false;
+            addQuestionBtn.Click += addQuestionBtn_Click_1;
             // 
-            // button1
+            // importQuestionBtn
             // 
-            button1.BackColor = Color.FromArgb(88, 101, 160);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.Control;
-            button1.Location = new Point(742, 104);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 37);
-            button1.TabIndex = 14;
-            button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            importQuestionBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            importQuestionBtn.BackColor = Color.FromArgb(224, 224, 224);
+            importQuestionBtn.FlatStyle = FlatStyle.Flat;
+            importQuestionBtn.ForeColor = Color.FromArgb(37, 42, 69);
+            importQuestionBtn.Location = new Point(726, 473);
+            importQuestionBtn.Margin = new Padding(3, 4, 3, 4);
+            importQuestionBtn.Name = "importQuestionBtn";
+            importQuestionBtn.Size = new Size(138, 48);
+            importQuestionBtn.TabIndex = 16;
+            importQuestionBtn.Text = "Import Questions";
+            importQuestionBtn.UseVisualStyleBackColor = false;
+            importQuestionBtn.Visible = false;
+            importQuestionBtn.Click += importQuestionBtn_Click;
             // 
             // CreateAttendanceFormPage
             // 
@@ -235,6 +269,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 600);
             Controls.Add(addQuestionBtn);
+            Controls.Add(importQuestionBtn);
+            Controls.Add(openOptionsBtn);
             Controls.Add(createFormPanel);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(2);
@@ -255,12 +291,14 @@
         private DateTimePicker closeTimePicker;
         private Label label4;
         private Label label2;
-        private Button addQuestionBtn;
+        private Button openOptionsBtn;
         private Label defaultQuestionsTxt;
         private Panel questionsListingPanel;
         private Button saveBtn;
         private TextBox pwdTxtBox;
         private Label label3;
         private Button button1;
+        private Button importQuestionBtn;
+        private Button addQuestionBtn;
     }
 }

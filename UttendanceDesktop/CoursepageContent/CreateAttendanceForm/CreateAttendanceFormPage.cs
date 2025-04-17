@@ -93,21 +93,8 @@ namespace UttendanceDesktop.CoursepageContent
         // Opens the module for adding a new question and saves the question to be displayed
         private void addQuestionBtn_Click(object sender, EventArgs e)
         {
-            using (CreateFormQuestion createQMod = new CreateFormQuestion())
-            {
-                if (createQMod.ShowDialog() == DialogResult.OK)
-                {
-                    questions.Add(createQMod.question);
-
-                    questionList.Add(new QuestionItem.QuestionItem (
-                        createQMod.questionItem.QuestionValue,
-                        createQMod.questionItem.AnswerList
-                        ));
-
-                    defaultQuestionsTxt.Visible = false;
-                    PopulateQuestions();
-                }
-            }
+            addQuestionBtn.Visible = true;
+            importQuestionBtn.Visible = true;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -154,6 +141,40 @@ namespace UttendanceDesktop.CoursepageContent
         {
             GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Listings(GlobalResource.CURRENT_CLASS_ID));
             this.Close();
+        }
+
+        private void addQuestionBtn_Click_1(object sender, EventArgs e)
+        {
+            addQuestionBtn.Visible = false;
+            importQuestionBtn.Visible = false;
+            using (CreateFormQuestion createQMod = new CreateFormQuestion())
+            {
+                if (createQMod.ShowDialog() == DialogResult.OK)
+                {
+                    questions.Add(createQMod.question);
+
+                    questionList.Add(new QuestionItem.QuestionItem(
+                        createQMod.questionItem.QuestionValue,
+                        createQMod.questionItem.AnswerList
+                        ));
+
+                    defaultQuestionsTxt.Visible = false;
+                    PopulateQuestions();
+                }
+            }
+        }
+
+        private void importQuestionBtn_Click(object sender, EventArgs e)
+        {
+            addQuestionBtn.Visible = false;
+            importQuestionBtn.Visible = false;
+            using (ImportQuestionModal importQMod = new ImportQuestionModal())
+            {
+                if (importQMod.ShowDialog() == DialogResult.OK)
+                {
+                   
+                }
+            }
         }
     }
 }

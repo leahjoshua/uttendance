@@ -84,7 +84,7 @@ namespace UttendanceDesktop.CoursepageContent
 
                 // Create Answer item and add to list
                 answerItemList.Add(new QuestionItem.QuestionAnswerItem(
-                    'B', choiceATextbox.Text, currentIsCorrect
+                    'B', choiceBTextbox.Text, currentIsCorrect
                     ));
 
                 choices.Add(new AnswerChoice
@@ -110,7 +110,7 @@ namespace UttendanceDesktop.CoursepageContent
 
                 // Create Answer item and add to list
                 answerItemList.Add(new QuestionItem.QuestionAnswerItem(
-                    'C', choiceATextbox.Text, currentIsCorrect
+                    'C', choiceCTextbox.Text, currentIsCorrect
                     ));
 
                 choices.Add(new AnswerChoice
@@ -136,7 +136,7 @@ namespace UttendanceDesktop.CoursepageContent
 
                 // Create Answer item and add to list
                 answerItemList.Add(new QuestionItem.QuestionAnswerItem(
-                    'D', choiceATextbox.Text, currentIsCorrect
+                    'D', choiceDTextbox.Text, currentIsCorrect
                     ));
 
 
