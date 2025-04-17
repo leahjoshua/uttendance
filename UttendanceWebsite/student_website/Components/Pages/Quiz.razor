@@ -15,6 +15,23 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<div class="quiz-header">
+    Get the title here
+    <span style="text-align: right">
+        Due at:
+        <span style="color: #E97502">Get the date here</span>
+    </span>
+</div>
+
+<div class="quiz-body">
+    Import question 
+    <br/>
+    Import answer choice 
+
+    <!--If more than 1 question, add a break line-->
+    <hr/>
+</div>
+
 <button class="btn btn-submit" @onclick="Submit">Submit</button>
 
 @code {
