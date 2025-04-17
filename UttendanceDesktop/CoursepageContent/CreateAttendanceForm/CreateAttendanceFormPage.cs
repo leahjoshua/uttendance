@@ -35,7 +35,16 @@ namespace UttendanceDesktop.CoursepageContent
         // Populates the list of question items and displays on the page.
         public void PopulateQuestions()
         {
-            var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
+            flowLayoutPanel.Controls.Clear();
+            if (questionList != null)
+            {
+                for (int i = 0; i < questionList.Count; i++)
+                {
+                    flowLayoutPanel.Controls.Add(questionList[i]);
+                }
+            }
+
+            /*var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
             foreach (var control in questionUserControls)
             {
                 createFormPanel.Controls.Remove(control);
@@ -54,7 +63,7 @@ namespace UttendanceDesktop.CoursepageContent
                     questionsListingPanel.Location.Y + (i * questionList[i].Height)
                 );
                 createFormPanel.Controls.Add(questionList[i]);
-            }
+            }*/
 
             /*var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
 

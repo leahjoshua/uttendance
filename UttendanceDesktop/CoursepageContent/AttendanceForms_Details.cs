@@ -73,10 +73,26 @@ namespace UttendanceDesktop.CoursepageContent
             {
                 for (int i = 0; i < questionList.Length; i++)
                 {
+                    questionList[i].OnClickEdit += new EventHandler(child_question_OnSelectEdit);
                     flowLayoutPanel.Controls.Add(questionList[i]);
                 }
             }
 
         }
+
+        // Aendri 4/17/2025
+        // Receive event from child question item when edit is clicked.
+        // Open edit question module
+        void child_question_OnSelectEdit (object sender, EventArgs e)
+        {
+            int questionID = Convert.ToInt32(sender);
+
+            MessageBox.Show("EDIT SELECTED FOR " + questionID);
+
+            // *** OPEN EDIT QUESTION MODULE HERE!!! ***
+
+            PopulateQuestionList();
+        }
+
     }
 }

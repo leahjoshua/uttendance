@@ -44,7 +44,7 @@
             flowLayoutPanel.Anchor = AnchorStyles.Top;
             flowLayoutPanel.AutoSize = true;
             flowLayoutPanel.Controls.Add(questionItem1);
-            flowLayoutPanel.Location = new Point(46, 444);
+            flowLayoutPanel.Location = new Point(57, 444);
             flowLayoutPanel.MaximumSize = new Size(779, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
             flowLayoutPanel.Size = new Size(779, 84);
@@ -88,7 +88,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(742, 1843);
+            SaveEditIcon.Location = new Point(763, 1788);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 20;

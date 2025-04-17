@@ -33,7 +33,6 @@
             pwdTxtBox = new TextBox();
             label3 = new Label();
             saveBtn = new Button();
-            questionsListingPanel = new Panel();
             defaultQuestionsTxt = new Label();
             label2 = new Label();
             closeTimePicker = new DateTimePicker();
@@ -45,7 +44,10 @@
             openOptionsBtn = new Button();
             addQuestionBtn = new Button();
             importQuestionBtn = new Button();
+            flowLayoutPanel = new FlowLayoutPanel();
+            questionItem1 = new UttendanceDesktop.CoursepageContent.QuestionItem.QuestionItem();
             createFormPanel.SuspendLayout();
+            flowLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
             // createFormPanel
@@ -53,11 +55,11 @@
             createFormPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             createFormPanel.AutoScroll = true;
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
+            createFormPanel.Controls.Add(flowLayoutPanel);
             createFormPanel.Controls.Add(button1);
             createFormPanel.Controls.Add(pwdTxtBox);
             createFormPanel.Controls.Add(label3);
             createFormPanel.Controls.Add(saveBtn);
-            createFormPanel.Controls.Add(questionsListingPanel);
             createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(label2);
             createFormPanel.Controls.Add(closeTimePicker);
@@ -118,16 +120,6 @@
             saveBtn.Text = "Save";
             saveBtn.UseVisualStyleBackColor = false;
             saveBtn.Click += saveBtn_Click;
-            // 
-            // questionsListingPanel
-            // 
-            questionsListingPanel.AutoScroll = true;
-            questionsListingPanel.Location = new Point(40, 310);
-            questionsListingPanel.Margin = new Padding(2);
-            questionsListingPanel.Name = "questionsListingPanel";
-            questionsListingPanel.Size = new Size(784, 340);
-            questionsListingPanel.TabIndex = 3;
-            questionsListingPanel.Visible = false;
             // 
             // defaultQuestionsTxt
             // 
@@ -263,6 +255,37 @@
             importQuestionBtn.Visible = false;
             importQuestionBtn.Click += importQuestionBtn_Click;
             // 
+            // flowLayoutPanel
+            // 
+            flowLayoutPanel.Anchor = AnchorStyles.Top;
+            flowLayoutPanel.AutoSize = true;
+            flowLayoutPanel.Controls.Add(questionItem1);
+            flowLayoutPanel.Location = new Point(66, 310);
+            flowLayoutPanel.MaximumSize = new Size(779, 0);
+            flowLayoutPanel.Name = "flowLayoutPanel";
+            flowLayoutPanel.Size = new Size(779, 84);
+            flowLayoutPanel.TabIndex = 20;
+            // 
+            // questionItem1
+            // 
+            questionItem1.AnswerList = null;
+            questionItem1.AutoSize = true;
+            questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            questionItem1.BackColor = Color.FromArgb(50, 56, 87);
+            questionItem1.IsSelectable = false;
+            questionItem1.Location = new Point(0, 0);
+            questionItem1.Margin = new Padding(0);
+            questionItem1.MaximumSize = new Size(750, 0);
+            questionItem1.MinimumSize = new Size(750, 0);
+            questionItem1.Name = "questionItem1";
+            questionItem1.Padding = new Padding(5);
+            questionItem1.QuestionID = 0;
+            questionItem1.QuestionNumber = 0;
+            questionItem1.QuestionValue = null;
+            questionItem1.Selected = false;
+            questionItem1.Size = new Size(750, 84);
+            questionItem1.TabIndex = 0;
+            // 
             // CreateAttendanceFormPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -278,6 +301,8 @@
             Text = "CreateAttendanceForm";
             createFormPanel.ResumeLayout(false);
             createFormPanel.PerformLayout();
+            flowLayoutPanel.ResumeLayout(false);
+            flowLayoutPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -293,12 +318,13 @@
         private Label label2;
         private Button openOptionsBtn;
         private Label defaultQuestionsTxt;
-        private Panel questionsListingPanel;
         private Button saveBtn;
         private TextBox pwdTxtBox;
         private Label label3;
         private Button button1;
         private Button importQuestionBtn;
         private Button addQuestionBtn;
+        private FlowLayoutPanel flowLayoutPanel;
+        private QuestionItem.QuestionItem questionItem1;
     }
 }
