@@ -10,7 +10,7 @@ namespace UttendanceDesktop
 {
     internal class LoginDAO
     {
-        private string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+        private string connectionString = GlobalResource.CONNECTION_STRING;
 
         // leah and parisa wrote this
         public Instructor login(string netID, string Password)

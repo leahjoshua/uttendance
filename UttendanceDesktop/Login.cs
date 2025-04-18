@@ -10,7 +10,7 @@ namespace UttendanceDesktop
 {
     internal class Login
     {
-        string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+        string connectionString = GlobalResource.CONNECTION_STRING;
 
         // leah wrote this (and parisa)
         public String login(String netID, String Password)

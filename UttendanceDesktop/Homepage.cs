@@ -102,14 +102,14 @@ namespace UttendanceDesktop
         private void LoadClassTiles()
         {
             // Connection string for the database
-            string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+            string connectionString = GlobalResource.CONNECTION_STRING;
 
             // SQL query to select all classes taught by the current user
             string query = @"
-SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
-FROM class AS c
-INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
-WHERE t.FK_INetID = @netID";
+            SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
+            FROM class AS c
+            INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
+            WHERE t.FK_INetID = @netID";
 
             try
             {
@@ -269,7 +269,7 @@ WHERE t.FK_INetID = @netID";
                         }
 
                         // Connection string for the database
-                        string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+                        string connectionString = GlobalResource.CONNECTION_STRING;
                         try
                         {
                             // Open a connection and start a transaction for safe deletion

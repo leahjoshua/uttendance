@@ -17,7 +17,7 @@ namespace UttendanceDesktop
     internal class Class
     {
         // Database connection 
-        string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+        string connectionString = GlobalResource.CONNECTION_STRING;
 
         /**************************************************************************
          * Adds a new course to the database and links it to the current instructor.

@@ -46,7 +46,7 @@ namespace UttendanceDesktop
         public void RetrieveAndPopulateTextBoxes()
         {
             string netID = GlobalResource.INetID;
-            string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+            string connectionString = GlobalResource.CONNECTION_STRING;
 
             // Query to fetch first name, last name, and password
             string query = "SELECT IFName, ILName, IPassword FROM instructor WHERE INetID = @globalNetID";
@@ -117,7 +117,7 @@ namespace UttendanceDesktop
         private void SaveButton_Click(object sender, EventArgs e)
         {
             string netID = GlobalResource.INetID;
-            string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+            string connectionString = GlobalResource.CONNECTION_STRING;
 
             // Parameterized UPDATE query
             string query = @"UPDATE instructor 
@@ -192,7 +192,7 @@ namespace UttendanceDesktop
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 string netID = GlobalResource.INetID;
-                string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+                string connectionString = GlobalResource.CONNECTION_STRING;
 
                 // Delete from child table first then parent table to maintain database
                 string deleteChildQuery = "DELETE FROM teaches WHERE FK_INetID = @netid";
