@@ -43,6 +43,11 @@
             <button class="popup" @onclick="ShowModal"te>What is a UTD-ID?</button>
         </div>
 
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+        }
+
         <!--Shows the Modal explaining what a UTD-ID is-->
         @if (isModalVisible)
         {
