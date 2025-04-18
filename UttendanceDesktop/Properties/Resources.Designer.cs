@@ -93,6 +93,16 @@ namespace UttendanceDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap homepageprofilepic {
+            get {
+                object obj = ResourceManager.GetObject("homepageprofilepic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoginBG {
             get {
                 object obj = ResourceManager.GetObject("LoginBG", resourceCulture);
@@ -113,7 +123,8 @@ namespace UttendanceDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap trash_icon {
+        internal static System.Drawing.Bitmap trash_icon
+        {
             get {
                 object obj = ResourceManager.GetObject("trash_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

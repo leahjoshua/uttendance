@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS `answerchoice` (
   PRIMARY KEY (`AnswerID`),
   KEY `FK_QuestionID` (`FK_QuestionID`),
   CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.answerchoice: ~14 rows (approximately)
+-- Dumping data for table uttendance.answerchoice: ~12 rows (approximately)
 INSERT INTO `answerchoice` (`AnswerID`, `AnswerStatement`, `IsCorrect`, `FK_QuestionID`) VALUES
 	(1, 'sdf', b'1', 1),
 	(2, 'sdf', b'0', 1),
@@ -43,9 +43,7 @@ INSERT INTO `answerchoice` (`AnswerID`, `AnswerStatement`, `IsCorrect`, `FK_Ques
 	(9, '-1', b'0', 8),
 	(10, '2', b'0', 8),
 	(11, '25', b'0', 8),
-	(12, '999999999999999999999999999', b'1', 8),
-	(13, 'fdssdf', b'1', 9),
-	(14, 'sdfsdf', b'0', 9);
+	(12, '999999999999999999999999999', b'1', 8);
 
 -- Dumping structure for table uttendance.attends
 CREATE TABLE IF NOT EXISTS `attends` (
@@ -94,18 +92,16 @@ CREATE TABLE IF NOT EXISTS `form` (
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.form: ~8 rows (approximately)
+-- Dumping data for table uttendance.form: ~6 rows (approximately)
 INSERT INTO `form` (`FormID`, `PassWd`, `ReleaseDateTime`, `CloseDateTime`, `FK_CourseNum`) VALUES
 	(1, 'dfdsf', '2025-04-12 13:44:47', '2025-04-19 13:44:47', 123456),
 	(2, 'test', '2025-04-12 13:47:56', '2025-04-16 13:47:56', 123456),
 	(3, 'dfgdfg', '2025-04-18 15:10:03', '2025-04-25 15:10:03', 123456),
 	(4, 'test', '2025-04-17 15:48:28', '2025-04-18 15:48:28', 123456),
 	(5, 'meow', '2025-04-17 19:25:44', '2025-04-18 19:25:44', 123456),
-	(6, 'LEEEPY', '2025-04-17 19:27:06', '2025-04-25 19:27:06', 123456),
-	(7, 'auto incre test', '2025-04-18 16:55:56', '2025-04-19 16:55:56', 123456),
-	(8, 'dfd', '2025-04-19 16:58:39', '2025-05-01 16:58:39', 123456);
+	(6, 'LEEEPY', '2025-04-17 19:27:06', '2025-04-25 19:27:06', 123456);
 
 -- Dumping structure for table uttendance.has
 CREATE TABLE IF NOT EXISTS `has` (
@@ -117,12 +113,11 @@ CREATE TABLE IF NOT EXISTS `has` (
   CONSTRAINT `FK__question` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='Relationship between Form and Question';
 
--- Dumping data for table uttendance.has: ~4 rows (approximately)
+-- Dumping data for table uttendance.has: ~3 rows (approximately)
 INSERT INTO `has` (`FK_FormID`, `FK_QuestionID`) VALUES
 	(3, 5),
 	(4, 6),
-	(6, 8),
-	(8, 9);
+	(6, 8);
 
 -- Dumping structure for table uttendance.images
 CREATE TABLE IF NOT EXISTS `images` (
@@ -173,9 +168,9 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`QuestionID`),
   KEY `FK_question_qbank` (`FK_BankID`),
   CONSTRAINT `FK_question_qbank` FOREIGN KEY (`FK_BankID`) REFERENCES `qbank` (`BankID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.question: ~9 rows (approximately)
+-- Dumping data for table uttendance.question: ~8 rows (approximately)
 INSERT INTO `question` (`QuestionID`, `ProblemStatement`, `FK_BankID`) VALUES
 	(1, 'sdf', NULL),
 	(2, 'Where can you find the whole ORV webnovel?', 1),
@@ -184,8 +179,7 @@ INSERT INTO `question` (`QuestionID`, `ProblemStatement`, `FK_BankID`) VALUES
 	(5, 'dfgdfg', NULL),
 	(6, 'test', NULL),
 	(7, 'do u like joannas plant', NULL),
-	(8, 'what is aendris iq', NULL),
-	(9, 'testq', NULL);
+	(8, 'what is aendris iq', NULL);
 
 -- Dumping structure for table uttendance.student
 CREATE TABLE IF NOT EXISTS `student` (
