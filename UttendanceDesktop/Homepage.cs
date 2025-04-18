@@ -21,6 +21,7 @@ namespace UttendanceDesktop
 {
     public partial class Homepage : Form
     {
+        private bool isEditMode = false;
         /**************************************************************************
         * Constructor for Homepage.
         * Initializes UI components and loads the class tiles for the current user.
@@ -64,6 +65,9 @@ namespace UttendanceDesktop
             // Toggle the visibility of the Add Course picture box.
             AddCoursePictureBox.Visible = !AddCoursePictureBox.Visible;
 
+            //Toggle Edit Mode to the opposite mode
+            isEditMode = !isEditMode;
+
             // Hide the manual and import course buttons when editing.
             addCourseManualButton.Visible = false;
             importCourseButton.Visible = false;
@@ -82,7 +86,7 @@ namespace UttendanceDesktop
 
                     // Toggle the visibility of the trash icon to enable/disable delete mode.
                     if (trashIcon != null)
-                        trashIcon.Visible = !trashIcon.Visible;
+                        trashIcon.Visible = isEditMode;
                 }
             }
         }
@@ -340,6 +344,12 @@ WHERE t.FK_INetID = @netID";
         **************************************************************************/
         private void TilePanel_Click(object sender, EventArgs e)
         {
+            // If still in Edit Mode, then Tiles should not be clickable
+            if(isEditMode)
+            {
+                return;
+            }
+
             // Attempt to cast sender to Panel. If sender is a Label, get its parent Panel.
             Panel tilePanel = sender as Panel;
             if (tilePanel == null && sender is Label label && label.Parent is Panel)
