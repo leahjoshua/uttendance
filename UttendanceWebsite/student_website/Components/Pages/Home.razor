@@ -47,13 +47,6 @@
         @* Display Error *@
         @if (!string.IsNullOrEmpty(errorMessage))
         {
-            <div class="text-danger error-message">
-                @errorMessage
-            </div>
-        }
-
-        @if (!string.IsNullOrEmpty(errorMessage))
-        {
             <div class="alert alert-danger">@errorMessage</div>
         }
 
@@ -100,12 +93,26 @@
                 .FirstOrDefaultAsync(s => s.UTDID == student.UTDID);
 
             var validPassword = await db.Form
-                .AsNoTracking()
-                .FirstOrDefaultAsync(f => f.PassWd == form.PassWd);
+            .AsNoTracking()
+            .FirstOrDefaultAsync(f => f.PassWd == form.PassWd
+            && f.ReleaseDateTime < DateTime.Now
+            && f.CloseDateTime > DateTime.Now);
+
+            var formIDs = await (from f in db.Form
+                                 join a in db.Attends
+                                 on f.FK_CourseNum equals a.FK_CourseNum
+                                 where a.FK_UTDID == student.UTDID
+                                    && f.ReleaseDateTime < DateTime.Now
+                                    && f.CloseDateTime > DateTime.Now
+                                 select f.FormID)
+                    .ToListAsync();
 
             if (validStudent != null && validPassword != null)
             {
-                //navigateManager.NavigateTo("/quiz");
+                
+                errorMessage = string.Join(", ", formIDs);
+                navigateManager.NavigateTo("/quiz");
+
 
             }
             else
