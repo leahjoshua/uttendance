@@ -85,9 +85,9 @@ namespace UttendanceDesktop.CoursepageContent
         // Open edit question module
         void child_question_OnSelectEdit (object sender, EventArgs e)
         {
-            int questionID = Convert.ToInt32(sender);
+            QuestionItem.QuestionItem selectedBankItem = (QuestionItem.QuestionItem)sender;
 
-            MessageBox.Show("EDIT SELECTED FOR " + questionID);
+            MessageBox.Show("EDIT SELECTED FOR " + selectedBankItem.QuestionID);
 
             // *** OPEN EDIT QUESTION MODULE HERE!!! ***
 

@@ -33,6 +33,7 @@
             flowLayoutPanel = new FlowLayoutPanel();
             questionItem1 = new UttendanceDesktop.CoursepageContent.QuestionItem.QuestionItem();
             SaveEditIcon = new Button();
+            newEditIcon = new Button();
             flowLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,6 +77,7 @@
             questionItem1.AutoSize = true;
             questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             questionItem1.BackColor = Color.FromArgb(50, 56, 87);
+            questionItem1.IsSelectable = false;
             questionItem1.Location = new Point(0, 0);
             questionItem1.Margin = new Padding(0);
             questionItem1.MaximumSize = new Size(750, 0);
@@ -85,6 +87,7 @@
             questionItem1.QuestionID = 0;
             questionItem1.QuestionNumber = 0;
             questionItem1.QuestionValue = null;
+            questionItem1.Selected = false;
             questionItem1.Size = new Size(750, 84);
             questionItem1.TabIndex = 0;
             // 
@@ -95,11 +98,25 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(778, 604);
+            SaveEditIcon.Location = new Point(736, 632);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
             SaveEditIcon.UseVisualStyleBackColor = false;
+            // 
+            // newEditIcon
+            // 
+            newEditIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            newEditIcon.BackColor = Color.FromArgb(0, 192, 0);
+            newEditIcon.FlatAppearance.BorderColor = Color.White;
+            newEditIcon.FlatAppearance.BorderSize = 2;
+            newEditIcon.FlatStyle = FlatStyle.Flat;
+            newEditIcon.Location = new Point(841, 548);
+            newEditIcon.Name = "newEditIcon";
+            newEditIcon.Size = new Size(40, 40);
+            newEditIcon.TabIndex = 17;
+            newEditIcon.UseVisualStyleBackColor = false;
+            newEditIcon.Click += newEditIcon_Click;
             // 
             // AttendanceForms_QuestionBank_Details
             // 
@@ -109,6 +126,7 @@
             AutoSize = true;
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(914, 600);
+            Controls.Add(newEditIcon);
             Controls.Add(SaveEditIcon);
             Controls.Add(flowLayoutPanel);
             Controls.Add(questionsLabel);
@@ -129,5 +147,6 @@
         private FlowLayoutPanel flowLayoutPanel;
         private Button SaveEditIcon;
         private QuestionItem.QuestionItem questionItem1;
+        private Button newEditIcon;
     }
 }

@@ -461,5 +461,134 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
             return formData;
         }
+
+        // 4/16/2025 Aendri 
+        // Returns true if the given bank title is valid (not in use already)
+        public bool IsValidBankTitle(String bankTitle)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            try
+            {
+                connection.Open();
+
+                // Look for any question bank entries with the same title
+                cmd = new MySqlCommand(
+                    "SELECT * " +
+                    "FROM qbank " +
+                    "WHERE FK_INetID=@INetID " + 
+                    "AND BankTitle=@BankTitle"
+                    , connection);
+                cmd.Parameters.AddWithValue("@INetID", GlobalResource.INETID);
+                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                // Check if any results found, return with error if not found
+                if (reader.HasRows) { return false; }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/IsValidBankTitle: " + ex.ToString());
+                return false;
+            }
+            connection.Close();
+
+            return true;
+        }
+
+        // 4/18/2025 Aendri
+        // Create a new question and save to a question bank
+        public void CreateNewQuestion(Question questionData, int bankID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            int questionID;
+
+            try
+            {
+                connection.Open();
+
+                // Add question and get QuestionID
+                cmd = new MySqlCommand(
+                    "INSERT INTO question (ProblemStatement, FK_BankID)" +
+                    "VALUES (@Problem, @FK_BankID);" +
+                    "SELECT LAST_INSERT_ID();"
+                    , connection);
+                cmd.Parameters.AddWithValue("@Problem", questionData.ProblemStatement);
+                cmd.Parameters.AddWithValue("@FK_BankID", bankID);
+
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                questionID = Convert.ToInt32(reader[0]);
+
+                reader.Close();
+
+                // Add answer choices 
+                for (int j = 0; j < questionData.AnswerChoices.Count; j++)
+                {
+                    cmd = new MySqlCommand(
+                        "INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID) " +
+                        "VALUES (@answerStmt, @isCorrect, @questionID)", 
+                        connection);
+                    cmd.Parameters.AddWithValue("@answerStmt", questionData.AnswerChoices[j].AnswerStatement);
+                    cmd.Parameters.AddWithValue("@isCorrect", questionData.AnswerChoices[j].isCorrect);
+                    cmd.Parameters.AddWithValue("@questionID", questionID);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/CreateNewQuestion: " + ex.ToString());
+            }
+            connection.Close();
+        }
+
+        // 4/18/2025 Aendri
+        // Create a new attendance bank, return the new BankID
+        public int CreateNewBank(String bankTitle)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            int bankID = -1;
+
+            try
+            {
+                connection.Open();
+
+                // Look for any question bank entries with the same title
+                cmd = new MySqlCommand(
+                    "INSERT INTO qbank (BankTitle, FK_INetID)" +
+                    "VALUES (@BankTitle, @FK_INetID);" +
+                    "SELECT LAST_INSERT_ID();"
+                    , connection);
+                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
+                cmd.Parameters.AddWithValue("@FK_INetID", GlobalResource.INETID);
+
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                bankID = Convert.ToInt32(reader[0]);
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/CreateNewBank: " + ex.ToString());
+            }
+            connection.Close();
+
+            return bankID;
+        }
     }
 }

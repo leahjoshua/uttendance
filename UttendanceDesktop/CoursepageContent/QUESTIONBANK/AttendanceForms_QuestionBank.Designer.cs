@@ -33,7 +33,6 @@ namespace UttendanceDesktop
             attendanceFormPagePanel = new Panel();
             SaveEditIcon = new Button();
             flowLayoutPanel = new FlowLayoutPanel();
-            questionBankLabel = new Label();
             attendanceFormsLabel = new Label();
             attendanceFormPagePanel.SuspendLayout();
             SuspendLayout();
@@ -42,7 +41,6 @@ namespace UttendanceDesktop
             // 
             attendanceFormPagePanel.Controls.Add(SaveEditIcon);
             attendanceFormPagePanel.Controls.Add(flowLayoutPanel);
-            attendanceFormPagePanel.Controls.Add(questionBankLabel);
             attendanceFormPagePanel.Controls.Add(attendanceFormsLabel);
             attendanceFormPagePanel.Dock = DockStyle.Fill;
             attendanceFormPagePanel.Location = new Point(0, 0);
@@ -68,32 +66,21 @@ namespace UttendanceDesktop
             // flowLayoutPanel
             // 
             flowLayoutPanel.AutoScroll = true;
-            flowLayoutPanel.Location = new Point(66, 151);
+            flowLayoutPanel.Location = new Point(66, 110);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(779, 466);
+            flowLayoutPanel.Size = new Size(779, 507);
             flowLayoutPanel.TabIndex = 14;
-            // 
-            // questionBankLabel
-            // 
-            questionBankLabel.AutoSize = true;
-            questionBankLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            questionBankLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            questionBankLabel.Location = new Point(66, 92);
-            questionBankLabel.Name = "questionBankLabel";
-            questionBankLabel.Size = new Size(180, 32);
-            questionBankLabel.TabIndex = 1;
-            questionBankLabel.Text = "Question Banks";
             // 
             // attendanceFormsLabel
             // 
             attendanceFormsLabel.AutoSize = true;
             attendanceFormsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             attendanceFormsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            attendanceFormsLabel.Location = new Point(49, 49);
+            attendanceFormsLabel.Location = new Point(66, 55);
             attendanceFormsLabel.Name = "attendanceFormsLabel";
-            attendanceFormsLabel.Size = new Size(260, 41);
+            attendanceFormsLabel.Size = new Size(224, 41);
             attendanceFormsLabel.TabIndex = 0;
-            attendanceFormsLabel.Text = "Attendance Forms";
+            attendanceFormsLabel.Text = "Question Banks";
             // 
             // AttendanceForms_QuestionBank
             // 
@@ -115,7 +102,6 @@ namespace UttendanceDesktop
 
         private Panel attendanceFormPagePanel;
         private Label attendanceFormsLabel;
-        private Label questionBankLabel;
         private Button SaveEditIcon;
         private FlowLayoutPanel flowLayoutPanel;
     }

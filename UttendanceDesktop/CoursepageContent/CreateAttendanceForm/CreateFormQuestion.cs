@@ -18,7 +18,6 @@ namespace UttendanceDesktop.CoursepageContent
 
         public QuestionItem.QuestionItem? questionItem { get; private set; }
 
-
         public CreateFormQuestion()
         {
             InitializeComponent();

@@ -190,7 +190,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         {
             if (OnClickEdit != null)
             {
-                OnClickEdit(_questionID, null);
+                OnClickEdit(this, null);
             }
         }
     }
