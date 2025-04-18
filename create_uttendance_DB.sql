@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `attends` (
   `FK_CourseNum` int(11) NOT NULL,
   PRIMARY KEY (`FK_UTDID`,`FK_CourseNum`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
-  CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE,
+  CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
@@ -218,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `submission` (
   KEY `FK_FormID` (`FK_FormID`),
   KEY `FK_UTDID` (`FK_UTDID`),
   CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`),
-  CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE
+  CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.submission: ~0 rows (approximately)
