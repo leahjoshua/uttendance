@@ -31,8 +31,7 @@ namespace UttendanceDesktop
         private static string[] fkeysList = { "FK_UTDID", "FK_CourseNum" };
         private static string[] fkeyTypeList = { "int", "int" };
         private static string fk1 = "" + GlobalResource.CURRENT_CLASS_ID;
-        private ImportModule importMod = new ImportModule("Students", tableName, attributeList, displayList, typeList,
-            pkeyName, relationTableName, fkeysList, fkeyTypeList, fk1);
+        private StudentImportModal importMod = new StudentImportModal(courseNum);
 
         private object editOldValue;
 
@@ -60,7 +59,7 @@ namespace UttendanceDesktop
         //Displays the module to manually add students
         private void addStudentsBtn_Click(object sender, EventArgs e)
         {
-            StudentModule studMod = new StudentModule();
+            StudentAddModal studMod = new StudentAddModal();
             studMod.StudentAdded += populateStudentTable;
             studMod.Show();
             addPanel.Visible = false;

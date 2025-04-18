@@ -12,12 +12,12 @@ using static Mysqlx.Expect.Open.Types.Condition.Types;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    public partial class StudentModule : Form
+    public partial class StudentAddModal : Form
     {
         public event Action? StudentAdded;
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
         private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
-        public StudentModule()
+        public StudentAddModal()
         {
             InitializeComponent();
         }

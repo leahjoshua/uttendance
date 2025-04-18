@@ -3,7 +3,7 @@ using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    partial class StudentModule
+    partial class StudentAddModal
     {
         /// <summary>
         /// Required designer variable.

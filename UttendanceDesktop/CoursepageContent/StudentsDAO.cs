@@ -1,8 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,25 +26,14 @@ namespace UttendanceDesktop.CoursepageContent
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            //Check if the new UTD-ID does not already exist in the table
-            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM student WHERE UTDID=@newUTDID;", connection);
-            cmd.Parameters.AddWithValue("@newUTDID", newID);
-
-            //Read result
-            MySqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            int count = reader.GetInt32(0);
-            reader.Close();
-
-            //If the ID already exists, return false
-            if (count != 0)
+            //Check if the new UTD-ID already exists in the table
+            if(checkIfStudentExists(newID, connection))
             {
-                connection.Close();
                 return false;
             }
 
             //Update student's UTD-ID
-            cmd = new MySqlCommand("UPDATE student SET UTDID=@newID WHERE UTDID=@oldID;", connection);
+            MySqlCommand cmd = new MySqlCommand("UPDATE student SET UTDID=@newID WHERE UTDID=@oldID;", connection);
             cmd.Parameters.AddWithValue("@newID", newID);
             cmd.Parameters.AddWithValue("@oldID", oldID);
             cmd.ExecuteNonQuery();
@@ -149,5 +140,115 @@ namespace UttendanceDesktop.CoursepageContent
             return dataTable;
         }
 
+        //Returns true if the given student is already added to the student database
+        private bool checkIfStudentExists(int id, MySqlConnection connection)
+        {
+            //Check if the new UTD-ID does not already exist in the table
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM student WHERE UTDID=@utdID;", connection);
+            cmd.Parameters.AddWithValue("@utdID", id);
+
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            return count != 0;
+        }
+
+        //Returns true if the given student is already enrolled in the given class
+        private bool checkIfStudentAttends(int id, int courseNum, MySqlConnection connection)
+        {
+            //Check if the new UTD-ID does not already exist in the table
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM attends " +
+                "WHERE FK_UTDID=@fk_utdID AND FK_CourseNum=@fk_courseNum;", connection);
+            cmd.Parameters.AddWithValue("@fk_utdID", id);
+            cmd.Parameters.AddWithValue("@fk_courseNum", courseNum);
+
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            return count != 0;
+        }
+
+        //Reads the given CSV file and adds the student information to the database and enrolls them into the given class
+        public bool importStudentsFromCSV(string path, int courseNum)
+        {
+            try
+            {
+                //Open database connection
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                //Open and read the file
+                StreamReader fileReader = new StreamReader(File.OpenRead(path));
+                int lineNum = 0;
+                while (!fileReader.EndOfStream)
+                {
+                    //Read each line
+                    var line = fileReader.ReadLine();
+                    var values = line.Split(',');
+                    int length = values.Length;
+
+                    //Ignore the heading & check if input has the correct number of columns
+                    if (lineNum != 0 && length == 4)
+                    {
+                        MySqlCommand cmd;
+
+                        //Get values
+                        var lName = values[0].ToString();
+                        var fName = values[1].ToString();
+                        var netID = values[2].ToString();
+                        var tryStudentID = values[3].ToString();
+
+                        //Make sure UTDID is an integer
+                        if (int.TryParse(tryStudentID, out int studentID))
+                        {
+                            //Check if UTD-ID doesn't exists in the student table yet
+                            if (!checkIfStudentExists(studentID, connection))
+                            {
+                                //Add student to student table id database
+                                cmd = new MySqlCommand("INSERT INTO student (SLName, SFName, SNetID, UTDID) " +
+                                    "VALUES (@lName, @fName, @netID, @utdID);", connection);
+                                cmd.Parameters.AddWithValue("@lName", lName);
+                                cmd.Parameters.AddWithValue("fName", fName);
+                                cmd.Parameters.AddWithValue("@netID", netID);
+                                cmd.Parameters.AddWithValue("@utdID", studentID);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            //Check if student isn't enrolled in the class yet
+                            if(!checkIfStudentAttends(studentID, courseNum, connection))
+                            {
+                                cmd = new MySqlCommand("INSERT INTO attends (FK_CourseNum, FK_UTDID) " +
+                                    "VALUES (@fk_courseNum, @fk_utdID);", connection);
+                                cmd.Parameters.AddWithValue("@fk_utdID", studentID);
+                                cmd.Parameters.AddWithValue("@fk_courseNum", courseNum);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    lineNum++;
+                }
+
+                //Close connection
+                fileReader.Close();
+                connection.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
     }
 }
