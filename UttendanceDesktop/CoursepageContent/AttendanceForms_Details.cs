@@ -14,11 +14,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    public partial class AttendanceForms_Details: Form
+    public partial class AttendanceForms_Details : Form
     {
         private AttendanceForm formData = new AttendanceForm();
         private QuestionItem.QuestionItem[] questionList;
         private FormDAO DB = new FormDAO();
+        private bool isEditMode = false;
 
         public AttendanceForms_Details()
         {
@@ -48,8 +49,8 @@ namespace UttendanceDesktop.CoursepageContent
             }
 
             // Update TITLE
-            formTitleLabel.Text = 
-                formData.ReleaseDateTime.ToString("MM/dd/yy") + 
+            formTitleLabel.Text =
+                formData.ReleaseDateTime.ToString("MM/dd/yy") +
                 " Attendance Form (" + formData.ReleaseDateTime.ToString("hh:mm tt") + ")";
 
             // Update DATE
@@ -83,7 +84,7 @@ namespace UttendanceDesktop.CoursepageContent
         // Aendri 4/17/2025
         // Receive event from child question item when edit is clicked.
         // Open edit question module
-        void child_question_OnSelectEdit (object sender, EventArgs e)
+        void child_question_OnSelectEdit(object sender, EventArgs e)
         {
             QuestionItem.QuestionItem selectedBankItem = (QuestionItem.QuestionItem)sender;
 
@@ -94,5 +95,31 @@ namespace UttendanceDesktop.CoursepageContent
             PopulateQuestionList();
         }
 
+        // Aendri 4/18/2025
+        // On click...
+        // Edit Mode: Enable editing
+        // Save Mode: Save changes
+        private void saveEditBtn_Click(object sender, EventArgs e)
+        {
+            // EDIT MODE
+            if (isEditMode)
+            {
+                saveEditBtn.BackColor = GlobalStyle.GREEN;
+                saveEditBtn.Text = "Save";
+            }
+            // SAVE MODE
+            else
+            {
+                saveEditBtn.BackColor = GlobalStyle.BURNT_ORANGE;
+                saveEditBtn.Text = "Edit";
+            }
+
+            isEditMode = !isEditMode;
+        }
+
+        private void pwdTxtBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

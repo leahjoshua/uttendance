@@ -77,6 +77,8 @@
             questionItem1.AutoSize = true;
             questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             questionItem1.BackColor = Color.FromArgb(50, 56, 87);
+            questionItem1.IsBankQuestion = false;
+            questionItem1.IsChecked = false;
             questionItem1.IsSelectable = false;
             questionItem1.Location = new Point(0, 0);
             questionItem1.Margin = new Padding(0);
@@ -98,7 +100,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(736, 632);
+            SaveEditIcon.Location = new Point(715, 646);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
@@ -111,7 +113,7 @@
             newEditIcon.FlatAppearance.BorderColor = Color.White;
             newEditIcon.FlatAppearance.BorderSize = 2;
             newEditIcon.FlatStyle = FlatStyle.Flat;
-            newEditIcon.Location = new Point(841, 548);
+            newEditIcon.Location = new Point(841, 545);
             newEditIcon.Name = "newEditIcon";
             newEditIcon.Size = new Size(40, 40);
             newEditIcon.TabIndex = 17;
