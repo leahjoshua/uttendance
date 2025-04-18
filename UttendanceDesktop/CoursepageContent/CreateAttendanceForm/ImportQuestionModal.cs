@@ -15,8 +15,10 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 {
     public partial class ImportQuestionModal : Form
     {
-        private QuestionBankItem selectedBank;
         public List<int> importQuestionIDs = new List<int>();
+        public List<QuestionItem.QuestionItem> selectedQuestions = new List<QuestionItem.QuestionItem>();
+        
+        private QuestionBankItem selectedBank;
         private List<QuestionBankItem> qBankList = new List<QuestionBankItem>();
         private List<QuestionItem.QuestionItem> questionList = new List<QuestionItem.QuestionItem>();
         public ImportQuestionModal()
@@ -60,15 +62,31 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
         }
         void child_question_OnQuestionSelectChange(object sender, EventArgs e)
         {
-            Question question = (Question)sender;
-            if (question.IsSelected)
+            QuestionItem.QuestionItem question = (QuestionItem.QuestionItem)sender;
+            if (question.IsChecked)
             {
-                importQuestionIDs.Add(question.QuestionID);
+                selectedQuestions.Add(question);
             }
             else
             {
-                importQuestionIDs.RemoveAll(n => n == question.QuestionID);
+                selectedQuestions.RemoveAll(n => n.QuestionID == question.QuestionID);
             }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void importBtn_Click(object sender, EventArgs e)
+        {
+            foreach(QuestionItem.QuestionItem question in selectedQuestions)
+            {
+                question.IsSelectable = false;
+                question.IsBankQuestion = true;
+            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

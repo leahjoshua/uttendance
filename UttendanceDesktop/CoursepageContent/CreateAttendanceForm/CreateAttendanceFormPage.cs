@@ -138,11 +138,11 @@ namespace UttendanceDesktop.CoursepageContent
 
             FormDAO formSaver = new FormDAO();
             int FormID = formSaver.SaveForm(newForm);
-            if (questions.Count > 0)
+            if (questionList.Count > 0)
             {
-                formSaver.SaveQuestions(questions, FormID);
+                formSaver.SaveQuestions(questionList, FormID);
             }
-            MessageBox.Show("Attendance Form saved.");
+            //MessageBox.Show("Attendance Form saved.");
             GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Listings(GlobalResource.CURRENT_CLASS_ID));
             this.Close();
         }
@@ -182,7 +182,8 @@ namespace UttendanceDesktop.CoursepageContent
             {
                 if (importQMod.ShowDialog() == DialogResult.OK)
                 {
-                   
+                    questionList.AddRange(importQMod.selectedQuestions);
+                    PopulateQuestions();
                 }
             }
         }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UttendanceDesktop.CoursepageContent.models;
+using UttendanceDesktop.CoursepageContent.QuestionItem;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
@@ -56,43 +57,63 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return formID;
         }
 
-        public void SaveQuestions(List<Question> questions, int FormID)
+        public void SaveQuestions(List<QuestionItem.QuestionItem> questions, int FormID)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
-            int answerChoicePK = GenerateNewPK("AnswerID", "answerchoice");
+            //int answerChoicePK = GenerateNewPK("AnswerID", "answerchoice");
             int questionPK = GenerateNewPK("QuestionID", "question");
             connection.Open();
             MySqlCommand cmd;
 
             for (int i = 0; i < questions.Count; i++)
             {
-                cmd = new MySqlCommand("INSERT INTO question (QuestionID, ProblemStatement)" +
-                    "VALUES (@questionID, @problemStmt)", connection);
-                cmd.Parameters.AddWithValue("@questionID", questionPK);
-                cmd.Parameters.AddWithValue("@problemStmt", questions[i].ProblemStatement);
-                //cmd.Parameters.AddWithValue("@formID", FormID);
-                cmd.ExecuteNonQuery();
-
-                cmd = new MySqlCommand("INSERT INTO has (FK_FormID, FK_QuestionID)" +
-                    "VALUES (@formID, @questionID)", connection);
-                cmd.Parameters.AddWithValue("@formID", FormID);
-                cmd.Parameters.AddWithValue("@questionID", questionPK);
-                cmd.ExecuteNonQuery();
-
-                for (int j = 0; j < questions[i].AnswerChoices.Count; j++)
+                if (!questions[i].IsBankQuestion)
                 {
-                    cmd = new MySqlCommand("INSERT INTO answerchoice (AnswerID, AnswerStatement, IsCorrect, FK_QuestionID)" +
-                        "VALUES (@answerID, @answerStmt, @isCorrect, @questionID)", connection);
-                    cmd.Parameters.AddWithValue("@answerID", answerChoicePK);
-                    cmd.Parameters.AddWithValue("@answerStmt", questions[i].AnswerChoices[j].AnswerStatement);
-                    cmd.Parameters.AddWithValue("@isCorrect", questions[i].AnswerChoices[j].isCorrect);
+                    cmd = new MySqlCommand("INSERT INTO question (QuestionID, ProblemStatement)" +
+                    "VALUES (@questionID, @problemStmt)", connection);
                     cmd.Parameters.AddWithValue("@questionID", questionPK);
-
+                    cmd.Parameters.AddWithValue("@problemStmt", questions[i].QuestionValue);
+                    //cmd.Parameters.AddWithValue("@formID", FormID);
                     cmd.ExecuteNonQuery();
-                    answerChoicePK++;
+
+                    cmd = new MySqlCommand("INSERT INTO has (FK_FormID, FK_QuestionID)" +
+                        "VALUES (@formID, @questionID)", connection);
+                    cmd.Parameters.AddWithValue("@formID", FormID);
+                    cmd.Parameters.AddWithValue("@questionID", questionPK);
+                    cmd.ExecuteNonQuery();
+
+                    for (int j = 0; j < questions[i].AnswerList.Length; j++)
+                    {
+                        cmd = new MySqlCommand("INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID)" +
+                            "VALUES (@answerStmt, @isCorrect, @questionID)", connection);
+                        //cmd.Parameters.AddWithValue("@answerID", answerChoicePK);
+                        cmd.Parameters.AddWithValue("@answerStmt", questions[i].AnswerList[j].AnswerValue);
+                        cmd.Parameters.AddWithValue("@isCorrect", questions[i].AnswerList[j].IsCorrect);
+                        cmd.Parameters.AddWithValue("@questionID", questionPK);
+
+                        cmd.ExecuteNonQuery();
+                        //answerChoicePK++;
+                    }
+                    questionPK++;
                 }
-                questionPK++;
+                else
+                {
+                    try
+                    {
+                        cmd = new MySqlCommand("INSERT INTO has (FK_FormID, FK_QuestionID) " +
+                        "VALUES (@formID, @questionID)", connection);
+                        cmd.Parameters.AddWithValue("@formID", FormID);
+                        cmd.Parameters.AddWithValue("@questionID", questions[i].QuestionID);
+                        int rows = cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine("ERROR: FormDAO.cs/SaveQuestions()");
+                    }
+                }
+                
             }
+            connection.Close();
         }
 
         // Aendri 4/4/2025 (Updated 4/15/2025)
@@ -460,6 +481,45 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             connection.Close();
 
             return formData;
+        }
+        // Lee
+        // 4/18/2025
+        // This function doesn't assign QuestionNumbers
+        public List<QuestionItem.QuestionItem> SelectQuestions(List<int> IDs)
+        {
+            List<QuestionItem.QuestionItem> questionItemList = new List<QuestionItem.QuestionItem>();
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            try
+            {
+                for (int i = 0; i < IDs.Count; i++)
+                {
+                    cmd = new MySqlCommand(
+                    "SELECT QuestionID, ProblemStatement " +
+                    "FROM question" +
+                    "WHERE QuestionID=@QuestionID"
+                    , connection);
+                    cmd.Parameters.AddWithValue("@QuestionID", IDs[i]);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        QuestionItem.QuestionItem currItem = new QuestionItem.QuestionItem();
+                        currItem.QuestionID = Convert.ToInt32(reader[0]);
+                        if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString(); }
+                        else { currItem.QuestionValue = ""; }
+                        currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
+                        questionItemList.Add(currItem);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO.cs/SelectQuestions: " + ex.ToString());
+            }
+            return questionItemList;
         }
     }
 }
