@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using student_website.Models;
 
 namespace student_website.Services
 {
     /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 11, 2025
-     * parisa added some lines
-        NetID: JXY200013
-    */
+     * NetID: JXY200013
+     * 
+     * Configure the database connection with the models in this project.
+     */
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -24,6 +26,9 @@ namespace student_website.Services
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Instructor> Instructor { get; set; }
 
+        /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025
+         * NetID: PXN210032
+         */
         //Deal with multiple primary keys (referenced)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

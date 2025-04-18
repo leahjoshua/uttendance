@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace student_website.Models
 {
     /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 10, 2025
-     * parisa wrote some lines
-        NetID: JXY200013
-    */
+     * Parisa Nawar wrote some lines for successful connection
+     * NetID: JXY200013 and PXN210032
+     * 
+     * Class entity corresponding to the Class table in the database.
+     */
     public class @Class
     {
         [Key]

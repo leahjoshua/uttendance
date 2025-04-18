@@ -8,9 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 11, 2025
  * parisa added some lines
-    NetID: JXY200013
+    NetID: JXY200013 and PXN210032
 */
-
 //Detect the Database Connection
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseMySql(
