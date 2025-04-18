@@ -101,7 +101,7 @@ namespace UttendanceDesktop
             attendanceflowLayoutPanel.Location = new Point(63, 162);
             attendanceflowLayoutPanel.Margin = new Padding(3, 2, 3, 2);
             attendanceflowLayoutPanel.Name = "attendanceflowLayoutPanel";
-            attendanceflowLayoutPanel.Size = new Size(682, 350);
+            attendanceflowLayoutPanel.Size = new Size(892, 350);
             attendanceflowLayoutPanel.TabIndex = 11;
             // 
             // dateTimePicker
