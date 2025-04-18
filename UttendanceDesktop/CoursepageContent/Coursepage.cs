@@ -68,6 +68,8 @@ namespace UttendanceDesktop
                         string sectionNumber = reader["SectionNum"].ToString();
                         string courseNum = reader["CourseNum"].ToString();
 
+                        sectionNumber = sectionNumber.PadLeft(3, '0');
+
                         //Create specialized strings to rewrite the label texts
                         string labelText1 = $"{classPrefix} {classNumber}.{sectionNumber} -" +
                             $"\n{courseName}";

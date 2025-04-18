@@ -164,6 +164,8 @@ namespace UttendanceDesktop
                                 string sectNumber = reader["SectionNum"].ToString();
                                 string courseNum = reader["CourseNum"].ToString();
 
+                                sectNumber = sectNumber.PadLeft(3, '0');
+
                                 // Create a panel to represent the class tile
                                 Panel tilePanel = new Panel
                                 {

@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS `answerchoice` (
   PRIMARY KEY (`AnswerID`),
   KEY `FK_QuestionID` (`FK_QuestionID`),
   CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.answerchoice: ~12 rows (approximately)
+-- Dumping data for table uttendance.answerchoice: ~29 rows (approximately)
 INSERT INTO `answerchoice` (`AnswerID`, `AnswerStatement`, `IsCorrect`, `FK_QuestionID`) VALUES
 	(1, 'sdf', b'1', 1),
 	(2, 'sdf', b'0', 1),
@@ -43,7 +43,24 @@ INSERT INTO `answerchoice` (`AnswerID`, `AnswerStatement`, `IsCorrect`, `FK_Ques
 	(9, '-1', b'0', 8),
 	(10, '2', b'0', 8),
 	(11, '25', b'0', 8),
-	(12, '999999999999999999999999999', b'1', 8);
+	(12, '999999999999999999999999999', b'1', 8),
+	(13, 'fdssdf', b'1', 9),
+	(14, 'sdfsdf', b'0', 9),
+	(15, 'the ORV carrd', b'1', 2),
+	(16, 'youtube', b'0', 2),
+	(17, 'pacific ocean', b'0', 2),
+	(18, '3', b'1', 3),
+	(19, 'nothing bro :(', b'1', 4),
+	(20, 'dfgdfg', b'0', 10),
+	(21, 'dfgdfg', b'1', 10),
+	(22, 'sdf', b'1', 11),
+	(23, 'sdfsdf', b'0', 11),
+	(24, 'dfsdfdsf', b'1', 14),
+	(25, 'sdfsdf', b'0', 14),
+	(26, 'Blue', b'0', 15),
+	(27, 'Green', b'0', 15),
+	(28, 'Yellow', b'0', 15),
+	(29, 'She doesn\'t know', b'1', 15);
 
 -- Dumping structure for table uttendance.attends
 CREATE TABLE IF NOT EXISTS `attends` (
@@ -51,12 +68,14 @@ CREATE TABLE IF NOT EXISTS `attends` (
   `FK_CourseNum` int(11) NOT NULL,
   PRIMARY KEY (`FK_UTDID`,`FK_CourseNum`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
-  CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.attends: ~7 rows (approximately)
+-- Dumping data for table uttendance.attends: ~9 rows (approximately)
 INSERT INTO `attends` (`FK_UTDID`, `FK_CourseNum`) VALUES
+	(4343432, 123456),
+	(2021070921, 123456),
 	(2021188666, 123456),
 	(2021308444, 123456),
 	(2021345555, 123456),
@@ -78,9 +97,10 @@ CREATE TABLE IF NOT EXISTS `class` (
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`FK_ImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.class: ~1 rows (approximately)
+-- Dumping data for table uttendance.class: ~2 rows (approximately)
 INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `ClassName`, `FK_ImageID`) VALUES
-	(123456, 123456, 'MATH', 123456, '123456', NULL);
+	(12345, 1, 'CS', 4349, 'Advanced Algorithms', NULL),
+	(123456, 1, 'CS', 4384, 'Operating Systems', NULL);
 
 -- Dumping structure for table uttendance.form
 CREATE TABLE IF NOT EXISTS `form` (
@@ -92,16 +112,15 @@ CREATE TABLE IF NOT EXISTS `form` (
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.form: ~6 rows (approximately)
+-- Dumping data for table uttendance.form: ~5 rows (approximately)
 INSERT INTO `form` (`FormID`, `PassWd`, `ReleaseDateTime`, `CloseDateTime`, `FK_CourseNum`) VALUES
 	(1, 'dfdsf', '2025-04-12 13:44:47', '2025-04-19 13:44:47', 123456),
 	(2, 'test', '2025-04-12 13:47:56', '2025-04-16 13:47:56', 123456),
-	(3, 'dfgdfg', '2025-04-18 15:10:03', '2025-04-25 15:10:03', 123456),
-	(4, 'test', '2025-04-17 15:48:28', '2025-04-18 15:48:28', 123456),
-	(5, 'meow', '2025-04-17 19:25:44', '2025-04-18 19:25:44', 123456),
-	(6, 'LEEEPY', '2025-04-17 19:27:06', '2025-04-25 19:27:06', 123456);
+	(3, 'PLEASE WORK', '2025-04-19 10:41:36', '2025-04-26 10:41:36', 123456),
+	(4, 'jotest', '2025-04-15 13:40:13', '2025-04-17 13:40:21', 123456),
+	(5, 'letest', '2025-04-15 13:40:17', '2025-04-17 13:40:21', 123456);
 
 -- Dumping structure for table uttendance.has
 CREATE TABLE IF NOT EXISTS `has` (
@@ -113,11 +132,10 @@ CREATE TABLE IF NOT EXISTS `has` (
   CONSTRAINT `FK__question` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='Relationship between Form and Question';
 
--- Dumping data for table uttendance.has: ~3 rows (approximately)
+-- Dumping data for table uttendance.has: ~2 rows (approximately)
 INSERT INTO `has` (`FK_FormID`, `FK_QuestionID`) VALUES
-	(3, 5),
-	(4, 6),
-	(6, 8);
+	(3, 3),
+	(3, 15);
 
 -- Dumping structure for table uttendance.images
 CREATE TABLE IF NOT EXISTS `images` (
@@ -168,9 +186,9 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`QuestionID`),
   KEY `FK_question_qbank` (`FK_BankID`),
   CONSTRAINT `FK_question_qbank` FOREIGN KEY (`FK_BankID`) REFERENCES `qbank` (`BankID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.question: ~8 rows (approximately)
+-- Dumping data for table uttendance.question: ~15 rows (approximately)
 INSERT INTO `question` (`QuestionID`, `ProblemStatement`, `FK_BankID`) VALUES
 	(1, 'sdf', NULL),
 	(2, 'Where can you find the whole ORV webnovel?', 1),
@@ -179,7 +197,14 @@ INSERT INTO `question` (`QuestionID`, `ProblemStatement`, `FK_BankID`) VALUES
 	(5, 'dfgdfg', NULL),
 	(6, 'test', NULL),
 	(7, 'do u like joannas plant', NULL),
-	(8, 'what is aendris iq', NULL);
+	(8, 'what is aendris iq', NULL),
+	(9, 'testq', NULL),
+	(10, 'indiviudla question', NULL),
+	(11, 'sdfsf', NULL),
+	(12, 'NEW QUESTION', NULL),
+	(13, 'sdf', NULL),
+	(14, 'sdf', NULL),
+	(15, 'what\'s joanna\'s favorite color', NULL);
 
 -- Dumping structure for table uttendance.student
 CREATE TABLE IF NOT EXISTS `student` (
@@ -192,6 +217,8 @@ CREATE TABLE IF NOT EXISTS `student` (
 
 -- Dumping data for table uttendance.student: ~7 rows (approximately)
 INSERT INTO `student` (`UTDID`, `SNetID`, `SFName`, `SLName`) VALUES
+	(4343432, 'aes11111', 'aendri', 'singh'),
+	(2021070921, 'jxy123456', 'Y', 'Joobie'),
 	(2021188666, 'zjd130000', 'Zach', 'Dewey'),
 	(2021308444, 'cab160444', 'Chase', 'Burrell'),
 	(2021345555, 'nkc160199', 'Kevin', 'Chen'),
@@ -212,10 +239,17 @@ CREATE TABLE IF NOT EXISTS `submission` (
   KEY `FK_FormID` (`FK_FormID`),
   KEY `FK_UTDID` (`FK_UTDID`),
   CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`),
-  CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.submission: ~0 rows (approximately)
+-- Dumping data for table uttendance.submission: ~2 rows (approximately)
+INSERT INTO `submission` (`SubmissionID`, `AttendanceStatus`, `IPAddress`, `DateTime`, `FK_FormID`, `FK_UTDID`) VALUES
+	(1, 'P', NULL, NULL, 2, 4343432),
+	(2, 'E', NULL, NULL, 2, 2021070921),
+	(3, 'P', NULL, NULL, 4, 2021188666),
+	(4, 'P', NULL, NULL, 5, 2021308444),
+	(5, 'P', NULL, NULL, 2, 2021188666),
+	(6, 'P', NULL, NULL, 2, 2021308444);
 
 -- Dumping structure for table uttendance.teaches
 CREATE TABLE IF NOT EXISTS `teaches` (
@@ -227,7 +261,11 @@ CREATE TABLE IF NOT EXISTS `teaches` (
   CONSTRAINT `teaches_ibfk_2` FOREIGN KEY (`FK_INetID`) REFERENCES `instructor` (`INetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.teaches: ~0 rows (approximately)
+-- Dumping data for table uttendance.teaches: ~3 rows (approximately)
+INSERT INTO `teaches` (`FK_INetID`, `FK_CourseNum`) VALUES
+	('mxm123456', 12345),
+	('mxm123456', 123456),
+	('SXH210003', 123456);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
