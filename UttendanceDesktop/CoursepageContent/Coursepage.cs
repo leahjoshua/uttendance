@@ -40,12 +40,14 @@ namespace UttendanceDesktop
         SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
         FROM class AS c
         INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
-        WHERE t.FK_INetID = @netID";
+        WHERE t.FK_INetID = @netID
+        AND c.CourseNum = @courseNum";
 
             using (var connection = new MySqlConnection(connectionString))
             using (var cmd = new MySqlCommand(query, connection))
             {
                 cmd.Parameters.AddWithValue("@netID", GlobalResource.INetID);
+                cmd.Parameters.AddWithValue("@courseNum", CourseNum);
 
                 connection.Open();
 
@@ -173,5 +175,11 @@ namespace UttendanceDesktop
             }
         }
 
+        private void yourCoursesBtn_Click(object sender, EventArgs e)
+        {
+            Homepage homepage = new Homepage();
+            homepage.Show();
+            this.Close();
+        }
     }
 }
