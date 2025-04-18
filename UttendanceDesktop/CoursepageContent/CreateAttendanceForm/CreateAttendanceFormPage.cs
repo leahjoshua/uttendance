@@ -183,6 +183,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (importQMod.ShowDialog() == DialogResult.OK)
                 {
                     questionList.AddRange(importQMod.selectedQuestions);
+                    defaultQuestionsTxt.Visible = false;
                     PopulateQuestions();
                 }
             }

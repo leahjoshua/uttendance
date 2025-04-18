@@ -12,6 +12,12 @@ namespace UttendanceDesktop
             InitializeComponent();
             createAccountPanel.Visible = false;
             logInPanel.Visible = true;
+            StartPosition = FormStartPosition.Manual;
+            Rectangle screen = Screen.FromPoint(Cursor.Position).WorkingArea;
+            int w = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
+            int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
+            Location = new Point(screen.Left + (screen.Width - w) / 2, screen.Top + (screen.Height - h) / 2);
+            Size = new Size(w, h);
         }
 
         // parisa and leah worked on this

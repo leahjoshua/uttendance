@@ -55,12 +55,12 @@
             createFormPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             createFormPanel.AutoScroll = true;
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
+            createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(flowLayoutPanel);
             createFormPanel.Controls.Add(button1);
             createFormPanel.Controls.Add(pwdTxtBox);
             createFormPanel.Controls.Add(label3);
             createFormPanel.Controls.Add(saveBtn);
-            createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(label2);
             createFormPanel.Controls.Add(closeTimePicker);
             createFormPanel.Controls.Add(label4);
