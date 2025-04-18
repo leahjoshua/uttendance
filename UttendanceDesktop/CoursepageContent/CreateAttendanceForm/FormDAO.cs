@@ -43,14 +43,15 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO form (PassWd, ReleaseDateTime, CloseDateTime, FK_CourseNum)" +
-                "VALUES (@password, @release, @close, @courseNum)", connection);
-            //cmd.Parameters.AddWithValue("@formID", formID);
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO form (FormID, PassWd, ReleaseDateTime, CloseDateTime, FK_CourseNum) " +
+                "VALUES (@formID, @password, @release, @close, @courseNum) ", connection);
+            cmd.Parameters.AddWithValue("@formID", formID);
             cmd.Parameters.AddWithValue("@password", form.PassWd);
             cmd.Parameters.AddWithValue("@release", form.ReleaseDateTime);
             cmd.Parameters.AddWithValue("@close", form.CloseDateTime);
             cmd.Parameters.AddWithValue("@courseNum", form.CourseNum);
 
+            //int formID = Convert.ToInt32(cmd.ExecuteScalar());
             cmd.ExecuteNonQuery();
             connection.Close();
 
@@ -105,6 +106,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                         cmd.Parameters.AddWithValue("@formID", FormID);
                         cmd.Parameters.AddWithValue("@questionID", questions[i].QuestionID);
                         int rows = cmd.ExecuteNonQuery();
+                        //Console.WriteLine();
                     }
                     catch (Exception e)
                     {

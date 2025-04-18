@@ -366,8 +366,8 @@ namespace UttendanceDesktop
                     GlobalResource.CURRENT_CLASS_ID = Convert.ToInt32(courseNum);
 
                     // Open up the CoursePage corresponding to the Course 
-                    var coursePage = GlobalResource.COURSEPAGE;
-                    coursePage.Show();
+                    GlobalResource.COURSEPAGE = new Coursepage(GlobalResource.CURRENT_CLASS_ID);
+                    GlobalResource.COURSEPAGE.Show();
                     this.Hide();
                 }
             }

@@ -21,7 +21,7 @@ namespace UttendanceDesktop
         // The connection string used for all database operations.
         public static string CONNECTION_STRING = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
         public static int CURRENT_CLASS_ID { get; set; } //CourseNum
-        public static Coursepage COURSEPAGE => new Coursepage(CURRENT_CLASS_ID);
+        public static Coursepage COURSEPAGE { get; set; }
 
         // The NetID of the currently logged-in user.
         public static string? INetID { get; set; }
