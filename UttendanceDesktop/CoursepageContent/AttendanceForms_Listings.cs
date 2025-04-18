@@ -362,6 +362,7 @@ namespace UttendanceDesktop
             if (numItemsToDelete > 0) //EDIT Mode
             {              
                 DeleteItems();
+                PopulateAttendanceFormList();
             } 
             else //NEW Mode (written by Lee)
             {
