@@ -17,7 +17,7 @@ namespace UttendanceDesktop
     // NetID: jxy210012
     public partial class ImportModule : Form
     {
-        private readonly string connectionString = GlobalResource.CONNECTION_STRING;
+        private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
         private string tableName;
         private string[] attributes;
         private string[] display;
