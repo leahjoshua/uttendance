@@ -63,12 +63,22 @@ namespace UttendanceDesktop.CoursepageContent
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
+            //Remove all submissions by the student for this class
+            MySqlCommand cmd = new MySqlCommand("DELETE submission FROM submission " +
+                "JOIN form on form.FormID = submission.FK_FormID " +
+                "WHERE FK_UTDID=@fkUtdID2 AND form.FK_CourseNum=@courseNum2;", connection);
+            cmd.Parameters.AddWithValue("@fkUtdID2", id);
+            cmd.Parameters.AddWithValue("@courseNum2", courseNum);
+            cmd.ExecuteNonQuery();
+
+
             //Remove student from the attends table
-            MySqlCommand cmd = new MySqlCommand("DELETE FROM attends WHERE FK_UTDID=@fkUtdID AND FK_CourseNum=@courseNum;", connection);
+            cmd = new MySqlCommand("DELETE FROM attends WHERE FK_UTDID=@fkUtdID AND FK_CourseNum=@courseNum;", connection);
             cmd.Parameters.AddWithValue("@fkUtdID", id);
             cmd.Parameters.AddWithValue("@courseNum", courseNum);
             cmd.ExecuteNonQuery();
 
+            
             //Check if the student is enrolled in any other classes
             cmd = new MySqlCommand("SELECT COUNT(*) FROM attends WHERE FK_UTDID=@fkUtdID2;", connection);
             cmd.Parameters.AddWithValue("@fkUtdID2", id);

@@ -38,40 +38,11 @@ namespace UttendanceDesktop.CoursepageContent
 
             return count;
         }
-
-        private ArrayList getCloseFormList(int courseNum)
-        {
-            ArrayList list = new ArrayList();
-            //Open database connection
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            connection.Open();
-
-            DateTime localDate = DateTime.Now;
-            MySqlCommand cmd = new MySqlCommand("SELECT FormID FROM form " +
-               "WHERE FK_CourseNum=@courseNum AND CloseDateTime < @now " +
-               "ORDER BY ReleaseDateTime ASC;", connection);
-            cmd.Parameters.AddWithValue("@courseNum", courseNum);
-            cmd.Parameters.AddWithValue("@now", localDate);
-
-            //Read the list of forms
-            using (MySqlDataReader databaseReader = cmd.ExecuteReader())
-            {
-                while (databaseReader.Read())
-                {
-                    list.Add(databaseReader["FormID"]);
-                }
-            }
-
-            return list;
-        }
-
         public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
         {
             //Open database connection
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
-
-            MessageBox.Show("FORM ID IS " + formID);
 
             //Check if submissionID exists
             MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM submission " +

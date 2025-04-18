@@ -59,22 +59,23 @@ namespace UttendanceDesktop
         //Displays the module to manually add students
         private void addStudentsBtn_Click(object sender, EventArgs e)
         {
+            addPanel.Visible = false;
             StudentAddModal studMod = new StudentAddModal();
             studMod.StudentAdded += populateStudentTable;
             studMod.Show();
-            addPanel.Visible = false;
         }
 
         //Displays the module to import students
         private void importStudentsBtn_Click(object sender, EventArgs e)
         {
-            importMod.Show();
             addPanel.Visible = false;
+            importMod.Show();
         }
 
         //Replace add button with trash when user selects a cell
         private void studentTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            addPanel.Visible = false;
             addBtn.Visible = false;
             deleteBtn.Visible = true;
         }
@@ -84,6 +85,7 @@ namespace UttendanceDesktop
         {
             studentTable.ClearSelection();
             deleteBtn.Visible = false;
+            addPanel.Visible = false;
             addBtn.Visible = true;
         }
 
@@ -94,7 +96,7 @@ namespace UttendanceDesktop
             if (numRows > 0)
             {
                 //Confirmation message
-                string confirmMsg = "Remove " + numRows + " student(s) from this class?";
+                string confirmMsg = "Remove " + numRows + " student(s) from this class?\n All submissions by these students will be removed.";
                 DialogResult result = MessageBox.Show(confirmMsg, "Confirmation", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
                 {
@@ -110,6 +112,9 @@ namespace UttendanceDesktop
                 }
             }
 
+             deleteBtn.Visible = false;
+            addPanel.Visible = false;
+            addBtn.Visible = true;
         }
 
         //Keep track of the old value when the user starts editing a cell

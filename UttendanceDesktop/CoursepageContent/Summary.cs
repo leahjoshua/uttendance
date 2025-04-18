@@ -69,7 +69,6 @@ namespace UttendanceDesktop
                 //Input validation
                 if (editNewValue == "P" || editNewValue == "E" || editNewValue == "A")
                 {
-                    //int form = e.ColumnIndex - 5;
                     SummaryDAO summaryInfo = new SummaryDAO();
 
                     //Get the formID
@@ -83,10 +82,10 @@ namespace UttendanceDesktop
 
                     //Update the Abscene count
                     if (editOldValue.ToString() == "A")
-                    {
                         summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) - 1;
-                    }
-            }
+                    if(editNewValue.ToString() == "A")
+                        summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) + 1;
+                }
                 else
                 {
                     MessageBox.Show("Invalid input. Please enter either a \'P\', \'E\', or \'A\'");

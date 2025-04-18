@@ -52,25 +52,22 @@ namespace UttendanceDesktop
                 Visible = false;
                 // Retrieve the selected file path
                 string filePath = openFileDialog.FileName;
-                MessageBox.Show($"Selected File: {filePath}", "File Selected");
+                DialogResult result = MessageBox.Show($"Selected File: {filePath}", "File Selected", MessageBoxButtons.OKCancel);
+                
                 // Imports the data into the database
-                addToDatabase(filePath);
-            }
-        }
-
-        //Inserts the read file into the database
-        private void addToDatabase(string path)
-        {
-
-            StudentsDAO studentImport = new StudentsDAO();
-            if (studentImport.importStudentsFromCSV(path, courseNum))
-            {
-                //Raise flag
-                DatabaseUpdated?.Invoke();
-            }
-            else
-            {
-                MessageBox.Show("Failed to import. Pleae check your values.\n");
+                if (result == DialogResult.OK)
+                {
+                    StudentsDAO studentImport = new StudentsDAO();
+                    if (studentImport.importStudentsFromCSV(filePath, courseNum))
+                    {
+                        //Raise flag
+                        DatabaseUpdated?.Invoke();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to import. Pleae check your values.\n");
+                    }
+                }
             }
         }
 
