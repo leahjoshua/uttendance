@@ -34,14 +34,14 @@
                 <InputText id="snetid" @bind-Value="student.SNetID" class="form-control" />
             </div>
 
+            <div class="right-align">
+                <button class="popup" @onclick="ShowModal" type="button">What is a UTD-ID?</button>
+            </div>
+
             <button type="submit" class="btn-primary" disabled="@isLoading">
                 @(isLoading ? "Logging In..." : "Login")
             </button>
         </EditForm>
-
-        <div class="right-align">
-            <button class="popup" @onclick="ShowModal"te>What is a UTD-ID?</button>
-        </div>
 
         <!--Shows the Modal explaining what a UTD-ID is-->
         @if (isModalVisible)
