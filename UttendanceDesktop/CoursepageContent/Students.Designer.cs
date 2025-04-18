@@ -32,27 +32,46 @@ namespace UttendanceDesktop
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             studentsPagePanel = new Panel();
+            studentsLabel = new Label();
             addPanel = new Panel();
             importStudentsBtn = new Button();
             addStudentsBtn = new Button();
+            studentTablePanel = new Panel();
+            studentTable = new DataGridView();
             addBtn = new Button();
-            studentsLabel = new Label();
             studentsPagePanel.SuspendLayout();
             addPanel.SuspendLayout();
+            studentTablePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)studentTable).BeginInit();
             SuspendLayout();
             // 
             // studentsPagePanel
             // 
             studentsPagePanel.BackColor = Color.FromArgb(166, 176, 230);
-            studentsPagePanel.Controls.Add(addPanel);
-            studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Controls.Add(studentsLabel);
+            studentsPagePanel.Controls.Add(addPanel);
+            studentsPagePanel.Controls.Add(studentTablePanel);
+            studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Dock = DockStyle.Fill;
             studentsPagePanel.Location = new Point(0, 0);
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
+            // 
+            // studentsLabel
+            // 
+            studentsLabel.AutoSize = true;
+            studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            studentsLabel.Location = new Point(43, 37);
+            studentsLabel.Name = "studentsLabel";
+            studentsLabel.Size = new Size(107, 32);
+            studentsLabel.TabIndex = 0;
+            studentsLabel.Text = "Students";
             // 
             // addPanel
             // 
@@ -91,6 +110,63 @@ namespace UttendanceDesktop
             addStudentsBtn.UseVisualStyleBackColor = false;
             addStudentsBtn.Click += addStudentsBtn_Click;
             // 
+            // studentTablePanel
+            // 
+            studentTablePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            studentTablePanel.Controls.Add(studentTable);
+            studentTablePanel.ForeColor = Color.Black;
+            studentTablePanel.Location = new Point(43, 130);
+            studentTablePanel.Name = "studentTablePanel";
+            studentTablePanel.Size = new Size(677, 298);
+            studentTablePanel.TabIndex = 5;
+            // 
+            // studentTable
+            // 
+            studentTable.AllowUserToAddRows = false;
+            studentTable.AllowUserToDeleteRows = false;
+            studentTable.AllowUserToResizeColumns = false;
+            studentTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(206, 212, 244);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.Padding = new Padding(10, 0, 0, 0);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            studentTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            studentTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            studentTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            studentTable.BackgroundColor = Color.FromArgb(37, 42, 69);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(10, 0, 0, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.DarkSlateBlue;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            studentTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            studentTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(222, 225, 241);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.Padding = new Padding(10, 0, 0, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(88, 101, 168);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            studentTable.DefaultCellStyle = dataGridViewCellStyle3;
+            studentTable.EnableHeadersVisualStyles = false;
+            studentTable.GridColor = Color.FromArgb(37, 42, 69);
+            studentTable.Location = new Point(19, 3);
+            studentTable.MultiSelect = false;
+            studentTable.Name = "studentTable";
+            studentTable.RowHeadersVisible = false;
+            studentTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            studentTable.Size = new Size(638, 266);
+            studentTable.TabIndex = 0;
+            studentTable.TabStop = false;
+            // 
             // addBtn
             // 
             addBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -105,17 +181,6 @@ namespace UttendanceDesktop
             addBtn.UseVisualStyleBackColor = true;
             addBtn.Click += addBtn_Click;
             // 
-            // studentsLabel
-            // 
-            studentsLabel.AutoSize = true;
-            studentsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            studentsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            studentsLabel.Location = new Point(43, 37);
-            studentsLabel.Name = "studentsLabel";
-            studentsLabel.Size = new Size(107, 32);
-            studentsLabel.TabIndex = 0;
-            studentsLabel.Text = "Students";
-            // 
             // Students
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -123,12 +188,15 @@ namespace UttendanceDesktop
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(800, 450);
             Controls.Add(studentsPagePanel);
+            ForeColor = Color.Red;
             FormBorderStyle = FormBorderStyle.None;
             Name = "Students";
             Text = "Students";
             studentsPagePanel.ResumeLayout(false);
             studentsPagePanel.PerformLayout();
             addPanel.ResumeLayout(false);
+            studentTablePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)studentTable).EndInit();
             ResumeLayout(false);
         }
 
@@ -140,5 +208,7 @@ namespace UttendanceDesktop
         private Panel addPanel;
         private Button addStudentsBtn;
         private Button importStudentsBtn;
+        private Panel studentTablePanel;
+        private DataGridView studentTable;
     }
 }
