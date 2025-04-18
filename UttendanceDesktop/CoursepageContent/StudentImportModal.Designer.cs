@@ -5,7 +5,7 @@ namespace UttendanceDesktop
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 27, 2025.
     // NetID: jxy210012
-    partial class ImportModule
+    partial class StudentImportModal
     {
         /// <summary>
         /// Required designer variable.
@@ -91,6 +91,7 @@ namespace UttendanceDesktop
             formatExampleLabel.Name = "formatExampleLabel";
             formatExampleLabel.Size = new Size(0, 19);
             formatExampleLabel.TabIndex = 1;
+            formatExampleLabel.Text = "\"Last Name\", \"First Name\", \"Net-ID\", \"UTD-ID\"";
             // 
             // formatMsgLabel
             // 
@@ -100,19 +101,19 @@ namespace UttendanceDesktop
             formatMsgLabel.ForeColor = Color.FromArgb(37, 42, 69);
             formatMsgLabel.Location = new Point(17, 22);
             formatMsgLabel.Name = "formatMsgLabel";
-            formatMsgLabel.Size = new Size(413, 19);
+            formatMsgLabel.Size = new Size(417, 38);
             formatMsgLabel.TabIndex = 0;
             formatMsgLabel.Text = "Make sure the file is a .csv file and has the following column names\r\n(or similar) in the following order:\r\n";
             // 
-            // ImportModule
+            // ImportStudentModal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(444, 192);
             Controls.Add(importPagePanel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Name = "ImportModule";
-            Text = "Import ";
+            Name = "ImportStudentModal";
+            Text = "Import Students";
             importPagePanel.ResumeLayout(false);
             importPagePanel.PerformLayout();
             ResumeLayout(false);

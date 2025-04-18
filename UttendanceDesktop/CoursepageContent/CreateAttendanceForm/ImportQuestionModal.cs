@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using UttendanceDesktop.CoursepageContent.QuestionItem;
+using UttendanceDesktop.CoursepageContent.models;
 
 namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 {
     public partial class ImportQuestionModal : Form
     {
+        public List<int> importQuestionIDs = new List<int>();
+        public List<QuestionItem.QuestionItem> selectedQuestions = new List<QuestionItem.QuestionItem>();
+        
         private QuestionBankItem selectedBank;
         private List<QuestionBankItem> qBankList = new List<QuestionBankItem>();
         private List<QuestionItem.QuestionItem> questionList = new List<QuestionItem.QuestionItem>();
@@ -49,10 +53,40 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                     for (int i = 0; i < questionList.Count; i++)
                     {
+                        questionList[i].IsSelectable = true;
+                        questionList[i].OnQuestionSelectChange += new EventHandler(child_question_OnQuestionSelectChange);
                         importFlowPanel.Controls.Add(questionList[i]);
                     }
                 }
             }
+        }
+        void child_question_OnQuestionSelectChange(object sender, EventArgs e)
+        {
+            QuestionItem.QuestionItem question = (QuestionItem.QuestionItem)sender;
+            if (question.IsChecked)
+            {
+                selectedQuestions.Add(question);
+            }
+            else
+            {
+                selectedQuestions.RemoveAll(n => n.QuestionID == question.QuestionID);
+            }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void importBtn_Click(object sender, EventArgs e)
+        {
+            foreach(QuestionItem.QuestionItem question in selectedQuestions)
+            {
+                question.IsSelectable = false;
+                question.IsBankQuestion = true;
+            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

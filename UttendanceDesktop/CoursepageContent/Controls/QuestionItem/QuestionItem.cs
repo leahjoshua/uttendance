@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UttendanceDesktop.CoursepageContent.models;
 
 namespace UttendanceDesktop.CoursepageContent.QuestionItem
 {
@@ -18,6 +19,9 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private bool isMinimized = true;
         private int _questionID;
         private bool _isSelectable = false;
+        private bool isBankQuestion = false;
+
+        private Question question = new Question();
 
         public event EventHandler OnQuestionSelectChange;
         public event EventHandler OnClickEdit;
@@ -116,6 +120,22 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             set { checkbox.Checked = value; }
         }
 
+        // Lee 4/18/2025
+        [Category("Item Values")]
+        public bool IsChecked
+        {
+            get { return checkbox.Checked; }
+            set { checkbox.Checked = value; }
+        }
+
+        // Lee 4/18/2025
+        [Category("Item Values")]
+        public bool IsBankQuestion
+        {
+            get { return isBankQuestion; }
+            set { isBankQuestion = value; }
+        }
+
         // ----- SPECIAL FUNCTIONS ------ //
 
         // Aendri 4/13/2025 
@@ -174,13 +194,15 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             ShowHideList();
         }
 
-        // Aendri 4/17/2025
+        // Aendri 4/17/2025 (updated by Lee 4/17)
         // On selection/deselection of the item, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
             if (OnQuestionSelectChange != null)
             {
-                OnQuestionSelectChange(checkbox.Checked, null);
+                //question.QuestionID = _questionID;
+                //question.IsSelected = checkbox.Checked;
+                OnQuestionSelectChange(this, null);
             }
         }
 

@@ -40,6 +40,7 @@ namespace UttendanceDesktop.CoursepageContent
             {
                 for (int i = 0; i < questionList.Count; i++)
                 {
+                    questionList[i].QuestionNumber = i + 1;
                     flowLayoutPanel.Controls.Add(questionList[i]);
                 }
             }
@@ -137,11 +138,11 @@ namespace UttendanceDesktop.CoursepageContent
 
             FormDAO formSaver = new FormDAO();
             int FormID = formSaver.SaveForm(newForm);
-            if (questions.Count > 0)
+            if (questionList.Count > 0)
             {
-                formSaver.SaveQuestions(questions, FormID);
+                formSaver.SaveQuestions(questionList, FormID);
             }
-            MessageBox.Show("Attendance Form saved.");
+            //MessageBox.Show("Attendance Form saved.");
             GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Listings(GlobalResource.CURRENT_CLASS_ID));
             this.Close();
         }
@@ -181,7 +182,9 @@ namespace UttendanceDesktop.CoursepageContent
             {
                 if (importQMod.ShowDialog() == DialogResult.OK)
                 {
-                   
+                    questionList.AddRange(importQMod.selectedQuestions);
+                    defaultQuestionsTxt.Visible = false;
+                    PopulateQuestions();
                 }
             }
         }

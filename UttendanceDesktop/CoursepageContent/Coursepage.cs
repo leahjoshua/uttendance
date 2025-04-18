@@ -7,23 +7,78 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using UttendanceDesktop;
 
 namespace UttendanceDesktop
 {
-    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 14, 2025.
-    // NetID: jxy210012
+    // Written by Joanna Yang and Parisa Nawar for CS4485.0w1, Uttendance, starting March 14, 2025.
+    //
+    // NetID: jxy210012, pxn210032
     public partial class Coursepage : Form
     {
         bool sidebarExpand = true;
         bool attendanceCollapsed = false;
 
-        private int CourseNum = 123456; //TEMP VALUE, recieve from prev page in constructor
-        public Coursepage()
+        private int CourseNum; //TEMP VALUE, receive from prev page in constructor
+        public Coursepage(int CourseNum)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
+            Rectangle screen = Screen.FromPoint(Cursor.Position).WorkingArea;
+            int w = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
+            int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
+            Location = new Point(screen.Left + (screen.Width - w) / 2, screen.Top + (screen.Height - h) / 2);
+            Size = new Size(w, h);
+            this.CourseNum = CourseNum;
+            setCourseLabels();
+
             //Make the Attendance Form the default first page that loads
             loadForm(new AttendanceForms_Listings(CourseNum));
+        }
+
+        //Fit Labels to the right course name
+        public void setCourseLabels()
+        {
+            //Retrieve the Course information from database 
+            string connectionString = GlobalResource.CONNECTION_STRING;
+            string query = @"
+        SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
+        FROM class AS c
+        INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
+        WHERE t.FK_INetID = @netID
+        AND c.CourseNum = @courseNum";
+
+            using (var connection = new MySqlConnection(connectionString))
+            using (var cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@netID", GlobalResource.INetID);
+                cmd.Parameters.AddWithValue("@courseNum", CourseNum);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        //Get the information from the database
+                        string courseName = reader["ClassName"].ToString();
+                        string classPrefix = reader["ClassSubject"].ToString();
+                        string classNumber = reader["ClassNum"].ToString();
+                        string sectionNumber = reader["SectionNum"].ToString();
+                        string courseNum = reader["CourseNum"].ToString();
+
+                        sectionNumber = sectionNumber.PadLeft(3, '0');
+
+                        //Create specialized strings to rewrite the label texts
+                        string labelText1 = $"{classPrefix} {classNumber}.{sectionNumber} -" +
+                            $"\n{courseName}";
+                        string labelText2 = $"{classPrefix} {classNumber}.{sectionNumber} - {courseName}";
+                        headerPathTxt.Text = labelText2;
+                        courseLabel.Text = labelText1;
+                    }
+                }
+            }
         }
 
         // Loads the page that is defined by input 'Form', keeping the sidebar and header
@@ -128,5 +183,11 @@ namespace UttendanceDesktop
             }
         }
 
+        private void yourCoursesBtn_Click(object sender, EventArgs e)
+        {
+            Homepage homepage = new Homepage();
+            homepage.Show();
+            this.Close();
+        }
     }
 }

@@ -12,6 +12,12 @@ namespace UttendanceDesktop
             InitializeComponent();
             createAccountPanel.Visible = false;
             logInPanel.Visible = true;
+            StartPosition = FormStartPosition.Manual;
+            Rectangle screen = Screen.FromPoint(Cursor.Position).WorkingArea;
+            int w = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
+            int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
+            Location = new Point(screen.Left + (screen.Width - w) / 2, screen.Top + (screen.Height - h) / 2);
+            Size = new Size(w, h);
         }
 
         // parisa and leah worked on this
@@ -19,6 +25,7 @@ namespace UttendanceDesktop
         {
             LoginDAO login = new LoginDAO();
             currentInstructor = login.login(netIDTxtBox.Text, pwdTxtBox.Text);
+            GlobalResource.INetID = currentInstructor.INetID;
             if (currentInstructor.INetID == null)
             {
                 MessageBox.Show("Incorrect NetID or Password");
@@ -30,7 +37,10 @@ namespace UttendanceDesktop
                     Properties.Settings.Default.netID = currentInstructor.INetID;
                     Properties.Settings.Default.Save();
                 }
-                MessageBox.Show("Logged in as: " + currentInstructor.INetID);
+                //MessageBox.Show("Logged in as: " + currentInstructor.INetID);
+                Homepage newHomepage = new Homepage();
+                newHomepage.Show();
+                this.Hide();
             }
 
         }
@@ -45,7 +55,7 @@ namespace UttendanceDesktop
             }
         }
 
-        //leah
+        //leah (parisa added a couple lines)
         private void createAccountBtn_Click(object sender, EventArgs e)
         {
             Instructor instructor = new Instructor
@@ -61,6 +71,8 @@ namespace UttendanceDesktop
             if (result > 0)
             {
                 MessageBox.Show("Account created for: " + instructor.IFName + " " + instructor.ILName + ".");
+                createAccountPanel.Visible = false;
+                logInPanel.Visible = true;
             }
             else
             {

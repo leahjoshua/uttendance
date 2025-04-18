@@ -11,5 +11,6 @@ namespace UttendanceDesktop.CoursepageContent.models
         public int QuestionID { get; set; }
         public string ProblemStatement { get; set; }
         public List<AnswerChoice> AnswerChoices { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

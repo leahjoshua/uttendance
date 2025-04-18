@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             createFormPanel = new Panel();
+            flowLayoutPanel = new FlowLayoutPanel();
+            questionItem1 = new UttendanceDesktop.CoursepageContent.QuestionItem.QuestionItem();
             button1 = new Button();
             pwdTxtBox = new TextBox();
             label3 = new Label();
@@ -44,8 +46,6 @@
             openOptionsBtn = new Button();
             addQuestionBtn = new Button();
             importQuestionBtn = new Button();
-            flowLayoutPanel = new FlowLayoutPanel();
-            questionItem1 = new UttendanceDesktop.CoursepageContent.QuestionItem.QuestionItem();
             createFormPanel.SuspendLayout();
             flowLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -55,12 +55,12 @@
             createFormPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             createFormPanel.AutoScroll = true;
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
+            createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(flowLayoutPanel);
             createFormPanel.Controls.Add(button1);
             createFormPanel.Controls.Add(pwdTxtBox);
             createFormPanel.Controls.Add(label3);
             createFormPanel.Controls.Add(saveBtn);
-            createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(label2);
             createFormPanel.Controls.Add(closeTimePicker);
             createFormPanel.Controls.Add(label4);
@@ -74,8 +74,42 @@
             createFormPanel.Size = new Size(914, 600);
             createFormPanel.TabIndex = 0;
             // 
+            // flowLayoutPanel
+            // 
+            flowLayoutPanel.Anchor = AnchorStyles.Top;
+            flowLayoutPanel.AutoSize = true;
+            flowLayoutPanel.Controls.Add(questionItem1);
+            flowLayoutPanel.Location = new Point(66, 310);
+            flowLayoutPanel.MaximumSize = new Size(779, 0);
+            flowLayoutPanel.Name = "flowLayoutPanel";
+            flowLayoutPanel.Size = new Size(779, 84);
+            flowLayoutPanel.TabIndex = 20;
+            // 
+            // questionItem1
+            // 
+            questionItem1.AnswerList = null;
+            questionItem1.AutoSize = true;
+            questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            questionItem1.BackColor = Color.FromArgb(50, 56, 87);
+            questionItem1.IsBankQuestion = false;
+            questionItem1.IsChecked = false;
+            questionItem1.IsSelectable = false;
+            questionItem1.Location = new Point(0, 0);
+            questionItem1.Margin = new Padding(0);
+            questionItem1.MaximumSize = new Size(750, 0);
+            questionItem1.MinimumSize = new Size(750, 0);
+            questionItem1.Name = "questionItem1";
+            questionItem1.Padding = new Padding(5);
+            questionItem1.QuestionID = 0;
+            questionItem1.QuestionNumber = 0;
+            questionItem1.QuestionValue = null;
+            questionItem1.Selected = false;
+            questionItem1.Size = new Size(750, 84);
+            questionItem1.TabIndex = 0;
+            // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button1.BackColor = Color.FromArgb(88, 101, 160);
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -90,6 +124,7 @@
             // 
             // pwdTxtBox
             // 
+            pwdTxtBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pwdTxtBox.Font = new Font("Segoe UI", 10F);
             pwdTxtBox.Location = new Point(89, 224);
             pwdTxtBox.Name = "pwdTxtBox";
@@ -109,6 +144,7 @@
             // 
             // saveBtn
             // 
+            saveBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             saveBtn.BackColor = Color.FromArgb(24, 162, 104);
             saveBtn.FlatStyle = FlatStyle.Flat;
             saveBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -254,37 +290,6 @@
             importQuestionBtn.UseVisualStyleBackColor = false;
             importQuestionBtn.Visible = false;
             importQuestionBtn.Click += importQuestionBtn_Click;
-            // 
-            // flowLayoutPanel
-            // 
-            flowLayoutPanel.Anchor = AnchorStyles.Top;
-            flowLayoutPanel.AutoSize = true;
-            flowLayoutPanel.Controls.Add(questionItem1);
-            flowLayoutPanel.Location = new Point(66, 310);
-            flowLayoutPanel.MaximumSize = new Size(779, 0);
-            flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(779, 84);
-            flowLayoutPanel.TabIndex = 20;
-            // 
-            // questionItem1
-            // 
-            questionItem1.AnswerList = null;
-            questionItem1.AutoSize = true;
-            questionItem1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            questionItem1.BackColor = Color.FromArgb(50, 56, 87);
-            questionItem1.IsSelectable = false;
-            questionItem1.Location = new Point(0, 0);
-            questionItem1.Margin = new Padding(0);
-            questionItem1.MaximumSize = new Size(750, 0);
-            questionItem1.MinimumSize = new Size(750, 0);
-            questionItem1.Name = "questionItem1";
-            questionItem1.Padding = new Padding(5);
-            questionItem1.QuestionID = 0;
-            questionItem1.QuestionNumber = 0;
-            questionItem1.QuestionValue = null;
-            questionItem1.Selected = false;
-            questionItem1.Size = new Size(750, 84);
-            questionItem1.TabIndex = 0;
             // 
             // CreateAttendanceFormPage
             // 

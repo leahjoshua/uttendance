@@ -73,7 +73,7 @@ namespace UttendanceDesktop
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 0;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(852, 532);
+            SaveEditIcon.Location = new Point(853, 532);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(45, 49);
             SaveEditIcon.TabIndex = 13;
@@ -82,12 +82,13 @@ namespace UttendanceDesktop
             // 
             // filterButton
             // 
+            filterButton.Anchor = AnchorStyles.Top;
             filterButton.BackColor = Color.FromArgb(255, 128, 0);
             filterButton.FlatAppearance.BorderColor = Color.FromArgb(192, 64, 0);
             filterButton.FlatAppearance.BorderSize = 2;
             filterButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(192, 64, 0);
             filterButton.FlatStyle = FlatStyle.Flat;
-            filterButton.Location = new Point(799, 170);
+            filterButton.Location = new Point(799, 171);
             filterButton.Name = "filterButton";
             filterButton.Size = new Size(27, 27);
             filterButton.TabIndex = 12;
@@ -96,23 +97,26 @@ namespace UttendanceDesktop
             // 
             // attendanceflowLayoutPanel
             // 
+            attendanceflowLayoutPanel.Anchor = AnchorStyles.Top;
             attendanceflowLayoutPanel.AutoScroll = true;
             attendanceflowLayoutPanel.Location = new Point(72, 216);
             attendanceflowLayoutPanel.Name = "attendanceflowLayoutPanel";
-            attendanceflowLayoutPanel.Size = new Size(779, 466);
+            attendanceflowLayoutPanel.Size = new Size(1019, 467);
             attendanceflowLayoutPanel.TabIndex = 11;
             // 
             // dateTimePicker
             // 
+            dateTimePicker.Anchor = AnchorStyles.Top;
             dateTimePicker.CalendarForeColor = Color.FromArgb(37, 42, 69);
             dateTimePicker.CalendarTitleForeColor = Color.FromArgb(37, 42, 69);
-            dateTimePicker.Location = new Point(543, 170);
+            dateTimePicker.Location = new Point(543, 171);
             dateTimePicker.Name = "dateTimePicker";
             dateTimePicker.Size = new Size(250, 27);
             dateTimePicker.TabIndex = 10;
             // 
             // dateLabel
             // 
+            dateLabel.Anchor = AnchorStyles.Top;
             dateLabel.AutoSize = true;
             dateLabel.Font = new Font("Segoe UI", 10.25F);
             dateLabel.ForeColor = Color.FromArgb(37, 42, 69);
@@ -124,6 +128,7 @@ namespace UttendanceDesktop
             // 
             // filterLabel
             // 
+            filterLabel.Anchor = AnchorStyles.Top;
             filterLabel.AutoSize = true;
             filterLabel.Font = new Font("Segoe UI", 10.25F);
             filterLabel.ForeColor = Color.FromArgb(37, 42, 69);
@@ -135,6 +140,7 @@ namespace UttendanceDesktop
             // 
             // filterDropdown
             // 
+            filterDropdown.Anchor = AnchorStyles.Top;
             filterDropdown.ForeColor = Color.FromArgb(37, 42, 69);
             filterDropdown.FormattingEnabled = true;
             filterDropdown.Items.AddRange(new object[] { "Before", "After", "On", "All" });
@@ -145,6 +151,7 @@ namespace UttendanceDesktop
             // 
             // statusDropDown
             // 
+            statusDropDown.Anchor = AnchorStyles.Top;
             statusDropDown.ForeColor = Color.FromArgb(37, 42, 69);
             statusDropDown.FormattingEnabled = true;
             statusDropDown.Items.AddRange(new object[] { "Upcoming", "Open", "Closed", "All" });
@@ -155,6 +162,7 @@ namespace UttendanceDesktop
             // 
             // statusLabel
             // 
+            statusLabel.Anchor = AnchorStyles.Top;
             statusLabel.AutoSize = true;
             statusLabel.Font = new Font("Segoe UI", 10.25F);
             statusLabel.ForeColor = Color.FromArgb(37, 42, 69);
@@ -166,6 +174,7 @@ namespace UttendanceDesktop
             // 
             // listingsLabel
             // 
+            listingsLabel.Anchor = AnchorStyles.Top;
             listingsLabel.AutoSize = true;
             listingsLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             listingsLabel.ForeColor = Color.FromArgb(37, 42, 69);
@@ -177,6 +186,7 @@ namespace UttendanceDesktop
             // 
             // attendanceFormsLabel
             // 
+            attendanceFormsLabel.Anchor = AnchorStyles.Top;
             attendanceFormsLabel.AutoSize = true;
             attendanceFormsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             attendanceFormsLabel.ForeColor = Color.FromArgb(37, 42, 69);
