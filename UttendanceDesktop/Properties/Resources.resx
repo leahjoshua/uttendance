@@ -127,9 +127,6 @@
   <data name="add_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="trash_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\trash_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Github" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Github.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,30 +135,6 @@
   </data>
   <data name="home_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="trash_icon2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\trash_icon2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LoginBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LoginBG1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Github" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Github.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="trash_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\trash_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LoginBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LoginBG1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Github" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Github.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="trash_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trash_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

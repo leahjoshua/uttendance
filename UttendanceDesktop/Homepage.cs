@@ -194,7 +194,7 @@ namespace UttendanceDesktop
                                 PictureBox trashIcon = new PictureBox
                                 {
                                     Name = "trashIcon",
-                                    Image = Properties.Resources.trash_icon2,
+                                    Image = Properties.Resources.trash_icon,
                                     SizeMode = PictureBoxSizeMode.Zoom,
                                     Size = new Size(32, 32),
                                     Location = new Point(10, 10),
