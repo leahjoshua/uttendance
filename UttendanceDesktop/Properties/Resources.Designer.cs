@@ -123,9 +123,13 @@ namespace UttendanceDesktop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap trash_icon {
+        internal static System.Drawing.Bitmap trash_icon
+        {
             get {
                 object obj = ResourceManager.GetObject("trash_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
         internal static System.Drawing.Bitmap trash_button {
             get {
                 object obj = ResourceManager.GetObject("trash_button", resourceCulture);

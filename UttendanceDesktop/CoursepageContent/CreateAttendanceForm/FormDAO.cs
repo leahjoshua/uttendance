@@ -117,7 +117,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     "WHERE FK_INetID = @INetId " +
                     "GROUP BY BankID "
                     , connection);
-                cmd.Parameters.AddWithValue("@INetId", GlobalResource.INETID);
+                cmd.Parameters.AddWithValue("@INetId", GlobalResource.INetID);
                 reader = cmd.ExecuteReader();
 
                 // Process results
