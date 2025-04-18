@@ -109,11 +109,9 @@
 
             if (validStudent != null && validPassword != null)
             {
-                
                 errorMessage = string.Join(", ", formIDs);
+                await Task.Delay(3000);
                 navigateManager.NavigateTo("/quiz");
-
-
             }
             else
             {
