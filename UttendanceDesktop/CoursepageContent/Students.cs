@@ -38,6 +38,8 @@ namespace UttendanceDesktop
         public Students()
         {
             InitializeComponent();
+            studentTable.Width = studentsPagePanel.Width - 30;
+            studentTable.Height = studentsPagePanel.Height - 130;
             populateStudentTable();
             //Subscribe to event to repopulate the data grid after import module is finished
             importMod.DatabaseUpdated += populateStudentTable;
@@ -48,6 +50,11 @@ namespace UttendanceDesktop
         {
             StudentsDAO studentInfo = new StudentsDAO();
             this.studentTable.DataSource = studentInfo.getAllStudentInfo(displayList, courseNum);
+
+            //for(int i = 0; i < 4; i++)
+            //{
+            //    studentTable.Columns[i].Width = studentTable.Width / 4;
+            //}
         }
 
         //Displays the options for adding students
