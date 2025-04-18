@@ -96,7 +96,8 @@ namespace UttendanceDesktop
             // 
             courseLabel.AutoSize = true;
             courseLabel.ForeColor = Color.White;
-            courseLabel.Location = new Point(63, 74);
+            courseLabel.Location = new Point(15, 92);
+            courseLabel.Margin = new Padding(4, 0, 4, 0);
             courseLabel.Name = "courseLabel";
             courseLabel.Size = new Size(150, 60);
             courseLabel.TabIndex = 0;
@@ -119,6 +120,7 @@ namespace UttendanceDesktop
             yourCoursesBtn.TextAlign = ContentAlignment.MiddleLeft;
             yourCoursesBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             yourCoursesBtn.UseVisualStyleBackColor = true;
+            yourCoursesBtn.Click += yourCoursesBtn_Click;
             // 
             // menuBtn
             // 
