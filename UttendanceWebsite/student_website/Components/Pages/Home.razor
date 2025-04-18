@@ -52,6 +52,11 @@
             </div>
         }
 
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+        }
+
         <!--Shows the Modal explaining what a UTD-ID is-->
         @if (isModalVisible)
         {
