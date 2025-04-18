@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UttendanceDesktop.CoursepageContent.models;
 
 namespace UttendanceDesktop.CoursepageContent.QuestionItem
 {
@@ -18,6 +19,8 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private bool isMinimized = true;
         private int _questionID;
         private bool _isSelectable = false;
+
+        private Question question = new Question();
 
         public event EventHandler OnQuestionSelectChange;
         public event EventHandler OnClickEdit;
@@ -180,7 +183,9 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         {
             if (OnQuestionSelectChange != null)
             {
-                OnQuestionSelectChange(checkbox.Checked, null);
+                question.QuestionID = _questionID;
+                question.IsSelected = checkbox.Checked;
+                OnQuestionSelectChange(question, null);
             }
         }
 

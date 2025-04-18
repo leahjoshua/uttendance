@@ -40,6 +40,7 @@ namespace UttendanceDesktop.CoursepageContent
             {
                 for (int i = 0; i < questionList.Count; i++)
                 {
+                    questionList[i].QuestionNumber = i + 1;
                     flowLayoutPanel.Controls.Add(questionList[i]);
                 }
             }

@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using UttendanceDesktop.CoursepageContent.QuestionItem;
+using UttendanceDesktop.CoursepageContent.models;
 
 namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 {
     public partial class ImportQuestionModal : Form
     {
         private QuestionBankItem selectedBank;
+        public List<int> importQuestionIDs = new List<int>();
         private List<QuestionBankItem> qBankList = new List<QuestionBankItem>();
         private List<QuestionItem.QuestionItem> questionList = new List<QuestionItem.QuestionItem>();
         public ImportQuestionModal()
@@ -49,9 +51,23 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                     for (int i = 0; i < questionList.Count; i++)
                     {
+                        questionList[i].IsSelectable = true;
+                        questionList[i].OnQuestionSelectChange += new EventHandler(child_question_OnQuestionSelectChange);
                         importFlowPanel.Controls.Add(questionList[i]);
                     }
                 }
+            }
+        }
+        void child_question_OnQuestionSelectChange(object sender, EventArgs e)
+        {
+            Question question = (Question)sender;
+            if (question.IsSelected)
+            {
+                importQuestionIDs.Add(question.QuestionID);
+            }
+            else
+            {
+                importQuestionIDs.RemoveAll(n => n == question.QuestionID);
             }
         }
     }
