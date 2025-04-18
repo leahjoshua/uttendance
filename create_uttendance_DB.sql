@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `class` (
 CREATE TABLE IF NOT EXISTS `form` (
   `FormID` int(11) NOT NULL,
   `PassWd` varchar(40) DEFAULT NULL,
-  `ReleaseDataTime` varchar(10) DEFAULT NULL,
+  `ReleaseDateTime` varchar(10) DEFAULT NULL,
   `CloseDateTime` varchar(10) DEFAULT NULL,
   `FK_CourseNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`FormID`),
