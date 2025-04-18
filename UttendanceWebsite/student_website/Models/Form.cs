@@ -11,7 +11,7 @@ namespace student_website.Models
         [Key]
         public int FormID { get; set; }
         public string PassWd { get; set; } = "";
-        public DateTime? ReleaseDataTime { get; set; }
+        public DateTime? ReleaseDateTime { get; set; }
         public DateTime? CloseDateTime { get; set; }
         [ForeignKey("FK_CourseNum")]
         public int? FK_CourseNum { get; set; }

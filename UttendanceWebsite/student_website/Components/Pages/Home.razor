@@ -17,7 +17,7 @@
 <div class="panel">
     <img src="icon.png" width="100" height="100">
     <h1>Welcome to UTtenDance</h1>
-    <span>Student Login</span>
+    You're free from eLearning quizzes!
 
     <div class="input-section">
         <EditForm Model="student" OnValidSubmit="SignIn">
@@ -28,10 +28,11 @@
                 <label for="utdid">UTD-ID</label>
                 <InputNumber id="utdid" @bind-Value="student.UTDID" class="form-control" />
             </div>
+            <br/>
 
             <div class="form-group">
-                <label for="snetid">NetID</label>
-                <InputText id="snetid" @bind-Value="student.SNetID" class="form-control" />
+                <label for="password">Password</label>
+                <InputText id="password" @bind-Value="form.PassWd" class="form-control" />
             </div>
 
             <div class="right-align">
@@ -43,6 +44,14 @@
             </button>
         </EditForm>
 
+        @* Display Error *@
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="text-danger error-message">
+                @errorMessage
+            </div>
+        }
+
         <!--Shows the Modal explaining what a UTD-ID is-->
         @if (isModalVisible)
         {
@@ -50,8 +59,8 @@
                 <div class="modal-box">
                     <h4>What is a UTD-ID?</h4>
                     <p>It is one of the two unique identifiers associated with your UT Dallas Account.
-                    It will have ten digits starting with 20 or 40. This is used primarily for identity
-                    verification as a replacement for your Social Security Number.</p>
+                        It will have ten digits starting with 20 or 40. This is used primarily for identity
+                        verification as a replacement for your Social Security Number.</p>
 
                     <p>
                         The UTD ID is located on the front of your Comet Card, bottom-right corner.
@@ -65,7 +74,10 @@
 </div>
 
 @code {
+    /*Written by Parisa and Judy Yang for CS 4485.0w1, CS Project, starting April 16, 2025
+    NetID: PXN210032 and JXY200013*/
     private Student student = new Student();
+    private Form form = new Form();
     private string errorMessage = "";
     private bool isLoading = false;
 
@@ -80,16 +92,21 @@
 
             var validStudent = await db.Student
                 .AsNoTracking()
-                .FirstOrDefaultAsync(s => s.UTDID == student.UTDID && s.SNetID == student.SNetID);
+                .FirstOrDefaultAsync(s => s.UTDID == student.UTDID);
 
-            if (validStudent != null)
+            var validPassword = await db.Form
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.PassWd == form.PassWd);
+
+            if (validStudent != null && validPassword != null)
             {
                 navigateManager.NavigateTo("/quiz");
             }
             else
             {
-                errorMessage = "Invalid UTD-ID or NetID.";
+                errorMessage = "Invalid UTD-ID or Password";
             }
+
         }
         catch (Exception ex)
         {
@@ -99,12 +116,12 @@
         {
             isLoading = false;
             student.UTDID = 0;
-            student.SNetID = string.Empty;
+            form.PassWd = string.Empty;
             StateHasChanged();
         }
     }
 
-    // Modal
+    // Modal visibility
     private bool isModalVisible = false;
 
     private void ShowModal()
