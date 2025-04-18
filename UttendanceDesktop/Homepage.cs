@@ -355,8 +355,10 @@ WHERE t.FK_INetID = @netID";
                     // Update the global resource with the selected course ID
                     GlobalResource.CURRENT_CLASS_ID = Convert.ToInt32(courseNum);
 
-                    // Notify the user that the class ID has been updated
-                    var result = MessageBox.Show("CLASS_ID Updated", "Update id", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    // Open up the CoursePage corresponding to the Course 
+                    var coursePage = GlobalResource.COURSEPAGE;
+                    coursePage.Show();
+                    this.Hide();
                 }
             }
         }

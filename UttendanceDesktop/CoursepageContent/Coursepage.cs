@@ -12,16 +12,18 @@ using UttendanceDesktop;
 namespace UttendanceDesktop
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 14, 2025.
+    //parisa added a line/parameter
     // NetID: jxy210012
     public partial class Coursepage : Form
     {
         bool sidebarExpand = true;
         bool attendanceCollapsed = false;
 
-        private int CourseNum = 123456; //TEMP VALUE, recieve from prev page in constructor
-        public Coursepage()
+        private int CourseNum; //TEMP VALUE, recieve from prev page in constructor
+        public Coursepage(int CourseNum)
         {
             InitializeComponent();
+            this.CourseNum = CourseNum;
             //Make the Attendance Form the default first page that loads
             loadForm(new AttendanceForms_Listings(CourseNum));
         }
