@@ -1,4 +1,13 @@
-﻿namespace UttendanceDesktop
+﻿/******************************************************************************
+* ImportCourse Form Designer for the UttendanceDesktop application.
+* This form allows users to import multiple courses from a CSV file into the
+* Uttendance system. The user selects a CSV file, and each row is parsed and
+* added as a new course. The form provides feedback on the import process and
+* refreshes the homepage to reflect the new courses.
+* Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+* starting March 28, 2025.
+******************************************************************************/
+namespace UttendanceDesktop
 {
     partial class ImportCourse
     {

@@ -1,4 +1,15 @@
-﻿namespace UttendanceDesktop
+﻿/******************************************************************************
+* AddManualCourse Form Designer for the UttendanceDesktop application.
+* This form allows users to manually add a new course to the Uttendance system.
+* It provides text boxes for entering course details such as name, prefix,
+* number, section, and class ID. The form validates user input, ensures only
+* valid data is submitted, and interacts with the Class object to add the new
+* course to the database. It also manages placeholder text and input formatting
+* for a user-friendly experience.
+* Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+* starting March 24, 2025.
+******************************************************************************/
+namespace UttendanceDesktop
 {
     partial class AddManualCourse
     {

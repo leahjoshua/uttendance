@@ -1,4 +1,12 @@
-﻿namespace UttendanceDesktop
+﻿/******************************************************************************
+ * Homepage Form Designer for the UttendanceDesktop application.
+ * This form serves as the main dashboard after login. It displays the user's
+ * courses as interactive tiles and provides options to add, import, and
+ * delete courses, as well as edit profile and logout features.
+ * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+ * starting March 13, 2025.
+ ******************************************************************************/
+namespace UttendanceDesktop
 {
     partial class Homepage
     {

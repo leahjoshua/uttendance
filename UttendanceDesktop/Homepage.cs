@@ -1,5 +1,5 @@
 ﻿/******************************************************************************
- * Homepage class for the UttendanceDesktop application.
+ * Homepage Form for the UttendanceDesktop application.
  * This form serves as the main dashboard after login. It displays the user's
  * courses as interactive tiles and provides options to add, import, and
  * delete courses, as well as edit profile and logout features.
