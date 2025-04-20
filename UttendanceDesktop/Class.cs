@@ -3,7 +3,7 @@
 * This class handles database interactions for course management in the Uttendance system.
 * It provides methods to add new courses to the database and link them to instructors.
 * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
-* starting March 7, 2025.
+* starting March 27, 2025.
 ******************************************************************************/
 using System;
 using System.Collections.Generic;

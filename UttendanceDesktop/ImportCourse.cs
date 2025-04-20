@@ -5,7 +5,7 @@
 * added as a new course. The form provides feedback on the import process and
 * refreshes the homepage to reflect the new courses.
 * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
-* starting March 7, 2025.
+* starting March 28, 2025.
 ******************************************************************************/
 using System;
 using System.Collections.Generic;

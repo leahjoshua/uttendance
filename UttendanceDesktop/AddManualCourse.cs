@@ -7,7 +7,7 @@
 * course to the database. It also manages placeholder text and input formatting
 * for a user-friendly experience.
 * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
-* starting March 7, 2025.
+* starting March 24, 2025.
 ******************************************************************************/
 using System;
 using System.Collections.Generic;

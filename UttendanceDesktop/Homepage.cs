@@ -4,7 +4,7 @@
  * courses as interactive tiles and provides options to add, import, and
  * delete courses, as well as edit profile and logout features.
  * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
- * starting March 7, 2025.
+ * starting March 13, 2025.
  ******************************************************************************/
 using System;
 using System.Collections.Generic;
