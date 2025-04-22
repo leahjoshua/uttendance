@@ -18,6 +18,9 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     )
 );
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<UserConnectionInfoService>();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
