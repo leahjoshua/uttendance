@@ -109,27 +109,27 @@
                 .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.UTDID == student.UTDID);
 
-        /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
-        NetID: JXY200013*/
-                    var validPassword = await db.Form
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(f => f.PassWd == form.PassWd
+            /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
+             * NetID: JXY200013*/
+            var validPassword = await db.Form
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.PassWd == form.PassWd
                     && f.ReleaseDateTime < DateTime.Now
                     && f.CloseDateTime > DateTime.Now);
 
-        /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
-        NetID: PXN210032*/
-                    var formIDs = await (from f in db.Form
-                                         join a in db.Attends
-                                         on f.FK_CourseNum equals a.FK_CourseNum
-                                         where a.FK_UTDID == student.UTDID
-                                            && f.ReleaseDateTime < DateTime.Now
-                                            && f.CloseDateTime > DateTime.Now
-                                         select f.FormID)
-                            .ToListAsync();
-
-        /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
-        NetID: JXY200013*/
+            /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
+             * NetID: PXN210032*/
+            var formIDs = await (from f in db.Form
+                join a in db.Attends
+                on f.FK_CourseNum equals a.FK_CourseNum
+                where a.FK_UTDID == student.UTDID
+                && f.ReleaseDateTime < DateTime.Now
+                && f.CloseDateTime > DateTime.Now
+                select f.FormID)
+                .ToListAsync();
+                
+            /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
+             * NetID: JXY200013*/
             if (validStudent != null && validPassword != null)
             {
                 /*Count the number of questions, if 0 --> go to submission page*/
@@ -143,14 +143,15 @@
             }
 
         }
+        
         /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025
-    NetID: PXN210032*/
-    catch (Exception ex)
-    {
+         * NetID: PXN210032*/
+        catch (Exception ex)
+        {
             errorMessage = $"Error: {ex.Message}";
         }
-    finally
-    {
+        finally
+        {
             isLoading = false;
             student.UTDID = 0;
             form.PassWd = string.Empty;
