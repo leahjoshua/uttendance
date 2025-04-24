@@ -96,6 +96,7 @@ namespace UttendanceDesktop.CoursepageContent
             dataTable.Columns.Add("Net-ID");
             dataTable.Columns.Add("UTD-ID");
             dataTable.Columns.Add("Unexcused Absences");
+            dataTable.Columns.Add("IP Address");
 
             DateTime localDate = DateTime.Now;
             //Get the closed forms for this class
@@ -104,7 +105,7 @@ namespace UttendanceDesktop.CoursepageContent
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
 
-            int colNum = 5;
+            int colNum = 6;
             //Create column headers for forms
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
@@ -143,6 +144,8 @@ namespace UttendanceDesktop.CoursepageContent
                     row["First Name"] = databaseReader["SFName"].ToString();
                     row["Net-ID"] = databaseReader["SNetID"].ToString();
                     row["UTD-ID"] = databaseReader["UTDID"].ToString();
+
+                    row["IP Address"] = "";
 
                     var studentID = databaseReader["UTDID"].ToString();
                     //Fill in status for each form

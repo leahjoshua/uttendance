@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UttendanceDesktop.CoursepageContent;
 using static UttendanceDesktop.GlobalResource;
+using static UttendanceDesktop.GlobalStyle;
 
 namespace UttendanceDesktop
 {
@@ -19,6 +20,7 @@ namespace UttendanceDesktop
     {
         private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
         private object editOldValue;
+        private int prevSelectedCol = 0;
 
         public Summary()
         {
@@ -39,7 +41,7 @@ namespace UttendanceDesktop
 
 
             //Make the student info column and attendance count column readonly and sticky
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 6; i++)
             {
                 summaryTable.Columns[i].ReadOnly = true;
                 summaryTable.Columns[i].Frozen = true;
@@ -51,7 +53,7 @@ namespace UttendanceDesktop
             //summaryTable.Columns[3].Width = 90;
             //summaryTable.Columns[4].Width = 90;
 
-            for (int i = 5; i < summaryTable.Columns.Count; i++)
+            for (int i = 6; i < summaryTable.Columns.Count; i++)
             {
                 summaryTable.Columns[i].Width = 70;
             }
@@ -92,13 +94,64 @@ namespace UttendanceDesktop
                     //Update the Abscene count
                     if (editOldValue.ToString() == "A")
                         summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) - 1;
-                    if(editNewValue.ToString() == "A")
+                    if (editNewValue.ToString() == "A")
                         summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) + 1;
                 }
                 else
                 {
                     MessageBox.Show("Invalid input. Please enter either a \'P\', \'E\', or \'A\'");
                     summaryTable[e.ColumnIndex, e.RowIndex].Value = editOldValue.ToString().ToUpper();
+                }
+            }
+        }
+
+        //Calls selectColumn when a cell is clicked
+        private void summaryTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ignore header clicks
+            if (e.RowIndex >= 0)
+            {
+                selectColumn(e.ColumnIndex);
+            }
+        }
+
+        //Waits until finished sorting before calling selectColumn when header is clicked
+        private void summaryTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            this.BeginInvoke(new Action(() =>
+            {
+                selectColumn(e.ColumnIndex);
+            }));
+        }
+
+        //Populates the IP Address column with the IP Address of the corresponding student and form submission
+        private void selectColumn(int col)
+        {
+            int selectedCol = col;
+            //If user selects a form column
+            if (selectedCol > 5)
+            {
+                if (selectedCol != prevSelectedCol)
+                {
+                    //Unhighlights the previously selected column
+                    foreach (DataGridViewRow row in summaryTable.Rows)
+                    {
+                        Color resetColor = (row.Index % 2 == 0)
+                            ? summaryTable.DefaultCellStyle.BackColor
+                            : summaryTable.AlternatingRowsDefaultCellStyle.BackColor;
+
+                        row.Cells[prevSelectedCol].Style.BackColor = resetColor;
+                        row.Cells[prevSelectedCol].Style.ForeColor = Color.Black;
+                    }
+
+                    prevSelectedCol = selectedCol;
+                }
+
+                //Highlights the newly selected column
+                foreach (DataGridViewRow row in summaryTable.Rows)
+                {
+                    row.Cells[selectedCol].Style.BackColor = GlobalStyle.PASTEL_BLUE;
+                    row.Cells[selectedCol].Style.ForeColor = Color.White;
                 }
             }
         }
