@@ -30,6 +30,8 @@ namespace UttendanceDesktop
             populateSummaryTable();
         }
 
+        //Populates the datagrid with data from the database
+        //Displays each student with their submission status for each form
         private void populateSummaryTable()
         {
             SummaryDAO summaryInfo = new SummaryDAO();
@@ -53,13 +55,18 @@ namespace UttendanceDesktop
             {
                 summaryTable.Columns[i].Width = 70;
             }
+
+            //Hide the column with UTD-ID from UI to make the table less cluttered
+            summaryTable.Columns["UTD-ID"].Visible = false;
         }
 
+        //Saves the old attendance status value when user starts editing the cell
         private void summaryTable_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             editOldValue = summaryTable[e.ColumnIndex, e.RowIndex].Value;
         }
 
+        //Updates the attendance status if valid
         private void summaryTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var editNewValue = summaryTable[e.ColumnIndex, e.RowIndex].Value.ToString();

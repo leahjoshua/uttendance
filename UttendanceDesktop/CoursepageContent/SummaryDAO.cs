@@ -105,7 +105,7 @@ namespace UttendanceDesktop.CoursepageContent
             cmd.Parameters.AddWithValue("@now", localDate);
 
             int colNum = 5;
-            //Create column headers
+            //Create column headers for forms
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
                 while (databaseReader.Read())
@@ -113,6 +113,7 @@ namespace UttendanceDesktop.CoursepageContent
                     formCount++;
                     dataTable.Columns.Add("Form #" + formCount + "\r\n" + 
                         ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
+                    //Add form id to the column
                     dataTable.Columns[colNum].ExtendedProperties["FormID"] = databaseReader["FormID"].ToString();
                     colNum++;
                 }
