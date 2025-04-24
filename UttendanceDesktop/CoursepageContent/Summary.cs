@@ -19,17 +19,18 @@ namespace UttendanceDesktop
     // Wrote the whole Summary class
     public partial class Summary : Form
     {
-        private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
+        private int CourseNum;
         private object editOldValue;
         private int prevSelectedCol = 0;
 
-        public Summary()
+        public Summary(int courseNum)
         {
+            CourseNum = courseNum;
             InitializeComponent();
             summaryTable.Width = summaryPagePanel.Width - 30;
             summaryTable.Height = summaryPagePanel.Height - 130;
             SummaryDAO summaryInfo = new SummaryDAO();
-            totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(courseNum);
+            totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(CourseNum);
             populateSummaryTable();
         }
 
@@ -39,7 +40,7 @@ namespace UttendanceDesktop
         {
             SummaryDAO summaryInfo = new SummaryDAO();
             //Sort by last name by default
-            DataTable table = summaryInfo.getSummaryInfo(courseNum);
+            DataTable table = summaryInfo.getSummaryInfo(CourseNum);
             table.DefaultView.Sort = "Last Name ASC";
             this.summaryTable.DataSource = table;
 
@@ -90,7 +91,7 @@ namespace UttendanceDesktop
                     int formID = int.Parse(col.ExtendedProperties["FormID"].ToString());
 
                     int studentID = int.Parse(summaryTable.Rows[e.RowIndex].Cells["UTD-ID"].Value.ToString());
-                    summaryInfo.updateStatus(studentID, formID, editNewValue, courseNum);
+                    summaryInfo.updateStatus(studentID, formID, editNewValue, CourseNum);
 
                     //Update the Abscene count
                     if (editOldValue.ToString() == "A")

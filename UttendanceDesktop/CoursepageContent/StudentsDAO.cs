@@ -185,6 +185,44 @@ namespace UttendanceDesktop.CoursepageContent
             return count != 0;
         }
 
+        //Adds student to database, returns true if student was successfully added
+        public bool addStudent(Student student, int courseNum)
+        {
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            //Ignore if student already exists in student table
+            if (!checkIfStudentExists(student.SUTDID.Value, connection))
+            {
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO student (SLName, SFName, SNetID, UTDID) \n"
+                    + "VALUES(@lName, @fName, @netID, @utdID);", connection);
+                cmd.Parameters.AddWithValue("@lName", student.SLName);
+                cmd.Parameters.AddWithValue("@fName", student.SFName);
+                cmd.Parameters.AddWithValue("@netID", student.SNetID);
+                cmd.Parameters.AddWithValue("@utdID", student.SUTDID);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            //Ignore if student is already in the class
+            if (!checkIfStudentAttends(student.SUTDID.Value, courseNum, connection))
+            {
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO attends (`FK_UTDID`, `FK_CourseNum`) \n"
+                    + "VALUES(@utdID, @courseNum);", connection);
+                cmd.Parameters.AddWithValue("@utdID", student.SUTDID);
+                cmd.Parameters.AddWithValue("@courseNum", courseNum);
+
+                cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         //Reads the given CSV file and adds the student information to the database and enrolls them into the given class
         public bool importStudentsFromCSV(string path, int courseNum)
         {

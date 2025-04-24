@@ -19,9 +19,10 @@ namespace UttendanceDesktop.CoursepageContent
     {
         public event Action? StudentAdded;
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
-        private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
-        public StudentAddModal()
+        private int CourseNum;
+        public StudentAddModal(int courseNum)
         {
+            CourseNum = courseNum;
             InitializeComponent();
         }
 
@@ -31,7 +32,7 @@ namespace UttendanceDesktop.CoursepageContent
             Visible = false;
         }
 
-        //Adds student to database
+        //Adds student to database using information from text field
         private void addBtn_Click(object sender, EventArgs e)
         {
             try
@@ -40,6 +41,7 @@ namespace UttendanceDesktop.CoursepageContent
                 if (int.TryParse(createUTDID.Text, out int tempID))
                     parseUTDID = tempID;
 
+                //Create a student object
                 Student student = new Student
                 {
                     SUTDID = Int32.Parse(createUTDID.Text),
@@ -48,38 +50,17 @@ namespace UttendanceDesktop.CoursepageContent
                     SLName = createLName.Text
                 };
 
+                //Input validation
                 if(!student.SUTDID.HasValue || student.SNetID == "" || student.SFName == "" || student.SLName == "")
                 {
                     MessageBox.Show("Please fill in all of the fields");
                 }
                 else
                 {
-                    //Open database connection
-                    MySqlConnection connection = new MySqlConnection(connectionString);
-                    connection.Open();
-
-                    //Ignore if student already exists in student table
-                    if(!checkDuplicateInStudent(student.SUTDID.Value, connection))
+                    //Add student to the class
+                    StudentsDAO studentInfo = new StudentsDAO();
+                    if(studentInfo.addStudent(student, CourseNum))
                     {
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO student (SLName, SFName, SNetID, UTDID) \n"
-                            + "VALUES(@lName, @fName, @netID, @utdID);", connection);
-                        cmd.Parameters.AddWithValue("@lName", student.SLName);
-                        cmd.Parameters.AddWithValue("@fName", student.SFName);
-                        cmd.Parameters.AddWithValue("@netID", student.SNetID);
-                        cmd.Parameters.AddWithValue("@utdID", student.SUTDID);
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    //Ignore if student is already in the class
-                    if (!checkDuplicateInAttends(student.SUTDID.Value, connection))
-                    {
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO attends (`FK_UTDID`, `FK_CourseNum`) \n"
-                            + "VALUES(@utdID, @courseNum);", connection);
-                        cmd.Parameters.AddWithValue("@utdID", student.SUTDID);
-                        cmd.Parameters.AddWithValue("@courseNum", courseNum);
-
-                        cmd.ExecuteNonQuery();
                         StudentAdded?.Invoke();
                         Visible = false;
                     }
@@ -94,37 +75,6 @@ namespace UttendanceDesktop.CoursepageContent
                 MessageBox.Show(ex.Message);
             }
             
-        }
-
-        private bool checkDuplicateInStudent(int pKey, MySqlConnection connection)
-        {
-            //Format query
-            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM `student` WHERE UTDID=@pKey;", connection);
-            cmd.Parameters.AddWithValue("@pKey", pKey);
-            //Read result
-            MySqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            int count = reader.GetInt32(0);
-            reader.Close();
-
-            //Return true if there already exists an entry with the same primary key
-            return count != 0;
-        }
-
-        private bool checkDuplicateInAttends(int utdID, MySqlConnection connection)
-        {
-            //Format query
-            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM `attends` WHERE FK_UTDID=@utdID AND FK_CourseNum=@courseNum;", connection);
-            cmd.Parameters.AddWithValue("@utdID", utdID);
-            cmd.Parameters.AddWithValue("@courseNum", courseNum);
-            //Read result
-            MySqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            int count = reader.GetInt32(0);
-            reader.Close();
-
-            //Return true if there already exists an entry with the same primary key
-            return count != 0;
         }
     }
 }

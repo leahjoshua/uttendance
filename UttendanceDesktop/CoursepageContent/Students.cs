@@ -18,30 +18,21 @@ namespace UttendanceDesktop
     // NetID: jxy210012
     public partial class Students : Form
     {
-        private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
-
-        //Sets up parameter for import module
-        private static string tableName = "student";
-        private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
+        private int CourseNum; //TEMP VALUE, receive from prev page in constructor
         private static string[] displayList = { "Last Name", "First Name", "Net-ID", "UTD-ID" };
-        private static string[] typeList = { "string", "string", "string", "int" };
-        private static string pkeyName = "UTDID";
-
-        private static string relationTableName = "attends";
-        private static string[] fkeysList = { "FK_UTDID", "FK_CourseNum" };
-        private static string[] fkeyTypeList = { "int", "int" };
-        private static string fk1 = "" + GlobalResource.CURRENT_CLASS_ID;
-        private StudentImportModal importMod = new StudentImportModal(courseNum);
+        private StudentImportModal importMod;
 
         private object editOldValue;
 
-        public Students()
+        public Students(int courseNum)
         {
+            CourseNum = courseNum;
             InitializeComponent();
             studentTable.Width = studentsPagePanel.Width - 30;
             studentTable.Height = studentsPagePanel.Height - 130;
             populateStudentTable();
             //Subscribe to event to repopulate the data grid after import module is finished
+            importMod = new StudentImportModal(CourseNum);
             importMod.DatabaseUpdated += populateStudentTable;
         }
 
@@ -49,7 +40,7 @@ namespace UttendanceDesktop
         private void populateStudentTable()
         {
             StudentsDAO studentInfo = new StudentsDAO();
-            this.studentTable.DataSource = studentInfo.getAllStudentInfo(displayList, courseNum);
+            this.studentTable.DataSource = studentInfo.getAllStudentInfo(displayList, CourseNum);
 
             //for(int i = 0; i < 4; i++)
             //{
@@ -67,7 +58,7 @@ namespace UttendanceDesktop
         private void addStudentsBtn_Click(object sender, EventArgs e)
         {
             addPanel.Visible = false;
-            StudentAddModal studMod = new StudentAddModal();
+            StudentAddModal studMod = new StudentAddModal(CourseNum);
             studMod.StudentAdded += populateStudentTable;
             studMod.Show();
         }
@@ -113,13 +104,13 @@ namespace UttendanceDesktop
                         DataGridViewRow selectedRow = studentTable.SelectedRows[i];
                         //Get the primary key of the selected row
                         var utdID = selectedRow.Cells["UTD-ID"].Value.ToString();
-                        studentInfo.removeStudentsFromClass(utdID, courseNum);
+                        studentInfo.removeStudentsFromClass(utdID, CourseNum);
                     }
                     populateStudentTable();
                 }
             }
 
-             deleteBtn.Visible = false;
+            deleteBtn.Visible = false;
             addPanel.Visible = false;
             addBtn.Visible = true;
         }

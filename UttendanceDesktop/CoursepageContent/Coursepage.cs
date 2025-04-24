@@ -13,7 +13,6 @@ using UttendanceDesktop;
 namespace UttendanceDesktop
 {
     // Written by Joanna Yang and Parisa Nawar for CS4485.0w1, Uttendance, starting March 14, 2025.
-    //
     // NetID: jxy210012, pxn210032
     public partial class Coursepage : Form
     {
@@ -159,14 +158,14 @@ namespace UttendanceDesktop
         // Written by Joanna
         private void studentsPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new Students());
+            loadForm(new Students(CourseNum));
         }
 
         //Calls the loadForm() method to load the Summary page when 'Summary' is clicked
         // Written by Joanna
         private void summaryPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new Summary());
+            loadForm(new Summary(CourseNum));
         }
 
         //Animates the submenu to expand and minimize
