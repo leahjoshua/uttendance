@@ -16,6 +16,7 @@ namespace UttendanceDesktop
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 15, 2025.
     // NetID: jxy210012
+    // Wrote the whole Summary class
     public partial class Summary : Form
     {
         private static readonly int courseNum = GlobalResource.CURRENT_CLASS_ID;
@@ -29,16 +30,16 @@ namespace UttendanceDesktop
             summaryTable.Height = summaryPagePanel.Height - 130;
             SummaryDAO summaryInfo = new SummaryDAO();
             totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(courseNum);
-            populateSummaryTable(-1);
+            populateSummaryTable();
         }
 
         //Populates the datagrid with data from the database
         //Displays each student with their submission status for each form
-        private void populateSummaryTable(int selectedForm)
+        private void populateSummaryTable()
         {
             SummaryDAO summaryInfo = new SummaryDAO();
             //Sort by last name by default
-            DataTable table = summaryInfo.getSummaryInfo(courseNum, selectedForm);
+            DataTable table = summaryInfo.getSummaryInfo(courseNum);
             table.DefaultView.Sort = "Last Name ASC";
             this.summaryTable.DataSource = table;
 
@@ -74,6 +75,7 @@ namespace UttendanceDesktop
             editNewValue = editNewValue.ToUpper();
             summaryTable[e.ColumnIndex, e.RowIndex].Value = editNewValue;
 
+            //If the value changed
             if (!Equals(editOldValue, editNewValue))
             {
                 //Input validation
@@ -98,6 +100,7 @@ namespace UttendanceDesktop
                 }
                 else
                 {
+                    //Unable to update status due to invalid input
                     MessageBox.Show("Invalid input. Please enter either a \'P\', \'E\', or \'A\'");
                     summaryTable[e.ColumnIndex, e.RowIndex].Value = editOldValue.ToString().ToUpper();
                 }
@@ -123,7 +126,7 @@ namespace UttendanceDesktop
             }));
         }
 
-        //Populates the IP Address column with the IP Address of the corresponding student and form submission
+        //Populates the IP Address column with the IP Address of the corresponding student and form id
         private void selectColumn(int selectedCol)
         {
             //If user selects a form column
@@ -142,14 +145,12 @@ namespace UttendanceDesktop
                     int id = int.Parse(summaryTable["UTD-ID", i].Value.ToString());
 
                     string ip = submissionInfo.getIPAddress(formID, id);
-
                     summaryTable["IP Address", i].Value = ip;
                 }
 
-                //Highlight the selected column
+                //Unhighlight the previously selected column
                 if (selectedCol != prevSelectedCol)
                 {
-                    //Unhighlights the previously selected column
                     foreach (DataGridViewRow row in summaryTable.Rows)
                     {
                         Color resetColor = (row.Index % 2 == 0)

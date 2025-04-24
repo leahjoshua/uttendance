@@ -14,6 +14,7 @@ namespace UttendanceDesktop.CoursepageContent
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
     // NetID: jxy210012
+    // Wrote the whole StudentsDAO class
     internal class StudentsDAO
     {
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;

@@ -12,6 +12,9 @@ using static Mysqlx.Expect.Open.Types.Condition.Types;
 
 namespace UttendanceDesktop.CoursepageContent
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 27, 2025.
+    // NetID: jxy210012
+    // Wrote the whole StudentAddModal class
     public partial class StudentAddModal : Form
     {
         public event Action? StudentAdded;
@@ -22,11 +25,13 @@ namespace UttendanceDesktop.CoursepageContent
             InitializeComponent();
         }
 
+        //Hides the modal when user clicks cancel
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             Visible = false;
         }
 
+        //Adds student to database
         private void addBtn_Click(object sender, EventArgs e)
         {
             try

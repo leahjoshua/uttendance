@@ -5,6 +5,7 @@ namespace UttendanceDesktop
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 27, 2025.
     // NetID: jxy210012
+    // Wrote the whole StudentImportModal class
     partial class StudentImportModal
     {
         /// <summary>

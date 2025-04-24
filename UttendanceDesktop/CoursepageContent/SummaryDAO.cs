@@ -12,6 +12,7 @@ namespace UttendanceDesktop.CoursepageContent
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
     // NetID: jxy210012
+    // Wrote the whole SummaryDAO class
     internal class SummaryDAO
     {
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
@@ -29,6 +30,7 @@ namespace UttendanceDesktop.CoursepageContent
                 "AND CloseDateTime < @now", connection);
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
+
             //Read result
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
@@ -39,6 +41,7 @@ namespace UttendanceDesktop.CoursepageContent
             return count;
         }
 
+        //Gets the IP Address for a submission given the student and form id
         public string getIPAddress(int formID, int studentID)
         {
             //Open database connection
@@ -63,10 +66,11 @@ namespace UttendanceDesktop.CoursepageContent
                 }
                 else
                 {
-                    return "NULL"; // or handle it however you want
+                    return "NULL";
                 }
             }
         }
+
         //Updates the attendance status of the given student and form id
         public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
         {
@@ -111,7 +115,9 @@ namespace UttendanceDesktop.CoursepageContent
             return true;
         }
 
-        public DataTable getSummaryInfo(int courseNum, int selectedForm)
+        //Gets the data for the summary table, displaying the information and submission details
+        //for every student in the class along with their submissions for each form
+        public DataTable getSummaryInfo(int courseNum)
         {
             DataTable dataTable = new DataTable();
             //Open database connection
@@ -195,20 +201,13 @@ namespace UttendanceDesktop.CoursepageContent
                             + ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd")]
                             = status.ToString();
 
-                        //Update the IP Address of this form was selected
-                        //if(selectedForm == int.Parse(databaseReader["FormID"].ToString()))
-                        //{
-                        //    var ip = databaseReader["IPAddress"];
-                        //    if (ip == DBNull.Value)
-                        //        ip = "NULL";
-                        //    row["IP Address"] = ip.ToString();
-                        //}
-
+                        //Read the attendance status for the next form
                         if (i < formCount - 1)
                         {
                             databaseReader.Read();
                         }
                     }
+                    //Set the unexcused absence count
                     row["Unexcused Absences"] = absenceCount;
 
                     dataTable.Rows.Add(row);
@@ -216,8 +215,6 @@ namespace UttendanceDesktop.CoursepageContent
             }
 
             connection.Close();
-            //Send data to data table
-
             return dataTable;
         }
     }
