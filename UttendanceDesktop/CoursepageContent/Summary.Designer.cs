@@ -94,7 +94,6 @@ namespace UttendanceDesktop
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             summaryTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            summaryTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             summaryTable.BackgroundColor = Color.FromArgb(37, 42, 69);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);

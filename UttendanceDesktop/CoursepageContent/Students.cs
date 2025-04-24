@@ -28,9 +28,13 @@ namespace UttendanceDesktop
         {
             CourseNum = courseNum;
             InitializeComponent();
+
             studentTable.Width = studentsPagePanel.Width - 30;
             studentTable.Height = studentsPagePanel.Height - 130;
+
+            studentTable.DataBindingComplete += studentTable_DataBindingComplete;
             populateStudentTable();
+
             //Subscribe to event to repopulate the data grid after import module is finished
             importMod = new StudentImportModal(CourseNum);
             importMod.DatabaseUpdated += populateStudentTable;
@@ -41,11 +45,6 @@ namespace UttendanceDesktop
         {
             StudentsDAO studentInfo = new StudentsDAO();
             this.studentTable.DataSource = studentInfo.getAllStudentInfo(displayList, CourseNum);
-
-            //for(int i = 0; i < 4; i++)
-            //{
-            //    studentTable.Columns[i].Width = studentTable.Width / 4;
-            //}
         }
 
         //Displays the options for adding students
@@ -135,16 +134,16 @@ namespace UttendanceDesktop
                 if (col == 3)
                 {
                     //Check if the inputted value is an int
-                    if(editNewValue != null && int.TryParse(editNewValue.ToString(), out int newID)
-                        && editOldValue !=null && int.TryParse(editOldValue.ToString(), out int oldID))
+                    if (editNewValue != null && int.TryParse(editNewValue.ToString(), out int newID)
+                        && editOldValue != null && int.TryParse(editOldValue.ToString(), out int oldID))
                     {
                         //If the update was unsucessful, display error message
-                        if(!studentInfo.updateStudentID(oldID, newID))
+                        if (!studentInfo.updateStudentID(oldID, newID))
                         {
                             MessageBox.Show("UTD-ID " + newID + " is already taken");
                             studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
                         }
-                            
+
                     }
                     else
                     {
@@ -174,7 +173,16 @@ namespace UttendanceDesktop
 
         }
 
-
-
+        //Wait for data to be fully bounded and the columns are created
+        private void studentTable_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (studentTable.Columns.Count >= 4)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    studentTable.Columns[i].Width = studentTable.Width / 4;
+                }
+            }
+        }
     }
 }
