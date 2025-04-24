@@ -58,12 +58,11 @@ namespace UttendanceDesktop
             // 
             // keyLabel
             // 
-            keyLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             keyLabel.AutoSize = true;
             keyLabel.BackColor = Color.FromArgb(222, 225, 241);
             keyLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             keyLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            keyLabel.Location = new Point(439, 104);
+            keyLabel.Location = new Point(465, 79);
             keyLabel.Name = "keyLabel";
             keyLabel.Size = new Size(243, 34);
             keyLabel.TabIndex = 0;
@@ -74,7 +73,7 @@ namespace UttendanceDesktop
             totalCountLabel.AutoSize = true;
             totalCountLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             totalCountLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            totalCountLabel.Location = new Point(71, 120);
+            totalCountLabel.Location = new Point(71, 95);
             totalCountLabel.Name = "totalCountLabel";
             totalCountLabel.Size = new Size(253, 34);
             totalCountLabel.TabIndex = 1;
@@ -116,7 +115,7 @@ namespace UttendanceDesktop
             summaryTable.DefaultCellStyle = dataGridViewCellStyle3;
             summaryTable.EnableHeadersVisualStyles = false;
             summaryTable.GridColor = Color.FromArgb(37, 42, 69);
-            summaryTable.Location = new Point(71, 157);
+            summaryTable.Location = new Point(71, 132);
             summaryTable.Name = "summaryTable";
             summaryTable.RowHeadersVisible = false;
             summaryTable.RowHeadersWidth = 51;
