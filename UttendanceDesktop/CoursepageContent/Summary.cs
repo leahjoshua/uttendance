@@ -134,8 +134,17 @@ namespace UttendanceDesktop
                 string colName = summaryTable.Columns[selectedCol].Name;
                 DataColumn col = boundTable.Columns[colName];
                 int formID = int.Parse(col.ExtendedProperties["FormID"].ToString());
+
+                SummaryDAO submissionInfo = new SummaryDAO();
                 //Update the table to display the IP addresses
-                //populateSummaryTable(formID);
+                for (int i = 0; i < summaryTable.RowCount; i++)
+                {
+                    int id = int.Parse(summaryTable["UTD-ID", i].Value.ToString());
+
+                    string ip = submissionInfo.getIPAddress(formID, id);
+
+                    summaryTable["IP Address", i].Value = ip;
+                }
 
                 //Highlight the selected column
                 if (selectedCol != prevSelectedCol)
@@ -159,6 +168,15 @@ namespace UttendanceDesktop
                 {
                     row.Cells[selectedCol].Style.BackColor = GlobalStyle.PASTEL_BLUE;
                     row.Cells[selectedCol].Style.ForeColor = Color.White;
+                }
+            }
+            else if(prevSelectedCol > 5)
+            {
+                //Keep the selected column highlighted after refresh of ordering
+                foreach (DataGridViewRow row in summaryTable.Rows)
+                {
+                    row.Cells[prevSelectedCol].Style.BackColor = GlobalStyle.PASTEL_BLUE;
+                    row.Cells[prevSelectedCol].Style.ForeColor = Color.White;
                 }
             }
         }

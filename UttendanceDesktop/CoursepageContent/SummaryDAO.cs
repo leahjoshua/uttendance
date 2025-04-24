@@ -39,6 +39,34 @@ namespace UttendanceDesktop.CoursepageContent
             return count;
         }
 
+        public string getIPAddress(int formID, int studentID)
+        {
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            //Check if submissionID exists
+            MySqlCommand cmd = new MySqlCommand("SELECT IPAddress FROM submission " +
+               "WHERE submission.FK_FormID=@checkformID AND submission.FK_UTDID=@checkUtdID;", connection);
+            cmd.Parameters.AddWithValue("@checkformID", formID);
+            cmd.Parameters.AddWithValue("@checkUtdID", studentID);
+
+            //Read IP Address
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    var ip = reader["IPAddress"];
+                    if (ip == DBNull.Value)
+                        return "NULL";
+                    return ip.ToString();
+                }
+                else
+                {
+                    return "NULL"; // or handle it however you want
+                }
+            }
+        }
         //Updates the attendance status of the given student and form id
         public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
         {
