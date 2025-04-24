@@ -14,8 +14,6 @@ namespace student_website.Models
         [Key]
         public int SubmissionID { get; set; }
         public string AttendanceStatus { get; set; } = "";
-        public string IFName { get; set; } = "";
-        public string ILName { get; set; } = "";
         public string IPAddress { get; set; } = "";
         public DateTime? DateTime { get; set; }
         [ForeignKey("FK_FormID")]

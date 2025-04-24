@@ -15,6 +15,6 @@ namespace student_website.Models
         public int QuestionID { get; set; }
         public string ProblemStatement { get; set; } = "";
         [ForeignKey("FK_FormID")]
-        public int? FK_FormID { get; set; }
+        public int? FK_BankID { get; set; }
     }
 }
