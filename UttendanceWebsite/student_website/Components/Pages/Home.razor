@@ -137,9 +137,17 @@
                 navigateManager.NavigateTo("/quiz");
 
             }
+            else if(validStudent == null && validPassword == null)
+            {
+                errorMessage = "Invalid UTD-ID and Password";
+            }
+            else if(validStudent == null)
+            {
+                errorMessage = "Invalid UTD-ID";
+            }
             else
             {
-                errorMessage = "Invalid UTD-ID or Password";
+                errorMessage = "Invalid Password";
             }
 
         }
