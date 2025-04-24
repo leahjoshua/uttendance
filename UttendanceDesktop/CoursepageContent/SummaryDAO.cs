@@ -38,6 +38,8 @@ namespace UttendanceDesktop.CoursepageContent
 
             return count;
         }
+
+        //Updates the attendance status of the given student and form id
         public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
         {
             //Open database connection
@@ -81,7 +83,7 @@ namespace UttendanceDesktop.CoursepageContent
             return true;
         }
 
-        public DataTable getSummaryInfo(int courseNum)
+        public DataTable getSummaryInfo(int courseNum, int selectedForm)
         {
             DataTable dataTable = new DataTable();
             //Open database connection
@@ -122,13 +124,13 @@ namespace UttendanceDesktop.CoursepageContent
 
             //Select student information from all students enrolled in the current class
             //as well as all of their attendance status for each form
-            cmd = new MySqlCommand("SELECT s.*, f.FormID, DATE(ReleaseDateTime) AS ReleaseDate, sub.AttendanceStatus " +
+            cmd = new MySqlCommand("SELECT s.*, DATE(ReleaseDateTime) AS ReleaseDate, sub.AttendanceStatus " +
                 "FROM student s " +
                 "JOIN attends a ON s.UTDID=a.FK_UTDID " +
                 "JOIN form f ON a.FK_CourseNum=f.FK_CourseNum " +
                 "LEFT JOIN submission sub ON sub.FK_FormID=f.FormID AND sub.FK_UTDID=s.UTDID " +
                 "WHERE a.FK_CourseNum=@courseNum AND f.CloseDateTime < @today " +
-                "ORDER BY s.SLName ASC, f.ReleaseDateTime ASC;", connection);
+                "ORDER BY s.UTDID ASC, f.ReleaseDateTime ASC;", connection);
             cmd.Parameters.AddWithValue("@courseNum", courseNum);
             cmd.Parameters.AddWithValue("@today", localDate);
 
@@ -164,6 +166,16 @@ namespace UttendanceDesktop.CoursepageContent
                         row["Form #" + (i + 1) + "\r\n"
                             + ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd")]
                             = status.ToString();
+
+                        //Update the IP Address of this form was selected
+                        //if(selectedForm == int.Parse(databaseReader["FormID"].ToString()))
+                        //{
+                        //    var ip = databaseReader["IPAddress"];
+                        //    if (ip == DBNull.Value)
+                        //        ip = "NULL";
+                        //    row["IP Address"] = ip.ToString();
+                        //}
+
                         if (i < formCount - 1)
                         {
                             databaseReader.Read();

@@ -29,15 +29,18 @@ namespace UttendanceDesktop
             summaryTable.Height = summaryPagePanel.Height - 130;
             SummaryDAO summaryInfo = new SummaryDAO();
             totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(courseNum);
-            populateSummaryTable();
+            populateSummaryTable(-1);
         }
 
         //Populates the datagrid with data from the database
         //Displays each student with their submission status for each form
-        private void populateSummaryTable()
+        private void populateSummaryTable(int selectedForm)
         {
             SummaryDAO summaryInfo = new SummaryDAO();
-            this.summaryTable.DataSource = summaryInfo.getSummaryInfo(courseNum);
+            //Sort by last name by default
+            DataTable table = summaryInfo.getSummaryInfo(courseNum, selectedForm);
+            table.DefaultView.Sort = "Last Name ASC";
+            this.summaryTable.DataSource = table;
 
 
             //Make the student info column and attendance count column readonly and sticky
@@ -48,11 +51,7 @@ namespace UttendanceDesktop
                 summaryTable.Columns[i].Width = 120;
             }
 
-            //Set the unexcused absence count column to be smaller
-            //summaryTable.Columns[2].Width = 90;
-            //summaryTable.Columns[3].Width = 90;
-            //summaryTable.Columns[4].Width = 90;
-
+            //Set the form columns to be smaller
             for (int i = 6; i < summaryTable.Columns.Count; i++)
             {
                 summaryTable.Columns[i].Width = 70;
@@ -125,12 +124,20 @@ namespace UttendanceDesktop
         }
 
         //Populates the IP Address column with the IP Address of the corresponding student and form submission
-        private void selectColumn(int col)
+        private void selectColumn(int selectedCol)
         {
-            int selectedCol = col;
             //If user selects a form column
             if (selectedCol > 5)
             {
+                //Get the formID
+                DataTable boundTable = (DataTable)summaryTable.DataSource;
+                string colName = summaryTable.Columns[selectedCol].Name;
+                DataColumn col = boundTable.Columns[colName];
+                int formID = int.Parse(col.ExtendedProperties["FormID"].ToString());
+                //Update the table to display the IP addresses
+                //populateSummaryTable(formID);
+
+                //Highlight the selected column
                 if (selectedCol != prevSelectedCol)
                 {
                     //Unhighlights the previously selected column
