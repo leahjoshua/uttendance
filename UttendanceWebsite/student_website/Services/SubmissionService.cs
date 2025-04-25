@@ -37,5 +37,20 @@ namespace student_website.Services
                 throw new InvalidOperationException("Error in inserting submission: ", e);
             }
         }
+
+        // Can be called in different components and don't need to rewrite
+        public async Task CreateAndInsertSubmissionAsync(String userIP, int form, Student student)
+        {
+            var submission = new Submission
+            {
+                IPAddress = userIP,
+                DateTime = DateTime.Now,
+                FK_FormID = form,
+                FK_UTDID = student.UTDID
+            };
+
+            // Insert to database
+            await InsertSubmissionAsync(submission);
+        }
     }
 }

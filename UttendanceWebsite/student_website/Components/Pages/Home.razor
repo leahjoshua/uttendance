@@ -134,22 +134,25 @@
              * NetID: JXY200013*/
             if (validStudent != null && validPassword != null)
             {
-                // Get information for Submission
-                var submission = new Submission
+                // If there are no questions to answer, go to submission page
+                // otherwise go to quiz page
+                /*
+                if(formIDs[0] != 0)
                 {
-                    IPAddress = userIP,
-                    DateTime = DateTime.Now,
-                    FK_FormID = formIDs[0],
-                    FK_UTDID = validStudent.UTDID
 
-                };
+                    await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent);
 
-                // Insert to database
-                await SubmissionService.InsertSubmissionAsync(submission);
+                    navigateManager.NavigateTo("/submission");
+                    }
+                else
+                {
+                    var formID = string.Join(", ", formIDs);
+                    navigateManager.NavigateTo($"/quiz/{formID}");
+                    }
+                */
+                await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent);
+                navigateManager.NavigateTo($"/quiz/{formIDs}");
 
-                /*Count the number of questions, if 0 --> go to submission page*/
-                var formID = string.Join(", ", formIDs);
-                navigateManager.NavigateTo($"/quiz/{formID}");
             }
             else if(validStudent == null && validPassword == null)
             {
