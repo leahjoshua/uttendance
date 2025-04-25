@@ -16,6 +16,7 @@
 @inject NavigationManager navigateManager
 @inject IDbContextFactory<ApplicationDbContext> DbContextFactory
 @inject UserConnectionInfoService ConnectionService
+@inject SubmissionService SubmissionService
 @using student_website.Models
 @using student_website.Services
 @using Microsoft.EntityFrameworkCore
@@ -132,6 +133,19 @@
              * NetID: JXY200013*/
             if (validStudent != null && validPassword != null)
             {
+                // Get information for Submission
+                var submission = new Submission
+                {
+                    IPAddress = userIP,
+                    DateTime = DateTime.Now,
+                    FK_FormID = formIDs[0],
+                    FK_UTDID = validStudent.UTDID
+
+                };
+
+                // Insert to database
+                await SubmissionService.InsertSubmissionAsync(submission);
+
                 /*Count the number of questions, if 0 --> go to submission page*/
                 errorMessage = string.Join(", ", formIDs);
                 navigateManager.NavigateTo("/quiz");
@@ -182,6 +196,7 @@
         isModalVisible = false;
     }
 
+    /* Submission Information */
     // IP Address
     private string? userIP;
 

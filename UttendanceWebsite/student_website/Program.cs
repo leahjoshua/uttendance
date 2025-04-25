@@ -19,7 +19,12 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     )
 );
 
+// Register SubmissionService to Blazor Component
+builder.Services.AddScoped<SubmissionService>();
 
+/* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 22, 2025
+ * NetID: PXN210032
+*/
 //Services for IP
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
