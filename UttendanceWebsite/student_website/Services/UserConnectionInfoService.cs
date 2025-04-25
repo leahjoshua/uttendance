@@ -1,4 +1,8 @@
-﻿//judy and parisa 
+﻿/* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 22, 2025
+ * NetID: JXY200013 and PXN210032
+ * 
+ * Service for IP Address.
+ */
 using student_website.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -6,6 +10,7 @@ namespace student_website.Services
 {
     public class UserConnectionInfoService
     {
+        // Written by Judy Yang
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserConnectionInfoService(IHttpContextAccessor httpContextAccessor)
@@ -13,6 +18,7 @@ namespace student_website.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        // Written by Parisa Nawar
         public UserConnectionInfo GetUserConnectionInfo()
         {
             var httpContext = _httpContextAccessor.HttpContext;
