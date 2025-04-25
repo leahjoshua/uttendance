@@ -124,6 +124,7 @@
                 join a in db.Attends
                 on f.FK_CourseNum equals a.FK_CourseNum
                 where a.FK_UTDID == student.UTDID
+                && form.PassWd == f.PassWd
                 && f.ReleaseDateTime < DateTime.Now
                 && f.CloseDateTime > DateTime.Now
                 select f.FormID)
@@ -147,9 +148,8 @@
                 await SubmissionService.InsertSubmissionAsync(submission);
 
                 /*Count the number of questions, if 0 --> go to submission page*/
-                errorMessage = string.Join(", ", formIDs);
-                navigateManager.NavigateTo("/quiz");
-
+                var formID = string.Join(", ", formIDs);
+                navigateManager.NavigateTo($"/quiz/{formID}");
             }
             else if(validStudent == null && validPassword == null)
             {
@@ -161,7 +161,7 @@
             }
             else
             {
-                errorMessage = "Invalid Password";
+                errorMessage = "Invalid Credentials or Quiz Not Within Allowed Time";
             }
 
         }

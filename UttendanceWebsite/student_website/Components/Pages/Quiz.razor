@@ -1,16 +1,23 @@
 ﻿@* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 11, 2025
 	NetID: JXY200013
-
+    and parisa meow
     This page imports the question(s) and answer choices associated with the form password
     from the database. 
     If the student doesn't submit their quiz in time while they're accessing the page, it will
     automatically submit whatever they have and be stored in the database.
 *@
 
-@page "/quiz"
+@page "/quiz/{formID}"
 @rendermode InteractiveServer
 
 @inject NavigationManager navigateManager
+@inject IDbContextFactory<ApplicationDbContext> DbContextFactory
+@inject UserConnectionInfoService ConnectionService
+@inject SubmissionService SubmissionService
+@using student_website.Models
+@using student_website.Services
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
 
 <PageTitle>Attendance Quiz</PageTitle>
 
@@ -24,7 +31,9 @@
     Get the title here
     <span style="text-align: right">
         Due at:
-        <span style="color: #E97502">Get the date here</span>
+        <span style="color: #E97502">
+            @(dueDate?.ToString("f"))
+        </span>
     </span>
 </div>
 
@@ -40,7 +49,19 @@
 <button class="btn btn-submit" @onclick="Submit">Submit</button>
 
 @code {
+    //parisa
+    [Parameter]
+    public string? formID { get; set; }
+    private DateTime? dueDate { get; set; }
     private int currentCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        int intID = int.Parse(formID);
+        using var db = DbContextFactory.CreateDbContext();
+        var form = await db.Form.FirstOrDefaultAsync(f => f.FormID.Equals(intID));
+        dueDate = form?.CloseDateTime;
+    }
 
     private void IncrementCount()
     {
