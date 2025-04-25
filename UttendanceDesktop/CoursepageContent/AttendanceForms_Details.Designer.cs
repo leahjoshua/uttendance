@@ -34,6 +34,11 @@
             SaveEditIcon = new Button();
             detailsLabel = new Label();
             submissionPanel = new Panel();
+            label5 = new Label();
+            panel2 = new Panel();
+            label2 = new Label();
+            panel1 = new Panel();
+            submissionStats = new TableLayoutPanel();
             formTitleLabel = new Label();
             addQuestionBtn = new Button();
             importQuestionBtn = new Button();
@@ -46,6 +51,7 @@
             label1 = new Label();
             saveEditBtn = new Button();
             flowLayoutPanel.SuspendLayout();
+            submissionPanel.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel
@@ -53,10 +59,11 @@
             flowLayoutPanel.Anchor = AnchorStyles.Top;
             flowLayoutPanel.AutoSize = true;
             flowLayoutPanel.Controls.Add(questionItem1);
-            flowLayoutPanel.Location = new Point(234, 444);
-            flowLayoutPanel.MaximumSize = new Size(779, 0);
+            flowLayoutPanel.Location = new Point(205, 319);
+            flowLayoutPanel.Margin = new Padding(3, 2, 3, 2);
+            flowLayoutPanel.MaximumSize = new Size(682, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(779, 84);
+            flowLayoutPanel.Size = new Size(682, 64);
             flowLayoutPanel.TabIndex = 19;
             // 
             // questionItem1
@@ -70,15 +77,15 @@
             questionItem1.IsSelectable = false;
             questionItem1.Location = new Point(0, 0);
             questionItem1.Margin = new Padding(0);
-            questionItem1.MaximumSize = new Size(750, 0);
-            questionItem1.MinimumSize = new Size(750, 0);
+            questionItem1.MaximumSize = new Size(656, 0);
+            questionItem1.MinimumSize = new Size(656, 0);
             questionItem1.Name = "questionItem1";
-            questionItem1.Padding = new Padding(5);
+            questionItem1.Padding = new Padding(4, 4, 4, 4);
             questionItem1.QuestionID = 0;
             questionItem1.QuestionNumber = 0;
             questionItem1.QuestionValue = null;
             questionItem1.Selected = false;
-            questionItem1.Size = new Size(750, 84);
+            questionItem1.Size = new Size(656, 64);
             questionItem1.TabIndex = 0;
             // 
             // questionsLabel
@@ -86,9 +93,9 @@
             questionsLabel.AutoSize = true;
             questionsLabel.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point, 0);
             questionsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            questionsLabel.Location = new Point(57, 411);
+            questionsLabel.Location = new Point(50, 294);
             questionsLabel.Name = "questionsLabel";
-            questionsLabel.Size = new Size(166, 30);
+            questionsLabel.Size = new Size(139, 25);
             questionsLabel.TabIndex = 18;
             questionsLabel.Text = "Form Questions";
             // 
@@ -99,9 +106,10 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(1117, 1788);
+            SaveEditIcon.Location = new Point(977, 1341);
+            SaveEditIcon.Margin = new Padding(3, 2, 3, 2);
             SaveEditIcon.Name = "SaveEditIcon";
-            SaveEditIcon.Size = new Size(40, 40);
+            SaveEditIcon.Size = new Size(35, 30);
             SaveEditIcon.TabIndex = 20;
             SaveEditIcon.UseVisualStyleBackColor = false;
             // 
@@ -110,28 +118,87 @@
             detailsLabel.AutoSize = true;
             detailsLabel.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point, 0);
             detailsLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            detailsLabel.Location = new Point(57, 101);
+            detailsLabel.Location = new Point(50, 76);
             detailsLabel.Name = "detailsLabel";
-            detailsLabel.Size = new Size(77, 30);
+            detailsLabel.Size = new Size(65, 25);
             detailsLabel.TabIndex = 21;
             detailsLabel.Text = "Details";
             // 
             // submissionPanel
             // 
             submissionPanel.BackColor = SystemColors.Control;
-            submissionPanel.Location = new Point(57, 134);
+            submissionPanel.Controls.Add(label5);
+            submissionPanel.Controls.Add(panel2);
+            submissionPanel.Controls.Add(label2);
+            submissionPanel.Controls.Add(panel1);
+            submissionPanel.Controls.Add(submissionStats);
+            submissionPanel.Location = new Point(50, 108);
+            submissionPanel.Margin = new Padding(3, 2, 3, 2);
             submissionPanel.Name = "submissionPanel";
-            submissionPanel.Size = new Size(285, 257);
+            submissionPanel.Size = new Size(324, 157);
             submissionPanel.TabIndex = 22;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = SystemColors.Control;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.ForeColor = Color.FromArgb(37, 42, 69);
+            label5.Location = new Point(56, 59);
+            label5.Name = "label5";
+            label5.Size = new Size(127, 21);
+            label5.TabIndex = 37;
+            label5.Text = "= Not Submitted";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(50, 56, 87);
+            panel2.Location = new Point(22, 55);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(28, 28);
+            panel2.TabIndex = 36;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = SystemColors.Control;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.ForeColor = Color.FromArgb(37, 42, 69);
+            label2.Location = new Point(56, 24);
+            label2.Name = "label2";
+            label2.Size = new Size(97, 21);
+            label2.TabIndex = 35;
+            label2.Text = "= Submitted";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(1, 173, 1);
+            panel1.Location = new Point(22, 20);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(28, 28);
+            panel1.TabIndex = 1;
+            // 
+            // submissionStats
+            // 
+            submissionStats.ColumnCount = 2;
+            submissionStats.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.75124F));
+            submissionStats.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.24876F));
+            submissionStats.Location = new Point(22, 93);
+            submissionStats.Name = "submissionStats";
+            submissionStats.RowCount = 1;
+            submissionStats.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            submissionStats.Size = new Size(285, 46);
+            submissionStats.TabIndex = 0;
+            submissionStats.CellPaint += submissionStats_CellPaint;
             // 
             // formTitleLabel
             // 
             formTitleLabel.AutoSize = true;
             formTitleLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             formTitleLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            formTitleLabel.Location = new Point(57, 39);
+            formTitleLabel.Location = new Point(50, 29);
             formTitleLabel.Name = "formTitleLabel";
-            formTitleLabel.Size = new Size(387, 41);
+            formTitleLabel.Size = new Size(307, 32);
             formTitleLabel.TabIndex = 24;
             formTitleLabel.Text = "XX/XX/XX Attendance Form";
             // 
@@ -141,10 +208,9 @@
             addQuestionBtn.BackColor = Color.FromArgb(224, 224, 224);
             addQuestionBtn.FlatStyle = FlatStyle.Flat;
             addQuestionBtn.ForeColor = Color.FromArgb(37, 42, 69);
-            addQuestionBtn.Location = new Point(1100, 394);
-            addQuestionBtn.Margin = new Padding(3, 4, 3, 4);
+            addQuestionBtn.Location = new Point(962, 296);
             addQuestionBtn.Name = "addQuestionBtn";
-            addQuestionBtn.Size = new Size(138, 48);
+            addQuestionBtn.Size = new Size(121, 36);
             addQuestionBtn.TabIndex = 26;
             addQuestionBtn.Text = "Add Question";
             addQuestionBtn.UseVisualStyleBackColor = false;
@@ -156,10 +222,9 @@
             importQuestionBtn.BackColor = Color.FromArgb(224, 224, 224);
             importQuestionBtn.FlatStyle = FlatStyle.Flat;
             importQuestionBtn.ForeColor = Color.FromArgb(37, 42, 69);
-            importQuestionBtn.Location = new Point(1100, 441);
-            importQuestionBtn.Margin = new Padding(3, 4, 3, 4);
+            importQuestionBtn.Location = new Point(962, 331);
             importQuestionBtn.Name = "importQuestionBtn";
-            importQuestionBtn.Size = new Size(138, 48);
+            importQuestionBtn.Size = new Size(121, 36);
             importQuestionBtn.TabIndex = 27;
             importQuestionBtn.Text = "Import Questions";
             importQuestionBtn.UseVisualStyleBackColor = false;
@@ -173,19 +238,19 @@
             openOptionsBtn.FlatAppearance.BorderSize = 0;
             openOptionsBtn.FlatStyle = FlatStyle.Flat;
             openOptionsBtn.Image = Properties.Resources.add_icon;
-            openOptionsBtn.Location = new Point(1195, 497);
-            openOptionsBtn.Margin = new Padding(3, 4, 3, 4);
+            openOptionsBtn.Location = new Point(1046, 373);
             openOptionsBtn.Name = "openOptionsBtn";
-            openOptionsBtn.Size = new Size(43, 43);
+            openOptionsBtn.Size = new Size(38, 32);
             openOptionsBtn.TabIndex = 25;
             openOptionsBtn.UseVisualStyleBackColor = false;
             // 
             // pwdTxtBox
             // 
             pwdTxtBox.Font = new Font("Segoe UI", 10F);
-            pwdTxtBox.Location = new Point(373, 299);
+            pwdTxtBox.Location = new Point(396, 196);
+            pwdTxtBox.Margin = new Padding(3, 2, 3, 2);
             pwdTxtBox.Name = "pwdTxtBox";
-            pwdTxtBox.Size = new Size(572, 30);
+            pwdTxtBox.Size = new Size(501, 25);
             pwdTxtBox.TabIndex = 33;
             pwdTxtBox.TextChanged += pwdTxtBox_TextChanged;
             // 
@@ -194,9 +259,9 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11F);
             label3.ForeColor = Color.FromArgb(37, 42, 69);
-            label3.Location = new Point(373, 271);
+            label3.Location = new Point(396, 175);
             label3.Name = "label3";
-            label3.Size = new Size(91, 25);
+            label3.Size = new Size(70, 20);
             label3.TabIndex = 32;
             label3.Text = "Password";
             // 
@@ -205,10 +270,10 @@
             closeTimePicker.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
             closeTimePicker.Enabled = false;
             closeTimePicker.Format = DateTimePickerFormat.Custom;
-            closeTimePicker.Location = new Point(672, 235);
+            closeTimePicker.Location = new Point(658, 148);
             closeTimePicker.Margin = new Padding(2);
             closeTimePicker.Name = "closeTimePicker";
-            closeTimePicker.Size = new Size(273, 27);
+            closeTimePicker.Size = new Size(239, 23);
             closeTimePicker.TabIndex = 31;
             // 
             // label4
@@ -216,9 +281,9 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11F);
             label4.ForeColor = Color.FromArgb(37, 42, 69);
-            label4.Location = new Point(672, 208);
+            label4.Location = new Point(658, 128);
             label4.Name = "label4";
-            label4.Size = new Size(102, 25);
+            label4.Size = new Size(81, 20);
             label4.TabIndex = 30;
             label4.Text = "Close Date";
             // 
@@ -227,10 +292,10 @@
             releaseTimePicker.CustomFormat = "MMMMdd, yyyy  |  hh:mm tt";
             releaseTimePicker.Enabled = false;
             releaseTimePicker.Format = DateTimePickerFormat.Custom;
-            releaseTimePicker.Location = new Point(373, 235);
+            releaseTimePicker.Location = new Point(396, 148);
             releaseTimePicker.Margin = new Padding(2);
             releaseTimePicker.Name = "releaseTimePicker";
-            releaseTimePicker.Size = new Size(273, 27);
+            releaseTimePicker.Size = new Size(239, 23);
             releaseTimePicker.TabIndex = 29;
             // 
             // label1
@@ -238,9 +303,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11F);
             label1.ForeColor = Color.FromArgb(37, 42, 69);
-            label1.Location = new Point(373, 208);
+            label1.Location = new Point(396, 128);
             label1.Name = "label1";
-            label1.Size = new Size(119, 25);
+            label1.Size = new Size(96, 20);
             label1.TabIndex = 28;
             label1.Text = "Release Date";
             // 
@@ -250,9 +315,10 @@
             saveEditBtn.FlatStyle = FlatStyle.Flat;
             saveEditBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             saveEditBtn.ForeColor = SystemColors.Control;
-            saveEditBtn.Location = new Point(373, 354);
+            saveEditBtn.Location = new Point(396, 238);
+            saveEditBtn.Margin = new Padding(3, 2, 3, 2);
             saveEditBtn.Name = "saveEditBtn";
-            saveEditBtn.Size = new Size(94, 37);
+            saveEditBtn.Size = new Size(82, 28);
             saveEditBtn.TabIndex = 34;
             saveEditBtn.Text = "Edit";
             saveEditBtn.UseVisualStyleBackColor = false;
@@ -260,11 +326,11 @@
             // 
             // AttendanceForms_Details
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(1250, 553);
+            ClientSize = new Size(1094, 415);
             Controls.Add(saveEditBtn);
             Controls.Add(pwdTxtBox);
             Controls.Add(label3);
@@ -282,10 +348,13 @@
             Controls.Add(questionsLabel);
             Controls.Add(SaveEditIcon);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AttendanceForms_Details";
             Text = "Attendance Form Details";
             flowLayoutPanel.ResumeLayout(false);
             flowLayoutPanel.PerformLayout();
+            submissionPanel.ResumeLayout(false);
+            submissionPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -310,5 +379,10 @@
         private DateTimePicker releaseTimePicker;
         private Label label1;
         private Button saveEditBtn;
+        private TableLayoutPanel submissionStats;
+        private Panel panel1;
+        private Label label5;
+        private Panel panel2;
+        private Label label2;
     }
 }
