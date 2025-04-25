@@ -38,29 +38,42 @@
 </div>
 
 <div class="quiz-body">
-    Import question 
-    <br/>
-    Import answer choice 
-
-    <!--If more than 1 question, add a break line-->
-    <hr/>
+    @if (questions == null || !questions.Any())
+    {
+        <div>No Questions Found.</div>
+    }
+    else
+    {
+        @foreach (var question in questions)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">@question.ProblemStatement</p>
+                </div>
+            </div>
+        }
+    }
 </div>
 
 <button class="btn btn-submit" @onclick="Submit">Submit</button>
 
 @code {
-    //parisa
     [Parameter]
     public string? formID { get; set; }
     private DateTime? dueDate { get; set; }
+    private List<Question>? questions;
     private int currentCount = 0;
 
     protected override async Task OnInitializedAsync()
     {
+        //show date
         int intID = int.Parse(formID);
         using var db = DbContextFactory.CreateDbContext();
         var form = await db.Form.FirstOrDefaultAsync(f => f.FormID.Equals(intID));
         dueDate = form?.CloseDateTime;
+
+        //show questions
+        questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
     }
 
     private void IncrementCount()
