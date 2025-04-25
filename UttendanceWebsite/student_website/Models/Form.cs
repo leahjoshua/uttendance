@@ -17,5 +17,8 @@ namespace student_website.Models
         public DateTime? CloseDateTime { get; set; }
         [ForeignKey("FK_CourseNum")]
         public int? FK_CourseNum { get; set; }
+
+        //Reference Keys
+        public ICollection<Has> Has { get; set; }
     }
 }
