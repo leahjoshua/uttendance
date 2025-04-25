@@ -45,12 +45,12 @@ namespace UttendanceDesktop
             // 
             // summaryPagePanel
             // 
+            summaryPagePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             summaryPagePanel.BackColor = Color.FromArgb(166, 176, 230);
             summaryPagePanel.Controls.Add(keyLabel);
             summaryPagePanel.Controls.Add(totalCountLabel);
             summaryPagePanel.Controls.Add(summaryTable);
             summaryPagePanel.Controls.Add(summaryLabel);
-            summaryPagePanel.Dock = DockStyle.Fill;
             summaryPagePanel.Location = new Point(0, 0);
             summaryPagePanel.Name = "summaryPagePanel";
             summaryPagePanel.Size = new Size(800, 450);
@@ -58,6 +58,7 @@ namespace UttendanceDesktop
             // 
             // keyLabel
             // 
+            keyLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             keyLabel.AutoSize = true;
             keyLabel.BackColor = Color.FromArgb(222, 225, 241);
             keyLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -70,6 +71,7 @@ namespace UttendanceDesktop
             // 
             // totalCountLabel
             // 
+            totalCountLabel.Anchor = AnchorStyles.Top;
             totalCountLabel.AutoSize = true;
             totalCountLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             totalCountLabel.ForeColor = Color.FromArgb(37, 42, 69);
@@ -93,6 +95,7 @@ namespace UttendanceDesktop
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(88, 101, 168);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             summaryTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            summaryTable.Anchor = AnchorStyles.Top;
             summaryTable.BackgroundColor = Color.FromArgb(37, 42, 69);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(37, 42, 69);
@@ -130,12 +133,13 @@ namespace UttendanceDesktop
             // 
             // summaryLabel
             // 
+            summaryLabel.Anchor = AnchorStyles.Top;
             summaryLabel.AutoSize = true;
-            summaryLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            summaryLabel.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             summaryLabel.ForeColor = Color.FromArgb(37, 42, 69);
             summaryLabel.Location = new Point(43, 37);
             summaryLabel.Name = "summaryLabel";
-            summaryLabel.Size = new Size(115, 32);
+            summaryLabel.Size = new Size(118, 32);
             summaryLabel.TabIndex = 0;
             summaryLabel.Text = "Summary";
             // 

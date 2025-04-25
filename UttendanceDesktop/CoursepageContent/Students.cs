@@ -29,8 +29,17 @@ namespace UttendanceDesktop
             CourseNum = courseNum;
             InitializeComponent();
 
-            studentTable.Width = studentsPagePanel.Width - 30;
-            studentTable.Height = studentsPagePanel.Height - 130;
+            //Set panel size
+            studentsPagePanel.Size = Size;
+
+            //Set the grid height
+            int width = studentsPagePanel.Width - 50;
+            int height = studentsPagePanel.Height - 75;
+
+            studentTable.Width = width;
+            studentTable.Height = height;
+            studentTable.MaximumSize = new Size(width, height);
+            studentTable.MinimumSize = new Size(width, height);
 
             studentTable.DataBindingComplete += studentTable_DataBindingComplete;
             populateStudentTable();

@@ -19,6 +19,8 @@ namespace UttendanceDesktop
         bool sidebarExpand = true;
         bool attendanceCollapsed = false;
 
+        private int width;
+        private int height;
         private int CourseNum; //TEMP VALUE, receive from prev page in constructor
         public Coursepage(int CourseNum)
         {
@@ -29,6 +31,10 @@ namespace UttendanceDesktop
             int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
             Location = new Point(screen.Left + (screen.Width - w) / 2, screen.Top + (screen.Height - h) / 2);
             Size = new Size(w, h);
+
+            width = w;
+            height = h;
+
             this.CourseNum = CourseNum;
             setCourseLabels();
 

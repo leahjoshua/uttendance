@@ -27,8 +27,17 @@ namespace UttendanceDesktop
         {
             CourseNum = courseNum;
             InitializeComponent();
-            summaryTable.Width = summaryPagePanel.Width - 30;
-            summaryTable.Height = summaryPagePanel.Height - 130;
+            //Set panel size
+            summaryPagePanel.Size = Size;
+
+            int width = summaryPagePanel.Width - 20;
+            int height = summaryPagePanel.Height - 75;
+
+            summaryTable.Width = width;
+            summaryTable.Height = height;
+            summaryTable.MaximumSize = new Size(width, height);
+            summaryTable.MinimumSize = new Size(width, height);
+
             SummaryDAO summaryInfo = new SummaryDAO();
             totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(CourseNum);
             populateSummaryTable();
