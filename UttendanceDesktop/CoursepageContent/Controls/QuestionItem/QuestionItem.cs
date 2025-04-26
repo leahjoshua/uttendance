@@ -20,11 +20,13 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private int _questionID;
         private bool _isSelectable = false;
         private bool isBankQuestion = false;
+        private bool _isEditable = true;
 
         private Question question = new Question();
 
         public event EventHandler OnQuestionSelectChange;
         public event EventHandler OnClickEdit;
+
 
         public QuestionItem()
         {
@@ -112,6 +114,19 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
+        // Aendri 4/25/2025
+        // If the question is editable or not
+        [Category("Item Values")]
+        public bool IsEditable
+        {
+            get { return _isEditable; }
+            set
+            {
+                _isEditable = value;
+                ToggleEdit();
+            }
+        }
+
         // Aendri 4/17/2025
         [Category("Item Values")]
         public bool Selected
@@ -167,6 +182,14 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         {
             checkbox.Visible = _isSelectable;
             questionChoiceLabel.Visible = !_isSelectable;
+        }
+
+        // Aendri 4/25/2025
+        // Display mode: hide edit box
+        // Select mode: show edit box
+        private void ToggleEdit()
+        {
+            editButton.Visible = _isEditable;
         }
 
         // ----------- EVENTS ----------- //

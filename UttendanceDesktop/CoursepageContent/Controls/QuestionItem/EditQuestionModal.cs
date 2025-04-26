@@ -16,6 +16,9 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
     public partial class EditQuestionModal : Form
     {
         private Question questionData;
+        private int formID;
+        private bool isFormQuestion = false;
+
         private FormDAO DB = new FormDAO();
 
         // Answer choice data
@@ -31,6 +34,23 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
         {
             InitializeComponent();
             questionData = data;
+
+            // Initialize Answer Choice Arrays:
+            answerStatmentList = new[] { choiceATextbox, choiceBTextbox, choiceCTextbox, choiceDTextbox };
+            answerSelectList = new[] { correctABtn, correctBBtn, correctCBtn, correctDBtn };
+            answerIDList = new int[answerStatmentList.Length];
+            Array.Fill(answerIDList, -1); //Set IDs to -1
+
+            FillQuestionData();
+        }
+
+        // Constructor for attendance form questions
+        public EditQuestionModal(Question data, int formID)
+        {
+            InitializeComponent();
+            questionData = data;
+            this.formID = formID;
+            isFormQuestion = true;
 
             // Initialize Answer Choice Arrays:
             answerStatmentList = new[] { choiceATextbox, choiceBTextbox, choiceCTextbox, choiceDTextbox };
@@ -181,8 +201,17 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             // EXIT if user cancels!
             if (warnResult != DialogResult.OK) { return; }
 
-            DB.DeleteQuestionFromBank(questionData);
-
+            // Attendance Form Delete
+            if (isFormQuestion)
+            {
+                DB.DeleteQuestionFromForm(questionData, formID);
+            }
+            // Question bank Delete
+            else
+            {
+                DB.DeleteQuestionFromBank(questionData);
+            }
+                
             // Set the dialog result to No so the parent form knows it was deleted
             this.DialogResult = DialogResult.No;
             this.Close();

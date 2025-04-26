@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UttendanceDesktop.CoursepageContent.Controls.QuestionItem;
 using UttendanceDesktop.CoursepageContent.CreateAttendanceForm;
 using UttendanceDesktop.CoursepageContent.models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
@@ -86,13 +87,36 @@ namespace UttendanceDesktop.CoursepageContent
         // Open edit question module
         void child_question_OnSelectEdit(object sender, EventArgs e)
         {
-            QuestionItem.QuestionItem selectedBankItem = (QuestionItem.QuestionItem)sender;
+            QuestionItem.QuestionItem questionItem = (QuestionItem.QuestionItem)sender;
 
-            MessageBox.Show("EDIT SELECTED FOR " + selectedBankItem.QuestionID);
+            // GET ANSWER CHOICES
+            List<AnswerChoice> answerChoiceList = new List<AnswerChoice>();
+            for (int i = 0; i < questionItem.AnswerList.Length; i++)
+            {
+                answerChoiceList.Add(new AnswerChoice
+                {
+                    AnswerID = questionItem.AnswerList[i].AnswerID,
+                    isCorrect = questionItem.AnswerList[i].IsCorrect,
+                    AnswerStatement = questionItem.AnswerList[i].AnswerValue
+                });
+            }
+            // GET QUESTION DATA
+            Question questionData = new Question
+            {
+                QuestionID = questionItem.QuestionID,
+                AnswerChoices = answerChoiceList,
+                ProblemStatement = questionItem.QuestionValue
+            };
 
-            // *** OPEN EDIT QUESTION MODULE HERE!!! ***
-
-            PopulateQuestionList();
+            // OPEN MODAL
+            using (EditQuestionModal createBank = new EditQuestionModal(questionData, formData.FormID))
+            {
+                DialogResult result = createBank.ShowDialog();
+                if (result != DialogResult.Cancel)
+                {
+                    PopulateQuestionList();
+                }
+            }
         }
 
         // Aendri 4/18/2025

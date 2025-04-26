@@ -327,6 +327,85 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
+        // Aendri 4/25/2025
+        // Deletes the given question and its answer choices
+        public bool DeleteQuestionFromForm(Question questionData, int formID)
+        {
+            // Open Connection to Database
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            String query;
+
+            try
+            {
+                connection.Open();
+
+                // Remove question bank foreign keys
+                query =
+                    "DELETE " +
+                    "FROM has " +
+                    "WHERE FK_QuestionID = @QuestionID " +
+                    "AND FK_FormID = @FormID";
+                // Run query
+                cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                int result = cmd.ExecuteNonQuery();
+
+                // Check if question is used by other forms
+                query =
+                    "SELECT * " +
+                    "FROM has " +
+                    "WHERE FK_QuestionID = @QuestionID ";
+                // Run query
+                cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                result = cmd.ExecuteNonQuery();
+
+                // QUESTION NOT IN USE, remove question
+                if (result == 0)
+                {
+                    // Delete Answers
+                    query =
+                        "DELETE " +
+                        "FROM answerchoice " +
+                        "WHERE AnswerID IN (";
+
+                    for (int i = 0; i < questionData.AnswerChoices.Count; i++)
+                    {
+                        query += questionData.AnswerChoices[i].AnswerID + ",";
+                    }
+
+                    query = query.Substring(0, query.Length - 1);
+                    query += ")";
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    result = cmd.ExecuteNonQuery();
+
+                    // Delete Question
+                    query =
+                        "DELETE " +
+                        "FROM question " +
+                        "WHERE QuestionID = " + questionData.QuestionID;
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "ERROR: AttendanceForms_QuestionBank.cs/DeleteItems(): " + ex.ToString());
+                connection.Close();
+                return false;
+            }
+
+            connection.Close();
+            return true;
+        }
+
+
 
         // 4/14/2025 Aendri 
         // Returns a list of Questions (as QuestionItems) for the given question bank
@@ -395,7 +474,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                 // Get a list of all questions associated with the bank
                 cmd = new MySqlCommand(
-                    "SELECT QuestionID, ProblemStatement " +
+                    "SELECT QuestionID, ProblemStatement, FK_BankID " +
                     "FROM question, has " +
                     "WHERE FK_FormID=@FormID " +
                     "AND FK_QuestionID = QuestionID "
@@ -411,11 +490,19 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     QuestionItem.QuestionItem currItem = new QuestionItem.QuestionItem();
 
                     currItem.QuestionNumber = i + 1;
-                    currItem.QuestionID = Convert.ToInt32(reader[0]);
+                    currItem.QuestionID = Convert.ToInt32(reader[0]); // Question ID
 
+                    // Problem Statement
                     if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString(); }
                     else { currItem.QuestionValue = ""; }
 
+                    // Is Bank Question?
+                    if (reader[2] != null) {
+                        currItem.IsBankQuestion = !DBNull.Value.Equals(reader[2]);
+                        currItem.IsEditable = DBNull.Value.Equals(reader[2]); //Bank questions can't be edited
+                    }
+
+                    // Answer choices
                     currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
 
                     questionItemList.Add(currItem);
