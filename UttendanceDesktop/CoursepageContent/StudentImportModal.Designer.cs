@@ -49,9 +49,9 @@ namespace UttendanceDesktop
             importPagePanel.Controls.Add(openBtn);
             importPagePanel.Controls.Add(formatExampleLabel);
             importPagePanel.Controls.Add(formatMsgLabel);
-            importPagePanel.Location = new Point(-1, 0);
+            importPagePanel.Location = new Point(-1, -3);
             importPagePanel.Name = "importPagePanel";
-            importPagePanel.Size = new Size(447, 194);
+            importPagePanel.Size = new Size(447, 188);
             importPagePanel.TabIndex = 0;
             // 
             // cancelBtn
@@ -60,10 +60,11 @@ namespace UttendanceDesktop
             cancelBtn.Cursor = Cursors.Hand;
             cancelBtn.FlatAppearance.BorderSize = 0;
             cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(263, 156);
+            cancelBtn.Location = new Point(256, 134);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(75, 23);
+            cancelBtn.Size = new Size(82, 32);
             cancelBtn.TabIndex = 3;
             cancelBtn.Text = "Cancel";
             cancelBtn.UseVisualStyleBackColor = false;
@@ -74,10 +75,11 @@ namespace UttendanceDesktop
             openBtn.BackColor = Color.FromArgb(146, 67, 133);
             openBtn.FlatAppearance.BorderSize = 0;
             openBtn.FlatStyle = FlatStyle.Flat;
+            openBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             openBtn.ForeColor = Color.White;
-            openBtn.Location = new Point(355, 156);
+            openBtn.Location = new Point(351, 134);
             openBtn.Name = "openBtn";
-            openBtn.Size = new Size(75, 23);
+            openBtn.Size = new Size(82, 32);
             openBtn.TabIndex = 2;
             openBtn.Text = "Open";
             openBtn.UseVisualStyleBackColor = false;
@@ -86,11 +88,11 @@ namespace UttendanceDesktop
             // formatExampleLabel
             // 
             formatExampleLabel.AutoSize = true;
-            formatExampleLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            formatExampleLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             formatExampleLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            formatExampleLabel.Location = new Point(38, 84);
+            formatExampleLabel.Location = new Point(22, 77);
             formatExampleLabel.Name = "formatExampleLabel";
-            formatExampleLabel.Size = new Size(0, 19);
+            formatExampleLabel.Size = new Size(339, 20);
             formatExampleLabel.TabIndex = 1;
             formatExampleLabel.Text = "\"Last Name\", \"First Name\", \"Net-ID\", \"UTD-ID\"";
             // 
@@ -98,22 +100,23 @@ namespace UttendanceDesktop
             // 
             formatMsgLabel.Anchor = AnchorStyles.Top;
             formatMsgLabel.AutoSize = true;
-            formatMsgLabel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            formatMsgLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             formatMsgLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            formatMsgLabel.Location = new Point(17, 22);
+            formatMsgLabel.Location = new Point(22, 24);
             formatMsgLabel.Name = "formatMsgLabel";
-            formatMsgLabel.Size = new Size(417, 38);
+            formatMsgLabel.Size = new Size(408, 40);
             formatMsgLabel.TabIndex = 0;
-            formatMsgLabel.Text = "Make sure the file is a .csv file and has the following column names\r\n(or similar) in the following order:\r\n";
+            formatMsgLabel.Text = "Make sure the file is a .csv file and has the following column \r\nnames (or similar) in the following order:\r\n";
             // 
-            // ImportStudentModal
+            // StudentImportModal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(444, 192);
+            ClientSize = new Size(444, 177);
             Controls.Add(importPagePanel);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Name = "ImportStudentModal";
+            Name = "StudentImportModal";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Import Students";
             importPagePanel.ResumeLayout(false);
             importPagePanel.PerformLayout();

@@ -88,9 +88,9 @@ namespace UttendanceDesktop
                 // Extract and trim each field from the columns
                 string CourseName = columns[0].Trim();
                 string ClassPrefix = columns[1].Trim();
-                int ClassNumber = int.Parse(columns[2].Trim());       
-                int SectionNumber = int.Parse(columns[3].Trim());    
-                int ClassID = int.Parse(columns[4].Trim());          
+                int ClassNumber = int.Parse(columns[2].Trim());
+                int SectionNumber = int.Parse(columns[3].Trim());
+                int ClassID = int.Parse(columns[4].Trim());
 
                 // Create a new Class object and add the course to the database
                 Class cls = new Class();

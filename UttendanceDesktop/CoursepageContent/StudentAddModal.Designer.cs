@@ -42,49 +42,53 @@ namespace UttendanceDesktop.CoursepageContent
             addBtn = new Button();
             cancelBtn = new Button();
             mySqlCommand1 = new MySql.Data.MySqlClient.MySqlCommand();
+            asterisk1 = new Label();
+            asterisk2 = new Label();
+            asterisk3 = new Label();
+            asterisk4 = new Label();
             SuspendLayout();
             // 
             // LNameLabel
             // 
             LNameLabel.AutoSize = true;
-            LNameLabel.Font = new Font("Segoe UI", 10F);
+            LNameLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LNameLabel.ForeColor = Color.FromArgb(37, 42, 69);
             LNameLabel.Location = new Point(21, 25);
             LNameLabel.Name = "LNameLabel";
-            LNameLabel.Size = new Size(74, 19);
+            LNameLabel.Size = new Size(84, 20);
             LNameLabel.TabIndex = 0;
             LNameLabel.Text = "Last Name";
             // 
             // FNameLabel
             // 
             FNameLabel.AutoSize = true;
-            FNameLabel.Font = new Font("Segoe UI", 10F);
+            FNameLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             FNameLabel.ForeColor = Color.FromArgb(37, 42, 69);
             FNameLabel.Location = new Point(188, 25);
             FNameLabel.Name = "FNameLabel";
-            FNameLabel.Size = new Size(75, 19);
+            FNameLabel.Size = new Size(86, 20);
             FNameLabel.TabIndex = 1;
             FNameLabel.Text = "First Name";
             // 
             // netIDLabel
             // 
             netIDLabel.AutoSize = true;
-            netIDLabel.Font = new Font("Segoe UI", 10F);
+            netIDLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             netIDLabel.ForeColor = Color.FromArgb(37, 42, 69);
             netIDLabel.Location = new Point(352, 25);
             netIDLabel.Name = "netIDLabel";
-            netIDLabel.Size = new Size(51, 19);
+            netIDLabel.Size = new Size(56, 20);
             netIDLabel.TabIndex = 2;
             netIDLabel.Text = "Net-ID";
             // 
             // utdIDLabel
             // 
             utdIDLabel.AutoSize = true;
-            utdIDLabel.Font = new Font("Segoe UI", 10F);
+            utdIDLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             utdIDLabel.ForeColor = Color.FromArgb(37, 42, 69);
             utdIDLabel.Location = new Point(484, 25);
             utdIDLabel.Name = "utdIDLabel";
-            utdIDLabel.Size = new Size(56, 19);
+            utdIDLabel.Size = new Size(62, 20);
             utdIDLabel.TabIndex = 3;
             utdIDLabel.Text = "UTD-ID";
             // 
@@ -127,9 +131,9 @@ namespace UttendanceDesktop.CoursepageContent
             addBtn.FlatStyle = FlatStyle.Flat;
             addBtn.Font = new Font("Segoe UI", 10F);
             addBtn.ForeColor = Color.White;
-            addBtn.Location = new Point(507, 114);
+            addBtn.Location = new Point(507, 103);
             addBtn.Name = "addBtn";
-            addBtn.Size = new Size(89, 30);
+            addBtn.Size = new Size(82, 32);
             addBtn.TabIndex = 8;
             addBtn.Text = "Add";
             addBtn.UseVisualStyleBackColor = false;
@@ -142,9 +146,9 @@ namespace UttendanceDesktop.CoursepageContent
             cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.Font = new Font("Segoe UI", 10F);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(394, 114);
+            cancelBtn.Location = new Point(414, 103);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(89, 30);
+            cancelBtn.Size = new Size(82, 32);
             cancelBtn.TabIndex = 9;
             cancelBtn.Text = "Cancel";
             cancelBtn.UseVisualStyleBackColor = false;
@@ -157,12 +161,64 @@ namespace UttendanceDesktop.CoursepageContent
             mySqlCommand1.EnableCaching = false;
             mySqlCommand1.Transaction = null;
             // 
-            // StudentModule
+            // asterisk1
+            // 
+            asterisk1.AutoSize = true;
+            asterisk1.BackColor = Color.Transparent;
+            asterisk1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            asterisk1.ForeColor = Color.Red;
+            asterisk1.Location = new Point(103, 19);
+            asterisk1.Name = "asterisk1";
+            asterisk1.Size = new Size(20, 25);
+            asterisk1.TabIndex = 11;
+            asterisk1.Text = "*";
+            // 
+            // asterisk2
+            // 
+            asterisk2.AutoSize = true;
+            asterisk2.BackColor = Color.Transparent;
+            asterisk2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            asterisk2.ForeColor = Color.Red;
+            asterisk2.Location = new Point(273, 19);
+            asterisk2.Name = "asterisk2";
+            asterisk2.Size = new Size(20, 25);
+            asterisk2.TabIndex = 12;
+            asterisk2.Text = "*";
+            // 
+            // asterisk3
+            // 
+            asterisk3.AutoSize = true;
+            asterisk3.BackColor = Color.Transparent;
+            asterisk3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            asterisk3.ForeColor = Color.Red;
+            asterisk3.Location = new Point(406, 19);
+            asterisk3.Name = "asterisk3";
+            asterisk3.Size = new Size(20, 25);
+            asterisk3.TabIndex = 13;
+            asterisk3.Text = "*";
+            // 
+            // asterisk4
+            // 
+            asterisk4.AutoSize = true;
+            asterisk4.BackColor = Color.Transparent;
+            asterisk4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            asterisk4.ForeColor = Color.Red;
+            asterisk4.Location = new Point(546, 19);
+            asterisk4.Name = "asterisk4";
+            asterisk4.Size = new Size(20, 25);
+            asterisk4.TabIndex = 14;
+            asterisk4.Text = "*";
+            // 
+            // StudentAddModal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(617, 159);
+            ClientSize = new Size(617, 146);
+            Controls.Add(asterisk4);
+            Controls.Add(asterisk3);
+            Controls.Add(asterisk2);
+            Controls.Add(asterisk1);
             Controls.Add(cancelBtn);
             Controls.Add(addBtn);
             Controls.Add(createUTDID);
@@ -174,7 +230,8 @@ namespace UttendanceDesktop.CoursepageContent
             Controls.Add(FNameLabel);
             Controls.Add(LNameLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "StudentModule";
+            Name = "StudentAddModal";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Add Student";
             ResumeLayout(false);
             PerformLayout();
@@ -193,5 +250,9 @@ namespace UttendanceDesktop.CoursepageContent
         private Button addBtn;
         private Button cancelBtn;
         private MySql.Data.MySqlClient.MySqlCommand mySqlCommand1;
+        private Label asterisk1;
+        private Label asterisk2;
+        private Label asterisk3;
+        private Label asterisk4;
     }
 }

@@ -131,7 +131,7 @@ namespace UttendanceDesktop.CoursepageContent
             dataTable.Columns.Add("First Name");
             dataTable.Columns.Add("Net-ID");
             dataTable.Columns.Add("UTD-ID");
-            dataTable.Columns.Add("Unexcused Absences");
+            dataTable.Columns.Add("Abs.");
             dataTable.Columns.Add("IP Address");
 
             DateTime localDate = DateTime.Now;
@@ -208,7 +208,7 @@ namespace UttendanceDesktop.CoursepageContent
                         }
                     }
                     //Set the unexcused absence count
-                    row["Unexcused Absences"] = absenceCount;
+                    row["Abs."] = absenceCount;
 
                     dataTable.Rows.Add(row);
                 }

@@ -129,6 +129,7 @@ namespace UttendanceDesktop
             summaryTable.CellBeginEdit += summaryTable_CellBeginEdit;
             summaryTable.CellClick += summaryTable_CellClick;
             summaryTable.CellEndEdit += summaryTable_CellEndEdit;
+            summaryTable.CellFormatting += summaryTable_CellFormatting;
             summaryTable.ColumnHeaderMouseClick += summaryTable_ColumnHeaderMouseClick;
             // 
             // summaryLabel

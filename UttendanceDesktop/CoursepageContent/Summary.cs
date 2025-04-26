@@ -62,6 +62,9 @@ namespace UttendanceDesktop
                 summaryTable.Columns[i].Width = 120;
             }
 
+            //Make the absence column shorter
+            summaryTable.Columns[4].Width = 70;
+
             //Set the form columns to be smaller
             for (int i = 6; i < summaryTable.Columns.Count; i++)
             {
@@ -181,7 +184,7 @@ namespace UttendanceDesktop
                     row.Cells[selectedCol].Style.ForeColor = Color.White;
                 }
             }
-            else if(prevSelectedCol > 5)
+            else if (prevSelectedCol > 5)
             {
                 //Keep the selected column highlighted after refresh of ordering
                 foreach (DataGridViewRow row in summaryTable.Rows)
@@ -189,6 +192,15 @@ namespace UttendanceDesktop
                     row.Cells[prevSelectedCol].Style.BackColor = GlobalStyle.PASTEL_BLUE;
                     row.Cells[prevSelectedCol].Style.ForeColor = Color.White;
                 }
+            }
+        }
+
+        //Makes the absence column right align
+        private void summaryTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                summaryTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
         }
     }
