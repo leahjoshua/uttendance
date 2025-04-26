@@ -134,6 +134,7 @@
              * NetID: JXY200013*/
             if (validStudent != null && validPassword != null)
             {
+                /*
                 // Get information for Submission
                 var submission = new Submission
                 {
@@ -146,6 +147,9 @@
 
                 // Insert to database
                 await SubmissionService.InsertSubmissionAsync(submission);
+                */
+                await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent);
+
 
                 /*Count the number of questions, if 0 --> go to submission page*/
                 var formID = string.Join(", ", formIDs);
