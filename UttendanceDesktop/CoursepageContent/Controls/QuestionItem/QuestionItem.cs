@@ -207,7 +207,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         }
 
         // Aendri 4/17/2025
-        // On click, creates an event and raises it to the parent control with the question's ID
+        // On click, creates an event and raises it to the parent control.
         private void editButton_Click(object sender, EventArgs e)
         {
             if (OnClickEdit != null)

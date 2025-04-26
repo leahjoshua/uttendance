@@ -32,8 +32,9 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
         public BankModal(int bankID, String bankTitle)
         {
             InitializeComponent();
-            bankID = bankID;
-            bankTitle = bankTitle;
+            this.bankID = bankID;
+            this.bankTitle = bankTitle;
+
             isUpdate = true;
 
             nameTextbox.Text = bankTitle;
@@ -44,23 +45,8 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
         // Verify and create new question bank entry 
         private void CreateNewBank()
         {
-            // Title too short
-            if (bankTitle.Length < 1)
-            {
-                MessageBox.Show("Title too short!", "Invalid Title", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            // Title too long
-            else if (bankTitle.Length > 64)
-            {
-                MessageBox.Show("Title too long! Max length is 64 characters.", "Invalid Title", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            // Title already in sure
-            else if (!DB.IsValidBankTitle(bankTitle))
-            {
-                MessageBox.Show("Title already in use! Please use a different title.", "Invalid Title", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
             // CREATE New question bank item
-            else
+            if (VerifyBankTitle())
             {
                 bankID = DB.CreateNewBank(bankTitle);
                 this.Close();
@@ -69,9 +55,43 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
             }
         }
 
+        // Aendri 4/25/2025
+        // Update a bank's name
         private void UpdateBank()
         {
+            if (VerifyBankTitle())
+            {
+                DB.UpdateBank(bankID, bankTitle);
+                this.Close();
+            }
+        }
 
+        // Aendri 4/25/2025
+        // Verifies if the bank's title is valid to use
+        // Displays error messages if invalid
+        private bool VerifyBankTitle()
+        {
+            // Title too short/only has spaces
+            if (string.IsNullOrWhiteSpace(bankTitle))
+            {
+                MessageBox.Show("Title too short!", "Invalid Title", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            // Title too long
+            else if (bankTitle.Length > 64)
+            {
+                MessageBox.Show("Title too long! Max length is 64 characters.", "Invalid Title", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            // Title already in use
+            else if (!DB.IsValidBankTitle(bankTitle))
+            {
+                MessageBox.Show("Title already in use! Please use a different title.", "Invalid Title", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            // VALID name
+            else
+            {
+                return true;
+            }
+            return false;
         }
 
         // ************ EVENTS ************* //

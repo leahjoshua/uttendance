@@ -53,12 +53,13 @@
             bankTitleLabel.AutoSize = true;
             bankTitleLabel.Font = new Font("Segoe UI", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
             bankTitleLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            bankTitleLabel.Location = new Point(53, 48);
+            bankTitleLabel.Location = new Point(53, 57);
             bankTitleLabel.Name = "bankTitleLabel";
             bankTitleLabel.Size = new Size(75, 41);
             bankTitleLabel.TabIndex = 2;
             bankTitleLabel.Text = "Title";
             bankTitleLabel.TextAlign = ContentAlignment.MiddleLeft;
+            bankTitleLabel.Click += bankTitleLabel_Click;
             // 
             // flowLayoutPanel
             // 
@@ -100,7 +101,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(715, 646);
+            SaveEditIcon.Location = new Point(631, 702);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
@@ -113,7 +114,7 @@
             newEditIcon.FlatAppearance.BorderColor = Color.White;
             newEditIcon.FlatAppearance.BorderSize = 2;
             newEditIcon.FlatStyle = FlatStyle.Flat;
-            newEditIcon.Location = new Point(841, 545);
+            newEditIcon.Location = new Point(838, 543);
             newEditIcon.Name = "newEditIcon";
             newEditIcon.Size = new Size(40, 40);
             newEditIcon.TabIndex = 17;

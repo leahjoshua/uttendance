@@ -114,10 +114,7 @@ namespace UttendanceDesktop
                 // Open the new question bank module
                 using (BankModal createBank = new BankModal())
                 {
-                    if (createBank.ShowDialog() == DialogResult.OK)
-                    {
-
-                    }
+                    bool result = createBank.ShowDialog() == DialogResult.OK;
                 }
                 PopulateBankList();
             }
