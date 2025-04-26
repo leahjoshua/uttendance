@@ -94,9 +94,6 @@
     private string errorMessage = "";
     private bool isLoading = false;
 
-    // Variable for checking if there are questions to answer
-    private Has has = new Has();
-
     /* Checks the validity of the Student's ID and Class Password 
      * Checks if the Attendance associated with the password is valid in the database
      */
@@ -137,31 +134,6 @@
              * NetID: JXY200013*/
             if (validStudent != null && validPassword != null)
             {
-                //int formId = formIDs[0];
-                
-                var hasQuestions = await db.Has
-                .AsNoTracking()
-                .AnyAsync(h => h.FK_FormID == has.FK_FormID);
-                
-               /*
-                var hasQuestions = await (from f in db.Form
-                    join h in db.Has
-                    on f.FormID equals h.FK_FormID
-                    where h.FK_FormID == has.FK_FormID
-                    select f.FormID).ToListAsync();
-                */
-                Console.WriteLine("form number:" + formIDs[0]);
-                Console.WriteLine("checkForQuiz: " + hasQuestions);
-
-                if(hasQuestions)
-                {
-                    navigateManager.NavigateTo($"/quiz/{formIDs}");
-                }
-                else
-                {
-                    await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent);
-                    navigateManager.NavigateTo("/submission");
-                }
                 // If there are no questions to answer, go to submission page
                 // otherwise go to quiz page
                 /*
@@ -177,10 +149,9 @@
                     var formID = string.Join(", ", formIDs);
                     navigateManager.NavigateTo($"/quiz/{formID}");
                     }
-                
+                */
                 await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent);
                 navigateManager.NavigateTo($"/quiz/{formIDs}");
-                */
 
             }
             else if(validStudent == null && validPassword == null)

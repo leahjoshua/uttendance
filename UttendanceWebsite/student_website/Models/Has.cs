@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace student_website.Models
+﻿namespace student_website.Models
 {
     public class Has
     {
