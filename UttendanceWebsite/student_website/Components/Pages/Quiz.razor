@@ -64,11 +64,19 @@
     private DateTime? dueDate { get; set; }
     private List<Question>? questions;
     private int currentCount = 0;
+    private string? userIP;
+    [Parameter]
+    public Student student { get; set; }
+    private int intID = 0;
 
     protected override async Task OnInitializedAsync()
     {
+        // Get user IPAddress
+        var info = ConnectionService.GetUserConnectionInfo();
+        userIP = info.RemoteIpAddress;
+
         //show date
-        int intID = int.Parse(formID);
+        intID = int.Parse(formID);
         using var db = DbContextFactory.CreateDbContext();
         var form = await db.Form.FirstOrDefaultAsync(f => f.FormID.Equals(intID));
         dueDate = form?.CloseDateTime;
@@ -82,8 +90,10 @@
         currentCount++;
     }
 
-    private void Submit()
+    // Adding async allows you to use await
+    private async Task Submit()
     {
+        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, student);
         navigateManager.NavigateTo("/submission");
     }
 }
