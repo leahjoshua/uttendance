@@ -17,6 +17,7 @@
 @inject IDbContextFactory<ApplicationDbContext> DbContextFactory
 @inject UserConnectionInfoService ConnectionService
 @inject SubmissionService SubmissionService
+@inject StudentService StudentService
 @using student_website.Models
 @using student_website.Services
 @using Microsoft.EntityFrameworkCore
@@ -134,11 +135,13 @@
              * NetID: JXY200013*/
             if (validStudent != null && validPassword != null)
             {
+                StudentService.StudentID = validStudent.UTDID;
+
                 var questions = await db.Question.Where(q => q.FK_BankID == formIDs[0]).ToListAsync();
                 
                 if (questions == null || !questions.Any())
                 {
-                    await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent);
+                    await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent.UTDID);
                     navigateManager.NavigateTo("/submission?");
                 }
                 else

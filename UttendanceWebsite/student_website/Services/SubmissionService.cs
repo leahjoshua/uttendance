@@ -39,14 +39,14 @@ namespace student_website.Services
         }
 
         // Function to insert Submission information to database
-        public async Task CreateAndInsertSubmissionAsync(String userIP, int form, Student student)
+        public async Task CreateAndInsertSubmissionAsync(String userIP, int form, int studentID)
         {
             var submission = new Submission
             {
                 IPAddress = userIP,
                 DateTime = DateTime.Now,
                 FK_FormID = form,
-                FK_UTDID = student.UTDID
+                FK_UTDID = studentID
             };
 
             // Insert to database

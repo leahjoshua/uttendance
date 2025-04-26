@@ -14,6 +14,7 @@
 @inject IDbContextFactory<ApplicationDbContext> DbContextFactory
 @inject UserConnectionInfoService ConnectionService
 @inject SubmissionService SubmissionService
+@inject StudentService StudentService
 @using student_website.Models
 @using student_website.Services
 @using Microsoft.EntityFrameworkCore
@@ -65,8 +66,6 @@
     private List<Question>? questions;
     private int currentCount = 0;
     private string? userIP;
-    [Parameter]
-    public Student student { get; set; }
     private int intID = 0;
 
     protected override async Task OnInitializedAsync()
@@ -93,7 +92,7 @@
     // Adding async allows you to use await
     private async Task Submit()
     {
-        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, student);
+        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, StudentService.StudentID);
         navigateManager.NavigateTo("/submission");
     }
 }
