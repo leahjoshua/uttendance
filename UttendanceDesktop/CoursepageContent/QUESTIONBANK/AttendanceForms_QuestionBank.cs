@@ -25,6 +25,18 @@ namespace UttendanceDesktop
         public AttendanceForms_QuestionBank()
         {
             InitializeComponent();
+            //Set panel size
+            attendanceFormPagePanel.Size = Size;
+
+            //Set the grid height
+            int width = attendanceFormPagePanel.Width - 50;
+            int height = attendanceFormPagePanel.Height - 75;
+
+            flowLayoutPanel.Width = width;
+            flowLayoutPanel.Height = height;
+            flowLayoutPanel.MaximumSize = new Size(width, height);
+            flowLayoutPanel.MinimumSize = new Size(width, height);
+
             PopulateBankList();
         }
 

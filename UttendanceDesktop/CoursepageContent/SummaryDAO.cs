@@ -12,6 +12,7 @@ namespace UttendanceDesktop.CoursepageContent
 {
     // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
     // NetID: jxy210012
+    // Wrote the whole SummaryDAO class
     internal class SummaryDAO
     {
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
@@ -29,6 +30,7 @@ namespace UttendanceDesktop.CoursepageContent
                 "AND CloseDateTime < @now", connection);
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
+
             //Read result
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
@@ -38,6 +40,38 @@ namespace UttendanceDesktop.CoursepageContent
 
             return count;
         }
+
+        //Gets the IP Address for a submission given the student and form id
+        public string getIPAddress(int formID, int studentID)
+        {
+            //Open database connection
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            //Check if submissionID exists
+            MySqlCommand cmd = new MySqlCommand("SELECT IPAddress FROM submission " +
+               "WHERE submission.FK_FormID=@checkformID AND submission.FK_UTDID=@checkUtdID;", connection);
+            cmd.Parameters.AddWithValue("@checkformID", formID);
+            cmd.Parameters.AddWithValue("@checkUtdID", studentID);
+
+            //Read IP Address
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    var ip = reader["IPAddress"];
+                    if (ip == DBNull.Value)
+                        return "NULL";
+                    return ip.ToString();
+                }
+                else
+                {
+                    return "NULL";
+                }
+            }
+        }
+
+        //Updates the attendance status of the given student and form id
         public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
         {
             //Open database connection
@@ -81,6 +115,8 @@ namespace UttendanceDesktop.CoursepageContent
             return true;
         }
 
+        //Gets the data for the summary table, displaying the information and submission details
+        //for every student in the class along with their submissions for each form
         public DataTable getSummaryInfo(int courseNum)
         {
             DataTable dataTable = new DataTable();
@@ -95,7 +131,8 @@ namespace UttendanceDesktop.CoursepageContent
             dataTable.Columns.Add("First Name");
             dataTable.Columns.Add("Net-ID");
             dataTable.Columns.Add("UTD-ID");
-            dataTable.Columns.Add("Unexcused Absences");
+            dataTable.Columns.Add("Abs.");
+            dataTable.Columns.Add("IP Address");
 
             DateTime localDate = DateTime.Now;
             //Get the closed forms for this class
@@ -104,8 +141,8 @@ namespace UttendanceDesktop.CoursepageContent
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
             cmd.Parameters.AddWithValue("@now", localDate);
 
-            int colNum = 5;
-            //Create column headers
+            int colNum = 6;
+            //Create column headers for forms
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
                 while (databaseReader.Read())
@@ -113,6 +150,7 @@ namespace UttendanceDesktop.CoursepageContent
                     formCount++;
                     dataTable.Columns.Add("Form #" + formCount + "\r\n" + 
                         ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
+                    //Add form id to the column
                     dataTable.Columns[colNum].ExtendedProperties["FormID"] = databaseReader["FormID"].ToString();
                     colNum++;
                 }
@@ -120,13 +158,13 @@ namespace UttendanceDesktop.CoursepageContent
 
             //Select student information from all students enrolled in the current class
             //as well as all of their attendance status for each form
-            cmd = new MySqlCommand("SELECT s.*, f.FormID, DATE(ReleaseDateTime) AS ReleaseDate, sub.AttendanceStatus " +
+            cmd = new MySqlCommand("SELECT s.*, DATE(ReleaseDateTime) AS ReleaseDate, sub.AttendanceStatus " +
                 "FROM student s " +
                 "JOIN attends a ON s.UTDID=a.FK_UTDID " +
                 "JOIN form f ON a.FK_CourseNum=f.FK_CourseNum " +
                 "LEFT JOIN submission sub ON sub.FK_FormID=f.FormID AND sub.FK_UTDID=s.UTDID " +
                 "WHERE a.FK_CourseNum=@courseNum AND f.CloseDateTime < @today " +
-                "ORDER BY s.SLName ASC, f.ReleaseDateTime ASC;", connection);
+                "ORDER BY s.UTDID ASC, f.ReleaseDateTime ASC;", connection);
             cmd.Parameters.AddWithValue("@courseNum", courseNum);
             cmd.Parameters.AddWithValue("@today", localDate);
 
@@ -142,6 +180,8 @@ namespace UttendanceDesktop.CoursepageContent
                     row["First Name"] = databaseReader["SFName"].ToString();
                     row["Net-ID"] = databaseReader["SNetID"].ToString();
                     row["UTD-ID"] = databaseReader["UTDID"].ToString();
+
+                    row["IP Address"] = "";
 
                     var studentID = databaseReader["UTDID"].ToString();
                     //Fill in status for each form
@@ -160,20 +200,21 @@ namespace UttendanceDesktop.CoursepageContent
                         row["Form #" + (i + 1) + "\r\n"
                             + ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd")]
                             = status.ToString();
+
+                        //Read the attendance status for the next form
                         if (i < formCount - 1)
                         {
                             databaseReader.Read();
                         }
                     }
-                    row["Unexcused Absences"] = absenceCount;
+                    //Set the unexcused absence count
+                    row["Abs."] = absenceCount;
 
                     dataTable.Rows.Add(row);
                 }
             }
 
             connection.Close();
-            //Send data to data table
-
             return dataTable;
         }
     }

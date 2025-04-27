@@ -32,6 +32,10 @@ namespace UttendanceDesktop
         {
             //Initialize UI of AddManualCourse Form
             InitializeComponent();
+
+            //Set the start and end time to be the time of creation by default
+            startTimePicker.Value = DateTime.Today;
+            endTimePicker.Value = startTimePicker.Value.AddHours(1).AddMinutes(15);
         }
 
         /**************************************************************************
@@ -269,6 +273,8 @@ namespace UttendanceDesktop
             string number1 = classNumberTextBox.ForeColor == Color.Gray ? "" : classNumberTextBox.Text;
             string section1 = sectionNumberTextBox.ForeColor == Color.Gray ? "" : sectionNumberTextBox.Text;
             string classId1 = classIDTextBox.ForeColor == Color.Gray ? "" : classIDTextBox.Text;
+            TimeSpan start = startTimePicker.Value.TimeOfDay;
+            TimeSpan end = endTimePicker.Value.TimeOfDay;
 
             // Validate each field and show an error if missing
             if (string.IsNullOrWhiteSpace(name))
@@ -304,7 +310,7 @@ namespace UttendanceDesktop
 
             // Create a new Class object and attempt to add the course
             Class cls = new Class();
-            string result = cls.AddClass(name, prefix, number, section, classId);
+            string result = cls.AddClass(name, prefix, number, section, classId, start, end);
 
             // Show the result of the add operation to the user
             MessageBox.Show(result);
@@ -343,6 +349,15 @@ namespace UttendanceDesktop
         {
             // Close the form when the user clicks Cancel
             this.Close();
+        }
+
+        /**************************************************************************
+         * Handles the value change event for the Start DateTime picker.
+         * Adds 1 hour and 15 minute by default to the End DateTime picker.
+         **************************************************************************/
+        private void startTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            endTimePicker.Value = startTimePicker.Value.AddHours(1).AddMinutes(15);
         }
     }
 }
