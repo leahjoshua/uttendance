@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             overlayPanel = new Panel();
+            label1 = new Label();
+            classEndTimeLabel = new Label();
+            endTimePicker = new DateTimePicker();
+            CSTStarLabel = new Label();
+            classStartTimeLabel = new Label();
+            startTimePicker = new DateTimePicker();
             classIDTextBox = new TextBox();
             sectionNumberTextBox = new TextBox();
             classNumberTextBox = new TextBox();
@@ -46,12 +52,6 @@
             classNumberLabel = new Label();
             classPrefixLabel = new Label();
             courseNameLabel = new Label();
-            startTimePicker = new DateTimePicker();
-            classStartTimeLabel = new Label();
-            CSTStarLabel = new Label();
-            label1 = new Label();
-            classEndTimeLabel = new Label();
-            endTimePicker = new DateTimePicker();
             overlayPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -88,6 +88,71 @@
             overlayPanel.Name = "overlayPanel";
             overlayPanel.Size = new Size(633, 274);
             overlayPanel.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Red;
+            label1.Location = new Point(288, 152);
+            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(20, 25);
+            label1.TabIndex = 24;
+            label1.Text = "*";
+            // 
+            // classEndTimeLabel
+            // 
+            classEndTimeLabel.AutoSize = true;
+            classEndTimeLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            classEndTimeLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            classEndTimeLabel.Location = new Point(175, 156);
+            classEndTimeLabel.Margin = new Padding(2, 0, 2, 0);
+            classEndTimeLabel.Name = "classEndTimeLabel";
+            classEndTimeLabel.Size = new Size(113, 20);
+            classEndTimeLabel.TabIndex = 23;
+            classEndTimeLabel.Text = "Class End Time";
+            // 
+            // endTimePicker
+            // 
+            endTimePicker.Format = DateTimePickerFormat.Time;
+            endTimePicker.Location = new Point(173, 179);
+            endTimePicker.Name = "endTimePicker";
+            endTimePicker.Size = new Size(119, 25);
+            endTimePicker.TabIndex = 22;
+            // 
+            // CSTStarLabel
+            // 
+            CSTStarLabel.AutoSize = true;
+            CSTStarLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CSTStarLabel.ForeColor = Color.Red;
+            CSTStarLabel.Location = new Point(148, 152);
+            CSTStarLabel.Margin = new Padding(2, 0, 2, 0);
+            CSTStarLabel.Name = "CSTStarLabel";
+            CSTStarLabel.Size = new Size(20, 25);
+            CSTStarLabel.TabIndex = 21;
+            CSTStarLabel.Text = "*";
+            // 
+            // classStartTimeLabel
+            // 
+            classStartTimeLabel.AutoSize = true;
+            classStartTimeLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            classStartTimeLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            classStartTimeLabel.Location = new Point(26, 156);
+            classStartTimeLabel.Margin = new Padding(2, 0, 2, 0);
+            classStartTimeLabel.Name = "classStartTimeLabel";
+            classStartTimeLabel.Size = new Size(121, 20);
+            classStartTimeLabel.TabIndex = 20;
+            classStartTimeLabel.Text = "Class Start Time";
+            // 
+            // startTimePicker
+            // 
+            startTimePicker.Format = DateTimePickerFormat.Time;
+            startTimePicker.Location = new Point(24, 179);
+            startTimePicker.Name = "startTimePicker";
+            startTimePicker.Size = new Size(119, 25);
+            startTimePicker.TabIndex = 19;
+            startTimePicker.ValueChanged += startTimePicker_ValueChanged;
             // 
             // classIDTextBox
             // 
@@ -318,70 +383,6 @@
             courseNameLabel.Size = new Size(103, 20);
             courseNameLabel.TabIndex = 0;
             courseNameLabel.Text = "Course Name";
-            // 
-            // startTimePicker
-            // 
-            startTimePicker.Format = DateTimePickerFormat.Time;
-            startTimePicker.Location = new Point(24, 179);
-            startTimePicker.Name = "startTimePicker";
-            startTimePicker.Size = new Size(119, 25);
-            startTimePicker.TabIndex = 19;
-            // 
-            // classStartTimeLabel
-            // 
-            classStartTimeLabel.AutoSize = true;
-            classStartTimeLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            classStartTimeLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            classStartTimeLabel.Location = new Point(26, 156);
-            classStartTimeLabel.Margin = new Padding(2, 0, 2, 0);
-            classStartTimeLabel.Name = "classStartTimeLabel";
-            classStartTimeLabel.Size = new Size(121, 20);
-            classStartTimeLabel.TabIndex = 20;
-            classStartTimeLabel.Text = "Class Start Time";
-            // 
-            // CSTStarLabel
-            // 
-            CSTStarLabel.AutoSize = true;
-            CSTStarLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CSTStarLabel.ForeColor = Color.Red;
-            CSTStarLabel.Location = new Point(148, 152);
-            CSTStarLabel.Margin = new Padding(2, 0, 2, 0);
-            CSTStarLabel.Name = "CSTStarLabel";
-            CSTStarLabel.Size = new Size(20, 25);
-            CSTStarLabel.TabIndex = 21;
-            CSTStarLabel.Text = "*";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Red;
-            label1.Location = new Point(288, 152);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(20, 25);
-            label1.TabIndex = 24;
-            label1.Text = "*";
-            // 
-            // classEndTimeLabel
-            // 
-            classEndTimeLabel.AutoSize = true;
-            classEndTimeLabel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            classEndTimeLabel.ForeColor = Color.FromArgb(37, 42, 69);
-            classEndTimeLabel.Location = new Point(175, 156);
-            classEndTimeLabel.Margin = new Padding(2, 0, 2, 0);
-            classEndTimeLabel.Name = "classEndTimeLabel";
-            classEndTimeLabel.Size = new Size(113, 20);
-            classEndTimeLabel.TabIndex = 23;
-            classEndTimeLabel.Text = "Class End Time";
-            // 
-            // endTimePicker
-            // 
-            endTimePicker.Format = DateTimePickerFormat.Time;
-            endTimePicker.Location = new Point(173, 179);
-            endTimePicker.Name = "endTimePicker";
-            endTimePicker.Size = new Size(119, 25);
-            endTimePicker.TabIndex = 22;
             // 
             // AddManualCourse
             // 

@@ -32,7 +32,7 @@ namespace UttendanceDesktop
          * Returns:
          *   Success message or error description
          **************************************************************************/
-        public string AddClass(string name, string prefix, int number, int section, int classId)
+        public string AddClass(string name, string prefix, int number, int section, int classId, TimeSpan startTime, TimeSpan endTime)
         {
             try
             {
@@ -46,8 +46,8 @@ namespace UttendanceDesktop
                     // 3. Insert into teaches table to link instructor and course
                     string query = @"
                 INSERT INTO class 
-                    (CourseNum, SectionNum, ClassSubject, ClassNum, ClassName) 
-                    VALUES (@classId, @section, @prefix, @number, @name);
+                    (CourseNum, SectionNum, ClassSubject, ClassNum, ClassName, ClassStartTime, ClassEndTime) 
+                    VALUES (@classId, @section, @prefix, @number, @name, @start, @end);
                 
                 SELECT LAST_INSERT_ID();
 
@@ -64,6 +64,8 @@ namespace UttendanceDesktop
                         cmd.Parameters.AddWithValue("@section", section);  // Section number (e.g., 003)
                         cmd.Parameters.AddWithValue("@classId", classId);  // Unique class ID
                         cmd.Parameters.AddWithValue("@netid", GlobalResource.INetID); // Current instructor's NetID
+                        cmd.Parameters.AddWithValue("@start", startTime);  // Class start time
+                        cmd.Parameters.AddWithValue("@end", endTime);      // Class end time
 
                         // Execute the query 
                         object result = cmd.ExecuteScalar();

@@ -91,10 +91,12 @@ namespace UttendanceDesktop
                 int ClassNumber = int.Parse(columns[2].Trim());
                 int SectionNumber = int.Parse(columns[3].Trim());
                 int ClassID = int.Parse(columns[4].Trim());
+                TimeSpan ClassStartTime = TimeSpan.Parse(columns[5].Trim());
+                TimeSpan ClassEndTime = TimeSpan.Parse(columns[6].Trim());
 
                 // Create a new Class object and add the course to the database
                 Class cls = new Class();
-                string result = cls.AddClass(CourseName, ClassPrefix, ClassNumber, SectionNumber, ClassID);
+                string result = cls.AddClass(CourseName, ClassPrefix, ClassNumber, SectionNumber, ClassID, ClassStartTime, ClassEndTime);
             }
 
             // Notify the user that all courses have been imported

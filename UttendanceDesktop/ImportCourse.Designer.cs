@@ -46,7 +46,7 @@
             panel1.Location = new Point(-4, -1);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(450, 180);
+            panel1.Size = new Size(450, 211);
             panel1.TabIndex = 3;
             // 
             // importDirectionsLabel3
@@ -56,9 +56,9 @@
             importDirectionsLabel3.Location = new Point(22, 77);
             importDirectionsLabel3.Margin = new Padding(2, 0, 2, 0);
             importDirectionsLabel3.Name = "importDirectionsLabel3";
-            importDirectionsLabel3.Size = new Size(343, 40);
+            importDirectionsLabel3.Size = new Size(348, 60);
             importDirectionsLabel3.TabIndex = 10;
-            importDirectionsLabel3.Text = "“Course Name”, “Class Prefix”, “Class Number”, \r\n“Section Number”, and “Class ID”\r\n";
+            importDirectionsLabel3.Text = "“Course Name”, “Class Prefix”, “Class Number”, \r\n“Section Number”, “Class ID”, \"Class Start Time\",\r\nand \"Class End Time\"\r\n";
             // 
             // importDirectionsLabel1
             // 
@@ -78,7 +78,7 @@
             cancelButton.FlatStyle = FlatStyle.Flat;
             cancelButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cancelButton.ForeColor = Color.White;
-            cancelButton.Location = new Point(256, 134);
+            cancelButton.Location = new Point(256, 159);
             cancelButton.Margin = new Padding(2);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(82, 32);
@@ -94,7 +94,7 @@
             openButton.FlatStyle = FlatStyle.Flat;
             openButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             openButton.ForeColor = Color.White;
-            openButton.Location = new Point(351, 134);
+            openButton.Location = new Point(351, 159);
             openButton.Margin = new Padding(2);
             openButton.Name = "openButton";
             openButton.Size = new Size(78, 32);
@@ -108,7 +108,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(444, 177);
+            ClientSize = new Size(444, 208);
             Controls.Add(panel1);
             Margin = new Padding(2);
             Name = "ImportCourse";
