@@ -22,11 +22,13 @@
 
 <PageTitle>Attendance Quiz</PageTitle>
 
-<h1>Quiz</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<h1>
+    Attendance Form for 
+    @if(student != null)
+    {
+        <span>@student.SFName @student.SLName</span>
+    }
+</h1>
 
 <div class="quiz-header">
     Get the title here
@@ -59,7 +61,8 @@
 <button class="btn btn-submit" @onclick="Submit">Submit</button>
 
 @code {
-    //parisa
+    /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 24, 2025
+     * Judy Yang wrote lines related to Student to get student name to be displayed on the quiz page */
     [Parameter]
     public string? formID { get; set; }
     private DateTime? dueDate { get; set; }
@@ -67,6 +70,8 @@
     private int currentCount = 0;
     private string? userIP;
     private int intID = 0;
+    private int studentID = 0;
+    private Student student;
 
     protected override async Task OnInitializedAsync()
     {
@@ -80,15 +85,16 @@
         var form = await db.Form.FirstOrDefaultAsync(f => f.FormID.Equals(intID));
         dueDate = form?.CloseDateTime;
 
+        // Get student information
+        studentID = StudentService.StudentID;
+        student = await db.Student.FirstOrDefaultAsync(s => s.UTDID == studentID);
+
         //show questions
         questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
     }
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-
+    /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 26, 2025
+     * NetID: JXY200013*/
     // Adding async allows you to use await
     private async Task Submit()
     {
