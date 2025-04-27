@@ -38,6 +38,7 @@
             addCourseManualButton = new Button();
             importCourseButton = new Button();
             AddCoursePictureBox = new PictureBox();
+            formsBtn = new Button();
             homepageBanner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddCoursePictureBox).BeginInit();
@@ -189,12 +190,27 @@
             AddCoursePictureBox.TabStop = false;
             AddCoursePictureBox.Click += AddCoursePictureBox_Click;
             // 
+            // formsBtn
+            // 
+            formsBtn.BackColor = Color.FromArgb(50, 56, 87);
+            formsBtn.FlatAppearance.BorderSize = 0;
+            formsBtn.FlatStyle = FlatStyle.Flat;
+            formsBtn.ForeColor = Color.White;
+            formsBtn.Location = new Point(338, 115);
+            formsBtn.Name = "formsBtn";
+            formsBtn.Size = new Size(82, 32);
+            formsBtn.TabIndex = 9;
+            formsBtn.Text = "All Forms";
+            formsBtn.UseVisualStyleBackColor = false;
+            formsBtn.Click += formsBtn_Click;
+            // 
             // Homepage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(931, 388);
+            Controls.Add(formsBtn);
             Controls.Add(EditProfileButton);
             Controls.Add(LogoutButton);
             Controls.Add(editButton);
@@ -225,5 +241,6 @@
         private PictureBox AddCoursePictureBox;
         private Button LogoutButton;
         private Button EditProfileButton;
+        private Button formsBtn;
     }
 }

@@ -22,12 +22,14 @@ namespace UttendanceDesktop
 {
     public partial class ImportCourse : Form
     {
+        private string InstructorID;
         /**************************************************************************
          * Constructor for ImportCourse form.
          * Initializes the form and its components.
          **************************************************************************/
-        public ImportCourse()
+        public ImportCourse(string netID)
         {
+            InstructorID = netID;
             InitializeComponent();
         }
 
@@ -113,7 +115,7 @@ namespace UttendanceDesktop
             }
 
             // Open a new Homepage form
-            Homepage newHomepage = new Homepage();
+            Homepage newHomepage = new Homepage(InstructorID);
             newHomepage.Show();
         }
     }
