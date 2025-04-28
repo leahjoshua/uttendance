@@ -38,6 +38,7 @@ namespace UttendanceDesktop
         {
             YourCoursesLabel = new Label();
             homepageBanner = new Panel();
+            databaseInfoButton = new Button();
             LogoutButton = new Button();
             EditProfileButton = new Button();
             ProfilePictureBox = new PictureBox();
@@ -66,6 +67,7 @@ namespace UttendanceDesktop
             // 
             homepageBanner.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             homepageBanner.BackColor = Color.FromArgb(50, 56, 87);
+            homepageBanner.Controls.Add(databaseInfoButton);
             homepageBanner.Controls.Add(LogoutButton);
             homepageBanner.Controls.Add(EditProfileButton);
             homepageBanner.Controls.Add(ProfilePictureBox);
@@ -74,6 +76,20 @@ namespace UttendanceDesktop
             homepageBanner.Name = "homepageBanner";
             homepageBanner.Size = new Size(1324, 125);
             homepageBanner.TabIndex = 2;
+            // 
+            // databaseInfoButton
+            // 
+            databaseInfoButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            databaseInfoButton.BackColor = Color.FromArgb(234, 117, 7);
+            databaseInfoButton.Font = new Font("Afacad", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            databaseInfoButton.ForeColor = Color.White;
+            databaseInfoButton.Location = new Point(1029, 26);
+            databaseInfoButton.Name = "databaseInfoButton";
+            databaseInfoButton.Size = new Size(107, 75);
+            databaseInfoButton.TabIndex = 9;
+            databaseInfoButton.Text = "Database Information";
+            databaseInfoButton.UseVisualStyleBackColor = false;
+            databaseInfoButton.Click += databaseInfoButton_Click;
             // 
             // LogoutButton
             // 
@@ -216,5 +232,6 @@ namespace UttendanceDesktop
         private PictureBox AddCoursePictureBox;
         private Button LogoutButton;
         private Button EditProfileButton;
+        private Button databaseInfoButton;
     }
 }

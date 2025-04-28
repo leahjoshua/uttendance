@@ -10,12 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UttendanceDesktop
 {
@@ -172,7 +174,7 @@ namespace UttendanceDesktop
                                 Label infoLabel = new Label
                                 {
                                     Text = $"{courseName}\n{classPrefix} {classNumber}.{sectNumber}",
-                                    Font = new Font("Afacad", 10, FontStyle.Regular),
+                                    Font = new System.Drawing.Font("Afacad", 10, FontStyle.Regular),
                                     AutoSize = false,
                                     Size = new Size(tileWidth - 40, tileHeight - 40),
                                     Location = new Point(20, 40),
@@ -345,7 +347,7 @@ namespace UttendanceDesktop
         private void TilePanel_Click(object sender, EventArgs e)
         {
             // If still in Edit Mode, then Tiles should not be clickable
-            if(isEditMode)
+            if (isEditMode)
             {
                 return;
             }
@@ -417,6 +419,24 @@ namespace UttendanceDesktop
             //Open a new EditProfile Form
             EditProfile newEditProfile = new EditProfile();
             newEditProfile.Show();
+        }
+
+        /**************************************************************************
+        * Handles the click event for the database information button.
+        * Opens database information in Notepad text file for the user. 
+        **************************************************************************/
+        private void databaseInfoButton_Click(object sender, EventArgs e)
+        {
+            //Strings containing Database Information 
+            string databaseLocation = "Database Location: HeidiSQL, C:\\Program Files\\MariaDB 11.7\\data\\ \n";
+            string databaseName = "Database Name: uttendance\n";
+            string databaseLoginInformation = "User: root, Password: kachowmeow, Port: 3306";
+            string databaseInfo = databaseLocation + databaseName + databaseLoginInformation;
+
+            //Compile the text file format, write information into the text file
+            string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".txt");
+            File.WriteAllText(tempFile, databaseInfo);
+            Process.Start("notepad.exe", tempFile); //Open textfile in Notepad Application
         }
     }
 }
