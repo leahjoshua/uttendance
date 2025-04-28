@@ -26,6 +26,8 @@ namespace student_website.Services
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Instructor> Instructor { get; set; }
 
+        public DbSet<Has> Has { get; set; }
+
         /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025
          * NetID: PXN210032
          */
@@ -48,7 +50,27 @@ namespace student_website.Services
                 .HasOne(a => a.Class)
                 .WithMany(c => c.Attends)
                 .HasForeignKey(a => a.FK_CourseNum)
-                .HasPrincipalKey(c => c.CourseNum); 
+                .HasPrincipalKey(c => c.CourseNum);
+
+            /* Written by Judy Yang, JXY200013
+             * Added keys to connect composite key for Has */
+            // Composite Primary Key for Has
+            modelBuilder.Entity<Has>()
+                .HasKey(h => new { h.FK_FormID, h.FK_QuestionID });
+
+            // Form Foreign Key for Has
+            modelBuilder.Entity<Has>()
+                .HasOne(h => h.Form)
+                .WithMany(f => f.Has)
+                .HasForeignKey(h => h.FK_FormID)
+                .HasPrincipalKey(f => f.FormID);
+
+            // Question Foreign Key for Has
+            modelBuilder.Entity<Has>()
+                .HasOne(h => h.Question)
+                .WithMany(q => q.Has)
+                .HasForeignKey(h => h.FK_QuestionID)
+                .HasPrincipalKey(q => q.QuestionID);
         }
     }
 }

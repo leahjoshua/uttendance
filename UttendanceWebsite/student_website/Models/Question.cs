@@ -16,5 +16,8 @@ namespace student_website.Models
         public string ProblemStatement { get; set; } = "";
         [ForeignKey("FK_FormID")]
         public int? FK_BankID { get; set; }
+
+        //Referenced Keys
+        public ICollection<Has> Has { get; set; }
     }
 }
