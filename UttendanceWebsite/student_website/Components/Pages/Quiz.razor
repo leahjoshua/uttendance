@@ -31,7 +31,14 @@
 </h1>
 
 <div class="quiz-header">
-    Get the title here
+    @if(course != null)
+    {
+        <span>
+            @course.ClassSubject 
+            @course.ClassNum.@course.SectionNum?.ToString("000") -- 
+            @(dueDate?.ToString("MM/dd/yyyy"))
+        </span>
+    }
     <span style="text-align: right">
         Due at:
         <span style="color: #E97502">
@@ -72,6 +79,7 @@
     private int intID = 0;
     private int studentID = 0;
     private Student student;
+    private Class course;
 
     protected override async Task OnInitializedAsync()
     {
@@ -88,6 +96,9 @@
         // Get student information
         studentID = StudentService.StudentID;
         student = await db.Student.FirstOrDefaultAsync(s => s.UTDID == studentID);
+
+        // Get class information
+        course = await db.Class.FirstOrDefaultAsync(c => c.CourseNum == form.FK_CourseNum);
 
         //show questions
         questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
