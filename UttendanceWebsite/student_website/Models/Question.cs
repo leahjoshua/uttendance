@@ -18,6 +18,7 @@ namespace student_website.Models
         public int? FK_BankID { get; set; }
 
         //Referenced Keys
+        public ICollection<Answerchoice> Answerchoice { get; set; }
         public ICollection<Has> Has { get; set; }
     }
 }

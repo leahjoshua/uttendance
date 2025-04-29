@@ -61,6 +61,12 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <p class="card-text">@question.ProblemStatement</p>
+                    <!-- For each question, list the answer choices -->
+                    @foreach(var choice in question.Answerchoice)
+                    {
+                        <input type="radio" style="margin-right: 5px;"/>
+                        @choice.AnswerStatement<br/>
+                    }
                 </div>
             </div>
         }
@@ -111,9 +117,11 @@
         //show questions
         //questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
         /* Written by Judy Yang, JXY200013 */
+        // .Include() acts as a join
         questions = await db.Has
            .Where(h => h.FK_FormID == intID)
            .Include(h => h.Question)
+           .ThenInclude(q => q.Answerchoice)
            .Select(h => h.Question)
            .ToListAsync();
     }
