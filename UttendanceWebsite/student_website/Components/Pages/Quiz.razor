@@ -20,6 +20,7 @@
 @using Microsoft.EntityFrameworkCore
 @using System.ComponentModel.DataAnnotations
 
+<!-- Written by Judy Yang, JXY200013 -->
 <PageTitle>Attendance Quiz</PageTitle>
 
 <h1>
@@ -47,6 +48,7 @@
     </span>
 </div>
 
+<!-- Written by Parisa Nawar, PXN210032 -->
 <div class="quiz-body">
     @if (questions == null || !questions.Any())
     {
@@ -68,8 +70,9 @@
 <button class="btn btn-submit" @onclick="Submit">Submit</button>
 
 @code {
-    /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 24, 2025
-     * Judy Yang wrote lines related to Student to get student name to be displayed on the quiz page */
+    /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 24, 2025 
+     * NetID: PXN210032
+     */
     [Parameter]
     public string? formID { get; set; }
     private DateTime? dueDate { get; set; }
@@ -77,6 +80,8 @@
     private int currentCount = 0;
     private string? userIP;
     private int intID = 0;
+
+    /* Written by Judy Yang, JXY200013, starting April 26, 2025 */
     private int studentID = 0;
     private Student student;
     private Class course;
@@ -87,12 +92,14 @@
         var info = ConnectionService.GetUserConnectionInfo();
         userIP = info.RemoteIpAddress;
 
+        /* Written by Parisa Nawar, PXN210032 */
         //show date
         intID = int.Parse(formID);
         using var db = DbContextFactory.CreateDbContext();
         var form = await db.Form.FirstOrDefaultAsync(f => f.FormID.Equals(intID));
         dueDate = form?.CloseDateTime;
 
+        /* Written by Judy Yang, JXY200013 */
         // Get student information
         studentID = StudentService.StudentID;
         student = await db.Student.FirstOrDefaultAsync(s => s.UTDID == studentID);
@@ -100,11 +107,18 @@
         // Get class information
         course = await db.Class.FirstOrDefaultAsync(c => c.CourseNum == form.FK_CourseNum);
 
+        /* Written by Parisa Nawar, PXN210032 */
         //show questions
-        questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
+        //questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
+        /* Written by Judy Yang, JXY200013 */
+        questions = await db.Has
+           .Where(h => h.FK_FormID == intID)
+           .Include(h => h.Question)
+           .Select(h => h.Question)
+           .ToListAsync();
     }
 
-    /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 26, 2025
+    /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
      * NetID: JXY200013*/
     // Adding async allows you to use await
     private async Task Submit()
