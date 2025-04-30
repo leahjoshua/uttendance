@@ -58,17 +58,24 @@
     {
         @foreach (var question in questions)
         {
+            <!-- Resets the optionNum for the label id -->
+            { optionNum = 0; }
+
+            <!-- Box around questions -->
             <div class="card mb-3">
                 <div class="card-body">
                     <p class="card-text">@question.ProblemStatement</p>
-                    <!-- For each question, list the answer choices -->
+                    <!-- Written by Judy Yang, JXY200013
+                    For each question, list the answer choices -->
                     @foreach(var choice in question.Answerchoice)
                     {
-                        <input type="radio" style="margin-right: 5px;"/>
-                        @choice.AnswerStatement<br/>
+                        <input type="radio" id="@optionNum" name="question @currentCount" style="margin-right: 5px;"/>
+                        <label for="@optionNum"> @choice.AnswerStatement </label><br/>
+                        { optionNum++; }
                     }
                 </div>
             </div>
+            { currentCount++; }
         }
     }
 </div>
@@ -91,6 +98,7 @@
     private int studentID = 0;
     private Student student;
     private Class course;
+    private int optionNum = 0;
 
     protected override async Task OnInitializedAsync()
     {
