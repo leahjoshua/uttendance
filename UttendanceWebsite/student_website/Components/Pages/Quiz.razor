@@ -69,13 +69,14 @@
                     For each question, list the answer choices -->
                     @foreach(var choice in question.Answerchoice)
                     {
-                        <input type="radio" id="@optionNum" name="question @currentCount" style="margin-right: 5px;"/>
+                        <input type="radio" id="@optionNum" name="question @questionNum" style="margin-right: 5px;"/>
                         <label for="@optionNum"> @choice.AnswerStatement </label><br/>
                         { optionNum++; }
                     }
                 </div>
             </div>
-            { currentCount++; }
+            <!-- Question number for group the answer choices -->
+            { questionNum++; }
         }
     }
 </div>
@@ -90,7 +91,6 @@
     public string? formID { get; set; }
     private DateTime? dueDate { get; set; }
     private List<Question>? questions;
-    private int currentCount = 0;
     private string? userIP;
     private int intID = 0;
 
@@ -99,6 +99,7 @@
     private Student student;
     private Class course;
     private int optionNum = 0;
+    private int questionNum = 1;
 
     protected override async Task OnInitializedAsync()
     {
@@ -124,6 +125,7 @@
         /* Written by Parisa Nawar, PXN210032 */
         //show questions
         //questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
+
         /* Written by Judy Yang, JXY200013 */
         // .Include() acts as a join
         questions = await db.Has
