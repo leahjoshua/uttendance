@@ -49,7 +49,7 @@
             <br/>
 
             <!-- Written by Judy Yang, JXY200013 
-                Class password input -->
+            Class password input -->
             <div class="form-group">
                 <label for="password">Password</label>
                 <InputText id="password" @bind-Value="form.PassWd" class="form-control" />
@@ -66,14 +66,14 @@
         </EditForm>
 
         <!-- Written by Parisa Nawar, PXN210032
-             Display Error if any -->
+        Display Error if any -->
         @if (!string.IsNullOrEmpty(errorMessage))
         {
             <div class="alert alert-danger">@errorMessage</div>
         }
 
         <!-- Written by Judy Yang, JXY200013
-             Shows the Modal explaining what a UTD-ID is -->
+        Shows the Modal explaining what a UTD-ID is -->
         @if (isModalVisible)
         {
             <div class="modal-backdrop">
@@ -120,38 +120,48 @@
                 .FirstOrDefaultAsync(s => s.UTDID == student.UTDID);
 
             /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
-             * NetID: JXY200013*/
+            * NetID: JXY200013*/
             var validPassword = await db.Form
-                .AsNoTracking()
-                .FirstOrDefaultAsync(f => f.PassWd == form.PassWd
-                    && f.ReleaseDateTime < DateTime.Now
-                    && f.CloseDateTime > DateTime.Now);
+                                                    .AsNoTracking()
+                                                    .FirstOrDefaultAsync(f => f.PassWd == form.PassWd
+                                                        && f.ReleaseDateTime < DateTime.Now
+                                                        && f.CloseDateTime > DateTime.Now);
 
             /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
-             * NetID: PXN210032*/
+            * NetID: PXN210032*/
             var formIDs = await (from f in db.Form
-                join a in db.Attends
-                on f.FK_CourseNum equals a.FK_CourseNum
-                where a.FK_UTDID == student.UTDID
-                && form.PassWd == f.PassWd
-                && f.ReleaseDateTime < DateTime.Now
-                && f.CloseDateTime > DateTime.Now
-                select f.FormID)
-                .ToListAsync();
-                
-            /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
-             * NetID: JXY200013
-             * Validate student ID and class password input */
+                                 join a in db.Attends
+                           on f.FK_CourseNum equals a.FK_CourseNum
+                           where a.FK_UTDID == student.UTDID
+                           && form.PassWd == f.PassWd
+                           && f.ReleaseDateTime < DateTime.Now
+                           && f.CloseDateTime > DateTime.Now
+                           select f.FormID)
+                           .ToListAsync();
+
+            //Check if resubmission is happening
+            var submittedForm = await (from s in db.Submission
+                                       where s.FK_UTDID == student.UTDID
+                                       && s.FK_FormID == formIDs[0]
+                                       select s).CountAsync();
+
+            /*Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
+            * NetID: JXY200013, PXN210032
+            * Validate student ID and class password input */
             if (validStudent != null && validPassword != null)
             {
-                StudentService.StudentID = validStudent.UTDID;
+                if(submittedForm != 0)
+                {
+                   navigateManager.NavigateTo("/submission");
+                }
 
-                var questions = await db.Question.Where(q => q.FK_BankID == formIDs[0]).ToListAsync();
-                
-                if (questions == null || !questions.Any())
+                StudentService.StudentID = validStudent.UTDID;
+                var questions = await db.Has.Where(h => h.FK_FormID == formIDs[0]).Include(h => h.Question).ThenInclude(q => q.Answerchoice).Select(h => h.Question).ToListAsync();
+
+                if (questions == null || !questions.Any()) 
                 {
                     await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent.UTDID);
-                    navigateManager.NavigateTo("/submission?");
+                    navigateManager.NavigateTo("/submission");
                 }
                 else
                 {
