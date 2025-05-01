@@ -1,12 +1,13 @@
 ﻿/******************************************************************************
-* LoginDAO
+* LoginDAO for the UttendanceDesktop application.
 * 
 * This is a Data Access Object which interacts with the Instructor table. Used
 * to help log in to the application.
 *
 * Written by Leah Joshua (lej210003) 
-* and Parisa Nawar (pxn210032) at The University of Texas at Dallas
-* starting August 18, 2016.
+* and Parisa Nawar (pxn210032) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting March 5, 2025.
 ******************************************************************************/
 
 using System;
@@ -28,7 +29,7 @@ namespace UttendanceDesktop
         * NetID and password. Returns an Instructor object with the relevant
         * information.
         * 
-        * Written by Leah Joshua, updated by Parisa Nawar.
+        * Written by Leah Joshua and Parisa Nawar.
         **************************************************************************/
         public Instructor login(string netID, string Password)
         {
@@ -62,9 +63,9 @@ namespace UttendanceDesktop
         }
 
         /**************************************************************************
-        * Search the instructor table for the instructor logging in based on their
-        * NetID and password. Returns an Instructor object with the relevant
-        * information.
+        * Add a new instructor to the instructor table. This is part of the create
+        * account flow for professors. Returns the number of rows affected (returns 
+        * 1 if instructor was successfully added).
         * 
         * Written by Leah Joshua.
         **************************************************************************/
@@ -73,6 +74,7 @@ namespace UttendanceDesktop
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
+            // Create SQL command to insert the NetID, First Name, and Last Name and password of the professor
             MySqlCommand cmd = new MySqlCommand("INSERT INTO instructor (INetID, IFName, ILName, IPassword)" +
                 "VALUES (@netID, @fName, @lName, @password)", connection);
             cmd.Parameters.AddWithValue("@netID", instructor.INetID);
