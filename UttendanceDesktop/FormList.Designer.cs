@@ -50,7 +50,6 @@
             // 
             formsTable.AllowUserToAddRows = false;
             formsTable.AllowUserToDeleteRows = false;
-            formsTable.AllowUserToResizeColumns = false;
             formsTable.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(206, 212, 244);
@@ -84,6 +83,7 @@
             formsTable.GridColor = Color.FromArgb(37, 42, 69);
             formsTable.Location = new Point(37, 39);
             formsTable.Name = "formsTable";
+            formsTable.ReadOnly = true;
             formsTable.RowHeadersVisible = false;
             formsTable.Size = new Size(654, 388);
             formsTable.TabIndex = 0;

@@ -16,7 +16,7 @@ namespace UttendanceDesktop
     public partial class FormList : Form
     {
         private string InstructorID;
-        private static string[] displayList = { "Class", "Form Date", "Form Status", "Password" };
+        private static string[] displayList = { "Class", "Class Name", "Date", "Release", "Close", "Password"};
         public FormList(string id)
         {
             InstructorID = id;
@@ -30,6 +30,14 @@ namespace UttendanceDesktop
         {
             FormsListDAO forms = new FormsListDAO();
             this.formsTable.DataSource = forms.getAllForms(displayList, InstructorID);
+
+            //Make the class names column longer
+            formsTable.Columns["Class Name"].Width = 200;
+
+            //Make the time columns shorter
+            formsTable.Columns["Date"].Width = 75;
+            formsTable.Columns["Release"].Width = 75;
+            formsTable.Columns["Close"].Width = 75;
         }
     }
 }
