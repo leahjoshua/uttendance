@@ -1,4 +1,17 @@
-﻿using System;
+﻿/******************************************************************************
+* Summary Class for the UttendanceDesktop application.
+* This class serves as a summary page, displaying a table with the students'
+* information (last name, first name, Net-ID) for the given course
+* number (class id). Each student has an attendance status for every closed
+* form in the class. The professor has the ability to overwrite their status.
+* The professor can also view their IP Address corresponding to each submission. 
+* There is also a summarized count of number of abscences.
+* Uses SummaryDAO to access and update the information.
+* Written by Joanna Yang(jxy210012) 
+* for CS4485.0W1 at The University of Texas at Dallas starting April 25, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,22 +27,29 @@ using static UttendanceDesktop.GlobalStyle;
 
 namespace UttendanceDesktop
 {
-    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 15, 2025.
-    // NetID: jxy210012
-    // Wrote the whole Summary class
     public partial class Summary : Form
     {
         private int CourseNum;
+        //Stores the old cell value when the user starts editing.
         private object editOldValue;
+        //Tracks the previously selected column
         private int prevSelectedCol = 0;
 
+        /**************************************************************************
+        * Constructs the Summary upon initilization and stores the given
+        * course number to pull information from. Displays total (closed) 
+        * attendance forms count for the class.
+        * Written by Joanna Yang
+        **************************************************************************/
         public Summary(int courseNum)
         {
             CourseNum = courseNum;
             InitializeComponent();
+
             //Set panel size
             summaryPagePanel.Size = Size;
 
+            //Set the datagrid size
             int width = summaryPagePanel.Width - 20;
             int height = summaryPagePanel.Height - 75;
 
@@ -38,13 +58,19 @@ namespace UttendanceDesktop
             summaryTable.MaximumSize = new Size(width, height);
             summaryTable.MinimumSize = new Size(width, height);
 
+            //Set up the total form count
             SummaryDAO summaryInfo = new SummaryDAO();
             totalCountLabel.Text = "Total (Closed) Attendance Form Count: " + summaryInfo.getClosedFormCount(CourseNum);
+            //Populate the summary table
             populateSummaryTable();
         }
 
-        //Populates the datagrid with data from the database
-        //Displays each student with their submission status for each form
+        /**************************************************************************
+        * Populates the datagrid with data from the database using SummaryDAO.
+        * Displays each student with their information and submission status 
+        * for each form.
+        * Written by Joanna Yang
+        **************************************************************************/
         private void populateSummaryTable()
         {
             SummaryDAO summaryInfo = new SummaryDAO();
@@ -52,7 +78,6 @@ namespace UttendanceDesktop
             DataTable table = summaryInfo.getSummaryInfo(CourseNum);
             table.DefaultView.Sort = "Last Name ASC";
             this.summaryTable.DataSource = table;
-
 
             //Make the student info column and attendance count column readonly and sticky, and resizeable
             for (int i = 0; i < 6; i++)
@@ -83,33 +108,42 @@ namespace UttendanceDesktop
             editOldValue = summaryTable[e.ColumnIndex, e.RowIndex].Value;
         }
 
-        //Updates the attendance status if valid
+        /**************************************************************************
+        * Handles Summary Table cell end edit.
+        * Updates the attendance status if the new input is valid. Uses SummaryDAO
+        * to perform update
+        * Written by Joanna Yang
+        **************************************************************************/
         private void summaryTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var editNewValue = summaryTable[e.ColumnIndex, e.RowIndex].Value.ToString();
+            //Set value to be uppercase
             editNewValue = editNewValue.ToUpper();
             summaryTable[e.ColumnIndex, e.RowIndex].Value = editNewValue;
 
             //If the value changed
             if (!Equals(editOldValue, editNewValue))
             {
-                //Input validation
+                //Input validation, can either be 'P', 'E', or 'A'
                 if (editNewValue == "P" || editNewValue == "E" || editNewValue == "A")
                 {
                     SummaryDAO summaryInfo = new SummaryDAO();
 
-                    //Get the formID
+                    //Get the form ID from the column header
                     DataTable boundTable = (DataTable)summaryTable.DataSource;
                     string colName = summaryTable.Columns[e.ColumnIndex].Name;
                     DataColumn col = boundTable.Columns[colName];
                     int formID = int.Parse(col.ExtendedProperties["FormID"].ToString());
 
+                    //Get the UTD-ID from the selected row
                     int studentID = int.Parse(summaryTable.Rows[e.RowIndex].Cells["UTD-ID"].Value.ToString());
-                    summaryInfo.updateStatus(studentID, formID, editNewValue, CourseNum);
+                    summaryInfo.updateStatus(studentID, formID, editNewValue);
 
                     //Update the Abscene count
+                    //If original value was absent, decrease the count by 1
                     if (editOldValue.ToString() == "A")
                         summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) - 1;
+                    //If the new value is absent, increase the count by 1
                     if (editNewValue.ToString() == "A")
                         summaryTable[4, e.RowIndex].Value = int.Parse(summaryTable[4, e.RowIndex].Value.ToString()) + 1;
                 }
@@ -122,7 +156,11 @@ namespace UttendanceDesktop
             }
         }
 
-        //Calls selectColumn when a cell is clicked
+        /**************************************************************************
+        * Handles Summary Table cell click.
+        * Calls selectColumn() with the column index when a cell is clicked.
+        * Written by Joanna Yang
+        **************************************************************************/
         private void summaryTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Ignore header clicks
@@ -132,7 +170,12 @@ namespace UttendanceDesktop
             }
         }
 
-        //Waits until finished sorting before calling selectColumn when header is clicked
+        /**************************************************************************
+        * Handles Summary Table column header mouse click.
+        * Waits until finished sorting before calling selectColumn() with the 
+        * column index when a header is clicked.
+        * Written by Joanna Yang
+        **************************************************************************/
         private void summaryTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             this.BeginInvoke(new Action(() =>
@@ -141,7 +184,13 @@ namespace UttendanceDesktop
             }));
         }
 
-        //Populates the IP Address column with the IP Address of the corresponding student and form id
+        /**************************************************************************
+        * Performs manual highlighting of the selected column if it's a form column
+        * and unhighlights the previously selected column. Also uses SummaryDAO to
+        * update the IP Adress column to reflect the IP Address for each student's
+        * submission for the selected form column.
+        * Written by Joanna Yang
+        **************************************************************************/
         private void selectColumn(int selectedCol)
         {
             //If user selects a form column
@@ -197,7 +246,10 @@ namespace UttendanceDesktop
             }
         }
 
-        //Makes the absence column right align
+        /**************************************************************************
+        * Manulally right aligns the absence column for readability of numbers
+        * Written by Joanna Yang
+        **************************************************************************/
         private void summaryTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 4)

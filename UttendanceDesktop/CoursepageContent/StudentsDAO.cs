@@ -1,4 +1,11 @@
-﻿using MySql.Data.MySqlClient;
+﻿/******************************************************************************
+* StudentsDAO Class for the UttendanceDesktop application.
+* This class serves as a database access object for Students, StudentAddModal,
+* and Student, ImportModal. It accesses database information and updates information.
+* Written by Joanna Yang(jxy210012) 
+* for CS4485.0W1 at The University of Texas at Dallas starting April 13, 2025.
+******************************************************************************/
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.Generic;
@@ -12,15 +19,18 @@ using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
-    // NetID: jxy210012
-    // Wrote the whole StudentsDAO class
     internal class StudentsDAO
     {
+        //Connection string to the database
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
+        //List of attribute names for the student table
         private static string[] attributeList = { "SLName", "SFNAME", "SNetID", "UTDID" };
 
-        //Updates the UTD-ID for a student given their new and old id
+        /**************************************************************************
+        * Updates the UTD-ID for a student given their new and old
+        * UTD-ID. Performs checks to prevent errors
+        * Written by Joanna Yang
+        **************************************************************************/
         public bool updateStudentID(int oldID, int newID)
         {
             //Open database connection
@@ -43,12 +53,17 @@ namespace UttendanceDesktop.CoursepageContent
             return true;
         }
 
-        //Updates the student's information given their UTD-ID and the new value
+        /**************************************************************************
+        * Updates the student's information given their UTD-ID and the new value
+        * UTD-ID.
+        * Written by Joanna Yang
+        **************************************************************************/
         public void updateStudentInfo(int studentID, int columnToUpdate, string newInfo)
         {
             //Open database connection
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
+            //Update the student entry
             MySqlCommand cmd = new MySqlCommand("UPDATE student SET " + attributeList[columnToUpdate]
                     + "=@newInfo WHERE UTDID=@utdID;", connection);
             cmd.Parameters.AddWithValue("@newInfo", newInfo);
@@ -57,8 +72,14 @@ namespace UttendanceDesktop.CoursepageContent
             connection.Close();
         }
 
-        //Remove a student from a specific class given their UTD-ID
-        public void removeStudentsFromClass(string id, int courseNum)
+        /**************************************************************************
+        * Remove a student from a specific class given their UTD-ID. Also
+        * removes the student's submissions for the corresponding class.
+        * Calls removeStudentFromDB to clean up the database if the student
+        * is not enrolled in any other class.
+        * Written by Joanna Yang
+        **************************************************************************/
+        public void removeStudentFromClass(string id, int courseNum)
         {
             //Open database connection
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -72,13 +93,11 @@ namespace UttendanceDesktop.CoursepageContent
             cmd.Parameters.AddWithValue("@courseNum2", courseNum);
             cmd.ExecuteNonQuery();
 
-
             //Remove student from the attends table
             cmd = new MySqlCommand("DELETE FROM attends WHERE FK_UTDID=@fkUtdID AND FK_CourseNum=@courseNum;", connection);
             cmd.Parameters.AddWithValue("@fkUtdID", id);
             cmd.Parameters.AddWithValue("@courseNum", courseNum);
             cmd.ExecuteNonQuery();
-
             
             //Check if the student is enrolled in any other classes
             cmd = new MySqlCommand("SELECT COUNT(*) FROM attends WHERE FK_UTDID=@fkUtdID2;", connection);
@@ -98,12 +117,17 @@ namespace UttendanceDesktop.CoursepageContent
 
         }
 
-        //Removes a student from the student table in the database
+        /**************************************************************************
+        * Removes a student from the student table in the database
+        * Written by Joanna Yang
+        **************************************************************************/
         private void removeStudentFromDB(string id)
         {
+            //Open connection
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
+            //Remove student from the student table
             MySqlCommand cmd = new MySqlCommand("DELETE FROM student WHERE UTDID=@utdID;", connection);
             cmd.Parameters.AddWithValue("@utdID", id);
             cmd.ExecuteNonQuery();
@@ -111,7 +135,11 @@ namespace UttendanceDesktop.CoursepageContent
             connection.Close();
         }
 
-        //Pulls the list of all students enrolled in the current class and displays it on the data grid
+        /**************************************************************************
+        * Pulls the information of all of the students enrolled in the given class 
+        * and creates a table to return.
+        * Written by Joanna Yang
+        **************************************************************************/
         public DataTable getAllStudentInfo(string[] displayList, int courseNum)
         {
             DataTable dataTable = new DataTable();
@@ -133,6 +161,7 @@ namespace UttendanceDesktop.CoursepageContent
             //Read result
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
+                //Add the student information to the table for each entry
                 while (databaseReader.Read())
                 {
                     var row = dataTable.NewRow();
@@ -151,7 +180,10 @@ namespace UttendanceDesktop.CoursepageContent
             return dataTable;
         }
 
-        //Returns true if the given student is already added to the student database
+        /**************************************************************************
+        * Returns true if the given student ID is already added to the student table database
+        * Written by Joanna Yang
+        **************************************************************************/
         private bool checkIfStudentExists(int id, MySqlConnection connection)
         {
             //Check if the new UTD-ID does not already exist in the table
@@ -164,10 +196,14 @@ namespace UttendanceDesktop.CoursepageContent
             int count = reader.GetInt32(0);
             reader.Close();
 
+            //Return true if an entry exists
             return count != 0;
         }
 
-        //Returns true if the given student is already enrolled in the given class
+        /**************************************************************************
+        * Returns true if the given student ID is already enrolled in the given class
+        * Written by Joanna Yang
+        **************************************************************************/
         private bool checkIfStudentAttends(int id, int courseNum, MySqlConnection connection)
         {
             //Check if the new UTD-ID does not already exist in the table
@@ -182,10 +218,16 @@ namespace UttendanceDesktop.CoursepageContent
             int count = reader.GetInt32(0);
             reader.Close();
 
+            //Return true if an entry exists
             return count != 0;
         }
 
-        //Adds student to database, returns true if student was successfully added
+        /**************************************************************************
+        * Adds student to database, returns true if student was successfully added.
+        * Perform checks before adding to database to prevent errors.
+        * Returns a boolean on whether or not the operation was a success.
+        * Written by Joanna Yang
+        **************************************************************************/
         public bool addStudent(Student student, int courseNum)
         {
             //Open database connection
@@ -223,7 +265,13 @@ namespace UttendanceDesktop.CoursepageContent
             return true;
         }
 
-        //Reads the given CSV file and adds the student information to the database and enrolls them into the given class
+        /**************************************************************************
+        * Reads the given CSV file and adds the student information to the database 
+        * and enrolls them into the given class. Perform checks before adding to
+        * to database to prevent errors. Returns a boolean on whether or not
+        * the operation was a success.
+        * Written by Joanna Yang
+        **************************************************************************/
         public bool importStudentsFromCSV(string path, int courseNum)
         {
             try
@@ -295,7 +343,6 @@ namespace UttendanceDesktop.CoursepageContent
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
                 return false;
             }
         }

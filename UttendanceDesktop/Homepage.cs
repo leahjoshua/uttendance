@@ -433,7 +433,8 @@ namespace UttendanceDesktop
 
         /**************************************************************************
         * Handles the click event for the All Forms button.
-        * Opens a form with all form information
+        * Opens a form with all attendance form information 
+        * for all the classes the professor teaches.
         **************************************************************************/
         private void formsBtn_Click(object sender, EventArgs e)
         {

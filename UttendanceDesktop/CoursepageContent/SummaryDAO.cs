@@ -1,4 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿/******************************************************************************
+* SummaryDAO Class for the UttendanceDesktop application.
+* This class serves as a database access object for the Summary page. It
+* can retrieve the student information and submission information. It can
+* also update the attendance status for a student.
+* Written by Joanna Yang(jxy210012) 
+* for CS4485.0W1 at The University of Texas at Dallas starting April 13, 2025.
+******************************************************************************/
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,14 +18,16 @@ using System.Diagnostics;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
-    // NetID: jxy210012
-    // Wrote the whole SummaryDAO class
     internal class SummaryDAO
     {
+        //Connection string to the database
         private static readonly string connectionString = GlobalResource.CONNECTION_STRING;
 
-        //Gets the count of the total number of closed forms
+        /**************************************************************************
+        * Gets the count of the total number of closed attendance forms
+        * for the given class
+        * Written by Joanna Yang
+        **************************************************************************/
         public int getClosedFormCount(int courseNum)
         {
             //Open database connection
@@ -41,7 +51,10 @@ namespace UttendanceDesktop.CoursepageContent
             return count;
         }
 
-        //Gets the IP Address for a submission given the student and form id
+        /**************************************************************************
+        * Returns the IP Address for a submission given the student id and form id
+        * Written by Joanna Yang
+        **************************************************************************/
         public string getIPAddress(int formID, int studentID)
         {
             //Open database connection
@@ -66,13 +79,18 @@ namespace UttendanceDesktop.CoursepageContent
                 }
                 else
                 {
+                    //Return "NULL" if there is no submission
                     return "NULL";
                 }
             }
         }
 
-        //Updates the attendance status of the given student and form id
-        public bool updateStatus(int studentID, int formID, string newValue, int courseNum)
+        /**************************************************************************
+        * Updates the attendance status for a submission given the student ID,
+        * form ID, and new value for the status.
+        * Written by Joanna Yang
+        **************************************************************************/
+        public void updateStatus(int studentID, int formID, string newValue)
         {
             //Open database connection
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -89,6 +107,7 @@ namespace UttendanceDesktop.CoursepageContent
             reader.Read();
             int count = reader.GetInt32(0);
             reader.Close();
+
             //If is no submission by the student
             if(count == 0)
             {
@@ -110,13 +129,15 @@ namespace UttendanceDesktop.CoursepageContent
                 cmd.Parameters.AddWithValue("@utdID", studentID);
                 cmd.ExecuteNonQuery();
             }
+            //Close connection
             connection.Close();
-
-            return true;
         }
 
-        //Gets the data for the summary table, displaying the information and submission details
-        //for every student in the class along with their submissions for each form
+        /**************************************************************************
+        * Creates a DataTable for the summary table in Summary page, displaying 
+        * the information and submission details for every student in the class.
+        * Written by Joanna Yang
+        **************************************************************************/
         public DataTable getSummaryInfo(int courseNum)
         {
             DataTable dataTable = new DataTable();
@@ -135,7 +156,7 @@ namespace UttendanceDesktop.CoursepageContent
             dataTable.Columns.Add("IP Address");
 
             DateTime localDate = DateTime.Now;
-            //Get the closed forms for this class
+            //Get the closed forms for this class ordere by release date
             MySqlCommand cmd = new MySqlCommand("SELECT FormID, DATE(ReleaseDateTime) AS ReleaseDate FROM form WHERE FK_CourseNum=@fkcourseNum " +
                 "AND CloseDateTime < @now ORDER BY ReleaseDateTime ASC", connection);
             cmd.Parameters.AddWithValue("@fkcourseNum", courseNum);
@@ -145,6 +166,7 @@ namespace UttendanceDesktop.CoursepageContent
             //Create column headers for forms
             using (MySqlDataReader databaseReader = cmd.ExecuteReader())
             {
+                //For each form, add a column header in the table
                 while (databaseReader.Read())
                 {
                     formCount++;
@@ -214,6 +236,7 @@ namespace UttendanceDesktop.CoursepageContent
                 }
             }
 
+            //Close database connection
             connection.Close();
             return dataTable;
         }
