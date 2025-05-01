@@ -1,4 +1,15 @@
-﻿using System;
+﻿/******************************************************************************
+* LoginDAO
+* 
+* This is a Data Access Object which interacts with the Instructor table. Used
+* to help log in to the application.
+*
+* Written by Leah Joshua (lej210003) 
+* and Parisa Nawar (pxn210032) at The University of Texas at Dallas
+* starting August 18, 2016.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,18 +23,26 @@ namespace UttendanceDesktop
     {
         private string connectionString = GlobalResource.CONNECTION_STRING;
 
-        // leah and parisa wrote this
+        /**************************************************************************
+        * Search the instructor table for the instructor logging in based on their
+        * NetID and password. Returns an Instructor object with the relevant
+        * information.
+        * 
+        * Written by Leah Joshua, updated by Parisa Nawar.
+        **************************************************************************/
         public Instructor login(string netID, string Password)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
+            // Create SQL command to select the NetID, First Name, and Last Name of the professor
             MySqlCommand cmd = new MySqlCommand("SELECT INetID, IFName, ILName, IPassword FROM instructor WHERE INetID=@netID and IPassword=@password", connection);
             cmd.Parameters.AddWithValue("@netID", netID);
             cmd.Parameters.AddWithValue("@password", Password);
 
             Instructor currentInstructor = new Instructor();
 
+            // Pulls all the columns from the selected data and puts them in an instructor object
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -41,7 +60,14 @@ namespace UttendanceDesktop
 
             return currentInstructor;
         }
-        //leah
+
+        /**************************************************************************
+        * Search the instructor table for the instructor logging in based on their
+        * NetID and password. Returns an Instructor object with the relevant
+        * information.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public int createAccount(Instructor instructor, string IPassword)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
