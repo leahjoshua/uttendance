@@ -8,17 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UttendanceDesktop.CoursepageContent.Controls.QuestionItem;
 using UttendanceDesktop.CoursepageContent.CreateAttendanceForm;
 using UttendanceDesktop.CoursepageContent.models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    public partial class AttendanceForms_Details: Form
+    public partial class AttendanceForms_Details : Form
     {
         private AttendanceForm formData = new AttendanceForm();
         private QuestionItem.QuestionItem[] questionList;
         private FormDAO DB = new FormDAO();
+        private bool isEditMode = false;
 
         public AttendanceForms_Details()
         {
@@ -48,8 +50,8 @@ namespace UttendanceDesktop.CoursepageContent
             }
 
             // Update TITLE
-            formTitleLabel.Text = 
-                formData.ReleaseDateTime.ToString("MM/dd/yy") + 
+            formTitleLabel.Text =
+                formData.ReleaseDateTime.ToString("MM/dd/yy") +
                 " Attendance Form (" + formData.ReleaseDateTime.ToString("hh:mm tt") + ")";
 
             // Update DATE
@@ -83,16 +85,65 @@ namespace UttendanceDesktop.CoursepageContent
         // Aendri 4/17/2025
         // Receive event from child question item when edit is clicked.
         // Open edit question module
-        void child_question_OnSelectEdit (object sender, EventArgs e)
+        void child_question_OnSelectEdit(object sender, EventArgs e)
         {
-            int questionID = Convert.ToInt32(sender);
+            QuestionItem.QuestionItem questionItem = (QuestionItem.QuestionItem)sender;
 
-            MessageBox.Show("EDIT SELECTED FOR " + questionID);
+            // GET ANSWER CHOICES
+            List<AnswerChoice> answerChoiceList = new List<AnswerChoice>();
+            for (int i = 0; i < questionItem.AnswerList.Length; i++)
+            {
+                answerChoiceList.Add(new AnswerChoice
+                {
+                    AnswerID = questionItem.AnswerList[i].AnswerID,
+                    isCorrect = questionItem.AnswerList[i].IsCorrect,
+                    AnswerStatement = questionItem.AnswerList[i].AnswerValue
+                });
+            }
+            // GET QUESTION DATA
+            Question questionData = new Question
+            {
+                QuestionID = questionItem.QuestionID,
+                AnswerChoices = answerChoiceList,
+                ProblemStatement = questionItem.QuestionValue
+            };
 
-            // *** OPEN EDIT QUESTION MODULE HERE!!! ***
-
-            PopulateQuestionList();
+            // OPEN MODAL
+            using (EditQuestionModal createBank = new EditQuestionModal(questionData, formData.FormID))
+            {
+                DialogResult result = createBank.ShowDialog();
+                if (result != DialogResult.Cancel)
+                {
+                    PopulateQuestionList();
+                }
+            }
         }
 
+        // Aendri 4/18/2025
+        // On click...
+        // Edit Mode: Enable editing
+        // Save Mode: Save changes
+        private void saveEditBtn_Click(object sender, EventArgs e)
+        {
+            // EDIT MODE
+            if (isEditMode)
+            {
+                saveEditBtn.BackColor = GlobalStyle.GREEN;
+                saveEditBtn.Text = "Save";
+            }
+            // SAVE MODE
+            else
+            {
+                saveEditBtn.BackColor = GlobalStyle.BURNT_ORANGE;
+                saveEditBtn.Text = "Edit";
+            }
+
+            isEditMode = !isEditMode;
+        }
+
+        private void pwdTxtBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

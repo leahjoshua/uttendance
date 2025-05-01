@@ -24,12 +24,14 @@ namespace UttendanceDesktop
 {
     public partial class AddManualCourse : Form
     {
+        private string InstructorID;
         /**************************************************************************
          * Constructor for AddManualCourse form.
          * Initializes the form and its components.
          **************************************************************************/
-        public AddManualCourse()
+        public AddManualCourse(string netID)
         {
+            InstructorID = netID;
             //Initialize UI of AddManualCourse Form
             InitializeComponent();
 
@@ -337,7 +339,7 @@ namespace UttendanceDesktop
             }
 
             // Open a new Homepage form  
-            Homepage newHomepage = new Homepage();
+            Homepage newHomepage = new Homepage(InstructorID);
             newHomepage.Show();
         }
 

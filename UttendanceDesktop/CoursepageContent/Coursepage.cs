@@ -22,7 +22,8 @@ namespace UttendanceDesktop
         private int width;
         private int height;
         private int CourseNum; //TEMP VALUE, receive from prev page in constructor
-        public Coursepage(int CourseNum)
+        private string InstructorID;
+        public Coursepage(int CourseNum, string instructorID)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.Manual;
@@ -40,6 +41,7 @@ namespace UttendanceDesktop
 
             //Make the Attendance Form the default first page that loads
             loadForm(new AttendanceForms_Listings(CourseNum));
+            InstructorID = instructorID;
         }
 
         //Fit Labels to the right course name
@@ -202,7 +204,7 @@ namespace UttendanceDesktop
         // Written by Parisa
         private void yourCoursesBtn_Click(object sender, EventArgs e)
         {
-            Homepage homepage = new Homepage();
+            Homepage homepage = new Homepage(InstructorID);
             homepage.Show();
             this.Close();
         }

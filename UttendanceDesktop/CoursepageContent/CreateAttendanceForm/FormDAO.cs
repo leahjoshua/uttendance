@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -173,7 +174,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
         }
 
         // Aendri 4/4/2025 (Update 4/15/2025)
-        // Deletes the selected items by updating the database and repopulating the list 
+        // Deletes the given question bank items
         public bool DeleteBankItems(QuestionBankItem[] bankListItems, int numItemsToDelete)
         {
             // If no items to delete, exit
@@ -247,6 +248,165 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
+        // Aendri 4/25/2025
+        // Deletes the given question and its answer choices
+        public bool DeleteQuestionFromBank(Question questionData)
+        {
+            // Open Connection to Database
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            String query;
+
+
+            try
+            {
+                connection.Open();
+                
+                // Check if question is already in use
+                query =
+                    "SELECT * " +
+                    "FROM has " +
+                    "WHERE FK_QuestionID = @QuestionID ";
+                // Run query
+                cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                int result = cmd.ExecuteNonQuery();
+
+                // QUESTION IN USE
+                if (result > 0)
+                {
+                    // Remove question bank foreign keys
+                    query =
+                        "UPDATE question " +
+                        "SET FK_BankID = NULL " +
+                        "WHERE QuestionID = @QuestionID ";
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                    result = cmd.ExecuteNonQuery();
+                } 
+                // QUESTION UNUSED
+                else
+                {
+                    // Delete Answers
+                    query =
+                        "DELETE " +
+                        "FROM answerchoice " +
+                        "WHERE AnswerID IN (";
+
+                    for (int i = 0; i < questionData.AnswerChoices.Count; i++)
+                    {
+                        query += questionData.AnswerChoices[i].AnswerID + ",";
+                    }
+
+                    query = query.Substring(0, query.Length - 1);
+                    query += ")";
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    result = cmd.ExecuteNonQuery();
+
+                    // Delete Question
+                    query =
+                        "DELETE " +
+                        "FROM question " +
+                        "WHERE QuestionID = " + questionData.QuestionID;
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "ERROR: AttendanceForms_QuestionBank.cs/DeleteItems(): " + ex.ToString());
+                connection.Close();
+                return false;
+            }
+
+            connection.Close();
+            return true;
+        }
+
+        // Aendri 4/25/2025
+        // Deletes the given question and its answer choices
+        public bool DeleteQuestionFromForm(Question questionData, int formID)
+        {
+            // Open Connection to Database
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            String query;
+
+            try
+            {
+                connection.Open();
+
+                // Remove question bank foreign keys
+                query =
+                    "DELETE " +
+                    "FROM has " +
+                    "WHERE FK_QuestionID = @QuestionID " +
+                    "AND FK_FormID = @FormID";
+                // Run query
+                cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                int result = cmd.ExecuteNonQuery();
+
+                // Check if question is used by other forms
+                query =
+                    "SELECT * " +
+                    "FROM has " +
+                    "WHERE FK_QuestionID = @QuestionID ";
+                // Run query
+                cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                result = cmd.ExecuteNonQuery();
+
+                // QUESTION NOT IN USE, remove question
+                if (result == 0)
+                {
+                    // Delete Answers
+                    query =
+                        "DELETE " +
+                        "FROM answerchoice " +
+                        "WHERE AnswerID IN (";
+
+                    for (int i = 0; i < questionData.AnswerChoices.Count; i++)
+                    {
+                        query += questionData.AnswerChoices[i].AnswerID + ",";
+                    }
+
+                    query = query.Substring(0, query.Length - 1);
+                    query += ")";
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    result = cmd.ExecuteNonQuery();
+
+                    // Delete Question
+                    query =
+                        "DELETE " +
+                        "FROM question " +
+                        "WHERE QuestionID = " + questionData.QuestionID;
+                    // Run query
+                    cmd = new MySqlCommand(query, connection);
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "ERROR: AttendanceForms_QuestionBank.cs/DeleteItems(): " + ex.ToString());
+                connection.Close();
+                return false;
+            }
+
+            connection.Close();
+            return true;
+        }
+
+
+
         // 4/14/2025 Aendri 
         // Returns a list of Questions (as QuestionItems) for the given question bank
         public QuestionItem.QuestionItem[] GetBankQuestionList(int bankID)
@@ -314,7 +474,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                 // Get a list of all questions associated with the bank
                 cmd = new MySqlCommand(
-                    "SELECT QuestionID, ProblemStatement " +
+                    "SELECT QuestionID, ProblemStatement, FK_BankID " +
                     "FROM question, has " +
                     "WHERE FK_FormID=@FormID " +
                     "AND FK_QuestionID = QuestionID "
@@ -330,11 +490,19 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     QuestionItem.QuestionItem currItem = new QuestionItem.QuestionItem();
 
                     currItem.QuestionNumber = i + 1;
-                    currItem.QuestionID = Convert.ToInt32(reader[0]);
+                    currItem.QuestionID = Convert.ToInt32(reader[0]); // Question ID
 
+                    // Problem Statement
                     if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString(); }
                     else { currItem.QuestionValue = ""; }
 
+                    // Is Bank Question?
+                    if (reader[2] != null) {
+                        currItem.IsBankQuestion = !DBNull.Value.Equals(reader[2]);
+                        currItem.IsEditable = DBNull.Value.Equals(reader[2]); //Bank questions can't be edited
+                    }
+
+                    // Answer choices
                     currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
 
                     questionItemList.Add(currItem);
@@ -484,6 +652,105 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
             return formData;
         }
+
+        // 4/25/2025 Aendri
+        // Returns detailed information on a given attendance bank
+        public QuestionBank GetBankData(int bankID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            QuestionBank bankData = new QuestionBank();
+
+            // Return if invalid bank id
+            if (bankID < 0)
+            {
+                bankData.BankID = -1;
+                return bankData;
+            } else
+            {
+                bankData.BankID = bankID;
+            }
+
+                try
+                {
+                    connection.Open();
+
+                    // Form Data:
+                    cmd = new MySqlCommand(
+                        "SELECT BankTitle " +
+                        "FROM qbank " +
+                        "WHERE BankID=@BankID "
+                        , connection);
+                    cmd.Parameters.AddWithValue("@BankID", bankID);
+                    reader = cmd.ExecuteReader();
+                    reader.Read();
+
+                    // Return with error if no data found
+                    if (!reader.HasRows)
+                    {
+                        bankData.BankID = -1;
+                        connection.Close();
+                        return bankData;
+                    }
+
+                    bankData.BankTitle = reader[0].ToString();
+                    reader.Close();
+
+                    // Get a list of questions for the question bank
+                    bankData.QuestionBankList = GetBankQuestionList(bankID);
+
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetBankData: " + ex.ToString());
+                    bankData.BankID = -1;
+                }
+            connection.Close();
+
+            return bankData;
+        }
+
+        // 4/16/2025 Aendri 
+        // Returns true if the given bank title is valid (not in use already)
+        public bool IsValidBankTitle(String bankTitle)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            try
+            {
+                connection.Open();
+
+                // Look for any question bank entries with the same title
+                cmd = new MySqlCommand(
+                    "SELECT * " +
+                    "FROM qbank " +
+                    "WHERE FK_INetID=@INetID " + 
+                    "AND BankTitle=@BankTitle"
+                    , connection);
+                cmd.Parameters.AddWithValue("@INetID", GlobalResource.INetID);
+                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                // Check if any results found, return with error if not found
+                if (reader.HasRows) { return false; }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/IsValidBankTitle: " + ex.ToString());
+                return false;
+            }
+            connection.Close();
+
+            return true;
+        }
+
+        
         // Lee
         // 4/18/2025
         // This function doesn't assign QuestionNumbers
@@ -494,8 +761,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             MySqlCommand cmd;
             MySqlDataReader reader;
 
-            try
-            {
+            try { 
                 for (int i = 0; i < IDs.Count; i++)
                 {
                     cmd = new MySqlCommand(
@@ -522,6 +788,203 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 System.Diagnostics.Debug.WriteLine("ERROR: FormDAO.cs/SelectQuestions: " + ex.ToString());
             }
             return questionItemList;
+        }
+
+        // 4/18/2025 Aendri
+        // Create a new question and save to a question bank
+        public void CreateNewQuestion(Question questionData, int bankID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            int questionID;
+
+            try
+            {
+                connection.Open();
+
+                // Add question and get QuestionID
+                cmd = new MySqlCommand(
+                    "INSERT INTO question (ProblemStatement, FK_BankID)" +
+                    "VALUES (@Problem, @FK_BankID);" +
+                    "SELECT LAST_INSERT_ID();"
+                    , connection);
+                cmd.Parameters.AddWithValue("@Problem", questionData.ProblemStatement);
+                cmd.Parameters.AddWithValue("@FK_BankID", bankID);
+
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                questionID = Convert.ToInt32(reader[0]);
+
+                reader.Close();
+
+                // Add answer choices 
+                for (int j = 0; j < questionData.AnswerChoices.Count; j++)
+                {
+                    cmd = new MySqlCommand(
+                        "INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID) " +
+                        "VALUES (@answerStmt, @isCorrect, @questionID)", 
+                        connection);
+                    cmd.Parameters.AddWithValue("@answerStmt", questionData.AnswerChoices[j].AnswerStatement);
+                    cmd.Parameters.AddWithValue("@isCorrect", questionData.AnswerChoices[j].isCorrect);
+                    cmd.Parameters.AddWithValue("@questionID", questionID);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/CreateNewQuestion: " + ex.ToString());
+            }
+            connection.Close();
+        }
+
+        // 4/18/2025 Aendri
+        // Create a new attendance bank, return the new BankID
+        public int CreateNewBank(String bankTitle)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            int bankID = -1;
+
+            try
+            {
+                connection.Open();
+
+                // Look for any question bank entries with the same title
+                cmd = new MySqlCommand(
+                    "INSERT INTO qbank (BankTitle, FK_INetID)" +
+                    "VALUES (@BankTitle, @FK_INetID);" +
+                    "SELECT LAST_INSERT_ID();"
+                    , connection);
+                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
+                cmd.Parameters.AddWithValue("@FK_INetID", GlobalResource.INetID);
+
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                bankID = Convert.ToInt32(reader[0]);
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/CreateNewBank: " + ex.ToString());
+            }
+            connection.Close();
+
+            return bankID;
+                
+        }
+
+        // 4/18/2025 Aendri
+        // Updates the given attendance bank with the given title
+        public void UpdateBank(int bankID, String bankTitle)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+
+            try
+            {
+                connection.Open();
+
+                // Look for any question bank entries with the same title
+                cmd = new MySqlCommand(
+                    "UPDATE qbank " +
+                    "SET BankTitle = @BankTitle " +
+                    "WHERE BankID = @BankID"
+                    , connection);
+                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
+                cmd.Parameters.AddWithValue("@BankID", bankID);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/UpdateBank: " + ex.ToString());
+            }
+            connection.Close();
+
+        }
+
+        // 4/25/2025 Aendri
+        // Updates the given question and answer choices in the database
+        // Adds and removes answer choices as necessary
+        public void UpdateQuestion(Question questionData)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+
+            try
+            {
+                connection.Open();
+
+                // Update question statement
+                cmd = new MySqlCommand(
+                    "UPDATE question " +
+                    "SET ProblemStatement = @ProblemStatement " +
+                    "WHERE QuestionID = @QuestionID"
+                    , connection);
+                cmd.Parameters.AddWithValue("@ProblemStatement", questionData.ProblemStatement);
+                cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
+                cmd.ExecuteNonQuery();
+
+                // Update answer choices
+                for (int i = 0; i < questionData.AnswerChoices.Count; i++)
+                {
+                    // Answer exists
+                    if (questionData.AnswerChoices[i].AnswerID >= 0)
+                    {
+                        // Update answer statement:
+                        // If empty, delete answer
+                        if (string.IsNullOrWhiteSpace(questionData.AnswerChoices[i].AnswerStatement))
+                        {
+                            cmd = new MySqlCommand(
+                               "DELETE " +
+                               "FROM answerchoice " +
+                               "WHERE AnswerID = @AnswerID"
+                               , connection);
+                            cmd.Parameters.AddWithValue("@AnswerID", questionData.AnswerChoices[i].AnswerID);
+                        } 
+                        // Otherwse, update
+                        else 
+                        {
+                            cmd = new MySqlCommand(
+                                "UPDATE answerchoice " +
+                                "SET AnswerStatement = @AnswerStatement, IsCorrect = @IsCorrect " +
+                                "WHERE AnswerID = @AnswerID"
+                                , connection);
+                            cmd.Parameters.AddWithValue("@AnswerStatement", questionData.AnswerChoices[i].AnswerStatement);
+                            cmd.Parameters.AddWithValue("@AnswerID", questionData.AnswerChoices[i].AnswerID);
+                            cmd.Parameters.AddWithValue("@IsCorrect", questionData.AnswerChoices[i].isCorrect);
+                        }
+                        cmd.ExecuteNonQuery();
+                    }
+                    // New Answer (non empty)
+                    else if (!string.IsNullOrWhiteSpace(questionData.AnswerChoices[i].AnswerStatement))
+                    {
+                        cmd = new MySqlCommand(
+                            "INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID)" +
+                            "VALUES (@answerStmt, @isCorrect, @questionID)", connection);
+                        
+                        cmd.Parameters.AddWithValue("@answerStmt", questionData.AnswerChoices[i].AnswerStatement);
+                        cmd.Parameters.AddWithValue("@isCorrect", questionData.AnswerChoices[i].isCorrect);
+                        cmd.Parameters.AddWithValue("@questionID", questionData.QuestionID);
+                        cmd.ExecuteNonQuery();
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/UpdateBank: " + ex.ToString());
+            }
+            connection.Close();
         }
     }
 }

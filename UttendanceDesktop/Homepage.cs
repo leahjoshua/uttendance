@@ -22,12 +22,15 @@ namespace UttendanceDesktop
     public partial class Homepage : Form
     {
         private bool isEditMode = false;
+        private string InstructorID;
         /**************************************************************************
         * Constructor for Homepage.
         * Initializes UI components and loads the class tiles for the current user.
         **************************************************************************/
-        public Homepage()
+        public Homepage(string id)
         {
+            InstructorID = id;
+
             //Initialize UI and load existing tiles
             InitializeComponent();
             StartPosition = FormStartPosition.Manual;
@@ -46,7 +49,7 @@ namespace UttendanceDesktop
         private void addCourseManualButton_Click(object sender, EventArgs e)
         {
             //Create new AddManualCourse Form and show it
-            AddManualCourse addCourseForm = new AddManualCourse();
+            AddManualCourse addCourseForm = new AddManualCourse(InstructorID);
             addCourseForm.ShowDialog();
         }
 
@@ -57,7 +60,7 @@ namespace UttendanceDesktop
         private void importCourseButton_Click(object sender, EventArgs e)
         {
             //Create new ImportCourseForm and show it
-            ImportCourse importCourseForm = new ImportCourse();
+            ImportCourse importCourseForm = new ImportCourse(InstructorID);
             importCourseForm.ShowDialog();
         }
 
@@ -353,7 +356,7 @@ namespace UttendanceDesktop
         private void TilePanel_Click(object sender, EventArgs e)
         {
             // If still in Edit Mode, then Tiles should not be clickable
-            if(isEditMode)
+            if (isEditMode)
             {
                 return;
             }
@@ -370,11 +373,12 @@ namespace UttendanceDesktop
                 string courseNum = tilePanel.Tag?.ToString();
                 if (!string.IsNullOrEmpty(courseNum))
                 {
+                    int classID = Convert.ToInt32(courseNum);
                     // Update the global resource with the selected course ID
-                    GlobalResource.CURRENT_CLASS_ID = Convert.ToInt32(courseNum);
+                    GlobalResource.CURRENT_CLASS_ID = classID;
 
                     // Open up the CoursePage corresponding to the Course 
-                    GlobalResource.COURSEPAGE = new Coursepage(GlobalResource.CURRENT_CLASS_ID);
+                    GlobalResource.COURSEPAGE = new Coursepage(classID, InstructorID);
                     GlobalResource.COURSEPAGE.Show();
                     this.Hide();
                 }
@@ -425,6 +429,16 @@ namespace UttendanceDesktop
             //Open a new EditProfile Form
             EditProfile newEditProfile = new EditProfile();
             newEditProfile.Show();
+        }
+
+        /**************************************************************************
+        * Handles the click event for the All Forms button.
+        * Opens a form with all form information
+        **************************************************************************/
+        private void formsBtn_Click(object sender, EventArgs e)
+        {
+            FormList forms = new FormList(InstructorID);
+            forms.Show();
         }
     }
 }

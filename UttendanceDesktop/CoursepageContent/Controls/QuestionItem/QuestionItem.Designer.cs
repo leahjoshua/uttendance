@@ -33,11 +33,11 @@
             questionChoiceLabel = new Label();
             splitter1 = new Splitter();
             QuestionLabel = new Label();
-            editButton = new Button();
             TopPanel = new Panel();
             answerChoiceTable = new TableLayoutPanel();
             questionAnswerItem1 = new QuestionAnswerItem();
             questionAnswerItem2 = new QuestionAnswerItem();
+            editButton = new Button();
             topFlowLayout.SuspendLayout();
             TopPanel.SuspendLayout();
             answerChoiceTable.SuspendLayout();
@@ -121,22 +121,10 @@
             QuestionLabel.TextAlign = ContentAlignment.MiddleLeft;
             QuestionLabel.Click += QuestionLabel_Click;
             // 
-            // editButton
-            // 
-            editButton.Dock = DockStyle.Right;
-            editButton.Location = new Point(660, 0);
-            editButton.Margin = new Padding(14);
-            editButton.Name = "editButton";
-            editButton.Size = new Size(80, 78);
-            editButton.TabIndex = 14;
-            editButton.Text = "edit";
-            editButton.UseVisualStyleBackColor = true;
-            editButton.Click += editButton_Click;
-            // 
             // TopPanel
             // 
             TopPanel.AutoSize = true;
-            TopPanel.BackColor = Color.FromArgb(222, 225, 241);
+            TopPanel.BackColor = Color.Transparent;
             TopPanel.Controls.Add(topFlowLayout);
             TopPanel.Controls.Add(editButton);
             TopPanel.Dock = DockStyle.Top;
@@ -190,6 +178,20 @@
             questionAnswerItem2.Name = "questionAnswerItem2";
             questionAnswerItem2.Size = new Size(702, 56);
             questionAnswerItem2.TabIndex = 1;
+            // 
+            // editButton
+            // 
+            editButton.BackColor = Color.Chocolate;
+            editButton.Dock = DockStyle.Right;
+            editButton.FlatStyle = FlatStyle.Popup;
+            editButton.Location = new Point(660, 0);
+            editButton.Margin = new Padding(14);
+            editButton.Name = "editButton";
+            editButton.Size = new Size(80, 78);
+            editButton.TabIndex = 14;
+            editButton.Text = "edit";
+            editButton.UseVisualStyleBackColor = false;
+            editButton.Click += editButton_Click;
             // 
             // QuestionItem
             // 

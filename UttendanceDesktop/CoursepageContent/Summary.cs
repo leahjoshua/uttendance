@@ -54,16 +54,18 @@ namespace UttendanceDesktop
             this.summaryTable.DataSource = table;
 
 
-            //Make the student info column and attendance count column readonly and sticky
+            //Make the student info column and attendance count column readonly and sticky, and resizeable
             for (int i = 0; i < 6; i++)
             {
                 summaryTable.Columns[i].ReadOnly = true;
                 summaryTable.Columns[i].Frozen = true;
                 summaryTable.Columns[i].Width = 120;
+                summaryTable.Columns[i].MinimumWidth = 50;
+                summaryTable.Columns[i].Resizable = DataGridViewTriState.True;
             }
 
             //Make the absence column shorter
-            summaryTable.Columns[4].Width = 70;
+            summaryTable.Columns[4].Width = 50;
 
             //Set the form columns to be smaller
             for (int i = 6; i < summaryTable.Columns.Count; i++)

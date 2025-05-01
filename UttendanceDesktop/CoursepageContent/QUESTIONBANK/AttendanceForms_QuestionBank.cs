@@ -12,6 +12,7 @@ using UttendanceDesktop.CoursepageContent;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using UttendanceDesktop.CoursepageContent.models;
 using UttendanceDesktop.CoursepageContent.CreateAttendanceForm;
+using UttendanceDesktop.CoursepageContent.QUESTIONBANK;
 
 namespace UttendanceDesktop
 {
@@ -123,6 +124,10 @@ namespace UttendanceDesktop
             else //NEW Mode
             {
                 // Open the new question bank module
+                using (BankModal createBank = new BankModal())
+                {
+                    bool result = createBank.ShowDialog() == DialogResult.OK;
+                }
                 PopulateBankList();
             }
         }

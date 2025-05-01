@@ -22,6 +22,8 @@ namespace UttendanceDesktop
         public static Color PASTEL_BLUE = Color.FromArgb(88, 101, 168);
         public static Color MAROON = Color.FromArgb(146, 67, 133);
 
+        public static Color GREEN = Color.FromArgb(24, 162, 104);
+
         //Location
         public static Point HEADING_POSITION = new Point(43, 37);
         public static Point ADD_PANEL_POSITION = new Point(687, 314);
