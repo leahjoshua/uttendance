@@ -31,6 +31,12 @@ namespace UttendanceDesktop
             FormsListDAO forms = new FormsListDAO();
             this.formsTable.DataSource = forms.getAllForms(displayList, InstructorID);
 
+            //Set the minimum size for all of the columns
+            for(int i = 0; i < displayList.Length; i++)
+            {
+                formsTable.Columns[i].MinimumWidth = 50;
+            }
+
             //Make the class names column longer
             formsTable.Columns["Class Name"].Width = 200;
 
