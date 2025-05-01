@@ -6,9 +6,10 @@
 
     The purpose of this page is to allow the students to log in to the attendance website through 
     their UTD-ID and class password. This page validates if the student attends the class, and whether
-    the attendance form is open in a specific time frame. If the validation suceeds, the student will be 
-    navigated to the next page, a quiz or submission page if there is no quiz. Otherwise, an error will be
-    given.
+    the attendance form is open in a specific time frame. If the validation suceeds, the student will be either
+    navigated to a quiz page if there is a quiz, or a submission page if there is no quiz. 
+    Otherwise, an error will be given.
+
     The IP address should be stored once the student logs in.
 *@
 
@@ -23,6 +24,7 @@
 @using Microsoft.EntityFrameworkCore
 @using System.ComponentModel.DataAnnotations
 
+<!-- Written by Judy Yang, JXY200013 -->
 <PageTitle>Student Login</PageTitle>
 <div class="panel">
     <img src="icon.png" width="100" height="100">
@@ -34,16 +36,20 @@
 
     <!-- UTD-ID and class password input text -->
     <div class="input-section">
+        <!-- Written by Parisa Nawar, PXN210032 -->
         <EditForm Model="student" OnValidSubmit="SignIn">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
+            <!-- Student ID input -->
             <div class="form-group">
                 <label for="utdid">UTD-ID</label>
                 <InputNumber id="utdid" @bind-Value="student.UTDID" class="form-control" />
             </div>
             <br/>
 
+            <!-- Written by Judy Yang, JXY200013 
+                Class password input -->
             <div class="form-group">
                 <label for="password">Password</label>
                 <InputText id="password" @bind-Value="form.PassWd" class="form-control" />
@@ -59,13 +65,15 @@
             </button>
         </EditForm>
 
-        @* Display Error if any *@
+        <!-- Written by Parisa Nawar, PXN210032
+             Display Error if any -->
         @if (!string.IsNullOrEmpty(errorMessage))
         {
             <div class="alert alert-danger">@errorMessage</div>
         }
 
-        @*Shows the Modal explaining what a UTD-ID is*@
+        <!-- Written by Judy Yang, JXY200013
+             Shows the Modal explaining what a UTD-ID is -->
         @if (isModalVisible)
         {
             <div class="modal-backdrop">
@@ -132,7 +140,8 @@
                 .ToListAsync();
                 
             /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
-             * NetID: JXY200013*/
+             * NetID: JXY200013
+             * Validate student ID and class password input */
             if (validStudent != null && validPassword != null)
             {
                 StudentService.StudentID = validStudent.UTDID;

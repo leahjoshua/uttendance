@@ -25,7 +25,6 @@ namespace student_website.Services
         public DbSet<Student> Student { get; set; }
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Instructor> Instructor { get; set; }
-
         public DbSet<Has> Has { get; set; }
 
         /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025

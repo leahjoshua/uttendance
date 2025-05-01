@@ -41,6 +41,7 @@ namespace student_website.Services
         // Function to insert Submission information to database
         public async Task CreateAndInsertSubmissionAsync(String userIP, int form, int studentID)
         {
+            // Create a new Submissioin object
             var submission = new Submission
             {
                 IPAddress = userIP,
