@@ -15,6 +15,7 @@
 @inject UserConnectionInfoService ConnectionService
 @inject SubmissionService SubmissionService
 @inject StudentService StudentService
+@inject HttpClient http
 @using student_website.Models
 @using student_website.Services
 @using Microsoft.EntityFrameworkCore
@@ -105,7 +106,8 @@
     {
         // Get user IPAddress
         var info = ConnectionService.GetUserConnectionInfo();
-        userIP = info.RemoteIpAddress;
+        //userIP = info.RemoteIpAddress;
+        userIP = await http.GetStringAsync("https://api.ipify.org");
 
         /* Written by Parisa Nawar, PXN210032 */
         //show date

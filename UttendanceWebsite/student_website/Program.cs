@@ -25,33 +25,38 @@ builder.Services.AddScoped<StudentService>();
 /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 22, 2025
  * NetID: PXN210032
 */
-//Services for IP
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<UserConnectionInfoService>();
-
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped<HttpClient>();
 
 //Forwarded Header Middleware
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear(); 
 });
 
 var app = builder.Build();
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
 
-// Configure the HTTP request pipeline
+app.UseForwardedHeaders();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
+
+//Get IP Address of Client
+app.MapGet("/api/ip", (HttpContext ctx) =>
+{
+    var ip = ctx.Connection.RemoteIpAddress?.ToString();
+    return Results.Ok(ip);
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
