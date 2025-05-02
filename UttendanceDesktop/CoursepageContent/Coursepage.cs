@@ -13,13 +13,14 @@ using UttendanceDesktop;
 namespace UttendanceDesktop
 {
     // Written by Joanna Yang and Parisa Nawar for CS4485.0w1, Uttendance, starting March 14, 2025.
-    //
     // NetID: jxy210012, pxn210032
     public partial class Coursepage : Form
     {
         bool sidebarExpand = true;
         bool attendanceCollapsed = false;
 
+        private int width;
+        private int height;
         private int CourseNum; //TEMP VALUE, receive from prev page in constructor
         public Coursepage(int CourseNum)
         {
@@ -30,6 +31,10 @@ namespace UttendanceDesktop
             int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
             Location = new Point(screen.Left + (screen.Width - w) / 2, screen.Top + (screen.Height - h) / 2);
             Size = new Size(w, h);
+
+            width = w;
+            height = h;
+
             this.CourseNum = CourseNum;
             setCourseLabels();
 
@@ -38,16 +43,17 @@ namespace UttendanceDesktop
         }
 
         //Fit Labels to the right course name
+        //Written by Parisa
         public void setCourseLabels()
         {
             //Retrieve the Course information from database 
             string connectionString = GlobalResource.CONNECTION_STRING;
             string query = @"
-        SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
-        FROM class AS c
-        INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
-        WHERE t.FK_INetID = @netID
-        AND c.CourseNum = @courseNum";
+                SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
+                FROM class AS c
+                INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
+                WHERE t.FK_INetID = @netID
+                AND c.CourseNum = @courseNum";
 
             using (var connection = new MySqlConnection(connectionString))
             using (var cmd = new MySqlCommand(query, connection))
@@ -82,6 +88,7 @@ namespace UttendanceDesktop
         }
 
         // Loads the page that is defined by input 'Form', keeping the sidebar and header
+        // Written by Joanna
         public void loadForm(object Form)
         {
             if (this.mainPanel.Controls.Count > 0)
@@ -98,6 +105,7 @@ namespace UttendanceDesktop
         }
 
         //Animates the sidebar to expand and minimize
+        // Written by Joanna
         private void sidebarTimer_Tick(object sender, EventArgs e)
         {
             if (sidebarExpand)
@@ -123,6 +131,7 @@ namespace UttendanceDesktop
         }
 
         //Starts the sidebar animation when the user clicks on 'Menu'
+        // Written by Joanna
         private void menuBtn_Click(object sender, EventArgs e)
         {
             sidebarTimer.Start();
@@ -130,6 +139,7 @@ namespace UttendanceDesktop
 
         //Starts the submenu animation when 'Attendance Forms' is clicked
         //Calls the loadForm() method to load the Attendance Forms 'Listings' page as the default
+        // Written by Joanna
         private void attendanceFormsPanelBtn_Click(object sender, EventArgs e)
         {
             attendanceFormsTimer.Start();
@@ -137,30 +147,35 @@ namespace UttendanceDesktop
         }
 
         //Calls the loadForm() method to load the Listings page when 'Listings' is clicked
+        // Written by Joanna
         private void listingsBtn_Click(object sender, EventArgs e)
         {
             loadForm(new AttendanceForms_Listings(CourseNum));
         }
 
         //Calls the loadForm() method to load the Question Banks page when 'Question Banks' is clicked
+        // Written by Joanna
         private void questionBankBtn_Click(object sender, EventArgs e)
         {
             loadForm(new AttendanceForms_QuestionBank());
         }
 
         //Calls the loadForm() method to load the Students page when 'Students' is clicked
+        // Written by Joanna
         private void studentsPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new Students());
+            loadForm(new Students(CourseNum));
         }
 
         //Calls the loadForm() method to load the Summary page when 'Summary' is clicked
+        // Written by Joanna
         private void summaryPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new Summary());
+            loadForm(new Summary(CourseNum));
         }
 
         //Animates the submenu to expand and minimize
+        // Written by Joanna
         private void attendanceFormsTimer_Tick(object sender, EventArgs e)
         {
             if (attendanceCollapsed)
@@ -183,6 +198,8 @@ namespace UttendanceDesktop
             }
         }
 
+        // Returns the user back to the home page when they click on "Your Courses"
+        // Written by Parisa
         private void yourCoursesBtn_Click(object sender, EventArgs e)
         {
             Homepage homepage = new Homepage();

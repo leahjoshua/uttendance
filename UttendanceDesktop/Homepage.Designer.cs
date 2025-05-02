@@ -46,11 +46,12 @@
             // YourCoursesLabel
             // 
             YourCoursesLabel.AutoSize = true;
-            YourCoursesLabel.Font = new Font("Microsoft Sans Serif", 28F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            YourCoursesLabel.Location = new Point(7, 103);
+            YourCoursesLabel.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            YourCoursesLabel.Location = new Point(9, 107);
             YourCoursesLabel.Margin = new Padding(0);
             YourCoursesLabel.Name = "YourCoursesLabel";
-            YourCoursesLabel.Size = new Size(1375, 54);
+            YourCoursesLabel.Padding = new Padding(20, 0, 0, 0);
+            YourCoursesLabel.Size = new Size(864, 40);
             YourCoursesLabel.TabIndex = 1;
             YourCoursesLabel.Text = "Your Courses                                                                                 ";
             // 
@@ -63,17 +64,17 @@
             homepageBanner.Location = new Point(2, 2);
             homepageBanner.Margin = new Padding(2);
             homepageBanner.Name = "homepageBanner";
-            homepageBanner.Size = new Size(1059, 100);
+            homepageBanner.Size = new Size(927, 75);
             homepageBanner.TabIndex = 2;
             // 
             // ProfilePictureBox
             // 
             ProfilePictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ProfilePictureBox.Image = Properties.Resources.homepageprofilepic;
-            ProfilePictureBox.Location = new Point(964, 15);
+            ProfilePictureBox.Location = new Point(844, 11);
             ProfilePictureBox.Margin = new Padding(2);
             ProfilePictureBox.Name = "ProfilePictureBox";
-            ProfilePictureBox.Size = new Size(71, 71);
+            ProfilePictureBox.Size = new Size(62, 53);
             ProfilePictureBox.TabIndex = 1;
             ProfilePictureBox.TabStop = false;
             ProfilePictureBox.Click += ProfilePictureBox_Click;
@@ -82,12 +83,12 @@
             // 
             uttendanceLabel.AutoSize = true;
             uttendanceLabel.BackColor = Color.FromArgb(50, 56, 87);
-            uttendanceLabel.Font = new Font("Microsoft Sans Serif", 25.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            uttendanceLabel.ForeColor = Color.FromArgb(166, 176, 230);
-            uttendanceLabel.Location = new Point(33, 26);
+            uttendanceLabel.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            uttendanceLabel.ForeColor = Color.White;
+            uttendanceLabel.Location = new Point(20, 17);
             uttendanceLabel.Margin = new Padding(2, 0, 2, 0);
             uttendanceLabel.Name = "uttendanceLabel";
-            uttendanceLabel.Size = new Size(267, 52);
+            uttendanceLabel.Size = new Size(209, 47);
             uttendanceLabel.TabIndex = 0;
             uttendanceLabel.Text = "UTtenDance";
             // 
@@ -95,12 +96,14 @@
             // 
             LogoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LogoutButton.BackColor = Color.FromArgb(217, 217, 217);
-            LogoutButton.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
-            LogoutButton.Font = new Font("Microsoft Sans Serif", 7F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LogoutButton.Location = new Point(945, 121);
+            LogoutButton.FlatAppearance.BorderColor = Color.Black;
+            LogoutButton.FlatStyle = FlatStyle.Flat;
+            LogoutButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LogoutButton.ForeColor = Color.Black;
+            LogoutButton.Location = new Point(818, 97);
             LogoutButton.Margin = new Padding(2);
             LogoutButton.Name = "LogoutButton";
-            LogoutButton.Size = new Size(90, 33);
+            LogoutButton.Size = new Size(88, 28);
             LogoutButton.TabIndex = 8;
             LogoutButton.Text = "Log Out";
             LogoutButton.UseVisualStyleBackColor = false;
@@ -111,12 +114,13 @@
             // 
             EditProfileButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             EditProfileButton.BackColor = Color.FromArgb(217, 217, 217);
-            EditProfileButton.Font = new Font("Microsoft Sans Serif", 7F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            EditProfileButton.ForeColor = SystemColors.ControlText;
-            EditProfileButton.Location = new Point(945, 90);
+            EditProfileButton.FlatStyle = FlatStyle.Flat;
+            EditProfileButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            EditProfileButton.ForeColor = Color.Black;
+            EditProfileButton.Location = new Point(818, 68);
             EditProfileButton.Margin = new Padding(2);
             EditProfileButton.Name = "EditProfileButton";
-            EditProfileButton.Size = new Size(90, 32);
+            EditProfileButton.Size = new Size(88, 30);
             EditProfileButton.TabIndex = 7;
             EditProfileButton.Text = "Edit Profile";
             EditProfileButton.UseVisualStyleBackColor = false;
@@ -126,12 +130,14 @@
             // editButton
             // 
             editButton.BackColor = Color.FromArgb(234, 117, 7);
-            editButton.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            editButton.FlatAppearance.BorderSize = 0;
+            editButton.FlatStyle = FlatStyle.Flat;
+            editButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             editButton.ForeColor = Color.White;
-            editButton.Location = new Point(334, 110);
+            editButton.Location = new Point(245, 115);
             editButton.Margin = new Padding(2);
             editButton.Name = "editButton";
-            editButton.Size = new Size(90, 42);
+            editButton.Size = new Size(79, 32);
             editButton.TabIndex = 3;
             editButton.Text = "Edit";
             editButton.UseVisualStyleBackColor = false;
@@ -141,12 +147,13 @@
             // 
             addCourseManualButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             addCourseManualButton.BackColor = Color.FromArgb(217, 217, 217);
-            addCourseManualButton.Font = new Font("Microsoft Sans Serif", 7F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            addCourseManualButton.FlatStyle = FlatStyle.Flat;
+            addCourseManualButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addCourseManualButton.ForeColor = SystemColors.ControlText;
-            addCourseManualButton.Location = new Point(979, 388);
+            addCourseManualButton.Location = new Point(818, 277);
             addCourseManualButton.Margin = new Padding(2);
             addCourseManualButton.Name = "addCourseManualButton";
-            addCourseManualButton.Size = new Size(79, 31);
+            addCourseManualButton.Size = new Size(108, 30);
             addCourseManualButton.TabIndex = 4;
             addCourseManualButton.Text = "Create Course";
             addCourseManualButton.UseVisualStyleBackColor = false;
@@ -157,12 +164,13 @@
             // 
             importCourseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             importCourseButton.BackColor = Color.FromArgb(217, 217, 217);
-            importCourseButton.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
-            importCourseButton.Font = new Font("Microsoft Sans Serif", 7F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            importCourseButton.Location = new Point(979, 417);
+            importCourseButton.FlatAppearance.BorderColor = Color.Black;
+            importCourseButton.FlatStyle = FlatStyle.Flat;
+            importCourseButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            importCourseButton.Location = new Point(818, 306);
             importCourseButton.Margin = new Padding(2);
             importCourseButton.Name = "importCourseButton";
-            importCourseButton.Size = new Size(79, 29);
+            importCourseButton.Size = new Size(108, 29);
             importCourseButton.TabIndex = 5;
             importCourseButton.Text = "Import Course";
             importCourseButton.UseVisualStyleBackColor = false;
@@ -173,20 +181,20 @@
             // 
             AddCoursePictureBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             AddCoursePictureBox.Image = Properties.Resources.add_icon;
-            AddCoursePictureBox.Location = new Point(991, 444);
+            AddCoursePictureBox.Location = new Point(867, 333);
             AddCoursePictureBox.Margin = new Padding(2);
             AddCoursePictureBox.Name = "AddCoursePictureBox";
-            AddCoursePictureBox.Size = new Size(46, 52);
+            AddCoursePictureBox.Size = new Size(40, 39);
             AddCoursePictureBox.TabIndex = 6;
             AddCoursePictureBox.TabStop = false;
             AddCoursePictureBox.Click += AddCoursePictureBox_Click;
             // 
             // Homepage
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(1064, 517);
+            ClientSize = new Size(931, 388);
             Controls.Add(EditProfileButton);
             Controls.Add(LogoutButton);
             Controls.Add(editButton);

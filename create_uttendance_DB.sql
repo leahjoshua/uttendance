@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   PRIMARY KEY (`UTDID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.student: ~7 rows (approximately)
+-- Dumping data for table uttendance.student: ~9 rows (approximately)
 INSERT INTO `student` (`UTDID`, `SNetID`, `SFName`, `SLName`) VALUES
 	(4343432, 'aes11111', 'aendri', 'singh'),
 	(2021070921, 'jxy123456', 'Y', 'Joobie'),
@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `submission` (
   CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.submission: ~2 rows (approximately)
+-- Dumping data for table uttendance.submission: ~6 rows (approximately)
 INSERT INTO `submission` (`SubmissionID`, `AttendanceStatus`, `IPAddress`, `DateTime`, `FK_FormID`, `FK_UTDID`) VALUES
 	(1, 'P', NULL, NULL, 2, 4343432),
 	(2, 'E', NULL, NULL, 2, 2021070921),

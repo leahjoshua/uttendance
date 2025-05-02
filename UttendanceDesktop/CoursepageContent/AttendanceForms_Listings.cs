@@ -28,6 +28,19 @@ namespace UttendanceDesktop
         {
             this.courseNum = course;
             InitializeComponent();
+            
+            //Set panel size
+            attendanceFormPagePanel.Size = Size;
+
+            //Set the grid height
+            int width = attendanceFormPagePanel.Width - 30;
+            int height = attendanceFormPagePanel.Height - 130;
+
+            attendanceflowLayoutPanel.Width = width;
+            attendanceflowLayoutPanel.Height = height;
+            attendanceflowLayoutPanel.MaximumSize = new Size(width, height);
+            attendanceflowLayoutPanel.MinimumSize = new Size(width, height);
+
             PopulateAttendanceFormList();
         }
 

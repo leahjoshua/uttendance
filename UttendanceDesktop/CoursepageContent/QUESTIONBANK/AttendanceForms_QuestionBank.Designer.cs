@@ -39,14 +39,13 @@ namespace UttendanceDesktop
             // 
             // attendanceFormPagePanel
             // 
+            attendanceFormPagePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             attendanceFormPagePanel.Controls.Add(SaveEditIcon);
             attendanceFormPagePanel.Controls.Add(flowLayoutPanel);
             attendanceFormPagePanel.Controls.Add(attendanceFormsLabel);
-            attendanceFormPagePanel.Dock = DockStyle.Fill;
             attendanceFormPagePanel.Location = new Point(0, 0);
-            attendanceFormPagePanel.Margin = new Padding(3, 4, 3, 4);
             attendanceFormPagePanel.Name = "attendanceFormPagePanel";
-            attendanceFormPagePanel.Size = new Size(914, 600);
+            attendanceFormPagePanel.Size = new Size(800, 450);
             attendanceFormPagePanel.TabIndex = 0;
             // 
             // SaveEditIcon
@@ -56,15 +55,17 @@ namespace UttendanceDesktop
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(862, 548);
+            SaveEditIcon.Location = new Point(754, 411);
+            SaveEditIcon.Margin = new Padding(3, 2, 3, 2);
             SaveEditIcon.Name = "SaveEditIcon";
-            SaveEditIcon.Size = new Size(40, 40);
+            SaveEditIcon.Size = new Size(35, 30);
             SaveEditIcon.TabIndex = 15;
             SaveEditIcon.UseVisualStyleBackColor = false;
             SaveEditIcon.Click += SaveEditIcon_Click;
             // 
             // flowLayoutPanel
             // 
+            flowLayoutPanel.Anchor = AnchorStyles.Top;
             flowLayoutPanel.AutoScroll = true;
             flowLayoutPanel.Location = new Point(66, 110);
             flowLayoutPanel.Name = "flowLayoutPanel";
@@ -73,8 +74,9 @@ namespace UttendanceDesktop
             // 
             // attendanceFormsLabel
             // 
+            attendanceFormsLabel.Anchor = AnchorStyles.Top;
             attendanceFormsLabel.AutoSize = true;
-            attendanceFormsLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            attendanceFormsLabel.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             attendanceFormsLabel.ForeColor = Color.FromArgb(37, 42, 69);
             attendanceFormsLabel.Location = new Point(66, 55);
             attendanceFormsLabel.Name = "attendanceFormsLabel";
@@ -84,13 +86,12 @@ namespace UttendanceDesktop
             // 
             // AttendanceForms_QuestionBank
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(attendanceFormPagePanel);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
             Name = "AttendanceForms_QuestionBank";
             Text = "Uttendance";
             attendanceFormPagePanel.ResumeLayout(false);

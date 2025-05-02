@@ -90,6 +90,8 @@
             // 
             SignInBtn.Anchor = AnchorStyles.Bottom;
             SignInBtn.BackColor = Color.FromArgb(233, 117, 2);
+            SignInBtn.FlatAppearance.BorderSize = 0;
+            SignInBtn.FlatStyle = FlatStyle.Flat;
             SignInBtn.Font = new Font("Segoe UI", 15F);
             SignInBtn.ForeColor = Color.White;
             SignInBtn.Location = new Point(67, 425);
@@ -152,12 +154,12 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 10F);
+            label2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(88, 108, 168);
             label2.Location = new Point(67, 306);
             label2.Margin = new Padding(1, 0, 1, 0);
             label2.Name = "label2";
-            label2.Size = new Size(67, 19);
+            label2.Size = new Size(66, 17);
             label2.TabIndex = 7;
             label2.Text = "Password";
             // 
@@ -180,12 +182,12 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 10F);
+            label1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(88, 108, 168);
             label1.Location = new Point(83, 202);
             label1.Margin = new Padding(1, 0, 1, 0);
             label1.Name = "label1";
-            label1.Size = new Size(226, 19);
+            label1.Size = new Size(223, 17);
             label1.TabIndex = 5;
             label1.Text = "You're free from eLearning Quizzes!";
             // 
@@ -194,14 +196,14 @@
             netIDLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             netIDLabel.AutoSize = true;
             netIDLabel.BackColor = Color.Transparent;
-            netIDLabel.Font = new Font("Segoe UI", 10F);
+            netIDLabel.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             netIDLabel.ForeColor = Color.FromArgb(88, 108, 168);
             netIDLabel.Location = new Point(67, 241);
             netIDLabel.Margin = new Padding(1, 0, 1, 0);
             netIDLabel.Name = "netIDLabel";
-            netIDLabel.Size = new Size(45, 19);
+            netIDLabel.Size = new Size(47, 17);
             netIDLabel.TabIndex = 4;
-            netIDLabel.Text = "NetID";
+            netIDLabel.Text = "Net-ID";
             // 
             // panel2
             // 
@@ -425,11 +427,12 @@
             // 
             // LoginScreen
             // 
+            AcceptButton = SignInBtn;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 56, 87);
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(956, 447);
+            ClientSize = new Size(956, 560);
             Controls.Add(logInPanel);
             Controls.Add(createAccountPanel);
             DoubleBuffered = true;
