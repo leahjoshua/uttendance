@@ -18,8 +18,6 @@ namespace student_website.Models
         public string ClassSubject { get; set; } = "";
         public int? ClassNum { get; set; }
         public string ClassName { get; set; } = "";
-        public int? FK_ImageID { get; set; }
-        [ForeignKey("FK_ImageID")]
 
         //Referenced Keys
         public ICollection<Attends> Attends { get; set; }

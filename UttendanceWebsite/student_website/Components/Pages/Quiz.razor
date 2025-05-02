@@ -131,10 +131,6 @@
         // Get class information
         course = await db.Class.FirstOrDefaultAsync(c => c.CourseNum == form.FK_CourseNum);
 
-        /* Written by Parisa Nawar, PXN210032 */
-        //show questions
-        //questions = await db.Question.Where(q => q.FK_BankID == intID).ToListAsync();
-
         /* Written by Judy Yang, JXY200013 */
         // .Include() acts as a join
         questions = await db.Has
