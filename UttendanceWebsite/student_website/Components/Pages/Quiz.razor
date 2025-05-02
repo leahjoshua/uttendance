@@ -49,7 +49,7 @@
     </span>
 </div>
 
-<!-- Written by Parisa Nawar, PXN210032 -->
+<!-- Written by Parisa Nawar and Judy Yang, PXN210032, JXY200013 -->
 <div class="quiz-body">
     @if (questions == null || !questions.Any())
     {
@@ -68,11 +68,21 @@
                     <p class="card-text">@question.ProblemStatement</p>
                     <!-- Written by Judy Yang, JXY200013
                     For each question, list the answer choices -->
-                    @foreach(var choice in question.Answerchoice)
-                    {
-                        <input type="radio" id="@optionNum" name="question @questionNum" style="margin-right: 5px;"/>
-                        <label for="@optionNum"> @choice.AnswerStatement </label><br/>
-                        { optionNum++; }
+                    @{
+                        int optionIndex = 0;
+                        foreach (var choice in question.Answerchoice)
+                        {
+                            int currentOption = optionIndex;
+                            <input type="radio"
+                                   id="q@(question.QuestionID)_@currentOption"
+                                   name="question_@question.QuestionID"
+                                   checked="@(selectedAnswers.ContainsKey(question.QuestionID) && selectedAnswers[question.QuestionID] == currentOption)"
+                                   @onchange="@(() => UpdateSelection(question.QuestionID, currentOption))" />
+                            <label for="q@(question.QuestionID)_@currentOption">@choice.AnswerStatement</label>
+
+                            <br />
+                            optionIndex++;
+                        }
                     }
                 </div>
             </div>
@@ -81,6 +91,12 @@
         }
     }
 </div>
+
+<!-- Error message if not all answered -->
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
 
 <button class="btn btn-submit" @onclick="Submit">Submit</button>
 
@@ -94,7 +110,8 @@
     private List<Question>? questions;
     private string? userIP;
     private int intID = 0;
-
+    private Dictionary<int, int?> selectedAnswers = new();
+    private string errorMessage;
     /* Written by Judy Yang, JXY200013, starting April 26, 2025 */
     private int studentID = 0;
     private Student student;
@@ -141,11 +158,32 @@
            .ToListAsync();
     }
 
+
+    /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting May 02, 2025
+    * NetID: PXN210032*/
+   //Reset the error message after clicking answer
+    private void UpdateSelection(int questionId, int choiceIndex)
+    {
+        selectedAnswers[questionId] = choiceIndex;
+        errorMessage = null;
+    }
+
     /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
      * NetID: JXY200013*/
     // Adding async allows you to use await
     private async Task Submit()
     {
+        bool answerAll = questions.All(q =>
+            selectedAnswers.ContainsKey(q.QuestionID) &&
+            selectedAnswers[q.QuestionID].HasValue
+        );
+
+        if (!answerAll)
+        {
+            errorMessage = "Must answer all questions before submitting.";
+            return;
+        }
+
         await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, StudentService.StudentID);
         navigateManager.NavigateTo("/submission");
     }
