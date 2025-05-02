@@ -1,4 +1,17 @@
-﻿using MySql.Data.MySqlClient;
+﻿/******************************************************************************
+* FormDAO for the UttendanceDesktop application.
+* 
+* This is a Data Access Object which interacts with the form, question, and
+* answerchoice table. It performs operations such as adding forms and questions,
+* selecting them, etc.
+*
+* Written by Leah Joshua (lej210003) 
+* and Aendri Singh (axs????) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +26,15 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 {
     class FormDAO
     {
-        private string connectionString = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
+        private string connectionString = GlobalResource.CONNECTION_STRING;
 
-        public int GenerateNewPK(string PK, string tableName)
+        /**************************************************************************
+        * Finds the maximum primary key value in the table given by the parameters
+        * and returns +1, to use as a new PK for rows being added.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
+        private int GenerateNewPK(string PK, string tableName)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
@@ -36,6 +55,11 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return newPK;
         }
 
+        /**************************************************************************
+        * Saves a form to the form table.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public int SaveForm(AttendanceForm form)
         {
             int formID = GenerateNewPK("FormID", "form");
@@ -51,30 +75,36 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             cmd.Parameters.AddWithValue("@close", form.CloseDateTime);
             cmd.Parameters.AddWithValue("@courseNum", form.CourseNum);
 
-            //int formID = Convert.ToInt32(cmd.ExecuteScalar());
             cmd.ExecuteNonQuery();
             connection.Close();
 
             return formID;
         }
 
+        /**************************************************************************
+        * Saves questions and their answer choices to the question and 
+        * answerchoice tables respectively. Uses the has table to represent their
+        * relationship.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public void SaveQuestions(List<QuestionItem.QuestionItem> questions, int FormID)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
-            //int answerChoicePK = GenerateNewPK("AnswerID", "answerchoice");
             int questionPK = GenerateNewPK("QuestionID", "question");
             connection.Open();
             MySqlCommand cmd;
 
+            // inserts each question in the list
             for (int i = 0; i < questions.Count; i++)
             {
+                // only inserts a new row if the question isn't part of a question bank
                 if (!questions[i].IsBankQuestion)
                 {
                     cmd = new MySqlCommand("INSERT INTO question (QuestionID, ProblemStatement)" +
                     "VALUES (@questionID, @problemStmt)", connection);
                     cmd.Parameters.AddWithValue("@questionID", questionPK);
                     cmd.Parameters.AddWithValue("@problemStmt", questions[i].QuestionValue);
-                    //cmd.Parameters.AddWithValue("@formID", FormID);
                     cmd.ExecuteNonQuery();
 
                     cmd = new MySqlCommand("INSERT INTO has (FK_FormID, FK_QuestionID)" +
@@ -83,20 +113,20 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     cmd.Parameters.AddWithValue("@questionID", questionPK);
                     cmd.ExecuteNonQuery();
 
+                    // adds answerchoices for each question, using the current question PK for the FK
                     for (int j = 0; j < questions[i].AnswerList.Length; j++)
                     {
                         cmd = new MySqlCommand("INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID)" +
                             "VALUES (@answerStmt, @isCorrect, @questionID)", connection);
-                        //cmd.Parameters.AddWithValue("@answerID", answerChoicePK);
                         cmd.Parameters.AddWithValue("@answerStmt", questions[i].AnswerList[j].AnswerValue);
                         cmd.Parameters.AddWithValue("@isCorrect", questions[i].AnswerList[j].IsCorrect);
                         cmd.Parameters.AddWithValue("@questionID", questionPK);
 
                         cmd.ExecuteNonQuery();
-                        //answerChoicePK++;
                     }
                     questionPK++;
                 }
+                // question bank questions are linked to a form via the has table
                 else
                 {
                     try
@@ -523,10 +553,16 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
-        
-        // Lee
-        // 4/18/2025
-        // This function doesn't assign QuestionNumbers
+
+        /**************************************************************************
+        * Pulls a list of questions from the question table for a specific form
+        * based on form ID. Stores them in a list of QuestionItems ready for
+        * display.
+        * 
+        * NOTE: This method does not assign a QuestionNumber to each QuestionItem.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public List<QuestionItem.QuestionItem> SelectQuestions(List<int> IDs)
         {
             List<QuestionItem.QuestionItem> questionItemList = new List<QuestionItem.QuestionItem>();
@@ -549,8 +585,10 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     {
                         QuestionItem.QuestionItem currItem = new QuestionItem.QuestionItem();
                         currItem.QuestionID = Convert.ToInt32(reader[0]);
+                        // prevents error if the question value is null
                         if (reader[1] != null) { currItem.QuestionValue = reader[1].ToString(); }
                         else { currItem.QuestionValue = ""; }
+                        // pulling answers for the QuestionItem
                         currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
                         questionItemList.Add(currItem);
                     }
@@ -712,7 +750,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             {
                 connection.Open();
 
-                // Set close and release times and password of form
+                // selecting times of a specific class
                 cmd = new MySqlCommand(
                     "SELECT ClassStartTime, ClassEndTime " +
                     "FROM class " +
