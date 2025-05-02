@@ -107,7 +107,14 @@
         // Get user IPAddress
         var info = ConnectionService.GetUserConnectionInfo();
         //userIP = info.RemoteIpAddress;
-        userIP = await http.GetStringAsync("https://api.ipify.org");
+        try
+        {
+            userIP = await http.GetStringAsync("https://api.ipify.org");
+        }
+        catch(Exception e)
+        {
+            userIP = "Unable to get IP Address";
+        }
 
         /* Written by Parisa Nawar, PXN210032 */
         //show date
