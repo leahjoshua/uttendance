@@ -1,4 +1,18 @@
-﻿using System;
+﻿/******************************************************************************
+* ImportQuestionModal for the UttendanceDesktop application.
+* 
+* This class represents the import question modal for adding question to 
+* an attendance form that is currently being created. It pulls all the
+* professor's question banks and allows them to select a question from one,
+* then puts in it in a variable the create attendance form page can access
+* to display and save.
+*
+* Written by Leah Joshua (lej210003) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 16, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +35,14 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
         private QuestionBankItem selectedBank;
         private List<QuestionBankItem> qBankList = new List<QuestionBankItem>();
         private List<QuestionItem.QuestionItem> questionList = new List<QuestionItem.QuestionItem>();
+
+        /**************************************************************************
+        * Initializes the import question modal. Pulls all the professor's
+        * question banks and populates the dropdown with them. Makes nothing
+        * selected by default.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public ImportQuestionModal()
         {
             InitializeComponent();
@@ -36,6 +58,13 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             qBankDropdown.SelectedIndex = -1;
         }
 
+        /**************************************************************************
+        * Initializes the import question modal. Pulls all the professor's
+        * question banks and populates the dropdown with them. Makes nothing
+        * selected by default.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         private void qBankDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
             qBankDropdown.DataSource = qBankList;
@@ -60,6 +89,13 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 }
             }
         }
+
+        /**************************************************************************
+        * Event that triggers when a question is selected. Selects the question
+        * to be added to list of questions on the create attendance page.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         void child_question_OnQuestionSelectChange(object sender, EventArgs e)
         {
             QuestionItem.QuestionItem question = (QuestionItem.QuestionItem)sender;
@@ -73,11 +109,23 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             }
         }
 
+        /**************************************************************************
+        * Triggers on cancel button click, closes the modal without saving.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /**************************************************************************
+        * Triggers on import button click. Saves the selected questions to a list
+        * which the create attendance form page can access to display and save those
+        * questions.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         private void importBtn_Click(object sender, EventArgs e)
         {
             foreach(QuestionItem.QuestionItem question in selectedQuestions)

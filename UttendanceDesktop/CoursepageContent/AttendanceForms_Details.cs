@@ -74,7 +74,12 @@ namespace UttendanceDesktop.CoursepageContent
             PopulateQuestionList();
         }
 
-        // Leah 4/25/2025
+        /******************************************************************************
+        * Updates the submission statistics. Adds % submitted and % not submitted
+        * to a bar graph.
+        *
+        * Written by Leah Joshua.
+        ******************************************************************************/
         private void UpdateStats()
         {
             submissionStats.Controls.Clear();
@@ -210,6 +215,7 @@ namespace UttendanceDesktop.CoursepageContent
             // SAVE MODE
             else
             {
+                // validation
                 if (string.IsNullOrWhiteSpace(pwdTxtBox.Text))
                 {
                     MessageBox.Show("Please enter a password.");
@@ -229,13 +235,18 @@ namespace UttendanceDesktop.CoursepageContent
                     return;
                 }
 
+                // switch back to edit button
                 saveEditBtn.BackColor = GlobalStyle.BURNT_ORANGE;
                 saveEditBtn.Text = "Edit";
+
+                // update form in db
                 int rows = DB.UpdateForm(releaseTimePicker.Value, closeTimePicker.Value, pwdTxtBox.Text, formData.FormID);
                 if (rows <= 0)
                 {
                     MessageBox.Show("Couldn't update form.");
                 }
+
+                // make input fields uneditable
                 cancelBtn.Visible = false;
                 releaseTimePicker.Enabled = false;
                 closeTimePicker.Enabled = false;
@@ -251,6 +262,11 @@ namespace UttendanceDesktop.CoursepageContent
 
         }
 
+        /**************************************************************************
+        * Paints the bar graph specific colors to match its values.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         private void submissionStats_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
             using (var b = new SolidBrush(tableColors[e.Row, e.Column]))
