@@ -471,6 +471,35 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             try
             {
                 connection.Open();
+                // Get release time
+                cmd = new MySqlCommand(
+                    "SELECT ReleaseDateTime " +
+                    "FROM form " +
+                    "WHERE FormID=@FormID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                DateTime releaseTime = Convert.ToDateTime(reader[0]);
+                bool isReleased = releaseTime <= DateTime.Now;
+
+                reader.Close();
+
+
+                // Submission Data:
+                cmd = new MySqlCommand(
+                    "SELECT COUNT(DISTINCT FK_UTDID) " +
+                    "FROM submission " +
+                    "WHERE FK_FormID=@FormID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@FormID", formID);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                int totalSubmissions = Convert.ToInt32(reader[0]);
+                reader.Close();
+
 
                 // Get a list of all questions associated with the bank
                 cmd = new MySqlCommand(
@@ -504,6 +533,16 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
                     // Answer choices
                     currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
+
+                    // Has submission data?
+                    if (isReleased)
+                    {
+                        currItem.ShowSubmissionData = isReleased;
+                        currItem.NumSubmissions = totalSubmissions;
+
+                        // **** GET # CORRECT SUBMISSIONS ****
+                        currItem.NumCorrect = 5; //temp value
+                    }
 
                     questionItemList.Add(currItem);
                     i++;

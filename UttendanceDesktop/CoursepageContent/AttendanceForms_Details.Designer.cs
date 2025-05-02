@@ -53,10 +53,10 @@
             flowLayoutPanel.Anchor = AnchorStyles.Top;
             flowLayoutPanel.AutoSize = true;
             flowLayoutPanel.Controls.Add(questionItem1);
-            flowLayoutPanel.Location = new Point(234, 444);
-            flowLayoutPanel.MaximumSize = new Size(779, 0);
+            flowLayoutPanel.Location = new Point(57, 444);
+            flowLayoutPanel.MaximumSize = new Size(900, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(779, 84);
+            flowLayoutPanel.Size = new Size(900, 84);
             flowLayoutPanel.TabIndex = 19;
             // 
             // questionItem1
@@ -67,6 +67,7 @@
             questionItem1.BackColor = Color.FromArgb(50, 56, 87);
             questionItem1.IsBankQuestion = false;
             questionItem1.IsChecked = false;
+            questionItem1.IsEditable = true;
             questionItem1.IsSelectable = false;
             questionItem1.Location = new Point(0, 0);
             questionItem1.Margin = new Padding(0);

@@ -65,11 +65,12 @@
             // 
             flowLayoutPanel.AutoSize = true;
             flowLayoutPanel.Controls.Add(questionItem1);
+            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel.Location = new Point(53, 148);
-            flowLayoutPanel.MaximumSize = new Size(779, 0);
-            flowLayoutPanel.MinimumSize = new Size(779, 0);
+            flowLayoutPanel.MaximumSize = new Size(900, 0);
+            flowLayoutPanel.MinimumSize = new Size(900, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(779, 466);
+            flowLayoutPanel.Size = new Size(900, 84);
             flowLayoutPanel.TabIndex = 15;
             // 
             // questionItem1
@@ -80,6 +81,7 @@
             questionItem1.BackColor = Color.FromArgb(50, 56, 87);
             questionItem1.IsBankQuestion = false;
             questionItem1.IsChecked = false;
+            questionItem1.IsEditable = true;
             questionItem1.IsSelectable = false;
             questionItem1.Location = new Point(0, 0);
             questionItem1.Margin = new Padding(0);
@@ -101,7 +103,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(631, 702);
+            SaveEditIcon.Location = new Point(823, 716);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
@@ -114,7 +116,7 @@
             newEditIcon.FlatAppearance.BorderColor = Color.White;
             newEditIcon.FlatAppearance.BorderSize = 2;
             newEditIcon.FlatStyle = FlatStyle.Flat;
-            newEditIcon.Location = new Point(838, 543);
+            newEditIcon.Location = new Point(1054, 541);
             newEditIcon.Name = "newEditIcon";
             newEditIcon.Size = new Size(40, 40);
             newEditIcon.TabIndex = 17;
@@ -128,7 +130,7 @@
             AutoScroll = true;
             AutoSize = true;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(1127, 600);
             Controls.Add(newEditIcon);
             Controls.Add(SaveEditIcon);
             Controls.Add(flowLayoutPanel);

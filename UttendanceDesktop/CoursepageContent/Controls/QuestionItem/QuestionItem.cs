@@ -21,25 +21,25 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private bool _isSelectable = false;
         private bool isBankQuestion = false;
         private bool _isEditable = true;
+        private bool _isSubmitted = false;
+
+        private int _numCorrect = 0;
+        private int _numSubmissions = 0;
 
         private Question question = new Question();
 
         public event EventHandler OnQuestionSelectChange;
         public event EventHandler OnClickEdit;
-
-
         public QuestionItem()
         {
             InitializeComponent();
-            ShowHideList();
-            ToggleSelect();
+            UpdateDisplay();
         }
 
         public QuestionItem(String questionValue, QuestionAnswerItem[] answersList)
         {
             InitializeComponent();
-            ShowHideList();
-            ToggleSelect();
+            UpdateDisplay();
 
             QuestionValue = questionValue;
             AnswerList = answersList;
@@ -151,6 +151,44 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             set { isBankQuestion = value; }
         }
 
+        // Aendri 5/2/2025
+        // Determines if submission data will be shown or not
+        [Category("Item Values")]
+        public bool ShowSubmissionData
+        {
+            get { return _isSubmitted; }
+            set { 
+                _isSubmitted = value;
+                ToggleSubmission();
+            }
+}
+
+        // Aendri 5/2/2025
+        // Number of correct submissions
+        [Category("Item Values")]
+        public int NumCorrect
+        {
+            get { return _numCorrect; }
+            set
+            {
+                _numCorrect = value;
+                correctLabel.Text = value.ToString();
+            }
+        }
+
+        // Aendri 5/2/2025
+        // Number of correct submissions
+        [Category("Item Values")]
+        public int NumSubmissions
+        {
+            get { return _numSubmissions; }
+            set
+            {
+                _numSubmissions = value;
+                submittedLabel.Text = value.ToString();
+            }
+        }
+
         // ----- SPECIAL FUNCTIONS ------ //
 
         // Aendri 4/13/2025 
@@ -166,6 +204,18 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
                 }
             }
             ShowHideList();
+        }
+
+        // Aendri 5/2/2025
+        // Updates all special display properties
+        private void UpdateDisplay()
+        {
+            ShowHideList();
+            ToggleSelect();
+            ToggleEdit();
+            ToggleSubmission();
+
+            QuestionLabel.MaximumSize = new System.Drawing.Size(topFlowLayout.Width - 160, 0);
         }
 
         // Aendri 4/14/2025
@@ -190,6 +240,15 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         private void ToggleEdit()
         {
             editButton.Visible = _isEditable;
+        }
+
+        // Aendri 5/2/2025
+        // IsSubmitted is true -> show submission labels
+        // otherwise -> hide
+        private void ToggleSubmission()
+        {
+            correctLabel.Visible = _isSubmitted;
+            submittedLabel.Visible = _isSubmitted;
         }
 
         // ----------- EVENTS ----------- //
