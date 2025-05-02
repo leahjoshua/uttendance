@@ -1,4 +1,12 @@
-﻿
+﻿/******************************************************************************
+* EditProfile Form Designer for the UttendanceDesktop application.
+* This form allows users to edit their profile information (first name, last name,
+* password) and delete their account. It interacts with the MySQL database to
+* fetch, update, and delete instructor records. Deletion also removes associated
+* course assignments from the teaches table to maintain referential integrity.
+* Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+* starting April 10, 2025.
+******************************************************************************/
 namespace UttendanceDesktop
 {
     partial class EditProfile
@@ -238,7 +246,6 @@ namespace UttendanceDesktop
         #endregion
 
         private Panel homepageBanner;
-        //private Button EditProfileButton;
         private PictureBox ProfilePictureBox;
         private Label uttendanceLabel;
         private Button DeleteButton;

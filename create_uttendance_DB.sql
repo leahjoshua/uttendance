@@ -92,15 +92,18 @@ CREATE TABLE IF NOT EXISTS `class` (
   `ClassNum` int(11) DEFAULT NULL,
   `ClassName` varchar(40) DEFAULT NULL,
   `FK_ImageID` int(11) DEFAULT NULL,
+  `ClassStartTime` time DEFAULT NULL,
+  `ClassEndTime` time DEFAULT NULL,
   PRIMARY KEY (`CourseNum`),
   KEY `FK_ImageID` (`FK_ImageID`),
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`FK_ImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.class: ~2 rows (approximately)
-INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `ClassName`, `FK_ImageID`) VALUES
-	(12345, 1, 'CS', 4349, 'Advanced Algorithms', NULL),
-	(123456, 1, 'CS', 4384, 'Operating Systems', NULL);
+-- Dumping data for table uttendance.class: ~3 rows (approximately)
+INSERT INTO `class` (`CourseNum`, `SectionNum`, `ClassSubject`, `ClassNum`, `ClassName`, `FK_ImageID`, `ClassStartTime`, `ClassEndTime`) VALUES
+	(12345, 1, 'CS', 4349, 'Advanced Algorithms', NULL, '14:30:00', '15:45:00'),
+	(123456, 1, 'CS', 4384, 'Operating Systems', NULL, '10:00:00', '11:15:00'),
+	(999999, 1, 'CS', 9999, 'Test Class', NULL, '11:30:00', '12:45:00');
 
 -- Dumping structure for table uttendance.form
 CREATE TABLE IF NOT EXISTS `form` (
@@ -240,16 +243,25 @@ CREATE TABLE IF NOT EXISTS `submission` (
   KEY `FK_UTDID` (`FK_UTDID`),
   CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`),
   CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.submission: ~6 rows (approximately)
+-- Dumping data for table uttendance.submission: ~15 rows (approximately)
 INSERT INTO `submission` (`SubmissionID`, `AttendanceStatus`, `IPAddress`, `DateTime`, `FK_FormID`, `FK_UTDID`) VALUES
-	(1, 'P', NULL, NULL, 2, 4343432),
+	(1, 'P', 'utd', NULL, 2, 4343432),
 	(2, 'E', NULL, NULL, 2, 2021070921),
-	(3, 'P', NULL, NULL, 4, 2021188666),
-	(4, 'P', NULL, NULL, 5, 2021308444),
-	(5, 'P', NULL, NULL, 2, 2021188666),
-	(6, 'P', NULL, NULL, 2, 2021308444);
+	(3, 'P', 'utd', NULL, 4, 2021188666),
+	(4, 'P', 'utd', NULL, 5, 2021308444),
+	(5, 'P', 'utd', NULL, 2, 2021188666),
+	(6, 'P', 'utd', NULL, 2, 2021308444),
+	(7, 'P', 'utd', NULL, 1, 2021504000),
+	(8, 'P', 'utd', NULL, 1, 2021393333),
+	(9, 'P', 'utd', NULL, 1, 2021542222),
+	(10, 'P', 'utd', NULL, 1, 2021308444),
+	(11, 'P', 'utd', NULL, 1, 2021345555),
+	(12, 'P', 'utd', NULL, 1, 2021188666),
+	(13, 'P', 'utd', NULL, 1, 2021070921),
+	(14, 'P', 'utd', NULL, 1, 2021482111),
+	(15, 'P', 'utd', NULL, 1, 4343432);
 
 -- Dumping structure for table uttendance.teaches
 CREATE TABLE IF NOT EXISTS `teaches` (
@@ -265,7 +277,8 @@ CREATE TABLE IF NOT EXISTS `teaches` (
 INSERT INTO `teaches` (`FK_INetID`, `FK_CourseNum`) VALUES
 	('mxm123456', 12345),
 	('mxm123456', 123456),
-	('SXH210003', 123456);
+	('SXH210003', 123456),
+	('SXH210003', 999999);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

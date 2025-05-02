@@ -1,4 +1,12 @@
-﻿namespace UttendanceDesktop
+﻿/******************************************************************************
+ * Homepage Form Designer for the UttendanceDesktop application.
+ * This form serves as the main dashboard after login. It displays the user's
+ * courses as interactive tiles and provides options to add, import, and
+ * delete courses, as well as edit profile and logout features.
+ * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+ * starting March 13, 2025.
+ ******************************************************************************/
+namespace UttendanceDesktop
 {
     partial class Homepage
     {
@@ -30,6 +38,9 @@
         {
             YourCoursesLabel = new Label();
             homepageBanner = new Panel();
+            databaseInfoButton = new Button();
+            LogoutButton = new Button();
+            EditProfileButton = new Button();
             ProfilePictureBox = new PictureBox();
             uttendanceLabel = new Label();
             LogoutButton = new Button();
@@ -60,6 +71,9 @@
             // 
             homepageBanner.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             homepageBanner.BackColor = Color.FromArgb(50, 56, 87);
+            homepageBanner.Controls.Add(databaseInfoButton);
+            homepageBanner.Controls.Add(LogoutButton);
+            homepageBanner.Controls.Add(EditProfileButton);
             homepageBanner.Controls.Add(ProfilePictureBox);
             homepageBanner.Controls.Add(uttendanceLabel);
             homepageBanner.Location = new Point(2, 2);
@@ -92,6 +106,19 @@
             uttendanceLabel.Size = new Size(209, 47);
             uttendanceLabel.TabIndex = 0;
             uttendanceLabel.Text = "UTtenDance";
+            // databaseInfoButton
+            // 
+            databaseInfoButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            databaseInfoButton.BackColor = Color.FromArgb(234, 117, 7);
+            databaseInfoButton.Font = new Font("Afacad", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            databaseInfoButton.ForeColor = Color.White;
+            databaseInfoButton.Location = new Point(1029, 26);
+            databaseInfoButton.Name = "databaseInfoButton";
+            databaseInfoButton.Size = new Size(107, 75);
+            databaseInfoButton.TabIndex = 9;
+            databaseInfoButton.Text = "Database Information";
+            databaseInfoButton.UseVisualStyleBackColor = false;
+            databaseInfoButton.Click += databaseInfoButton_Click;
             // 
             // LogoutButton
             // 
@@ -242,5 +269,6 @@
         private Button LogoutButton;
         private Button EditProfileButton;
         private Button formsBtn;
+        private Button databaseInfoButton;
     }
 }
