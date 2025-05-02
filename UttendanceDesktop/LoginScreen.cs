@@ -178,6 +178,7 @@ namespace UttendanceDesktop
         {
             if (pwdTxtBox.Text == "Enter your Password")
             {
+                pwdTxtBox.PasswordChar = '*';
                 pwdTxtBox.Text = "";
                 pwdTxtBox.ForeColor = Color.Black;
             }
@@ -193,6 +194,7 @@ namespace UttendanceDesktop
         {
             if (pwdTxtBox.Text == "")
             {
+                pwdTxtBox.PasswordChar = '\0';
                 pwdTxtBox.Text = "Enter your Password";
                 pwdTxtBox.ForeColor = Color.Silver;
             }
