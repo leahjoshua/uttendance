@@ -1,4 +1,20 @@
-﻿using System;
+﻿/******************************************************************************
+* CreateAttendanceFormPage for the UttendanceDesktop application.
+* 
+* This class represents the create attendance form page, where professors
+* can enter information to create attenance forms for their class. This includes
+* the option to add questions or import them from the question bank.
+* 
+* The Professor is required to at least enter a release and close time as well
+* as a password.
+*
+* Written by Leah Joshua (lej210003) 
+* and Aendri Singh (axs???????) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting March 5, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,11 +39,24 @@ namespace UttendanceDesktop.CoursepageContent
         private List<QuestionItem.QuestionItem> questionList = new List<QuestionItem.QuestionItem>();
         private FormDAO DB = new FormDAO();
 
+        /**************************************************************************
+        * Intializes the Create Attendance Form page.
+        * Sets the default times to the class times, day will be tomorrow by
+        * default.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public CreateAttendanceFormPage()
         {
             InitializeComponent();
             releaseTimePicker.MinDate = DateTime.Now;
             closeTimePicker.MinDate = DateTime.Now;
+
+            // set times to class times by default
+            List<TimeSpan> times = DB.GetTimes(GlobalResource.CURRENT_CLASS_ID);
+            releaseTimePicker.Value = DateTime.Today.AddDays(1) + times[0];
+            closeTimePicker.Value = DateTime.Today.AddDays(1) + times[1];
+
             PopulateQuestions();
         }
 

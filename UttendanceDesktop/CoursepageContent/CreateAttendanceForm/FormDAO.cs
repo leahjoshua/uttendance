@@ -694,5 +694,47 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
             return rowsAffected;
         }
+
+        /**************************************************************************
+        * Gets the start and end time of a specific class.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
+        public List<TimeSpan> GetTimes(int classID)
+        {
+            List<TimeSpan> times = new List<TimeSpan>();
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            try
+            {
+                connection.Open();
+
+                // Set close and release times and password of form
+                cmd = new MySqlCommand(
+                    "SELECT ClassStartTime, ClassEndTime " +
+                    "FROM class " +
+                    "WHERE CourseNum=@courseID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@courseID", classID);
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    times.Add(reader.GetTimeSpan(0));
+                    times.Add(reader.GetTimeSpan(1));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetTimes: " + ex.ToString());
+            }
+            connection.Close();
+
+            return times;
+        }
     }
 }
