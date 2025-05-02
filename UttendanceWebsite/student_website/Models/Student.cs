@@ -12,7 +12,7 @@ namespace student_website.Models
     public class Student
     {
         [Key]
-        public int UTDID { get; set; }
+        public int? UTDID { get; set; }
         public string SNetID { get; set; } = "";
         public string SFName { get; set; } = "";
         public string SLName { get; set; } = "";

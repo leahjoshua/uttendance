@@ -56,7 +56,7 @@
             Class password input -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <InputText id="password" @bind-Value="form.PassWd" class="form-control" />
+                <InputText id="password" @bind-Value="form.PassWd" class="form-control no-spinners" />
             </div>
 
             <!-- Button for Modal -->
@@ -157,7 +157,7 @@
                               && s.FK_FormID == formIDs[0]
                               select s).ToListAsync();
 
-    StudentService.StudentID = validStudent.UTDID;
+    StudentService.StudentID = (int) validStudent.UTDID;
     var questions = await db.Has.Where(h => h.FK_FormID == formIDs[0]).Include(h => h.Question).ThenInclude(q => q.Answerchoice).Select(h => h.Question).ToListAsync();
     if(submittedForm.Count != 0)
     {
@@ -166,7 +166,7 @@
             {
                 if (questions == null || !questions.Any())
                 {
-                    await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], validStudent.UTDID);
+                    await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], (int)validStudent.UTDID);
                         navigateManager.NavigateTo("/submission");
                 }
                 else
