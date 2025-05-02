@@ -38,6 +38,7 @@
             addCourseManualButton = new Button();
             importCourseButton = new Button();
             AddCoursePictureBox = new PictureBox();
+            panel2 = new Panel();
             homepageBanner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddCoursePictureBox).BeginInit();
@@ -84,7 +85,7 @@
             uttendanceLabel.BackColor = Color.FromArgb(50, 56, 87);
             uttendanceLabel.Font = new Font("Microsoft Sans Serif", 25.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
             uttendanceLabel.ForeColor = Color.FromArgb(166, 176, 230);
-            uttendanceLabel.Location = new Point(33, 26);
+            uttendanceLabel.Location = new Point(155, 24);
             uttendanceLabel.Margin = new Padding(2, 0, 2, 0);
             uttendanceLabel.Name = "uttendanceLabel";
             uttendanceLabel.Size = new Size(267, 52);
@@ -181,12 +182,24 @@
             AddCoursePictureBox.TabStop = false;
             AddCoursePictureBox.Click += AddCoursePictureBox_Click;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(50, 56, 87);
+            panel2.BackgroundImage = Properties.Resources.real_xof_icon;
+            panel2.BackgroundImageLayout = ImageLayout.Stretch;
+            panel2.Location = new Point(29, 2);
+            panel2.Margin = new Padding(1);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(112, 100);
+            panel2.TabIndex = 4;
+            // 
             // Homepage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(1064, 517);
+            Controls.Add(panel2);
             Controls.Add(EditProfileButton);
             Controls.Add(LogoutButton);
             Controls.Add(editButton);
@@ -217,5 +230,6 @@
         private PictureBox AddCoursePictureBox;
         private Button LogoutButton;
         private Button EditProfileButton;
+        private Panel panel2;
     }
 }
