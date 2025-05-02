@@ -50,6 +50,7 @@
             releaseTimePicker = new DateTimePicker();
             label1 = new Label();
             saveEditBtn = new Button();
+            cancelBtn = new Button();
             flowLayoutPanel.SuspendLayout();
             submissionPanel.SuspendLayout();
             SuspendLayout();
@@ -246,6 +247,7 @@
             // 
             // pwdTxtBox
             // 
+            pwdTxtBox.Enabled = false;
             pwdTxtBox.Font = new Font("Segoe UI", 10F);
             pwdTxtBox.Location = new Point(396, 196);
             pwdTxtBox.Margin = new Padding(3, 2, 3, 2);
@@ -324,6 +326,22 @@
             saveEditBtn.UseVisualStyleBackColor = false;
             saveEditBtn.Click += saveEditBtn_Click;
             // 
+            // cancelBtn
+            // 
+            cancelBtn.BackColor = Color.FromArgb(88, 101, 168);
+            cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancelBtn.ForeColor = SystemColors.Control;
+            cancelBtn.Location = new Point(493, 237);
+            cancelBtn.Margin = new Padding(3, 2, 3, 2);
+            cancelBtn.Name = "cancelBtn";
+            cancelBtn.Size = new Size(117, 28);
+            cancelBtn.TabIndex = 35;
+            cancelBtn.Text = "Cancel Editing";
+            cancelBtn.UseVisualStyleBackColor = false;
+            cancelBtn.Visible = false;
+            cancelBtn.Click += cancelBtn_Click;
+            // 
             // AttendanceForms_Details
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -331,6 +349,7 @@
             AutoScroll = true;
             BackColor = Color.FromArgb(166, 176, 230);
             ClientSize = new Size(1094, 415);
+            Controls.Add(cancelBtn);
             Controls.Add(saveEditBtn);
             Controls.Add(pwdTxtBox);
             Controls.Add(label3);
@@ -384,5 +403,6 @@
         private Label label5;
         private Panel panel2;
         private Label label2;
+        private Button cancelBtn;
     }
 }

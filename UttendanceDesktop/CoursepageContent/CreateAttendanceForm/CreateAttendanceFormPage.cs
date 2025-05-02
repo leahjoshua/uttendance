@@ -122,7 +122,7 @@ namespace UttendanceDesktop.CoursepageContent
                 return;
             }
 
-            if (closeTimePicker.Value < closeTimePicker.Value)
+            if (releaseTimePicker.Value > closeTimePicker.Value)
             {
                 MessageBox.Show("Close time cannot be before Release time.");
                 return;

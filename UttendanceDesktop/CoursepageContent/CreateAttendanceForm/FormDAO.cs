@@ -654,5 +654,45 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return bankID;
                 
         }
+
+        /**************************************************************************
+        * Updates the date and password of an existing form.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
+        public int UpdateForm(DateTime releaseTime, DateTime closeTime, string password, int id)
+        {
+            int rowsAffected = -1;
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+
+            try
+            {
+                connection.Open();
+
+                // Set close and release times and password of form
+                cmd = new MySqlCommand(
+                    "UPDATE form " +
+                    "SET ReleaseDateTime = @releaseTime, " +
+                        "CloseDateTime = @closeTime, " +
+                        "PassWd = @pwd " +
+                    "WHERE FormID = @formID;"
+                    , connection);
+                cmd.Parameters.AddWithValue("@releaseTime", releaseTime);
+                cmd.Parameters.AddWithValue("@closeTime", closeTime);
+                cmd.Parameters.AddWithValue("@pwd", password);
+                cmd.Parameters.AddWithValue("@formID", id);
+
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/UpdateForm: " + ex.ToString());
+            }
+            connection.Close();
+
+            return rowsAffected;
+        }
     }
 }
