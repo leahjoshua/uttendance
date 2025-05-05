@@ -25,6 +25,7 @@ namespace student_website.Services
         public DbSet<Student> Student { get; set; }
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Has> Has { get; set; }
+        public DbSet<Answers> Answers { get; set; }
 
         /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025
          * NetID: PXN210032
@@ -69,6 +70,10 @@ namespace student_website.Services
                 .WithMany(q => q.Has)
                 .HasForeignKey(h => h.FK_QuestionID)
                 .HasPrincipalKey(q => q.QuestionID);
+
+            //Composite Primary Key for Answers
+            modelBuilder.Entity<Answers>()
+                .HasKey(a => new { a.FK_AnswerID, a.FK_SubmissionID });
         }
     }
 }

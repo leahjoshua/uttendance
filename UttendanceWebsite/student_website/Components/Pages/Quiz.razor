@@ -74,10 +74,10 @@
                         {
                             int currentOption = optionIndex;
                             <input type="radio"
-                                   id="q@(question.QuestionID)_@currentOption"
-                                   name="question_@question.QuestionID"
-                                   checked="@(selectedAnswers.ContainsKey(question.QuestionID) && selectedAnswers[question.QuestionID] == currentOption)"
-                                   @onchange="@(() => UpdateSelection(question.QuestionID, currentOption))" />
+                            id="q@(question.QuestionID)_@currentOption"
+                            name="question_@question.QuestionID"
+                            checked="@(selectedAnswers.ContainsKey(question.QuestionID) && selectedAnswers[question.QuestionID] == currentOption)"
+                            @onchange="@(() => UpdateSelection(question.QuestionID, currentOption))" />
                             <label for="q@(question.QuestionID)_@currentOption">@choice.AnswerStatement</label>
 
                             <br />
@@ -169,11 +169,12 @@
         errorMessage = null;
     }
 
-    /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
-     * NetID: JXY200013*/
+    /* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 14, 2025
+     * NetID: JXY200013, PXN210032*/
     // Adding async allows you to use await
     private async Task Submit()
     {
+        //Check if all the questions have been answered
         bool answerAll = questions.All(q =>
             selectedAnswers.ContainsKey(q.QuestionID) &&
             selectedAnswers[q.QuestionID].HasValue
@@ -185,7 +186,21 @@
             return;
         }
 
-        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, StudentService.StudentID);
+        //Collect user chosen answers to send to Database
+        var answerChoices = new List<int>();
+        foreach (var question in questions)
+        {
+            if (selectedAnswers.TryGetValue(question.QuestionID, out int? choiceIndex) && choiceIndex.HasValue)
+            {
+                var answerChoice = question.Answerchoice.ElementAtOrDefault(choiceIndex.Value);
+                if (answerChoice != null)
+                {
+                    answerChoices.Add(answerChoice.AnswerID);
+                }
+            }
+        }
+
+        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, StudentService.StudentID, answerChoices);
         navigateManager.NavigateTo("/submission");
     }
 }

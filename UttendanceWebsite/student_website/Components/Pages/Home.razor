@@ -172,7 +172,7 @@
                     // Go to Submission page if there are no questions to answer
                     if (questions == null || !questions.Any())
                     {
-                        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], (int)validStudent.UTDID);
+                        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], (int)validStudent.UTDID, new List<int>());
                         navigateManager.NavigateTo("/submission");
                     }
                     else

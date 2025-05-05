@@ -5,8 +5,8 @@ namespace student_website.Services
 {
     public class SubmissionService
     {
-        /* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 24, 2025
-         * NetID: JXY200013
+        /* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 24, 2025
+         * NetID: JXY200013, PXN210032
          * 
          * Service for Submission to handle databse interactions
          */
@@ -39,9 +39,9 @@ namespace student_website.Services
         }
 
         // Function to insert Submission information to database
-        public async Task CreateAndInsertSubmissionAsync(String userIP, int form, int studentID)
+        public async Task CreateAndInsertSubmissionAsync(String userIP, int form, int studentID, List<int> answerIDs)
         {
-            // Create a new Submissioin object
+            // Create a new Submission object
             var submission = new Submission
             {
                 IPAddress = userIP,
@@ -52,6 +52,25 @@ namespace student_website.Services
 
             // Insert to database
             await InsertSubmissionAsync(submission);
+            var subID = submission.SubmissionID;
+
+            //Parisa Nawar, pxn210032, on May 4
+
+            //Create Answers objects and add them
+            if (answerIDs != null || answerIDs.Count != 0)
+            {
+                foreach (var answerID in answerIDs)
+                {
+                    var answerRow = new Answers
+                    {
+                        FK_AnswerID = answerID,
+                        FK_SubmissionID = subID
+                    };
+
+                    _context.Answers.Add(answerRow);
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
     }
 }
