@@ -54,7 +54,7 @@ namespace student_website.Services
             await InsertSubmissionAsync(submission);
             var subID = submission.SubmissionID;
 
-            //Parisa Nawar, pxn210032, on May 4
+            //Parisa Nawar on May 4
 
             //Create Answers objects and add them
             if (answerIDs != null || answerIDs.Count != 0)
