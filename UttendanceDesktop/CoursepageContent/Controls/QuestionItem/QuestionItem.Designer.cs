@@ -180,7 +180,6 @@
             // editButton
             // 
             editButton.BackColor = Color.Transparent;
-            editButton.BackgroundImage = Properties.Resources.icons8_pencil_96;
             editButton.BackgroundImageLayout = ImageLayout.Zoom;
             editButton.Dock = DockStyle.Right;
             editButton.FlatAppearance.BorderColor = Color.FromArgb(50, 56, 87);
