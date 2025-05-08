@@ -534,16 +534,6 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     // Answer choices
                     currItem.AnswerList = GetQuestionAnswerList(currItem.QuestionID);
 
-                    // Has submission data?
-                    if (isReleased)
-                    {
-                        currItem.ShowSubmissionData = isReleased;
-                        currItem.NumSubmissions = totalSubmissions;
-
-                        // **** GET # CORRECT SUBMISSIONS ****
-                        currItem.NumCorrect = 5; //temp value
-                    }
-
                     questionItemList.Add(currItem);
                     i++;
                 }
