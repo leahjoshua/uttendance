@@ -21,6 +21,9 @@ using UttendanceDesktop;
 
 namespace UttendanceDesktop
 {
+    // Written by Joanna Yang and Parisa Nawar for CS4485.0w1, Uttendance, starting March 14, 2025.
+    //
+    // NetID: jxy210012, pxn210032
     public partial class Coursepage : Form
     {
         //Boolean to track whether or not the sidebar is expanded
@@ -69,11 +72,11 @@ namespace UttendanceDesktop
             //Retrieve the Course information from database 
             string connectionString = GlobalResource.CONNECTION_STRING;
             string query = @"
-                SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
-                FROM class AS c
-                INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
-                WHERE t.FK_INetID = @netID
-                AND c.CourseNum = @courseNum";
+        SELECT c.CourseNum, c.SectionNum, c.ClassSubject, c.ClassNum, c.ClassName
+        FROM class AS c
+        INNER JOIN teaches AS t ON c.CourseNum = t.FK_CourseNum
+        WHERE t.FK_INetID = @netID
+        AND c.CourseNum = @courseNum";
 
             using (var connection = new MySqlConnection(connectionString))
             using (var cmd = new MySqlCommand(query, connection))
@@ -251,7 +254,30 @@ namespace UttendanceDesktop
         **************************************************************************/
         private void summaryPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new Summary(CourseNum));
+            loadForm(new Summary());
+        }
+
+        //Animates the submenu to expand and minimize
+        private void attendanceFormsTimer_Tick(object sender, EventArgs e)
+        {
+            if (attendanceCollapsed)
+            {
+                attendanceFormsContainerPanel.Height += 10;
+                if (attendanceFormsContainerPanel.Height == attendanceFormsContainerPanel.MaximumSize.Height)
+                {
+                    attendanceCollapsed = false;
+                    attendanceFormsTimer.Stop();
+                }
+            }
+            else
+            {
+                attendanceFormsContainerPanel.Height -= 10;
+                if (attendanceFormsContainerPanel.Height == attendanceFormsContainerPanel.MinimumSize.Height)
+                {
+                    attendanceCollapsed = true;
+                    attendanceFormsTimer.Stop();
+                }
+            }
         }
 
         /**************************************************************************

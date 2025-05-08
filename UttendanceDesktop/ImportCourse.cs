@@ -90,9 +90,9 @@ namespace UttendanceDesktop
                 // Extract and trim each field from the columns
                 string CourseName = columns[0].Trim();
                 string ClassPrefix = columns[1].Trim();
-                int ClassNumber = int.Parse(columns[2].Trim());
-                int SectionNumber = int.Parse(columns[3].Trim());
-                int ClassID = int.Parse(columns[4].Trim());
+                int ClassNumber = int.Parse(columns[2].Trim());       
+                int SectionNumber = int.Parse(columns[3].Trim());    
+                int ClassID = int.Parse(columns[4].Trim());          
                 TimeSpan ClassStartTime = TimeSpan.Parse(columns[5].Trim());
                 TimeSpan ClassEndTime = TimeSpan.Parse(columns[6].Trim());
 

@@ -51,7 +51,9 @@ namespace UttendanceDesktop
             summaryPagePanel.Controls.Add(totalCountLabel);
             summaryPagePanel.Controls.Add(summaryTable);
             summaryPagePanel.Controls.Add(summaryLabel);
+            summaryPagePanel.Dock = DockStyle.Fill;
             summaryPagePanel.Location = new Point(0, 0);
+            summaryPagePanel.Margin = new Padding(3, 4, 3, 4);
             summaryPagePanel.Name = "summaryPagePanel";
             summaryPagePanel.Size = new Size(800, 450);
             summaryPagePanel.TabIndex = 0;
@@ -152,6 +154,7 @@ namespace UttendanceDesktop
             ClientSize = new Size(800, 450);
             Controls.Add(summaryPagePanel);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Summary";
             Text = "Summary";
             summaryPagePanel.ResumeLayout(false);

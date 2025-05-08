@@ -83,6 +83,12 @@ namespace UttendanceDesktop.CoursepageContent
                     //If the add was a success, hide the modal and raise flag
                     if(studentInfo.addStudent(student, CourseNum))
                     {
+                        MySqlCommand cmd = new MySqlCommand("INSERT INTO attends (`FK_UTDID`, `FK_CourseNum`) \n"
+                            + "VALUES(@utdID, @courseNum);", connection);
+                        cmd.Parameters.AddWithValue("@utdID", student.SUTDID);
+                        cmd.Parameters.AddWithValue("@courseNum", courseNum);
+
+                        cmd.ExecuteNonQuery();
                         StudentAdded?.Invoke();
                         Visible = false;
                     }
@@ -98,6 +104,37 @@ namespace UttendanceDesktop.CoursepageContent
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private bool checkDuplicateInStudent(int pKey, MySqlConnection connection)
+        {
+            //Format query
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM `student` WHERE UTDID=@pKey;", connection);
+            cmd.Parameters.AddWithValue("@pKey", pKey);
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            //Return true if there already exists an entry with the same primary key
+            return count != 0;
+        }
+
+        private bool checkDuplicateInAttends(int utdID, MySqlConnection connection)
+        {
+            //Format query
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM `attends` WHERE FK_UTDID=@utdID AND FK_CourseNum=@courseNum;", connection);
+            cmd.Parameters.AddWithValue("@utdID", utdID);
+            cmd.Parameters.AddWithValue("@courseNum", courseNum);
+            //Read result
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = reader.GetInt32(0);
+            reader.Close();
+
+            //Return true if there already exists an entry with the same primary key
+            return count != 0;
         }
     }
 }

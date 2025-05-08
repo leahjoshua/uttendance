@@ -27,6 +27,8 @@ using static UttendanceDesktop.GlobalStyle;
 
 namespace UttendanceDesktop
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 15, 2025.
+    // NetID: jxy210012
     public partial class Summary : Form
     {
         private int CourseNum;
@@ -154,7 +156,7 @@ namespace UttendanceDesktop
                     summaryTable[e.ColumnIndex, e.RowIndex].Value = editOldValue.ToString().ToUpper();
                 }
             }
-        }
+            }
 
         /**************************************************************************
         * Handles Summary Table cell click.

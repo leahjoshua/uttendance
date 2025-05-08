@@ -33,6 +33,7 @@
             questionChoiceLabel = new Label();
             splitter1 = new Splitter();
             QuestionLabel = new Label();
+            editButton = new Button();
             TopPanel = new Panel();
             answerChoiceTable = new TableLayoutPanel();
             questionAnswerItem1 = new QuestionAnswerItem();
@@ -120,6 +121,18 @@
             QuestionLabel.Text = "Question answer\r\n";
             QuestionLabel.TextAlign = ContentAlignment.MiddleLeft;
             QuestionLabel.Click += QuestionLabel_Click;
+            // 
+            // editButton
+            // 
+            editButton.Dock = DockStyle.Right;
+            editButton.Location = new Point(660, 0);
+            editButton.Margin = new Padding(14);
+            editButton.Name = "editButton";
+            editButton.Size = new Size(80, 78);
+            editButton.TabIndex = 14;
+            editButton.Text = "edit";
+            editButton.UseVisualStyleBackColor = true;
+            editButton.Click += editButton_Click;
             // 
             // TopPanel
             // 

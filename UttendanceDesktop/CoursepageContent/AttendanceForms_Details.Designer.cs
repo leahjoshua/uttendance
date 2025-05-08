@@ -34,6 +34,11 @@
             SaveEditIcon = new Button();
             detailsLabel = new Label();
             submissionPanel = new Panel();
+            label5 = new Label();
+            panel2 = new Panel();
+            label2 = new Label();
+            panel1 = new Panel();
+            submissionStats = new TableLayoutPanel();
             formTitleLabel = new Label();
             addQuestionBtn = new Button();
             importQuestionBtn = new Button();
@@ -45,7 +50,9 @@
             releaseTimePicker = new DateTimePicker();
             label1 = new Label();
             saveEditBtn = new Button();
+            cancelBtn = new Button();
             flowLayoutPanel.SuspendLayout();
+            submissionPanel.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel
@@ -124,6 +131,59 @@
             submissionPanel.Size = new Size(285, 257);
             submissionPanel.TabIndex = 22;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = SystemColors.Control;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.ForeColor = Color.FromArgb(37, 42, 69);
+            label5.Location = new Point(56, 59);
+            label5.Name = "label5";
+            label5.Size = new Size(127, 21);
+            label5.TabIndex = 37;
+            label5.Text = "= Not Submitted";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(50, 56, 87);
+            panel2.Location = new Point(22, 55);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(28, 28);
+            panel2.TabIndex = 36;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = SystemColors.Control;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.ForeColor = Color.FromArgb(37, 42, 69);
+            label2.Location = new Point(56, 24);
+            label2.Name = "label2";
+            label2.Size = new Size(97, 21);
+            label2.TabIndex = 35;
+            label2.Text = "= Submitted";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(1, 173, 1);
+            panel1.Location = new Point(22, 20);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(28, 28);
+            panel1.TabIndex = 1;
+            // 
+            // submissionStats
+            // 
+            submissionStats.ColumnCount = 2;
+            submissionStats.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.75124F));
+            submissionStats.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.24876F));
+            submissionStats.Location = new Point(22, 93);
+            submissionStats.Name = "submissionStats";
+            submissionStats.RowCount = 1;
+            submissionStats.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            submissionStats.Size = new Size(285, 46);
+            submissionStats.TabIndex = 0;
+            submissionStats.CellPaint += submissionStats_CellPaint;
+            // 
             // formTitleLabel
             // 
             formTitleLabel.AutoSize = true;
@@ -182,6 +242,7 @@
             // 
             // pwdTxtBox
             // 
+            pwdTxtBox.Enabled = false;
             pwdTxtBox.Font = new Font("Segoe UI", 10F);
             pwdTxtBox.Location = new Point(373, 299);
             pwdTxtBox.Name = "pwdTxtBox";
@@ -258,6 +319,22 @@
             saveEditBtn.UseVisualStyleBackColor = false;
             saveEditBtn.Click += saveEditBtn_Click;
             // 
+            // cancelBtn
+            // 
+            cancelBtn.BackColor = Color.FromArgb(88, 101, 168);
+            cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancelBtn.ForeColor = SystemColors.Control;
+            cancelBtn.Location = new Point(493, 237);
+            cancelBtn.Margin = new Padding(3, 2, 3, 2);
+            cancelBtn.Name = "cancelBtn";
+            cancelBtn.Size = new Size(117, 28);
+            cancelBtn.TabIndex = 35;
+            cancelBtn.Text = "Cancel Editing";
+            cancelBtn.UseVisualStyleBackColor = false;
+            cancelBtn.Visible = false;
+            cancelBtn.Click += cancelBtn_Click;
+            // 
             // AttendanceForms_Details
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -282,10 +359,13 @@
             Controls.Add(questionsLabel);
             Controls.Add(SaveEditIcon);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AttendanceForms_Details";
             Text = "Attendance Form Details";
             flowLayoutPanel.ResumeLayout(false);
             flowLayoutPanel.PerformLayout();
+            submissionPanel.ResumeLayout(false);
+            submissionPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -310,5 +390,11 @@
         private DateTimePicker releaseTimePicker;
         private Label label1;
         private Button saveEditBtn;
+        private TableLayoutPanel submissionStats;
+        private Panel panel1;
+        private Label label5;
+        private Panel panel2;
+        private Label label2;
+        private Button cancelBtn;
     }
 }

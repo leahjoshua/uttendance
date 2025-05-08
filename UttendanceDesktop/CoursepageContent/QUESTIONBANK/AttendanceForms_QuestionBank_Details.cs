@@ -22,6 +22,8 @@ namespace UttendanceDesktop.CoursepageContent
     {
         private QuestionBank bankData;
         private int bankID;
+        private String bankTitle;
+        private QuestionItem.QuestionItem[] questionList;
         private FormDAO DB = new FormDAO();
         private int numItemsToDelete = 0;
         public AttendanceForms_QuestionBank_Details(int bankId, String bankTitle)
@@ -126,8 +128,8 @@ namespace UttendanceDesktop.CoursepageContent
                 DialogResult result = createBank.ShowDialog();
                 if (result != DialogResult.Cancel)
                 {
-                    PopulateQuestionList();
-                }
+            PopulateQuestionList();
+        }
             }
             
         }

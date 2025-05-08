@@ -85,6 +85,7 @@ namespace UttendanceDesktop
                     //If student import was successful, then raise the flag
                     if (studentImport.importStudentsFromCSV(filePath, courseNum))
                     {
+                        //Raise flag
                         DatabaseUpdated?.Invoke();
                     }
                     else

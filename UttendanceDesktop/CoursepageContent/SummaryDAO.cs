@@ -18,6 +18,8 @@ using System.Diagnostics;
 
 namespace UttendanceDesktop.CoursepageContent
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
+    // NetID: jxy210012
     internal class SummaryDAO
     {
         //Connection string to the database
@@ -131,6 +133,8 @@ namespace UttendanceDesktop.CoursepageContent
             }
             //Close connection
             connection.Close();
+
+            return true;
         }
 
         /**************************************************************************
@@ -238,6 +242,8 @@ namespace UttendanceDesktop.CoursepageContent
 
             //Close database connection
             connection.Close();
+            //Send data to data table
+
             return dataTable;
         }
     }

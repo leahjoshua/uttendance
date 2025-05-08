@@ -24,6 +24,8 @@ using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting March 28, 2025.
+    // NetID: jxy210012
     public partial class Students : Form
     {
         private int CourseNum;
@@ -174,7 +176,7 @@ namespace UttendanceDesktop
             }
 
             //Hide delete button and show add button
-            deleteBtn.Visible = false;
+             deleteBtn.Visible = false;
             addPanel.Visible = false;
             addBtn.Visible = true;
         }
@@ -217,7 +219,7 @@ namespace UttendanceDesktop
                             MessageBox.Show("UTD-ID " + newID + " is already taken");
                             studentTable[e.ColumnIndex, e.RowIndex].Value = editOldValue;
                         }
-
+                            
                     }
                     else
                     {
