@@ -38,6 +38,7 @@
             addCourseManualButton = new Button();
             importCourseButton = new Button();
             AddCoursePictureBox = new PictureBox();
+            panel2 = new Panel();
             homepageBanner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ProfilePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddCoursePictureBox).BeginInit();
@@ -189,6 +190,17 @@
             AddCoursePictureBox.TabStop = false;
             AddCoursePictureBox.Click += AddCoursePictureBox_Click;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(50, 56, 87);
+            panel2.BackgroundImage = Properties.Resources.real_xof_icon;
+            panel2.BackgroundImageLayout = ImageLayout.Stretch;
+            panel2.Location = new Point(29, 2);
+            panel2.Margin = new Padding(1);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(112, 100);
+            panel2.TabIndex = 4;
+            // 
             // Homepage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -225,5 +237,6 @@
         private PictureBox AddCoursePictureBox;
         private Button LogoutButton;
         private Button EditProfileButton;
+        private Panel panel2;
     }
 }
