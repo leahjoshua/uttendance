@@ -1,4 +1,17 @@
-﻿using System;
+﻿/******************************************************************************
+* CreateFormQuestion for the UttendanceDesktop application.
+* 
+* This is class represents the Create Individual Question modal when creating
+* an attendance form. It requires the user enter a problem statement and at
+* least 2 answer choices, and makes sure they select one right answer.
+*
+* Written by Leah Joshua (lej210003) 
+* and Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting March 14, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,19 +31,35 @@ namespace UttendanceDesktop.CoursepageContent
 
         public QuestionItem.QuestionItem? questionItem { get; private set; }
 
+        /**************************************************************************
+        * Intializes the create form question modal.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public CreateFormQuestion()
         {
             InitializeComponent();
         }
 
+        /**************************************************************************
+        * Triggers on click of the cancel button, closes the modal without
+        * saving anything.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        // Lee 
-        // (Updated 4/15/25 by Aendri)
-        // Create question item on create
+        /**************************************************************************
+        * Validates all the user input and creates a QuestionItem based on the 
+        * information the user entered, saving it to a variable the create
+        * attendance page will use to display and save the list of questions for
+        * the form
+        * 
+        * Written by Leah Joshua and Aendri Singh.
+        **************************************************************************/
         private void createBtn_Click(object sender, EventArgs e)
         {
             var choices = new List<AnswerChoice>();

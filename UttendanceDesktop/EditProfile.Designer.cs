@@ -246,6 +246,7 @@ namespace UttendanceDesktop
         #endregion
 
         private Panel homepageBanner;
+        //private Button EditProfileButton;
         private PictureBox ProfilePictureBox;
         private Label uttendanceLabel;
         private Button DeleteButton;

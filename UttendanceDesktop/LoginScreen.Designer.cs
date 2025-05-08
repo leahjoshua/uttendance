@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginScreen));
             netIDTxtBox = new TextBox();
             welcomeLabel1 = new Label();
             SignInBtn = new Button();
@@ -437,6 +438,7 @@
             Controls.Add(createAccountPanel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(1);
             MaximizeBox = false;
             Name = "LoginScreen";

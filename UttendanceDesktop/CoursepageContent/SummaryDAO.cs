@@ -109,7 +109,7 @@ namespace UttendanceDesktop.CoursepageContent
             reader.Close();
 
             //If is no submission by the student
-            if(count == 0)
+            if (count == 0)
             {
                 //Insert row into table
                 cmd = new MySqlCommand("INSERT INTO submission (AttendanceStatus, IPAddress, DateTime, FK_FormID, FK_UTDID)" +
@@ -170,7 +170,7 @@ namespace UttendanceDesktop.CoursepageContent
                 while (databaseReader.Read())
                 {
                     formCount++;
-                    dataTable.Columns.Add("Form #" + formCount + "\r\n" + 
+                    dataTable.Columns.Add("Form #" + formCount + "\r\n" +
                         ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
                     //Add form id to the column
                     dataTable.Columns[colNum].ExtendedProperties["FormID"] = databaseReader["FormID"].ToString();

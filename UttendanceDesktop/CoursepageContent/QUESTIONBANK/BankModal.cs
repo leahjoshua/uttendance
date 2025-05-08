@@ -90,7 +90,7 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
             else
             {
                 return true;
-            }
+        }
             return false;
         }
 

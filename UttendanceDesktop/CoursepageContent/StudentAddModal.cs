@@ -72,7 +72,7 @@ namespace UttendanceDesktop.CoursepageContent
                 };
 
                 //Check to make sure all field have been filled
-                if(!student.SUTDID.HasValue || student.SNetID == "" || student.SFName == "" || student.SLName == "")
+                if (!student.SUTDID.HasValue || student.SNetID == "" || student.SFName == "" || student.SLName == "")
                 {
                     MessageBox.Show("Please fill in all of the fields");
                 }
@@ -81,7 +81,7 @@ namespace UttendanceDesktop.CoursepageContent
                     //Add student to the class
                     StudentsDAO studentInfo = new StudentsDAO();
                     //If the add was a success, hide the modal and raise flag
-                    if(studentInfo.addStudent(student, CourseNum))
+                    if (studentInfo.addStudent(student, CourseNum))
                     {
                         StudentAdded?.Invoke();
                         Visible = false;
@@ -97,7 +97,7 @@ namespace UttendanceDesktop.CoursepageContent
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
     }
 }

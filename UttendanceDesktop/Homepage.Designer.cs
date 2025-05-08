@@ -39,10 +39,10 @@ namespace UttendanceDesktop
             YourCoursesLabel = new Label();
             homepageBanner = new Panel();
             databaseInfoButton = new Button();
-            LogoutButton = new Button();
-            EditProfileButton = new Button();
             ProfilePictureBox = new PictureBox();
             uttendanceLabel = new Label();
+            LogoutButton = new Button();
+            EditProfileButton = new Button();
             editButton = new Button();
             addCourseManualButton = new Button();
             importCourseButton = new Button();
@@ -57,11 +57,11 @@ namespace UttendanceDesktop
             // 
             YourCoursesLabel.AutoSize = true;
             YourCoursesLabel.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            YourCoursesLabel.Location = new Point(9, 107);
+            YourCoursesLabel.Location = new Point(13, 178);
             YourCoursesLabel.Margin = new Padding(0);
             YourCoursesLabel.Name = "YourCoursesLabel";
-            YourCoursesLabel.Padding = new Padding(20, 0, 0, 0);
-            YourCoursesLabel.Size = new Size(864, 40);
+            YourCoursesLabel.Padding = new Padding(29, 0, 0, 0);
+            YourCoursesLabel.Size = new Size(1294, 60);
             YourCoursesLabel.TabIndex = 1;
             YourCoursesLabel.Text = "Your Courses                                                                                 ";
             // 
@@ -72,10 +72,9 @@ namespace UttendanceDesktop
             homepageBanner.Controls.Add(databaseInfoButton);
             homepageBanner.Controls.Add(ProfilePictureBox);
             homepageBanner.Controls.Add(uttendanceLabel);
-            homepageBanner.Location = new Point(2, 2);
-            homepageBanner.Margin = new Padding(2);
+            homepageBanner.Location = new Point(3, 3);
             homepageBanner.Name = "homepageBanner";
-            homepageBanner.Size = new Size(927, 75);
+            homepageBanner.Size = new Size(1324, 125);
             homepageBanner.TabIndex = 2;
             // 
             // databaseInfoButton
@@ -86,13 +85,37 @@ namespace UttendanceDesktop
             databaseInfoButton.FlatStyle = FlatStyle.Flat;
             databaseInfoButton.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             databaseInfoButton.ForeColor = Color.White;
-            databaseInfoButton.Location = new Point(691, 17);
+            databaseInfoButton.Location = new Point(987, 28);
+            databaseInfoButton.Margin = new Padding(4, 5, 4, 5);
             databaseInfoButton.Name = "databaseInfoButton";
-            databaseInfoButton.Size = new Size(107, 43);
+            databaseInfoButton.Size = new Size(153, 72);
             databaseInfoButton.TabIndex = 9;
             databaseInfoButton.Text = "Database Information";
             databaseInfoButton.UseVisualStyleBackColor = false;
             databaseInfoButton.Click += databaseInfoButton_Click;
+            // 
+            // ProfilePictureBox
+            // 
+            ProfilePictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            ProfilePictureBox.Image = Properties.Resources.homepageprofilepic;
+            ProfilePictureBox.Location = new Point(1206, 18);
+            ProfilePictureBox.Name = "ProfilePictureBox";
+            ProfilePictureBox.Size = new Size(89, 88);
+            ProfilePictureBox.TabIndex = 1;
+            ProfilePictureBox.TabStop = false;
+            ProfilePictureBox.Click += ProfilePictureBox_Click;
+            // 
+            // uttendanceLabel
+            // 
+            uttendanceLabel.AutoSize = true;
+            uttendanceLabel.BackColor = Color.FromArgb(50, 56, 87);
+            uttendanceLabel.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            uttendanceLabel.ForeColor = Color.White;
+            uttendanceLabel.Location = new Point(29, 28);
+            uttendanceLabel.Name = "uttendanceLabel";
+            uttendanceLabel.Size = new Size(316, 71);
+            uttendanceLabel.TabIndex = 0;
+            uttendanceLabel.Text = "UTtenDance";
             // 
             // LogoutButton
             // 
@@ -102,10 +125,9 @@ namespace UttendanceDesktop
             LogoutButton.FlatStyle = FlatStyle.Flat;
             LogoutButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LogoutButton.ForeColor = Color.Black;
-            LogoutButton.Location = new Point(818, 97);
-            LogoutButton.Margin = new Padding(2);
+            LogoutButton.Location = new Point(1169, 162);
             LogoutButton.Name = "LogoutButton";
-            LogoutButton.Size = new Size(88, 28);
+            LogoutButton.Size = new Size(126, 47);
             LogoutButton.TabIndex = 8;
             LogoutButton.Text = "Log Out";
             LogoutButton.UseVisualStyleBackColor = false;
@@ -119,40 +141,14 @@ namespace UttendanceDesktop
             EditProfileButton.FlatStyle = FlatStyle.Flat;
             EditProfileButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             EditProfileButton.ForeColor = Color.Black;
-            EditProfileButton.Location = new Point(818, 68);
-            EditProfileButton.Margin = new Padding(2);
+            EditProfileButton.Location = new Point(1169, 113);
             EditProfileButton.Name = "EditProfileButton";
-            EditProfileButton.Size = new Size(88, 30);
+            EditProfileButton.Size = new Size(126, 50);
             EditProfileButton.TabIndex = 7;
             EditProfileButton.Text = "Edit Profile";
             EditProfileButton.UseVisualStyleBackColor = false;
             EditProfileButton.Visible = false;
             EditProfileButton.Click += EditProfileButton_Click;
-            // 
-            // ProfilePictureBox
-            // 
-            ProfilePictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ProfilePictureBox.Image = Properties.Resources.homepageprofilepic;
-            ProfilePictureBox.Location = new Point(844, 11);
-            ProfilePictureBox.Margin = new Padding(2);
-            ProfilePictureBox.Name = "ProfilePictureBox";
-            ProfilePictureBox.Size = new Size(62, 53);
-            ProfilePictureBox.TabIndex = 1;
-            ProfilePictureBox.TabStop = false;
-            ProfilePictureBox.Click += ProfilePictureBox_Click;
-            // 
-            // uttendanceLabel
-            // 
-            uttendanceLabel.AutoSize = true;
-            uttendanceLabel.BackColor = Color.FromArgb(50, 56, 87);
-            uttendanceLabel.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            uttendanceLabel.ForeColor = Color.White;
-            uttendanceLabel.Location = new Point(20, 17);
-            uttendanceLabel.Margin = new Padding(2, 0, 2, 0);
-            uttendanceLabel.Name = "uttendanceLabel";
-            uttendanceLabel.Size = new Size(209, 47);
-            uttendanceLabel.TabIndex = 0;
-            uttendanceLabel.Text = "UTtenDance";
             // 
             // editButton
             // 
@@ -161,10 +157,9 @@ namespace UttendanceDesktop
             editButton.FlatStyle = FlatStyle.Flat;
             editButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             editButton.ForeColor = Color.White;
-            editButton.Location = new Point(245, 115);
-            editButton.Margin = new Padding(2);
+            editButton.Location = new Point(353, 178);
             editButton.Name = "editButton";
-            editButton.Size = new Size(79, 32);
+            editButton.Size = new Size(113, 53);
             editButton.TabIndex = 3;
             editButton.Text = "Edit";
             editButton.UseVisualStyleBackColor = false;
@@ -177,10 +172,9 @@ namespace UttendanceDesktop
             addCourseManualButton.FlatStyle = FlatStyle.Flat;
             addCourseManualButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addCourseManualButton.ForeColor = SystemColors.ControlText;
-            addCourseManualButton.Location = new Point(818, 277);
-            addCourseManualButton.Margin = new Padding(2);
+            addCourseManualButton.Location = new Point(1169, 462);
             addCourseManualButton.Name = "addCourseManualButton";
-            addCourseManualButton.Size = new Size(108, 30);
+            addCourseManualButton.Size = new Size(154, 50);
             addCourseManualButton.TabIndex = 4;
             addCourseManualButton.Text = "Create Course";
             addCourseManualButton.UseVisualStyleBackColor = false;
@@ -194,10 +188,9 @@ namespace UttendanceDesktop
             importCourseButton.FlatAppearance.BorderColor = Color.Black;
             importCourseButton.FlatStyle = FlatStyle.Flat;
             importCourseButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            importCourseButton.Location = new Point(818, 306);
-            importCourseButton.Margin = new Padding(2);
+            importCourseButton.Location = new Point(1169, 510);
             importCourseButton.Name = "importCourseButton";
-            importCourseButton.Size = new Size(108, 29);
+            importCourseButton.Size = new Size(154, 48);
             importCourseButton.TabIndex = 5;
             importCourseButton.Text = "Import Course";
             importCourseButton.UseVisualStyleBackColor = false;
@@ -208,10 +201,9 @@ namespace UttendanceDesktop
             // 
             AddCoursePictureBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             AddCoursePictureBox.Image = Properties.Resources.add_icon;
-            AddCoursePictureBox.Location = new Point(867, 333);
-            AddCoursePictureBox.Margin = new Padding(2);
+            AddCoursePictureBox.Location = new Point(1239, 555);
             AddCoursePictureBox.Name = "AddCoursePictureBox";
-            AddCoursePictureBox.Size = new Size(40, 39);
+            AddCoursePictureBox.Size = new Size(57, 65);
             AddCoursePictureBox.TabIndex = 6;
             AddCoursePictureBox.TabStop = false;
             AddCoursePictureBox.Click += AddCoursePictureBox_Click;
@@ -222,9 +214,10 @@ namespace UttendanceDesktop
             formsBtn.FlatAppearance.BorderSize = 0;
             formsBtn.FlatStyle = FlatStyle.Flat;
             formsBtn.ForeColor = Color.White;
-            formsBtn.Location = new Point(338, 115);
+            formsBtn.Location = new Point(486, 178);
+            formsBtn.Margin = new Padding(4, 5, 4, 5);
             formsBtn.Name = "formsBtn";
-            formsBtn.Size = new Size(82, 32);
+            formsBtn.Size = new Size(117, 53);
             formsBtn.TabIndex = 9;
             formsBtn.Text = "All Forms";
             formsBtn.UseVisualStyleBackColor = false;
@@ -232,10 +225,10 @@ namespace UttendanceDesktop
             // 
             // Homepage
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(931, 388);
+            ClientSize = new Size(1330, 647);
             Controls.Add(formsBtn);
             Controls.Add(EditProfileButton);
             Controls.Add(LogoutButton);
@@ -245,7 +238,6 @@ namespace UttendanceDesktop
             Controls.Add(YourCoursesLabel);
             Controls.Add(AddCoursePictureBox);
             Controls.Add(homepageBanner);
-            Margin = new Padding(2);
             Name = "Homepage";
             Text = "Uttendance";
             homepageBanner.ResumeLayout(false);

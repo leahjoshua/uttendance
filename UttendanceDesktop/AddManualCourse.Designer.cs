@@ -63,6 +63,7 @@ namespace UttendanceDesktop
             classNumberLabel = new Label();
             classPrefixLabel = new Label();
             courseNameLabel = new Label();
+            createLabel = new Label();
             overlayPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -395,6 +396,18 @@ namespace UttendanceDesktop
             courseNameLabel.TabIndex = 0;
             courseNameLabel.Text = "Course Name";
             // 
+            // createLabel
+            // 
+            createLabel.AutoSize = true;
+            createLabel.Font = new Font("Microsoft Sans Serif", 22F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            createLabel.ForeColor = Color.FromArgb(37, 42, 69);
+            createLabel.Location = new Point(23, 12);
+            createLabel.Margin = new Padding(2, 0, 2, 0);
+            createLabel.Name = "createLabel";
+            createLabel.Size = new Size(274, 42);
+            createLabel.TabIndex = 1;
+            createLabel.Text = "Create Course";
+            // 
             // AddManualCourse
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -409,11 +422,13 @@ namespace UttendanceDesktop
             overlayPanel.ResumeLayout(false);
             overlayPanel.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Panel overlayPanel;
+        private Label createLabel;
         private Label courseNameLabel;
         private Label classPrefixLabel;
         private Label classNumberLabel;

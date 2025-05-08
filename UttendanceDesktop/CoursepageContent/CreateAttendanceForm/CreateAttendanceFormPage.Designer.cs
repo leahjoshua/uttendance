@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             createFormPanel = new Panel();
+            defaultQuestionsTxt = new Label();
             flowLayoutPanel = new FlowLayoutPanel();
             questionItem1 = new UttendanceDesktop.CoursepageContent.QuestionItem.QuestionItem();
-            button1 = new Button();
+            cancelBtn = new Button();
             pwdTxtBox = new TextBox();
             label3 = new Label();
             saveBtn = new Button();
@@ -57,7 +58,7 @@
             createFormPanel.BackColor = Color.FromArgb(166, 176, 230);
             createFormPanel.Controls.Add(defaultQuestionsTxt);
             createFormPanel.Controls.Add(flowLayoutPanel);
-            createFormPanel.Controls.Add(button1);
+            createFormPanel.Controls.Add(cancelBtn);
             createFormPanel.Controls.Add(pwdTxtBox);
             createFormPanel.Controls.Add(label3);
             createFormPanel.Controls.Add(saveBtn);
@@ -73,6 +74,17 @@
             createFormPanel.Name = "createFormPanel";
             createFormPanel.Size = new Size(914, 600);
             createFormPanel.TabIndex = 0;
+            // 
+            // defaultQuestionsTxt
+            // 
+            defaultQuestionsTxt.AutoSize = true;
+            defaultQuestionsTxt.Font = new Font("Segoe UI", 12F);
+            defaultQuestionsTxt.ForeColor = Color.FromArgb(58, 64, 99);
+            defaultQuestionsTxt.Location = new Point(89, 310);
+            defaultQuestionsTxt.Name = "defaultQuestionsTxt";
+            defaultQuestionsTxt.Size = new Size(663, 56);
+            defaultQuestionsTxt.TabIndex = 10;
+            defaultQuestionsTxt.Text = "Looks like you currently don’t have any questions!\nLeave this section blank if you wish to create a default Attendance Check-in";
             // 
             // flowLayoutPanel
             // 
@@ -107,20 +119,20 @@
             questionItem1.Size = new Size(750, 84);
             questionItem1.TabIndex = 0;
             // 
-            // button1
+            // cancelBtn
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.BackColor = Color.FromArgb(88, 101, 160);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.Control;
-            button1.Location = new Point(742, 104);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 37);
-            button1.TabIndex = 14;
-            button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            cancelBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cancelBtn.BackColor = Color.FromArgb(88, 101, 160);
+            cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cancelBtn.ForeColor = SystemColors.Control;
+            cancelBtn.Location = new Point(742, 104);
+            cancelBtn.Name = "cancelBtn";
+            cancelBtn.Size = new Size(94, 37);
+            cancelBtn.TabIndex = 14;
+            cancelBtn.Text = "Cancel";
+            cancelBtn.UseVisualStyleBackColor = false;
+            cancelBtn.Click += button1_Click;
             // 
             // pwdTxtBox
             // 
@@ -326,7 +338,7 @@
         private Button saveBtn;
         private TextBox pwdTxtBox;
         private Label label3;
-        private Button button1;
+        private Button cancelBtn;
         private Button importQuestionBtn;
         private Button addQuestionBtn;
         private FlowLayoutPanel flowLayoutPanel;

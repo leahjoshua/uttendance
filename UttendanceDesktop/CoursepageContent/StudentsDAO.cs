@@ -19,6 +19,8 @@ using static UttendanceDesktop.GlobalResource;
 
 namespace UttendanceDesktop.CoursepageContent
 {
+    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
+    // NetID: jxy210012
     internal class StudentsDAO
     {
         //Connection string to the database
@@ -93,11 +95,13 @@ namespace UttendanceDesktop.CoursepageContent
             cmd.Parameters.AddWithValue("@courseNum2", courseNum);
             cmd.ExecuteNonQuery();
 
+
             //Remove student from the attends table
             cmd = new MySqlCommand("DELETE FROM attends WHERE FK_UTDID=@fkUtdID AND FK_CourseNum=@courseNum;", connection);
             cmd.Parameters.AddWithValue("@fkUtdID", id);
             cmd.Parameters.AddWithValue("@courseNum", courseNum);
             cmd.ExecuteNonQuery();
+
             
             //Check if the student is enrolled in any other classes
             cmd = new MySqlCommand("SELECT COUNT(*) FROM attends WHERE FK_UTDID=@fkUtdID2;", connection);
@@ -343,6 +347,7 @@ namespace UttendanceDesktop.CoursepageContent
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return false;
             }
         }
