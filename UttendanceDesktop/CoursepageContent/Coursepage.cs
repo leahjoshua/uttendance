@@ -254,30 +254,7 @@ namespace UttendanceDesktop
         **************************************************************************/
         private void summaryPanelBtn_Click(object sender, EventArgs e)
         {
-            loadForm(new Summary());
-        }
-
-        //Animates the submenu to expand and minimize
-        private void attendanceFormsTimer_Tick(object sender, EventArgs e)
-        {
-            if (attendanceCollapsed)
-            {
-                attendanceFormsContainerPanel.Height += 10;
-                if (attendanceFormsContainerPanel.Height == attendanceFormsContainerPanel.MaximumSize.Height)
-                {
-                    attendanceCollapsed = false;
-                    attendanceFormsTimer.Stop();
-                }
-            }
-            else
-            {
-                attendanceFormsContainerPanel.Height -= 10;
-                if (attendanceFormsContainerPanel.Height == attendanceFormsContainerPanel.MinimumSize.Height)
-                {
-                    attendanceCollapsed = true;
-                    attendanceFormsTimer.Stop();
-                }
-            }
+            loadForm(new Summary(CourseNum));
         }
 
         /**************************************************************************

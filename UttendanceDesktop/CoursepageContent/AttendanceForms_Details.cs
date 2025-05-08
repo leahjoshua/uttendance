@@ -215,8 +215,8 @@ namespace UttendanceDesktop.CoursepageContent
                 DialogResult result = createBank.ShowDialog();
                 if (result != DialogResult.Cancel)
                 {
-            PopulateQuestionList();
-        }
+                    PopulateQuestionList();
+                }
             }
         }
 

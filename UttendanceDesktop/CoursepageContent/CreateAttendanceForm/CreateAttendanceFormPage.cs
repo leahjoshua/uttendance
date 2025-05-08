@@ -78,33 +78,6 @@ namespace UttendanceDesktop.CoursepageContent
                     flowLayoutPanel.Controls.Add(questionList[i]);
                 }
             }
-
-            /*var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
-            foreach (var control in questionUserControls)
-            {
-                createFormPanel.Controls.Remove(control);
-            }
-
-            // Add questions to page:
-            //questionsListingPanel.Controls.Clear();
-
-            for (int i = 0; i < questionList.Count; i++)
-            {
-                questionList[i].QuestionNumber = i + 1; // Number the questions
-
-                // Set location
-                questionList[i].Location = new Point(
-                    questionsListingPanel.Location.X,
-                    questionsListingPanel.Location.Y + (i * questionList[i].Height)
-                );
-                createFormPanel.Controls.Add(questionList[i]);
-            }*/
-
-            /*var questionUserControls = createFormPanel.Controls.OfType<QuestionUserControl>().ToList();
-
-            foreach (var control in questionUserControls)
-            {
-                createFormPanel.Controls.Remove(control);
         }
 
         /**************************************************************************

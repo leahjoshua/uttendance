@@ -18,8 +18,6 @@ using System.Diagnostics;
 
 namespace UttendanceDesktop.CoursepageContent
 {
-    // Written by Joanna Yang for CS4485.0w1, Uttendance, starting April 13, 2025.
-    // NetID: jxy210012
     internal class SummaryDAO
     {
         //Connection string to the database
@@ -111,7 +109,7 @@ namespace UttendanceDesktop.CoursepageContent
             reader.Close();
 
             //If is no submission by the student
-            if(count == 0)
+            if (count == 0)
             {
                 //Insert row into table
                 cmd = new MySqlCommand("INSERT INTO submission (AttendanceStatus, IPAddress, DateTime, FK_FormID, FK_UTDID)" +
@@ -133,8 +131,6 @@ namespace UttendanceDesktop.CoursepageContent
             }
             //Close connection
             connection.Close();
-
-            return true;
         }
 
         /**************************************************************************
@@ -174,7 +170,7 @@ namespace UttendanceDesktop.CoursepageContent
                 while (databaseReader.Read())
                 {
                     formCount++;
-                    dataTable.Columns.Add("Form #" + formCount + "\r\n" + 
+                    dataTable.Columns.Add("Form #" + formCount + "\r\n" +
                         ((DateTime)databaseReader["ReleaseDate"]).ToString("MM/dd"));
                     //Add form id to the column
                     dataTable.Columns[colNum].ExtendedProperties["FormID"] = databaseReader["FormID"].ToString();
@@ -242,8 +238,6 @@ namespace UttendanceDesktop.CoursepageContent
 
             //Close database connection
             connection.Close();
-            //Send data to data table
-
             return dataTable;
         }
     }
