@@ -32,7 +32,7 @@ A UTD Attendance Application.
 	- Open this file using Visual Studio 2022.
 3. Once everything is loaded up from this file in Visual Studio, select Start Without Debugging option in the top banner.
 4. The desktop application should open up.
-    - You can either create a new account, or use username 'sxh39228' and password 'blowupmind' for quick demo.
+    - You can either create a new account, or use username 'sxh392287' and password 'blowupmind' for quick demo.
 
 ## Website Guide
 1. In File Explorer, navigate to student_website.sln.

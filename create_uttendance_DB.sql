@@ -1,3 +1,5 @@
+-- Written by Leah Joshua (lej210003) and Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+-- Starting February 27, 2025.
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
 -- Server version:               11.7.2-MariaDB - mariadb.org binary distribution
@@ -166,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `instructor` (
 -- Dumping data for table uttendance.instructor: ~2 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
 	('mxm123456', 'Milly', 'Meron', 'h4Ga!'),
-	('sxh39228', 'Sally', 'Hemmings', 'blowupmind');
+	('sxh392287', 'Sally', 'Hemmings', 'blowupmind');
 
 -- Dumping structure for table uttendance.qbank
 CREATE TABLE IF NOT EXISTS `qbank` (
@@ -257,8 +259,8 @@ CREATE TABLE IF NOT EXISTS `teaches` (
 -- Dumping data for table uttendance.teaches: ~3 rows (approximately)
 INSERT INTO `teaches` (`FK_INetID`, `FK_CourseNum`) VALUES
 	('mxm123456', 12345),
-	('SXH210003', 123456),
-	('SXH210003', 999999);
+	('sxh39228', 123456),
+	('sxh39228', 999999);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
