@@ -1,4 +1,18 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿/******************************************************************************
+* AttendanceForms_Details for the UttendanceDesktop application.
+* 
+* This class represents the attendance form details page 
+* where professors can view an attendance form's detailed info
+* including questions. Includes the option to add questions and 
+* edit details.
+* 
+* Written by Aendri Singh (axs210369)
+* and Leah Joshua (lej210003)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using Google.Protobuf.WellKnownTypes;
 using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;
@@ -41,8 +55,8 @@ namespace UttendanceDesktop.CoursepageContent
             UpdatePage();
         }
 
-        // Updated 4/16/2025 by Aendri
-        // Updated 4/25/2025 by Leah
+        // Aendri Singh (axs210369)
+        // Updated by Leah Joshua (lej210003)
         // Updates page elements from the database
         private void UpdatePage()
         {
@@ -163,7 +177,7 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
-        // Aendri 4/16/2025
+        // Aendri Singh (axs210369)
         // Populates the list of questions
         private void PopulateQuestionList()
         {
@@ -183,7 +197,7 @@ namespace UttendanceDesktop.CoursepageContent
 
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
         // Receive event from child question item when edit is clicked.
         // Open edit question module
         void child_question_OnSelectEdit(object sender, EventArgs e)
@@ -220,7 +234,8 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
-        // Aendri 4/18/2025 updated by Lee
+        // Aendri Singh (axs210369)
+        // Updated by Leah Joshua (lej210003)
         // On click...
         // Edit Mode: Enable editing
         // Save Mode: Save changes

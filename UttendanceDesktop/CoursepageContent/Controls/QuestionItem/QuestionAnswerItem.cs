@@ -1,4 +1,15 @@
-﻿using System;
+﻿/******************************************************************************
+* Answer Item for the UttendanceDesktop application.
+* 
+* This class represents the custom control for answer items
+* for a question item to show answers. 
+* 
+* Written by Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -35,7 +46,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         }
 
         // ------ Item Values ------ //
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // The answer value
         [Category("Item Values")]
         public String AnswerValue
@@ -47,7 +58,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // Determines if answer is correct or not
         [Category("Item Values")]
         public bool IsCorrect
@@ -68,7 +79,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // The letter associated with the answer 
         [Category("Item Values")]
         public char ChoiceLetter
@@ -80,8 +91,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // The answer id associated with the answer
         [Category("Item Values")]
         public int AnswerID

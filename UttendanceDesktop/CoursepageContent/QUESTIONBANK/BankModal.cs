@@ -1,4 +1,15 @@
-﻿using System;
+﻿/******************************************************************************
+* Bank Modal for the UttendanceDesktop application.
+* 
+* This class represents the edit question bank modal, where professors
+* can create or edit the question bank's name.
+* 
+* Written by Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,14 +31,14 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
         private int bankID;
         private bool isUpdate = false; // Default: NEW question bank 
 
-        // Aendri 4/18/2025
+        // Aendri Singh (axs210369)
         // Constructor for a NEW question bank
         public BankModal()
         {
             InitializeComponent();
         }
 
-        // Aendri 4/18/2025
+        // Aendri Singh (axs210369)
         // Constructor for UPDATING a question bank
         public BankModal(int bankID, String bankTitle)
         {
@@ -41,7 +52,7 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
             createUpdateButton.Text = "Update";
         }
 
-        // Aendri 4/18/2025
+        // Aendri Singh (axs210369)
         // Verify and create new question bank entry 
         private void CreateNewBank()
         {
@@ -55,7 +66,7 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
             }
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Update a bank's name
         private void UpdateBank()
         {
@@ -66,7 +77,7 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
             }
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Verifies if the bank's title is valid to use
         // Displays error messages if invalid
         private bool VerifyBankTitle()
@@ -95,13 +106,16 @@ namespace UttendanceDesktop.CoursepageContent.QUESTIONBANK
         }
 
         // ************ EVENTS ************* //
+
+        // Aendri Singh (axs210369)
         // Cancel the update/create
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-
+        // Aendri Singh (axs210369)
+        // Creates or updates the question bank depending on the mode.
         private void createUpdateButton_Click(object sender, EventArgs e)
         {
             bankTitle = nameTextbox.Text;

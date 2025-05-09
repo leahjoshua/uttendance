@@ -149,7 +149,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             connection.Close();
         }
 
-        // Aendri 4/4/2025 (Updated 4/15/2025)
+        // Aendri Singh (axs210369)
         // Returns a list of question bank list items
         public QuestionBankItem[] GetBankList()
         {
@@ -203,7 +203,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return bankQuestionList.ToArray();
         }
 
-        // Aendri 4/4/2025 (Update 4/15/2025)
+        // Aendri Singh (axs210369)
         // Deletes the given question bank items
         public bool DeleteBankItems(QuestionBankItem[] bankListItems, int numItemsToDelete)
         {
@@ -278,7 +278,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Deletes the given question and its answer choices
         public bool DeleteQuestionFromBank(Question questionData)
         {
@@ -357,7 +357,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Deletes the given question and its answer choices
         public bool DeleteQuestionFromForm(Question questionData, int formID)
         {
@@ -435,9 +435,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return true;
         }
 
-
-
-        // 4/14/2025 Aendri 
+        // Aendri Singh (axs210369)
         // Returns a list of Questions (as QuestionItems) for the given question bank
         public QuestionItem.QuestionItem[] GetBankQuestionList(int bankID)
         {
@@ -488,7 +486,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return questionItemList.ToArray();
         }
 
-        // 4/16/2025 Aendri
+        // Aendri Singh (axs210369)
         // Returns a list of Questions (as QuestionItems) for the given attendance form
         public QuestionItem.QuestionItem[] GetFormQuestionList(int formID)
         {
@@ -578,7 +576,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return questionItemList.ToArray();
         }
 
-        // 4/14/2025 Aendri 
+        // Aendri Singh (axs210369)
         // Returns a list of answers (as QuestionAnswerItems) for the given question
         public QuestionItem.QuestionAnswerItem[] GetQuestionAnswerList(int questionID)
         {
@@ -631,7 +629,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return questionItemList.ToArray();
         }
 
-        // 4/16/2025 Aendri 
+        // Aendri Singh (axs210369)
         // Returns detailed information on the given attendance form 
         public AttendanceForm GetFormData(int formID)
         {
@@ -712,9 +710,115 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
             return formData;
         }
-        // Lee
-        // 4/18/2025
-        // This function doesn't assign QuestionNumbers
+
+        // Aendri Singh (axs210369)
+        // Returns detailed information on a given attendance bank
+        public QuestionBank GetBankData(int bankID)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            QuestionBank bankData = new QuestionBank();
+
+            // Return if invalid bank id
+            if (bankID < 0)
+            {
+                bankData.BankID = -1;
+                return bankData;
+            }
+            else
+            {
+                bankData.BankID = bankID;
+            }
+
+            try
+            {
+                connection.Open();
+
+                // Form Data:
+                cmd = new MySqlCommand(
+                    "SELECT BankTitle " +
+                    "FROM qbank " +
+                    "WHERE BankID=@BankID "
+                    , connection);
+                cmd.Parameters.AddWithValue("@BankID", bankID);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                // Return with error if no data found
+                if (!reader.HasRows)
+                {
+                    bankData.BankID = -1;
+                    connection.Close();
+                    return bankData;
+                }
+
+                bankData.BankTitle = reader[0].ToString();
+                reader.Close();
+
+                // Get a list of questions for the question bank
+                bankData.QuestionBankList = GetBankQuestionList(bankID);
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetBankData: " + ex.ToString());
+                bankData.BankID = -1;
+            }
+            connection.Close();
+
+            return bankData;
+        }
+
+        // Aendri Singh (axs210369)
+        // Returns true if the given bank title is valid (not in use already)
+        public bool IsValidBankTitle(String bankTitle)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            try
+            {
+                connection.Open();
+
+                // Look for any question bank entries with the same title
+                cmd = new MySqlCommand(
+                    "SELECT * " +
+                    "FROM qbank " +
+                    "WHERE FK_INetID=@INetID " +
+                    "AND BankTitle=@BankTitle"
+                    , connection);
+                cmd.Parameters.AddWithValue("@INetID", GlobalResource.INetID);
+                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                // Check if any results found, return with error if not found
+                if (reader.HasRows) { return false; }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/IsValidBankTitle: " + ex.ToString());
+                return false;
+            }
+            connection.Close();
+
+            return true;
+        }
+
+
+        /**************************************************************************
+        * Pulls a list of questions from the question table for a specific form
+        * based on form ID. Stores them in a list of QuestionItems ready for
+        * display.
+        * 
+        * NOTE: This method does not assign a QuestionNumber to each QuestionItem.
+        * 
+        * Written by Leah Joshua.
+        **************************************************************************/
         public List<QuestionItem.QuestionItem> SelectQuestions(List<int> IDs)
         {
             List<QuestionItem.QuestionItem> questionItemList = new List<QuestionItem.QuestionItem>();
@@ -722,7 +826,8 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             MySqlCommand cmd;
             MySqlDataReader reader;
 
-            try { 
+            try
+            {
                 for (int i = 0; i < IDs.Count; i++)
                 {
                     cmd = new MySqlCommand(
@@ -753,7 +858,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return questionItemList;
         }
 
-        // 4/18/2025 Aendri
+        // Aendri Singh (axs210369)
         // Create a new question and save to a question bank
         public void CreateNewQuestion(Question questionData, int bankID)
         {
@@ -805,7 +910,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             connection.Close();
         }
 
-        // 4/18/2025 Aendri
+        // Aendri Singh (axs210369)
         // Create a new attendance bank, return the new BankID
         public int CreateNewBank(String bankTitle)
         {
@@ -927,7 +1032,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             return times;
         }
 
-        // 4/18/2025 Aendri
+        // Aendri Singh (axs210369)
         // Updates the given attendance bank with the given title
         public void UpdateBank(int bankID, String bankTitle)
         {
@@ -957,7 +1062,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
         }
 
-        // 4/25/2025 Aendri
+        // Aendri Singh (axs210369)
         // Updates the given question and answer choices in the database
         // Adds and removes answer choices as necessary
         public void UpdateQuestion(Question questionData)

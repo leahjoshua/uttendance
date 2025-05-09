@@ -1,4 +1,17 @@
-﻿using System;
+﻿/******************************************************************************
+* Edit Question Modal for the UttendanceDesktop application.
+* 
+* This class represents the edit question modal for editing questions. 
+* It populates the fields with the current values, and allows the user
+* to change values or delete the question.
+* 
+* Written by Aendri Singh (axs210369)
+* and Leah Joshua (lej210003) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,6 +43,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
         private const int ANSWER_STATEMENT_MAX_SIZE = 50;
         private const int ANSWER_MIN_COUNT = 2;
 
+        // Leah Joshua(lej210003)
         public EditQuestionModal(Question data)
         {
             InitializeComponent();
@@ -44,6 +58,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             FillQuestionData();
         }
 
+        // Leah Joshua (lej210003) 
         // Constructor for attendance form questions
         public EditQuestionModal(Question data, int formID)
         {
@@ -61,7 +76,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             FillQuestionData();
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Updates the modal to display the question data
         private void FillQuestionData()
         {
@@ -76,7 +91,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             }
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Updates the modal to display the question data
         // Returns true if successful, false otherwise
         private bool UpdateQuestionData()
@@ -120,7 +135,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
 
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Returns true if the given answer choice is valid, otherwise displays error messages and returns false
         private bool VerifyAnswerChoice(int i)
         {
@@ -159,7 +174,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             return true;
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Returns true if the given question is valid, otherwise displays error messages and returns false
         private bool VerifyQuestion(String statement)
         {
@@ -181,6 +196,8 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
         }
 
         // ************ EVENTS ************* //
+
+        // Aendri Singh (axs210369)
         // Cancel the update/create
         private void cancelButton_Click(object sender, EventArgs e)
         {
@@ -189,6 +206,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             this.Close();
         }
 
+        // Aendri Singh (axs210369)
         // Delete the question and answers
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -217,6 +235,7 @@ namespace UttendanceDesktop.CoursepageContent.Controls.QuestionItem
             this.Close();
         }
 
+        // Aendri Singh (axs210369)
         // Save changes
         private void saveButton_Click(object sender, EventArgs e)
         {

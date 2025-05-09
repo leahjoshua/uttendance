@@ -40,7 +40,6 @@
             answerChoiceTable = new TableLayoutPanel();
             questionAnswerItem1 = new QuestionAnswerItem();
             questionAnswerItem2 = new QuestionAnswerItem();
-            editButton = new Button();
             topFlowLayout.SuspendLayout();
             TopPanel.SuspendLayout();
             answerChoiceTable.SuspendLayout();
@@ -181,6 +180,7 @@
             // editButton
             // 
             editButton.BackColor = Color.Transparent;
+            editButton.BackgroundImage = Properties.Resources.icons8_pencil_96;
             editButton.BackgroundImageLayout = ImageLayout.Zoom;
             editButton.Dock = DockStyle.Right;
             editButton.FlatAppearance.BorderColor = Color.FromArgb(50, 56, 87);
@@ -195,8 +195,9 @@
             editButton.MinimumSize = new Size(80, 80);
             editButton.Name = "editButton";
             editButton.Size = new Size(80, 80);
-            editButton.TabIndex = 16;
+            editButton.TabIndex = 14;
             editButton.UseVisualStyleBackColor = false;
+            editButton.UseWaitCursor = true;
             editButton.Click += editButton_Click;
             // 
             // answerChoiceTable
@@ -244,20 +245,6 @@
             questionAnswerItem2.Name = "questionAnswerItem2";
             questionAnswerItem2.Size = new Size(703, 56);
             questionAnswerItem2.TabIndex = 1;
-            // 
-            // editButton
-            // 
-            editButton.BackColor = Color.Chocolate;
-            editButton.Dock = DockStyle.Right;
-            editButton.FlatStyle = FlatStyle.Popup;
-            editButton.Location = new Point(660, 0);
-            editButton.Margin = new Padding(14);
-            editButton.Name = "editButton";
-            editButton.Size = new Size(80, 78);
-            editButton.TabIndex = 14;
-            editButton.Text = "edit";
-            editButton.UseVisualStyleBackColor = false;
-            editButton.Click += editButton_Click;
             // 
             // QuestionItem
             // 

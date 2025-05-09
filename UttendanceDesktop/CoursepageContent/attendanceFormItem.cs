@@ -1,4 +1,16 @@
-﻿using System;
+﻿/******************************************************************************
+* Attendance form item for the UttendanceDesktop application.
+* 
+* This class represents a custom control for attendance form items, 
+* where professors can view an attendance form's release date/time
+* and release status. Includes the option to select. 
+* 
+* Written by Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -27,6 +39,7 @@ namespace UttendanceDesktop.CoursepageContent
             InitializeComponent();
         }
 
+        // Aendri Singh (axs210369)
         public attendanceFormItem(DateTime releaseDate, AttendenceFormStatusOptions status, int formID)
         {
             InitializeComponent();
@@ -36,14 +49,15 @@ namespace UttendanceDesktop.CoursepageContent
             FormID = formID;
         }
 
-        // Aendri: Fix the height and width of the component
+        // Aendri Singh (axs210369)
+        // Fix the height and width of the component
         protected override void SetBoundsCore(int x, int y,
             int width, int height, BoundsSpecified specified)
         {
             base.SetBoundsCore(x, y, 750, 62, specified);
         }
 
-        //Aendri 4/3/2025
+        // Aendri Singh (axs210369)
         // On selection/deselection of the form, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -54,22 +68,30 @@ namespace UttendanceDesktop.CoursepageContent
         }
 
         // ----- ITEM EVENTS ----- //
+
+        // Aendri Singh (axs210369)
+        // On click, open attendance form page
         private void attendanceFormItem_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
+        // Aendri Singh (axs210369)
+        // On click, open attendance form page
         private void statusLabel_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
-
+        // Aendri Singh (axs210369)
+        // On click, open attendance form page
         private void titleLabel_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
+        // Aendri Singh (axs210369)
+        // On click, open attendance form page
         private void statusDisplayLabel_Click(object sender, EventArgs e)
         {
             openPage();
@@ -77,7 +99,8 @@ namespace UttendanceDesktop.CoursepageContent
 
         // ---- SPECIAL FUNCTIONS/ENUMS ---- //
 
-        // Aendri: Options for the status of an attendence form
+        // Aendri Singh (axs210369)
+        // Options for the status of an attendence form
         public enum AttendenceFormStatusOptions
         {
             Upcoming,
@@ -85,7 +108,8 @@ namespace UttendanceDesktop.CoursepageContent
             Closed
         }
 
-        // Aendri (4/11/25): Opens the form page
+        // Aendri Singh (axs210369)
+        // Opens the form page
         private void openPage()
         {
             GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_Details(FormID));
@@ -93,7 +117,8 @@ namespace UttendanceDesktop.CoursepageContent
 
         //---- DATA ----//
 
-        // Aendri
+        // Aendri Singh (axs210369)
+        // Release time of the attendance form
         [Category("Item Values")]
         public DateTime ReleaseDate
         {
@@ -105,6 +130,8 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
+        // Aendri Singh (axs210369)
+        // Close time of the attendance form
         [Category("Item Values")]
         public DateTime CloseDate
         {
@@ -112,7 +139,8 @@ namespace UttendanceDesktop.CoursepageContent
             set {  _closeDate = value; }
         }
 
-        // Aendri
+        // Aendri Singh (axs210369)
+        // Status of the attendance form
         [Category("Item Values")]
         public AttendenceFormStatusOptions Status
         {
@@ -143,7 +171,8 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
-        // Aendri 
+        // Aendri Singh (axs210369)
+        // Attendance Form ID 
         [Category("Item Values")]
         public int FormID
         {
@@ -151,7 +180,8 @@ namespace UttendanceDesktop.CoursepageContent
             set { _formId = value; }
         }
 
-        // Aendri 4/3/2025 
+        // Aendri Singh (axs210369)
+        // If the form selected
         [Category("Item Values")]
         public bool Selected
         {

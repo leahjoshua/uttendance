@@ -1,4 +1,16 @@
-﻿using System;
+﻿/******************************************************************************
+* Question Bank Item for the UttendanceDesktop application.
+* 
+* This class represents a custom control for question bank items, 
+* where professors can view a question bank's name and number of questions.
+* Includes the option to select a question bank. 
+* 
+* Written by Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +36,8 @@ namespace UttendanceDesktop.CoursepageContent
             InitializeComponent();
         }
 
-        // Aendri 4/4: Fix the height and width of the component
+        // Aendri Singh (axs210369)
+        // Fixes the height and width of the component
         protected override void SetBoundsCore(int x, int y,
             int width, int height, BoundsSpecified specified)
         {
@@ -33,27 +46,35 @@ namespace UttendanceDesktop.CoursepageContent
 
         // ----- ITEM EVENTS ----- //
 
+        // Aendri Singh (axs210369)
+        // Opens question bank page on click
         private void TitleLabel_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
+        // Aendri Singh (axs210369)
+        // Opens question bank page on click
         private void QuestionLabel_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
+        // Aendri Singh (axs210369)
+        // Opens question bank page on click
         private void QuestionDisplayLabel_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
+        // Aendri Singh (axs210369)
+        // Opens question bank page on click
         private void QuestionBankItem_Click(object sender, EventArgs e)
         {
             openPage();
         }
 
-        //Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // On selection/deselection of the question bank, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -66,7 +87,8 @@ namespace UttendanceDesktop.CoursepageContent
 
         // ---- SPECIAL FUNCTIONS/ENUMS ---- //
 
-        // Aendri (4/11/25): Opens the question bank page
+        // Aendri Singh (axs210369)
+        // Opens the question bank page
         private void openPage()
         {
             GlobalResource.COURSEPAGE.loadForm(new AttendanceForms_QuestionBank_Details(_bankID, _title));
@@ -74,7 +96,7 @@ namespace UttendanceDesktop.CoursepageContent
 
         //---- DATA ----//
 
-        // Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // Title of the question bank
         [Category("Item Values")]
         public String Title
@@ -87,7 +109,7 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
-        // Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // Count of the number of questions in the question bank
         [Category("Item Values")]
         public int Count
@@ -100,7 +122,7 @@ namespace UttendanceDesktop.CoursepageContent
             }
         }
 
-        // Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // The ID used to identify the question bank
         [Category("Item Values")]
         public int BankID

@@ -1,4 +1,17 @@
-﻿using System;
+﻿/******************************************************************************
+* Question Item for the UttendanceDesktop application.
+* 
+* This class represents the custome control for question items
+* where professors can view a question and its answer choices
+* on click. Includes the option to edit or select the question.
+* 
+* Written by Aendri Singh (axs210369)
+* and Leah Joshua (lej210003) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -48,7 +61,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         }
 
         // ------ Item Values ------ //
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // The number of the question
         [Category("Item Values")]
         public int QuestionNumber
@@ -61,7 +74,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // The question value
         [Category("Item Values")]
         public String QuestionValue
@@ -78,7 +91,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // The list of answers
         [Category("Item Values")]
         public QuestionAnswerItem[] AnswerList
@@ -94,7 +107,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/14/2025
+        // Aendri Singh (axs210369)
         // The question ID associated with the question
         [Category("Item Values")]
         public int QuestionID
@@ -103,7 +116,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             set { _questionID = value; }
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
         // If the question is selectable or not
         [Category("Item Values")]
         public bool IsSelectable
@@ -116,7 +129,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // If the question is editable or not
         [Category("Item Values")]
         public bool IsEditable
@@ -129,7 +142,8 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
+        // If the question is selected or not
         [Category("Item Values")]
         public bool Selected
         {
@@ -137,7 +151,8 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             set { checkbox.Checked = value; }
         }
 
-        // Lee 4/18/2025
+        // Leah Joshua (lej210003) 
+        // If the question is selected or not 
         [Category("Item Values")]
         public bool IsChecked
         {
@@ -145,7 +160,8 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             set { checkbox.Checked = value; }
         }
 
-        // Lee 4/18/2025
+        // Leah Joshua (lej210003) 
+        // Is question is a question bank question
         [Category("Item Values")]
         public bool IsBankQuestion
         {
@@ -153,7 +169,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             set { isBankQuestion = value; }
         }
 
-        // Aendri 5/2/2025
+        // Aendri Singh (axs210369)
         // Determines if submission data will be shown or not
         [Category("Item Values")]
         public bool ShowSubmissionData
@@ -165,7 +181,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
 }
 
-        // Aendri 5/2/2025
+        // Aendri Singh (axs210369)
         // Number of correct submissions
         [Category("Item Values")]
         public int NumCorrect
@@ -178,7 +194,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             }
         }
 
-        // Aendri 5/2/2025
+        // Aendri Singh (axs210369)
         // Number of correct submissions
         [Category("Item Values")]
         public int NumSubmissions
@@ -193,7 +209,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
 
         // ----- SPECIAL FUNCTIONS ------ //
 
-        // Aendri 4/13/2025 
+        // Aendri Singh (axs210369)
         // Fills the layout panel with the answer choices 
         private void FillAnswerChoices()
         {
@@ -208,7 +224,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             ShowHideList();
         }
 
-        // Aendri 5/2/2025
+        // Aendri Singh (axs210369)
         // Updates all special display properties
         private void UpdateDisplay()
         {
@@ -220,14 +236,14 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             QuestionLabel.MaximumSize = new System.Drawing.Size(topFlowLayout.Width - 160, 0);
         }
 
-        // Aendri 4/14/2025
+        // Aendri Singh (axs210369)
         // Shows or hides the answer choice list based on the state of the question item
         private void ShowHideList()
         {
             answerChoiceTable.Visible = !isMinimized;
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
         // Display mode: hide select box, show label
         // Select mode: show select box, hide label
         private void ToggleSelect()
@@ -236,7 +252,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             questionChoiceLabel.Visible = !_isSelectable;
         }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // Display mode: hide edit box
         // Select mode: show edit box
         private void ToggleEdit()
@@ -244,7 +260,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             editButton.Visible = _isEditable;
         }
 
-        // Aendri 5/2/2025
+        // Aendri Singh (axs210369)
         // IsSubmitted is true -> show submission labels
         // otherwise -> hide
         private void ToggleSubmission()
@@ -254,7 +270,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
         }
 
         // ----------- EVENTS ----------- //
-        // Aendri 4/13/2025 
+        // Aendri Singh (axs210369)
         // On click switch the state and update
         private void QuestionLabel_Click(object sender, EventArgs e)
         {
@@ -262,7 +278,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             ShowHideList();
         }
 
-        // Aendri 4/13/2025 
+        // Aendri Singh (axs210369)
         // On click switch the state and update
         private void questionChoiceLabel_Click(object sender, EventArgs e)
         {
@@ -270,7 +286,7 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             ShowHideList();
         }
 
-        // Aendri 4/13/2025 
+        // Aendri Singh (axs210369)
         // On click switch the state and update
         private void topFlowLayout_Click(object sender, EventArgs e)
         {
@@ -278,19 +294,18 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
             ShowHideList();
         }
 
-        // Aendri 4/17/2025 (updated by Lee 4/17)
+        // Aendri Singh (axs210369)
+        // updated by Leah Joshua (lej210003) 
         // On selection/deselection of the item, create event and raise to parent control. 
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
             if (OnQuestionSelectChange != null)
             {
-                //question.QuestionID = _questionID;
-                //question.IsSelected = checkbox.Checked;
                 OnQuestionSelectChange(this, null);
             }
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
         // On click, creates an event and raises it to the parent control.
         private void editButton_Click(object sender, EventArgs e)
         {

@@ -1,4 +1,16 @@
-﻿using MySql.Data.MySqlClient;
+﻿/******************************************************************************
+* AttendanceForms_QuestionBank_Details for the UttendanceDesktop application.
+* 
+* This class represents the view question bank details page, where professors
+* can view information on a certain question banks. This includes
+* the option to add questions or edit them.
+* 
+* Written by Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,7 +61,7 @@ namespace UttendanceDesktop.CoursepageContent
             UpdatePage();
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
         // Updates page elements to match the database
         private void UpdatePage()
         {
@@ -59,7 +71,7 @@ namespace UttendanceDesktop.CoursepageContent
             PopulateQuestionList(bankData.QuestionBankList);
         }
 
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // Populates the list of questions
         private void PopulateQuestionList()
         {
@@ -79,7 +91,7 @@ namespace UttendanceDesktop.CoursepageContent
 
         }
 
-        // Aendri 4/13/2025
+        // Aendri Singh (axs210369)
         // Populates the list of questions with a given question list
         private void PopulateQuestionList(QuestionItem.QuestionItem[] questionList)
         {
@@ -96,7 +108,7 @@ namespace UttendanceDesktop.CoursepageContent
 
         }
 
-        // Aendri 4/17/2025
+        // Aendri Singh (axs210369)
         // Receive event from child question item when edit is clicked.
         // Open edit question module
         void child_question_OnSelectEdit(object sender, EventArgs e)
@@ -128,40 +140,29 @@ namespace UttendanceDesktop.CoursepageContent
                 DialogResult result = createBank.ShowDialog();
                 if (result != DialogResult.Cancel)
                 {
-            PopulateQuestionList();
-        }
+                    PopulateQuestionList();
+                }
             }
             
         }
 
-        // Aendri 4/18/2025
-        // On click of icon...
-        // Edit mode: delete selected items and refresh page
-        // New mode: open create question model
+        // Aendri Singh (axs210369)
+        // On click of icon open create question model
         private void newEditIcon_Click(object sender, EventArgs e)
         {
-            if (numItemsToDelete > 0) //EDIT Mode
+            using (CreateFormQuestion createQMod = new CreateFormQuestion())
             {
-            }
-            else //NEW Mode
-            {
-                using (CreateFormQuestion createQMod = new CreateFormQuestion())
+                if (createQMod.ShowDialog() == DialogResult.OK)
                 {
-                    if (createQMod.ShowDialog() == DialogResult.OK)
-                    {
-                        DB.CreateNewQuestion(createQMod.question, bankID);
-                        PopulateQuestionList();
-                    }
+                    DB.CreateNewQuestion(createQMod.question, bankID);
+                    PopulateQuestionList();
                 }
             }
         }
 
-        private void edit_Click(object sender, EventArgs e)
-        {
-            
-        }
+        private void edit_Click(object sender, EventArgs e) {   }
 
-        // Aendri 4/25/2025
+        // Aendri Singh (axs210369)
         // On click of bank title, open modal to update bank title
         private void bankTitleLabel_Click(object sender, EventArgs e)
         {

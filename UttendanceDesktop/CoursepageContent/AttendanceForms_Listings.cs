@@ -1,4 +1,17 @@
-﻿using UttendanceDesktop.CoursepageContent;
+﻿/******************************************************************************
+* AttendanceForms_Listings for the UttendanceDesktop application.
+* 
+* This class represents the display attendance forms page, where professors
+* can view information on attendance forms for their class. This includes
+* the option to add forms or delete them from the course.
+* 
+* Written by Aendri Singh (axs210369)
+* and  Leah Joshua (lej210003) 
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using UttendanceDesktop.CoursepageContent;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +36,7 @@ namespace UttendanceDesktop
         private attendanceFormItem[] attendanceListItems;
         private int numItemsToDelete = 0;
 
-        //Aendri: 3/28/2025
+        //Aendri Singh (axs210369)
         public AttendanceForms_Listings(int course)
         {
             this.courseNum = course;
@@ -44,7 +57,8 @@ namespace UttendanceDesktop
             PopulateAttendanceFormList();
         }
 
-        // Aendri: Populate the list of Attendence Form Items
+        // Aendri Singh (axs210369)
+        // Populate the list of Attendence Form Items
         private void PopulateAttendanceFormList()
         {
             // Open Connection to Database
@@ -184,7 +198,7 @@ namespace UttendanceDesktop
             UpdateIcon();
         }
 
-        //Aendri 4/3/2025
+        // Aendri Singh (axs210369)
         // On click, filter forms displayed based on the filter and date
         // filterDropdown, dateTimePicker, statusDropDown
         private void filterButton_Click(object sender, EventArgs e)
@@ -218,7 +232,7 @@ namespace UttendanceDesktop
             }
         }
 
-        //Aendri 4/3/2025
+        // Aendri Singh (axs210369)
         // Returns a boolean indicating if the item matches the filter or not
         private bool DoesMatchFilter(attendanceFormItem item, int status, int filter, DateTime time)
         {
@@ -262,7 +276,7 @@ namespace UttendanceDesktop
             return matchStatus && matchFilter; //True if both cases are true
         }
 
-        //Aendri 4/3/2025
+        // Aendri Singh (axs210369)
         // Update page icon to delete icon if items are selected, otherwise add icon
         private void UpdateIcon()
         {
@@ -278,7 +292,7 @@ namespace UttendanceDesktop
             }
         }
 
-        // Aendri 4/3/2025
+        // Aendri Singh (axs210369)
         // Deletes the selected items by updating the database and repopulating the list 
         private void DeleteItems()
         {
@@ -347,7 +361,7 @@ namespace UttendanceDesktop
             PopulateAttendanceFormList(); // Update Page with new list
         }
 
-        //Aendri 4/3/2025
+        // Aendri Singh (axs210369)
         // Receive event from child form item on selection. Update list of changes and deletion icon. 
         void child_checkbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -366,7 +380,8 @@ namespace UttendanceDesktop
             System.Diagnostics.Debug.WriteLine("A TEXTBOX WAS CHANGED! ");
         }
 
-        // Aendri 4/4/2025 updated by Leah
+        // Aendri Singh (axs210369)
+        // Updated by Leah Joshua (lej210003) 
         // On click of icon...
         // Edit mode: delete selected items and refresh page
         // New mode: go to create new form page
@@ -376,7 +391,7 @@ namespace UttendanceDesktop
             {              
                 DeleteItems();
             } 
-            else //NEW Mode (written by Lee)
+            else //NEW Mode 
             {
                 GlobalResource.COURSEPAGE.loadForm(new CreateAttendanceFormPage());
             }

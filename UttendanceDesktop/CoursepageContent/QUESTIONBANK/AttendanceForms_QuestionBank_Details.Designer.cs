@@ -70,7 +70,7 @@
             flowLayoutPanel.MaximumSize = new Size(900, 0);
             flowLayoutPanel.MinimumSize = new Size(900, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(900, 84);
+            flowLayoutPanel.Size = new Size(900, 122);
             flowLayoutPanel.TabIndex = 15;
             // 
             // questionItem1
@@ -88,12 +88,15 @@
             questionItem1.MaximumSize = new Size(750, 0);
             questionItem1.MinimumSize = new Size(750, 0);
             questionItem1.Name = "questionItem1";
+            questionItem1.NumCorrect = 0;
+            questionItem1.NumSubmissions = 0;
             questionItem1.Padding = new Padding(5);
             questionItem1.QuestionID = 0;
             questionItem1.QuestionNumber = 0;
             questionItem1.QuestionValue = null;
             questionItem1.Selected = false;
-            questionItem1.Size = new Size(750, 84);
+            questionItem1.ShowSubmissionData = false;
+            questionItem1.Size = new Size(750, 122);
             questionItem1.TabIndex = 0;
             // 
             // SaveEditIcon
@@ -103,7 +106,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(631, 702);
+            SaveEditIcon.Location = new Point(779, 681);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
@@ -112,13 +115,15 @@
             // newEditIcon
             // 
             newEditIcon.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            newEditIcon.BackColor = Color.FromArgb(0, 192, 0);
+            newEditIcon.BackColor = Color.Transparent;
+            newEditIcon.BackgroundImage = Properties.Resources.add_icon;
+            newEditIcon.BackgroundImageLayout = ImageLayout.Zoom;
             newEditIcon.FlatAppearance.BorderColor = Color.White;
-            newEditIcon.FlatAppearance.BorderSize = 2;
+            newEditIcon.FlatAppearance.BorderSize = 0;
             newEditIcon.FlatStyle = FlatStyle.Flat;
-            newEditIcon.Location = new Point(838, 543);
+            newEditIcon.Location = new Point(963, 540);
             newEditIcon.Name = "newEditIcon";
-            newEditIcon.Size = new Size(40, 40);
+            newEditIcon.Size = new Size(48, 48);
             newEditIcon.TabIndex = 17;
             newEditIcon.UseVisualStyleBackColor = false;
             newEditIcon.Click += newEditIcon_Click;
@@ -130,7 +135,7 @@
             AutoScroll = true;
             AutoSize = true;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(1023, 600);
             Controls.Add(newEditIcon);
             Controls.Add(SaveEditIcon);
             Controls.Add(flowLayoutPanel);

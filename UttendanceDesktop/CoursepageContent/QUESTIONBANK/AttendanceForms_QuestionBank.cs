@@ -1,4 +1,16 @@
-﻿using MySql.Data.MySqlClient;
+﻿/******************************************************************************
+* AttendanceForms_QuestionBank for the UttendanceDesktop application.
+* 
+* This class represents the display question banks page, where professors
+* can view information on question banks for their class. This includes
+* the option to add banks or delete them from the course.
+* 
+* Written by Aendri Singh (axs210369)
+* for CS4485.0W1 at The University of Texas at Dallas
+* starting April 3, 2025.
+******************************************************************************/
+
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +52,7 @@ namespace UttendanceDesktop
             PopulateBankList();
         }
 
-        // Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // Populate the list of question bank list items
         private void PopulateBankList()
         {
@@ -65,23 +77,23 @@ namespace UttendanceDesktop
             UpdateIcon();
         }
 
-        //Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // Update page icon to delete icon if items are selected, otherwise add icon
         private void UpdateIcon()
         {
             if (numItemsToDelete > 0)
             {
                 //Set icon to delete
-                SaveEditIcon.BackColor = Color.Red;
+                SaveEditIcon.BackgroundImage = Properties.Resources.trash_icon;
             }
             else
             {
                 //Set icon to add
-                SaveEditIcon.BackColor = Color.Green;
+                SaveEditIcon.BackgroundImage = Properties.Resources.add_icon;
             }
         }
 
-        // Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // Deletes the selected items by updating the database and repopulating the list 
         private void DeleteItems()
         {
@@ -92,7 +104,7 @@ namespace UttendanceDesktop
             
         }
 
-        //Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // Receive event from child form item on selection. Update list of changes and deletion icon. 
         void child_checkbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -111,7 +123,7 @@ namespace UttendanceDesktop
             //System.Diagnostics.Debug.WriteLine("A TEXTBOX WAS CHANGED! ");
         }
 
-        //Aendri 4/4/2025
+        // Aendri Singh (axs210369)
         // On click of icon...
         // Edit mode: delete selected items and refresh page
         // New mode: open new question bank module
