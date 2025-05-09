@@ -26,7 +26,8 @@ A UTD Attendance Application.
 10. Select the blue triangle on the top of HeidiSQL banner to execute the SQL Script.
 
 ## Desktop Application Guide
-The UI display differs per computer/resolution display. Some buttons may seem out of place, cropped, or hard to access.  
+The UI display differs per screen resolution display. Some buttons may seem out of place, cropped, or hard to access.
+If the Sign-In button cannot be found, enter the NetID and password, press ‘Enter’ button, and it should log the user in on the Desktop Side.  
 
 1. Once the SQL Script is successfully running, open up Visual Studio 2022 (make sure this is the latest version).
 	- Otherwise, [install](https://visualstudio.microsoft.com/downloads/) it.
