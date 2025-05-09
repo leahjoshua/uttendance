@@ -2,9 +2,15 @@
 	NetID: JXY200013 and PXN210032
 
     This page imports the question(s) and answer choices associated with the form password
-    from the database. 
-    If the student doesn't submit their quiz in time while they're accessing the page, it will
-    automatically submit whatever they have and be stored in the database.
+    from the database and displays them on the page. 
+
+    Students are required to answer all questions before submitting. If the student tries to 
+    submit before answering all questions, an error message will popup and prevent them from navigating
+    to the submission page.
+
+    After the student clicks the submit button after completing their form, their answer choices, student id,
+    associated form id, date and time submitted, and IP address will be inserted into the database. There will 
+    be a id associated with the submission, and their attendance will be marked as a P for present.
 *@
 
 @page "/quiz/{formID}"
@@ -24,6 +30,7 @@
 <!-- Written by Judy Yang, JXY200013 -->
 <PageTitle>Attendance Quiz</PageTitle>
 
+<!-- Display student name to ensure that the form is for the intended student -->
 <h1>
     Attendance Form for 
     @if(student != null)
@@ -32,6 +39,7 @@
     }
 </h1>
 
+<!-- Display class name and section, the date of the form, as well as the due date and time -->
 <div class="quiz-header">
     @if(course != null)
     {
@@ -57,11 +65,9 @@
     }
     else
     {
+        <!-- Display each question and its associated answer choices -->
         @foreach (var question in questions)
         {
-            <!-- Resets the optionNum for the label id -->
-            { optionNum = 0; }
-
             <!-- Box around questions -->
             <div class="card mb-3">
                 <div class="card-body">
@@ -86,7 +92,7 @@
                     }
                 </div>
             </div>
-            <!-- Question number for group the answer choices -->
+            <!-- Question number for grouping the answer choices -->
             { questionNum++; }
         }
     }
@@ -117,7 +123,6 @@
     private int studentID = 0;
     private Student student;
     private Class course;
-    private int optionNum = 0;
     private int questionNum = 1;
 
     protected override async Task OnInitializedAsync()

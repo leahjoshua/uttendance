@@ -6,12 +6,17 @@
 
     The purpose of this page is to allow the students to log in to the attendance website through 
     their UTD-ID and class password. This page validates if the student attends the class, and whether
-    the attendance form is open in a specific time frame. If the validation suceeds, the student will be either
-    navigated to a quiz page if there is a quiz, or a submission page if there is no quiz. 
+    the attendance form is open in a specific time frame. If the validation succeeds, the student will either
+    be navigated to a quiz page if there is a quiz, or a submission page if there is no quiz. 
     Otherwise, an error will be given. If the student already submitted the form and wants to submit again,
     an error message will show up.
 
-    The IP address should be stored once the student logs in.
+    There must be a database connected to this project through the appsettings.json file. The database needs to have
+    the entities Answerchoice, Answers, Attends, Class, Form, Has, Question, Student, and Submission.
+
+    When a student has no form to complete, their IP address, time submitted, associated form number, and 
+    student id gets submitted to the database after the student clicks on the log in button. 
+    There will be a id associated with the submission, and their attendance will be marked as a P for present.
 *@
 
 @*Libraries*@
@@ -105,8 +110,10 @@
     private string errorMessage = "";
     private bool isLoading = false;
 
-    /* Checks the validity of the Student's ID and Class Password 
+    /* Runs when the student clicks on the login button.
+     * Checks the validity of the Student's ID and Class Password from the input
      * Checks if the Attendance associated with the password is valid in the database
+     * Navigates to the next page when the input information is valid.
      */
     private async Task SignIn()
     {
@@ -115,6 +122,7 @@
 
         try
         {
+            // Allows connection with the database
             using var db = DbContextFactory.CreateDbContext();
 
             var validStudent = await db.Student
@@ -135,7 +143,8 @@
             if (validStudent != null && validPassword != null)
             {
                 /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
-                 * NetID: PXN210032*/
+                 * NetID: PXN210032
+                 * Checks if the form id exists and if it's within the time frame */
                 var formIDs = await (from f in db.Form
                     join a in db.Attends
                     on f.FK_CourseNum equals a.FK_CourseNum
@@ -169,6 +178,7 @@
                 } 
                 else // Submitting for the first time
                 {
+                    // Written by Judy Yang, JXY200013
                     // Go to Submission page if there are no questions to answer
                     if (questions == null || !questions.Any())
                     {
@@ -227,12 +237,11 @@
         isModalVisible = false;
     }
 
-    /* Submission Information */
-    // IP Address
     /*Written by Judy Yang, Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
     NetID: JXY200013, PXN210032*/
     private string? userIP;
 
+    // Get IP Address for submission when the website starts
     protected override async Task OnInitializedAsync()
     {
         try
