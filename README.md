@@ -38,6 +38,8 @@ If the Sign-In button cannot be found, enter the NetID and password, press ‘En
     - You can either create a new account, or use username 'sxh392287' and password 'blowupmind' for quick demo.
 
 ## Website Guide
+Upon logging into the website, it takes a while to validate for the information to show up for unknown reasons.
+
 1. In File Explorer, navigate to student_website.sln.
 	- Open this file using Visual Studio 2022.
 2. Once everything is loaded up from this file in Visual Studio, select Start option in the top banner.
