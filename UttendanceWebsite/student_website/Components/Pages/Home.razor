@@ -1,0 +1,258 @@
+@page "/"
+@rendermode InteractiveServer
+
+@* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 4, 2025
+    NetID: JXY200013 and PXN210032
+
+    The purpose of this page is to allow the students to log in to the attendance website through 
+    their UTD-ID and class password. This page validates if the student attends the class, and whether
+    the attendance form is open in a specific time frame. If the validation succeeds, the student will either
+    be navigated to a quiz page if there is a quiz, or a submission page if there is no quiz. 
+    Otherwise, an error will be given. If the student already submitted the form and wants to submit again,
+    an error message will show up.
+
+    There must be a database connected to this project through the appsettings.json file. The database needs to have
+    the entities Answerchoice, Answers, Attends, Class, Form, Has, Question, Student, and Submission.
+
+    When a student has no form to complete, their IP address, time submitted, associated form number, and 
+    student id gets submitted to the database after the student clicks on the log in button. 
+    There will be a id associated with the submission, and their attendance will be marked as a P for present.
+*@
+
+@*Libraries*@
+@inject NavigationManager navigateManager
+@inject IDbContextFactory<ApplicationDbContext> DbContextFactory
+@inject UserConnectionInfoService ConnectionService
+@inject SubmissionService SubmissionService
+@inject StudentService StudentService
+@inject IHttpContextAccessor HttpContextAccessor
+@inject HttpClient http
+@using student_website.Models
+@using student_website.Services
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
+@using System.Net.Http.Json;
+
+
+<!-- Written by Judy Yang, JXY200013 -->
+<PageTitle>Student Login</PageTitle>
+<div class="panel">
+    <img src="foxIcon.png" width="100" height="100">
+    <h1>Welcome to UTtenDance</h1>
+    You're free from eLearning quizzes!
+
+    <!-- UTD-ID and class password input text -->
+    <div class="input-section">
+        <!-- Written by Parisa Nawar, PXN210032 -->
+        <EditForm Model="student" OnValidSubmit="SignIn">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <!-- Student ID input -->
+            <div class="form-group">
+                <label for="utdid">UTD-ID</label>
+                <InputNumber id="utdid" @bind-Value="student.UTDID" class="form-control no-spinners" />
+            </div>
+            <br/>
+
+            <!-- Written by Judy Yang, JXY200013 
+            Class password input -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText id="password" @bind-Value="form.PassWd" class="form-control no-spinners" />
+            </div>
+
+            <!-- Button for Modal -->
+            <div class="right-align">
+                <button class="popup" @onclick="ShowModal" type="button">What is a UTD-ID?</button>
+            </div>
+
+            <button type="submit" class="btn-primary" disabled="@isLoading">
+                @(isLoading ? "Logging In..." : "Login")
+            </button>
+        </EditForm>
+
+        <!-- Written by Parisa Nawar, PXN210032
+        Display Error if any -->
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+        }
+
+        <!-- Written by Judy Yang, JXY200013
+        Shows the Modal explaining what a UTD-ID is -->
+        @if (isModalVisible)
+        {
+            <div class="modal-backdrop">
+                <div class="modal-box">
+                    <h4>What is a UTD-ID?</h4>
+                    <p>It is one of the two unique identifiers associated with your UT Dallas Account.
+                        It will have ten digits starting with 20 or 40. This is used primarily for identity
+                        verification as a replacement for your Social Security Number.</p>
+
+                    <p>
+                        The UTD ID is located on the front of your Comet Card, bottom-right corner.
+                    </p>
+                    <button @onclick="CloseModal" class="btn-submit">Ok</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@code {
+    /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025
+    NetID: PXN210032*/
+    // Variables for Login validation
+    private Student student = new Student();
+    private Form form = new Form();
+    private string errorMessage = "";
+    private bool isLoading = false;
+
+    /* Runs when the student clicks on the login button.
+     * Checks the validity of the Student's ID and Class Password from the input
+     * Checks if the Attendance associated with the password is valid in the database
+     * Navigates to the next page when the input information is valid.
+     */
+    private async Task SignIn()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            // Allows connection with the database
+            using var db = DbContextFactory.CreateDbContext();
+
+            var validStudent = await db.Student
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.UTDID == student.UTDID);
+
+            /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
+            * NetID: JXY200013*/
+           var validPassword = await db.Form
+           .AsNoTracking()
+           .FirstOrDefaultAsync(f => f.PassWd == form.PassWd
+            && f.ReleaseDateTime < DateTime.Now
+            && f.CloseDateTime > DateTime.Now);
+
+            /*Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
+            * NetID: JXY200013, PXN210032
+            * Validate student ID and class password input */
+            if (validStudent != null && validPassword != null)
+            {
+                /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
+                 * NetID: PXN210032
+                 * Checks if the form id exists and if it's within the time frame */
+                var formIDs = await (from f in db.Form
+                    join a in db.Attends
+                    on f.FK_CourseNum equals a.FK_CourseNum
+                    where a.FK_UTDID == student.UTDID
+                       && form.PassWd == f.PassWd
+                       && f.ReleaseDateTime < DateTime.Now
+                       && f.CloseDateTime > DateTime.Now
+                       select f.FormID)
+                    .ToListAsync();
+
+                //Check if resubmission is happening
+                var submittedForm = await (from s in db.Submission
+                    join f in db.Form
+                    on s.FK_FormID equals f.FormID
+                    where f.PassWd == form.PassWd
+                    && s.FK_UTDID == student.UTDID
+                    && s.FK_FormID == formIDs[0]
+                    select s).ToListAsync();
+
+                // Store student id and check if there are questions to answer
+                StudentService.StudentID = (int) validStudent.UTDID;
+                var questions = await db.Has.Where(h => h.FK_FormID == formIDs[0])
+                    .Include(h => h.Question).ThenInclude(q => q.Answerchoice)
+                    .Select(h => h.Question).ToListAsync();
+
+
+                // Prevent resubmission
+                if(submittedForm.Count != 0)
+                {
+                    errorMessage = "Form has already been submitted";
+                } 
+                else // Submitting for the first time
+                {
+                    // Written by Judy Yang, JXY200013
+                    // Go to Submission page if there are no questions to answer
+                    if (questions == null || !questions.Any())
+                    {
+                        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, formIDs[0], (int)validStudent.UTDID, new List<int>());
+                        navigateManager.NavigateTo("/submission");
+                    }
+                    else
+                    {
+                        var formID = string.Join(", ", formIDs);
+                        navigateManager.NavigateTo($"/quiz/{formID}");
+                    }
+                } // end bracket for nested else
+            }
+            else if(validStudent == null && validPassword == null)
+            {
+                errorMessage = "Invalid UTD-ID and Password";
+            }
+            else if(validStudent == null)
+            {
+                errorMessage = "Invalid UTD-ID";
+            }
+            else
+            {
+                errorMessage = "Invalid Password or Quiz Not Within Allowed Time";
+            }
+
+        } // end bracket for try
+
+        /*Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 16, 2025
+         * NetID: PXN210032*/
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            student.UTDID = 0;
+            form.PassWd = string.Empty;
+            StateHasChanged();
+        }
+    } // end bracket for SignIn()
+
+    /*Written by Judy Yang for CS 4485.0w1, CS Project, starting April 18, 2025
+    NetID: JXY200013*/
+    // Modal visibility
+    private bool isModalVisible = false;
+
+    private void ShowModal()
+    {
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        isModalVisible = false;
+    }
+
+    /*Written by Judy Yang, Parisa Nawar for CS 4485.0w1, CS Project, starting April 18, 2025
+    NetID: JXY200013, PXN210032*/
+    private string? userIP;
+
+    // Get IP Address for submission when the website starts
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            userIP = await http.GetStringAsync("https://api.ipify.org");
+        }
+        catch(Exception e)
+        {
+            userIP = "Unable to get IP Address";
+        }
+
+    }
+
+}

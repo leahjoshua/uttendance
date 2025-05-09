@@ -1,0 +1,221 @@
+﻿@* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 11, 2025
+	NetID: JXY200013 and PXN210032
+
+    This page imports the question(s) and answer choices associated with the form password
+    from the database and displays them on the page. 
+
+    Students are required to answer all questions before submitting. If the student tries to 
+    submit before answering all questions, an error message will popup and prevent them from navigating
+    to the submission page.
+
+    After the student clicks the submit button after completing their form, their answer choices, student id,
+    associated form id, date and time submitted, and IP address will be inserted into the database. There will 
+    be a id associated with the submission, and their attendance will be marked as a P for present.
+*@
+
+@page "/quiz/{formID}"
+@rendermode InteractiveServer
+
+@inject NavigationManager navigateManager
+@inject IDbContextFactory<ApplicationDbContext> DbContextFactory
+@inject UserConnectionInfoService ConnectionService
+@inject SubmissionService SubmissionService
+@inject StudentService StudentService
+@inject HttpClient http
+@using student_website.Models
+@using student_website.Services
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.DataAnnotations
+
+<!-- Written by Judy Yang, JXY200013 -->
+<PageTitle>Attendance Quiz</PageTitle>
+
+<!-- Display student name to ensure that the form is for the intended student -->
+<h1>
+    Attendance Form for 
+    @if(student != null)
+    {
+        <span>@student.SFName @student.SLName</span>
+    }
+</h1>
+
+<!-- Display class name and section, the date of the form, as well as the due date and time -->
+<div class="quiz-header">
+    @if(course != null)
+    {
+        <span>
+            @course.ClassSubject 
+            @course.ClassNum.@course.SectionNum?.ToString("000") -- 
+            @(dueDate?.ToString("MM/dd/yyyy"))
+        </span>
+    }
+    <span style="text-align: right">
+        Due at:
+        <span style="color: #E97502">
+            @(dueDate?.ToString("f"))
+        </span>
+    </span>
+</div>
+
+<!-- Written by Parisa Nawar and Judy Yang, PXN210032, JXY200013 -->
+<div class="quiz-body">
+    @if (questions == null || !questions.Any())
+    {
+        <div>No Questions Found.</div>
+    }
+    else
+    {
+        <!-- Display each question and its associated answer choices -->
+        @foreach (var question in questions)
+        {
+            <!-- Box around questions -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">@question.ProblemStatement</p>
+                    <!-- For each question, list the answer choices -->
+                    @{
+                        int optionIndex = 0;
+                        foreach (var choice in question.Answerchoice)
+                        {
+                            int currentOption = optionIndex;
+                            <input type="radio"
+                            id="q@(question.QuestionID)_@currentOption"
+                            name="question_@question.QuestionID"
+                            checked="@(selectedAnswers.ContainsKey(question.QuestionID) && selectedAnswers[question.QuestionID] == currentOption)"
+                            @onchange="@(() => UpdateSelection(question.QuestionID, currentOption))" />
+                            <label for="q@(question.QuestionID)_@currentOption">@choice.AnswerStatement</label>
+
+                            <br />
+                            optionIndex++;
+                        }
+                    }
+                </div>
+            </div>
+            <!-- Question number for grouping the answer choices -->
+            { questionNum++; }
+        }
+    }
+</div>
+
+<!-- Error message if not all answered -->
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+<button class="btn btn-submit" @onclick="Submit">Submit</button>
+
+@code {
+    /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting April 24, 2025 
+     * NetID: PXN210032
+     */
+    [Parameter]
+    public string? formID { get; set; }
+    private DateTime? dueDate { get; set; }
+    private List<Question>? questions;
+    private string? userIP;
+    private int intID = 0;
+    private Dictionary<int?, int?> selectedAnswers = new();
+    private string errorMessage;
+
+    /* Written by Judy Yang, JXY200013, starting April 26, 2025 */
+    private int studentID = 0;
+    private Student student;
+    private Class course;
+    private int questionNum = 1;
+
+    /*
+     * Get the IP address.
+     * Get the associated form id, student, course, and question information
+     * Display student name, course and section, and questions when the page loads 
+     */
+    protected override async Task OnInitializedAsync()
+    {
+        // Get user IPAddress
+        var info = ConnectionService.GetUserConnectionInfo();
+        //userIP = info.RemoteIpAddress;
+        try
+        {
+            userIP = await http.GetStringAsync("https://api.ipify.org");
+        }
+        catch(Exception e)
+        {
+            userIP = "Unable to get IP Address";
+        }
+
+        /* Written by Parisa Nawar, PXN210032 */
+        //show date
+        intID = int.Parse(formID);
+        using var db = DbContextFactory.CreateDbContext();
+        var form = await db.Form.FirstOrDefaultAsync(f => f.FormID.Equals(intID));
+        dueDate = form?.CloseDateTime;
+
+        /* Written by Judy Yang, JXY200013 */
+        // Get student information
+        studentID = StudentService.StudentID;
+        student = await db.Student.FirstOrDefaultAsync(s => s.UTDID == studentID);
+
+        // Get class information
+        course = await db.Class.FirstOrDefaultAsync(c => c.CourseNum == form.FK_CourseNum);
+
+        /* Written by Judy Yang, JXY200013 */
+        // .Include() acts as a join
+        questions = await db.Has
+           .Where(h => h.FK_FormID == intID)
+           .Include(h => h.Question)
+           .ThenInclude(q => q.Answerchoice)
+           .Select(h => h.Question)
+           .ToListAsync();
+    }
+
+
+    /* Written by Parisa Nawar for CS 4485.0w1, CS Project, starting May 02, 2025
+    * NetID: PXN210032*/
+   //Reset the error message after clicking answer
+    private void UpdateSelection(int questionId, int choiceIndex)
+    {
+        selectedAnswers[questionId] = choiceIndex;
+        errorMessage = null;
+    }
+
+    /* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 14, 2025
+     * NetID: JXY200013, PXN210032*/
+    // Adding async allows you to use await
+    /* Checks if all questions have been answered
+     * Insert student IP address, associated form id, student id, as well as student answer choices
+     * to the database.
+     * After, navigate to the submission page
+     */
+    private async Task Submit()
+    {
+        //Check if all the questions have been answered
+        bool answerAll = questions.All(q =>
+            selectedAnswers.ContainsKey(q.QuestionID) &&
+            selectedAnswers[q.QuestionID].HasValue
+        );
+
+        if (!answerAll)
+        {
+            errorMessage = "Must answer all questions before submitting.";
+            return;
+        }
+
+        //Collect user chosen answers to send to Database
+        var answerChoices = new List<int>();
+        // Checks if each question is answered
+        foreach (var question in questions)
+        {
+            if (selectedAnswers.TryGetValue(question.QuestionID, out int? choiceIndex) && choiceIndex.HasValue)
+            {
+                var answerChoice = question.Answerchoice.ElementAtOrDefault(choiceIndex.Value);
+                if (answerChoice != null)
+                {
+                    answerChoices.Add(answerChoice.AnswerID);
+                }
+            }
+        }
+
+        await SubmissionService.CreateAndInsertSubmissionAsync(userIP, intID, StudentService.StudentID, answerChoices);
+        navigateManager.NavigateTo("/submission");
+    }
+}

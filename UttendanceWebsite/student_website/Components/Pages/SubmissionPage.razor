@@ -1,0 +1,29 @@
+﻿@* Written by Judy Yang for CS 4485.0w1, CS Project, starting April 14, 2025
+	NetID: JXY200013
+
+	Students will navigate to this page after submitting their attendance form.
+	Clicking on the button at the end will have them return back to the login.
+*@
+
+@page "/submission"
+
+@rendermode InteractiveServer
+
+@inject NavigationManager navigateManager
+
+
+<h3 style="text-align: center;"><strong>Form Submitted!</strong></h3>
+
+<div class="image-container">
+	<img src="submit.png" class="responsive-image" width="495" height="375"/>
+</div>
+
+<button class="btn btn-primary" @onclick="ReturnHome">Back to Home Page</button>
+
+@code {
+	private void ReturnHome()
+	{
+		navigateManager.NavigateTo("/");
+	}
+
+}
