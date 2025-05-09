@@ -30,6 +30,8 @@ namespace UttendanceDesktop.CoursepageContent.QuestionItem
 
         public event EventHandler OnQuestionSelectChange;
         public event EventHandler OnClickEdit;
+
+
         public QuestionItem()
         {
             InitializeComponent();

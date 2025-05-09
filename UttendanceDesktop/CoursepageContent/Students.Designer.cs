@@ -41,6 +41,8 @@ namespace UttendanceDesktop
             addPanel = new Panel();
             importStudentsBtn = new Button();
             addStudentsBtn = new Button();
+            studentTable = new DataGridView();
+            deleteBtn = new Button();
             addBtn = new Button();
             deleteBtn = new Button();
             studentTable = new DataGridView();
@@ -55,10 +57,13 @@ namespace UttendanceDesktop
             studentsPagePanel.BackColor = Color.FromArgb(166, 176, 230);
             studentsPagePanel.Controls.Add(studentsLabel);
             studentsPagePanel.Controls.Add(addPanel);
+            studentsPagePanel.Controls.Add(studentTable);
+            studentsPagePanel.Controls.Add(deleteBtn);
             studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Controls.Add(deleteBtn);
             studentsPagePanel.Controls.Add(studentTable);
             studentsPagePanel.Location = new Point(0, 0);
+            studentsPagePanel.Margin = new Padding(3, 4, 3, 4);
             studentsPagePanel.Name = "studentsPagePanel";
             studentsPagePanel.Size = new Size(800, 450);
             studentsPagePanel.TabIndex = 0;
@@ -107,6 +112,7 @@ namespace UttendanceDesktop
             addStudentsBtn.FlatStyle = FlatStyle.Flat;
             addStudentsBtn.ForeColor = Color.FromArgb(37, 42, 69);
             addStudentsBtn.Location = new Point(0, 0);
+            addStudentsBtn.Margin = new Padding(3, 4, 3, 4);
             addStudentsBtn.Name = "addStudentsBtn";
             addStudentsBtn.Size = new Size(110, 36);
             addStudentsBtn.TabIndex = 5;
@@ -196,6 +202,21 @@ namespace UttendanceDesktop
             studentTable.CellEndEdit += studentTable_CellEndEdit;
             studentTable.DataBindingComplete += studentTable_DataBindingComplete;
             // 
+            // addBtn
+            // 
+            addBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            addBtn.Cursor = Cursors.Hand;
+            addBtn.FlatAppearance.BorderSize = 0;
+            addBtn.FlatStyle = FlatStyle.Flat;
+            addBtn.Image = Properties.Resources.add_icon;
+            addBtn.Location = new Point(830, 504);
+            addBtn.Margin = new Padding(3, 4, 3, 4);
+            addBtn.Name = "addBtn";
+            addBtn.Size = new Size(54, 67);
+            addBtn.TabIndex = 1;
+            addBtn.UseVisualStyleBackColor = true;
+            addBtn.Click += addBtn_Click;
+            // 
             // Students
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -205,6 +226,7 @@ namespace UttendanceDesktop
             Controls.Add(studentsPagePanel);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Students";
             Text = "Students";
             studentsPagePanel.ResumeLayout(false);

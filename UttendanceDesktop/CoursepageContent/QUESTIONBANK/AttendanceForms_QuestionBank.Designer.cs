@@ -43,7 +43,9 @@ namespace UttendanceDesktop
             attendanceFormPagePanel.Controls.Add(SaveEditIcon);
             attendanceFormPagePanel.Controls.Add(flowLayoutPanel);
             attendanceFormPagePanel.Controls.Add(attendanceFormsLabel);
+            attendanceFormPagePanel.Dock = DockStyle.Fill;
             attendanceFormPagePanel.Location = new Point(0, 0);
+            attendanceFormPagePanel.Margin = new Padding(3, 4, 3, 4);
             attendanceFormPagePanel.Name = "attendanceFormPagePanel";
             attendanceFormPagePanel.Size = new Size(800, 450);
             attendanceFormPagePanel.TabIndex = 0;
@@ -92,6 +94,7 @@ namespace UttendanceDesktop
             ClientSize = new Size(800, 450);
             Controls.Add(attendanceFormPagePanel);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "AttendanceForms_QuestionBank";
             Text = "Uttendance";
             attendanceFormPagePanel.ResumeLayout(false);

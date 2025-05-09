@@ -144,7 +144,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                         System.Diagnostics.Debug.WriteLine("ERROR: FormDAO.cs/SaveQuestions()");
                     }
                 }
-                
+
             }
             connection.Close();
         }
@@ -291,7 +291,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             try
             {
                 connection.Open();
-                
+
                 // Check if question is already in use
                 query =
                     "SELECT * " +
@@ -314,7 +314,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@QuestionID", questionData.QuestionID);
                     result = cmd.ExecuteNonQuery();
-                } 
+                }
                 // QUESTION UNUSED
                 else
                 {
@@ -556,7 +556,8 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                     else { currItem.QuestionValue = ""; }
 
                     // Is Bank Question?
-                    if (reader[2] != null) {
+                    if (reader[2] != null)
+                    {
                         currItem.IsBankQuestion = !DBNull.Value.Equals(reader[2]);
                         currItem.IsEditable = DBNull.Value.Equals(reader[2]); //Bank questions can't be edited
                     }
@@ -711,114 +712,9 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
 
             return formData;
         }
-
-        // 4/25/2025 Aendri
-        // Returns detailed information on a given attendance bank
-        public QuestionBank GetBankData(int bankID)
-        {
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            MySqlCommand cmd;
-            MySqlDataReader reader;
-
-            QuestionBank bankData = new QuestionBank();
-
-            // Return if invalid bank id
-            if (bankID < 0)
-            {
-                bankData.BankID = -1;
-                return bankData;
-            } else
-            {
-                bankData.BankID = bankID;
-            }
-
-                try
-                {
-                    connection.Open();
-
-                    // Form Data:
-                    cmd = new MySqlCommand(
-                        "SELECT BankTitle " +
-                        "FROM qbank " +
-                        "WHERE BankID=@BankID "
-                        , connection);
-                    cmd.Parameters.AddWithValue("@BankID", bankID);
-                    reader = cmd.ExecuteReader();
-                    reader.Read();
-
-                    // Return with error if no data found
-                    if (!reader.HasRows)
-                    {
-                        bankData.BankID = -1;
-                        connection.Close();
-                        return bankData;
-                    }
-
-                    bankData.BankTitle = reader[0].ToString();
-                    reader.Close();
-
-                    // Get a list of questions for the question bank
-                    bankData.QuestionBankList = GetBankQuestionList(bankID);
-
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/GetBankData: " + ex.ToString());
-                    bankData.BankID = -1;
-                }
-            connection.Close();
-
-            return bankData;
-        }
-
-        // 4/16/2025 Aendri 
-        // Returns true if the given bank title is valid (not in use already)
-        public bool IsValidBankTitle(String bankTitle)
-        {
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            MySqlCommand cmd;
-            MySqlDataReader reader;
-
-            try
-            {
-                connection.Open();
-
-                // Look for any question bank entries with the same title
-                cmd = new MySqlCommand(
-                    "SELECT * " +
-                    "FROM qbank " +
-                    "WHERE FK_INetID=@INetID " + 
-                    "AND BankTitle=@BankTitle"
-                    , connection);
-                cmd.Parameters.AddWithValue("@INetID", GlobalResource.INetID);
-                cmd.Parameters.AddWithValue("@BankTitle", bankTitle);
-                reader = cmd.ExecuteReader();
-                reader.Read();
-
-                // Check if any results found, return with error if not found
-                if (reader.HasRows) { return false; }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("ERROR: FormDAO/IsValidBankTitle: " + ex.ToString());
-                return false;
-            }
-            connection.Close();
-
-            return true;
-        }
-
-
-        /**************************************************************************
-        * Pulls a list of questions from the question table for a specific form
-        * based on form ID. Stores them in a list of QuestionItems ready for
-        * display.
-        * 
-        * NOTE: This method does not assign a QuestionNumber to each QuestionItem.
-        * 
-        * Written by Leah Joshua.
-        **************************************************************************/
+        // Lee
+        // 4/18/2025
+        // This function doesn't assign QuestionNumbers
         public List<QuestionItem.QuestionItem> SelectQuestions(List<int> IDs)
         {
             List<QuestionItem.QuestionItem> questionItemList = new List<QuestionItem.QuestionItem>();
@@ -892,7 +788,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                 {
                     cmd = new MySqlCommand(
                         "INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID) " +
-                        "VALUES (@answerStmt, @isCorrect, @questionID)", 
+                        "VALUES (@answerStmt, @isCorrect, @questionID)",
                         connection);
                     cmd.Parameters.AddWithValue("@answerStmt", questionData.AnswerChoices[j].AnswerStatement);
                     cmd.Parameters.AddWithValue("@isCorrect", questionData.AnswerChoices[j].isCorrect);
@@ -946,7 +842,7 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
             connection.Close();
 
             return bankID;
-                
+
         }
 
         /**************************************************************************
@@ -1099,9 +995,9 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                                "WHERE AnswerID = @AnswerID"
                                , connection);
                             cmd.Parameters.AddWithValue("@AnswerID", questionData.AnswerChoices[i].AnswerID);
-                        } 
+                        }
                         // Otherwse, update
-                        else 
+                        else
                         {
                             cmd = new MySqlCommand(
                                 "UPDATE answerchoice " +
@@ -1120,13 +1016,13 @@ namespace UttendanceDesktop.CoursepageContent.CreateAttendanceForm
                         cmd = new MySqlCommand(
                             "INSERT INTO answerchoice (AnswerStatement, IsCorrect, FK_QuestionID)" +
                             "VALUES (@answerStmt, @isCorrect, @questionID)", connection);
-                        
+
                         cmd.Parameters.AddWithValue("@answerStmt", questionData.AnswerChoices[i].AnswerStatement);
                         cmd.Parameters.AddWithValue("@isCorrect", questionData.AnswerChoices[i].isCorrect);
                         cmd.Parameters.AddWithValue("@questionID", questionData.QuestionID);
                         cmd.ExecuteNonQuery();
                     }
-                    
+
                 }
             }
             catch (Exception ex)

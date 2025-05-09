@@ -103,7 +103,7 @@
             SaveEditIcon.FlatAppearance.BorderColor = Color.White;
             SaveEditIcon.FlatAppearance.BorderSize = 2;
             SaveEditIcon.FlatStyle = FlatStyle.Flat;
-            SaveEditIcon.Location = new Point(823, 716);
+            SaveEditIcon.Location = new Point(631, 702);
             SaveEditIcon.Name = "SaveEditIcon";
             SaveEditIcon.Size = new Size(40, 40);
             SaveEditIcon.TabIndex = 16;
@@ -116,7 +116,7 @@
             newEditIcon.FlatAppearance.BorderColor = Color.White;
             newEditIcon.FlatAppearance.BorderSize = 2;
             newEditIcon.FlatStyle = FlatStyle.Flat;
-            newEditIcon.Location = new Point(1054, 541);
+            newEditIcon.Location = new Point(838, 543);
             newEditIcon.Name = "newEditIcon";
             newEditIcon.Size = new Size(40, 40);
             newEditIcon.TabIndex = 17;
@@ -130,7 +130,7 @@
             AutoScroll = true;
             AutoSize = true;
             BackColor = Color.FromArgb(166, 176, 230);
-            ClientSize = new Size(1127, 600);
+            ClientSize = new Size(914, 600);
             Controls.Add(newEditIcon);
             Controls.Add(SaveEditIcon);
             Controls.Add(flowLayoutPanel);

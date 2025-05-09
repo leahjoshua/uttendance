@@ -6,7 +6,7 @@
 * throughout the application for database operations and user context.
 * Written by Joanna Yang (jxy210012) and Parisa Nawar (pxn210032) 
 * for CS4485.0W1 at The University of Texas at Dallas
-* starting March 7, 2025.
+* starting March 28, 2025.
 ******************************************************************************/
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,8 @@ namespace UttendanceDesktop
     {
         // The connection string used for all database operations.
         public static string CONNECTION_STRING = "datasource=localhost;port=3306;username=root;password=kachowmeow;database=uttendance";
-        public static int CURRENT_CLASS_ID { get; set; } //CourseNum
+        // The current class ID that is being used for Coursepage
+        public static int CURRENT_CLASS_ID { get; set; }
         public static Coursepage COURSEPAGE { get; set; }
 
         // The NetID of the currently logged-in user.

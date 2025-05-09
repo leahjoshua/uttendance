@@ -1,33 +1,38 @@
 ﻿/******************************************************************************
- * Homepage class for the UttendanceDesktop application.
+ * Homepage Form for the UttendanceDesktop application.
  * This form serves as the main dashboard after login. It displays the user's
  * courses as interactive tiles and provides options to add, import, and
  * delete courses, as well as edit profile and logout features.
  * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
- * starting March 7, 2025.
+ * starting March 13, 2025.
  ******************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UttendanceDesktop
 {
     public partial class Homepage : Form
     {
         private bool isEditMode = false;
+        private string InstructorID;
         /**************************************************************************
         * Constructor for Homepage.
         * Initializes UI components and loads the class tiles for the current user.
         **************************************************************************/
-        public Homepage()
+        public Homepage(string id)
         {
+            InstructorID = id;
+
             //Initialize UI and load existing tiles
             InitializeComponent();
             StartPosition = FormStartPosition.Manual;
@@ -46,7 +51,7 @@ namespace UttendanceDesktop
         private void addCourseManualButton_Click(object sender, EventArgs e)
         {
             //Create new AddManualCourse Form and show it
-            AddManualCourse addCourseForm = new AddManualCourse();
+            AddManualCourse addCourseForm = new AddManualCourse(InstructorID);
             addCourseForm.ShowDialog();
         }
 
@@ -57,7 +62,7 @@ namespace UttendanceDesktop
         private void importCourseButton_Click(object sender, EventArgs e)
         {
             //Create new ImportCourseForm and show it
-            ImportCourse importCourseForm = new ImportCourse();
+            ImportCourse importCourseForm = new ImportCourse(InstructorID);
             importCourseForm.ShowDialog();
         }
 
@@ -180,7 +185,7 @@ namespace UttendanceDesktop
                                 Label infoLabel = new Label
                                 {
                                     Text = $"{courseName}\n{classPrefix} {classNumber}.{sectNumber}",
-                                    Font = new Font("Afacad", 10, FontStyle.Regular),
+                                    Font = new System.Drawing.Font("Afacad", 10, FontStyle.Regular),
                                     AutoSize = false,
                                     Size = new Size(tileWidth - 40, tileHeight - 40),
                                     Location = new Point(20, 40),
@@ -353,7 +358,7 @@ namespace UttendanceDesktop
         private void TilePanel_Click(object sender, EventArgs e)
         {
             // If still in Edit Mode, then Tiles should not be clickable
-            if(isEditMode)
+            if (isEditMode)
             {
                 return;
             }
@@ -370,11 +375,12 @@ namespace UttendanceDesktop
                 string courseNum = tilePanel.Tag?.ToString();
                 if (!string.IsNullOrEmpty(courseNum))
                 {
+                    int classID = Convert.ToInt32(courseNum);
                     // Update the global resource with the selected course ID
-                    GlobalResource.CURRENT_CLASS_ID = Convert.ToInt32(courseNum);
+                    GlobalResource.CURRENT_CLASS_ID = classID;
 
                     // Open up the CoursePage corresponding to the Course 
-                    GlobalResource.COURSEPAGE = new Coursepage(GlobalResource.CURRENT_CLASS_ID);
+                    GlobalResource.COURSEPAGE = new Coursepage(classID, InstructorID);
                     GlobalResource.COURSEPAGE.Show();
                     this.Hide();
                 }
@@ -425,6 +431,35 @@ namespace UttendanceDesktop
             //Open a new EditProfile Form
             EditProfile newEditProfile = new EditProfile();
             newEditProfile.Show();
+        }
+
+        /**************************************************************************
+        * Handles the click event for the All Forms button.
+        * Opens a form with all attendance form information 
+        * for all the classes the professor teaches.
+        **************************************************************************/
+        private void formsBtn_Click(object sender, EventArgs e)
+        {
+            FormList forms = new FormList(InstructorID);
+            forms.Show();
+        }
+
+        /**************************************************************************
+        * Handles the click event for the database information button.
+        * Opens database information in Notepad text file for the user. 
+        **************************************************************************/
+        private void databaseInfoButton_Click(object sender, EventArgs e)
+        {
+            //Strings containing Database Information 
+            string databaseLocation = "Database Location: HeidiSQL, C:\\Program Files\\MariaDB 11.7\\data\\ \n";
+            string databaseName = "Database Name: uttendance\n";
+            string databaseLoginInformation = "User: root, Password: kachowmeow, Port: 3306";
+            string databaseInfo = databaseLocation + databaseName + databaseLoginInformation;
+
+            //Compile the text file format, write information into the text file
+            string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".txt");
+            File.WriteAllText(tempFile, databaseInfo);
+            Process.Start("notepad.exe", tempFile); //Open textfile in Notepad Application
         }
     }
 }

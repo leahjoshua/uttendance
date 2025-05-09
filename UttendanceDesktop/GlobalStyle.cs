@@ -1,4 +1,14 @@
-﻿using System;
+﻿/******************************************************************************
+* GlobalStyles Class for the UttendanceDesktop application.
+* This static class provides global variables and styles for the Uttendance
+* application. It stores the colors, some label positions, and font styles.
+* These values are accessible throughout the application for database operations 
+* and user context.
+* Written by Joanna Yang (jxy210012)
+* for CS4485.0W1 at The University of Texas at Dallas starting March 7, 2025.
+******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

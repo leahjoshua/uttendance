@@ -40,6 +40,7 @@
             answerChoiceTable = new TableLayoutPanel();
             questionAnswerItem1 = new QuestionAnswerItem();
             questionAnswerItem2 = new QuestionAnswerItem();
+            editButton = new Button();
             topFlowLayout.SuspendLayout();
             TopPanel.SuspendLayout();
             answerChoiceTable.SuspendLayout();
@@ -243,6 +244,20 @@
             questionAnswerItem2.Name = "questionAnswerItem2";
             questionAnswerItem2.Size = new Size(703, 56);
             questionAnswerItem2.TabIndex = 1;
+            // 
+            // editButton
+            // 
+            editButton.BackColor = Color.Chocolate;
+            editButton.Dock = DockStyle.Right;
+            editButton.FlatStyle = FlatStyle.Popup;
+            editButton.Location = new Point(660, 0);
+            editButton.Margin = new Padding(14);
+            editButton.Name = "editButton";
+            editButton.Size = new Size(80, 78);
+            editButton.TabIndex = 14;
+            editButton.Text = "edit";
+            editButton.UseVisualStyleBackColor = false;
+            editButton.Click += editButton_Click;
             // 
             // QuestionItem
             // 

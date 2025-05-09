@@ -5,7 +5,7 @@
 * added as a new course. The form provides feedback on the import process and
 * refreshes the homepage to reflect the new courses.
 * Written by Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
-* starting March 7, 2025.
+* starting March 28, 2025.
 ******************************************************************************/
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,14 @@ namespace UttendanceDesktop
 {
     public partial class ImportCourse : Form
     {
+        private string InstructorID;
         /**************************************************************************
          * Constructor for ImportCourse form.
          * Initializes the form and its components.
          **************************************************************************/
-        public ImportCourse()
+        public ImportCourse(string netID)
         {
+            InstructorID = netID;
             InitializeComponent();
         }
 
@@ -88,9 +90,9 @@ namespace UttendanceDesktop
                 // Extract and trim each field from the columns
                 string CourseName = columns[0].Trim();
                 string ClassPrefix = columns[1].Trim();
-                int ClassNumber = int.Parse(columns[2].Trim());
-                int SectionNumber = int.Parse(columns[3].Trim());
-                int ClassID = int.Parse(columns[4].Trim());
+                int ClassNumber = int.Parse(columns[2].Trim());       
+                int SectionNumber = int.Parse(columns[3].Trim());    
+                int ClassID = int.Parse(columns[4].Trim());          
                 TimeSpan ClassStartTime = TimeSpan.Parse(columns[5].Trim());
                 TimeSpan ClassEndTime = TimeSpan.Parse(columns[6].Trim());
 
@@ -113,7 +115,7 @@ namespace UttendanceDesktop
             }
 
             // Open a new Homepage form
-            Homepage newHomepage = new Homepage();
+            Homepage newHomepage = new Homepage(InstructorID);
             newHomepage.Show();
         }
     }

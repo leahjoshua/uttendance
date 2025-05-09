@@ -213,6 +213,7 @@ namespace UttendanceDesktop
             attendanceFormsPanelBtn.FlatStyle = FlatStyle.Flat;
             attendanceFormsPanelBtn.ForeColor = Color.White;
             attendanceFormsPanelBtn.Location = new Point(-3, 0);
+            attendanceFormsPanelBtn.Margin = new Padding(3, 4, 3, 4);
             attendanceFormsPanelBtn.Name = "attendanceFormsPanelBtn";
             attendanceFormsPanelBtn.Padding = new Padding(50, 0, 0, 0);
             attendanceFormsPanelBtn.Size = new Size(200, 42);
@@ -237,6 +238,7 @@ namespace UttendanceDesktop
             studentsPanelBtn.FlatStyle = FlatStyle.Flat;
             studentsPanelBtn.ForeColor = Color.White;
             studentsPanelBtn.Location = new Point(-3, 0);
+            studentsPanelBtn.Margin = new Padding(3, 4, 3, 4);
             studentsPanelBtn.Name = "studentsPanelBtn";
             studentsPanelBtn.Padding = new Padding(50, 0, 0, 0);
             studentsPanelBtn.Size = new Size(200, 42);
@@ -261,6 +263,7 @@ namespace UttendanceDesktop
             summaryPanelBtn.FlatStyle = FlatStyle.Flat;
             summaryPanelBtn.ForeColor = Color.White;
             summaryPanelBtn.Location = new Point(-3, 0);
+            summaryPanelBtn.Margin = new Padding(3, 4, 3, 4);
             summaryPanelBtn.Name = "summaryPanelBtn";
             summaryPanelBtn.Padding = new Padding(50, 0, 0, 0);
             summaryPanelBtn.Size = new Size(200, 39);
@@ -276,6 +279,7 @@ namespace UttendanceDesktop
             headerPanel.Controls.Add(headerPathTxt);
             headerPanel.Dock = DockStyle.Top;
             headerPanel.Location = new Point(0, 0);
+            headerPanel.Margin = new Padding(3, 4, 3, 4);
             headerPanel.Name = "headerPanel";
             headerPanel.Size = new Size(996, 38);
             headerPanel.TabIndex = 2;
@@ -317,6 +321,7 @@ namespace UttendanceDesktop
             Controls.Add(mainPanel);
             Controls.Add(sidebar);
             Controls.Add(headerPanel);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Coursepage";
             Text = "Uttendance";
             sidebar.ResumeLayout(false);

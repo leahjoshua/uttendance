@@ -78,7 +78,7 @@ namespace UttendanceDesktop
                     Properties.Settings.Default.Save();
                 }
                 //MessageBox.Show("Logged in as: " + currentInstructor.INetID);
-                Homepage newHomepage = new Homepage();
+                Homepage newHomepage = new Homepage(currentInstructor.INetID);
                 newHomepage.Show();
                 this.Hide();
             }
