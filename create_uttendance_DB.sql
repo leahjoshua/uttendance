@@ -75,12 +75,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
   CONSTRAINT `answers_ibfk_2` FOREIGN KEY (`FK_SubmissionID`) REFERENCES `submission` (`submissionID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table uttendance.answers: ~4 rows (approximately)
-INSERT INTO `answers` (`FK_AnswerID`, `FK_SubmissionID`) VALUES
-	(18, 16),
-	(22, 17),
-	(27, 16),
-	(28, 17);
+-- Dumping data for table uttendance.answers: ~2 rows (approximately)
 
 -- Dumping structure for table uttendance.attends
 CREATE TABLE IF NOT EXISTS `attends` (
@@ -137,9 +132,9 @@ CREATE TABLE IF NOT EXISTS `form` (
 INSERT INTO `form` (`FormID`, `PassWd`, `ReleaseDateTime`, `CloseDateTime`, `FK_CourseNum`) VALUES
 	(1, 'potato', '2025-04-12 10:00:00', '2025-04-12 11:30:00', 123456),
 	(2, 'tomato', '2025-04-14 10:00:00', '2025-04-14 11:30:00', 123456),
-	(3, 'corn', '2025-04-16 10:00:00', '2025-04-16 11:30:00', 123456),
-	(4, 'cake', '2025-05-01 10:00:00', '2025-05-01 11:30:00', 123456),
-	(5, 'broccoli', '2025-05-21 10:00:00', '2025-05-21 11:30:00', 123456);
+	(3, 'corn', '2025-04-16 10:00:00', '2025-05-20 11:30:00', 123456),
+	(4, 'cake', '2025-05-01 10:00:00', '2025-05-21 11:30:00', 123456),
+	(5, 'broccoli', '2025-05-21 10:00:00', '2025-04-21 11:30:00', 123456);
 
 -- Dumping structure for table uttendance.has
 CREATE TABLE IF NOT EXISTS `has` (

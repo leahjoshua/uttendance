@@ -42,6 +42,6 @@ Upon logging into the website, it takes a while to validate for the information 
 
 1. In File Explorer, navigate to student_website.sln.
 	- Open this file using Visual Studio 2022.
-2. Once everything is loaded up from this file in Visual Studio, select Start option in the top banner.
+2. Once everything is loaded up from this file in Visual Studio, select https option in the top banner.
 3. In your default browser, the website should open up.
-    - Use UTDID '2021345555' and password 'corn' for quick demo. 
+    - Use UTDID '2021345555' and password 'corn' (has questions) or 'cake' (no questions) for quick demo. 
