@@ -1,3 +1,5 @@
+-- Written by Leah Joshua (lej210003) and Parisa Nawar (pxn210032) for CS4485.0W1 at The University of Texas at Dallas
+-- Starting February 27, 2025.
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
 -- Server version:               11.7.2-MariaDB - mariadb.org binary distribution
@@ -27,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `answerchoice` (
   `FK_QuestionID` int(11) DEFAULT NULL,
   PRIMARY KEY (`AnswerID`),
   KEY `FK_QuestionID` (`FK_QuestionID`),
-  CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
+  CONSTRAINT `answerchoice_ibfk_1` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.answerchoice: ~29 rows (approximately)
@@ -69,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `answers` (
   PRIMARY KEY (`FK_AnswerID`,`FK_SubmissionID`),
   KEY `FK_AnswerID` (`FK_AnswerID`),
   KEY `answers_ibfk_2` (`FK_SubmissionID`),
-  CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`FK_AnswerID`) REFERENCES `answerchoice` (`AnswerID`),
-  CONSTRAINT `answers_ibfk_2` FOREIGN KEY (`FK_SubmissionID`) REFERENCES `submission` (`submissionID`)
+  CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`FK_AnswerID`) REFERENCES `answerchoice` (`AnswerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `answers_ibfk_2` FOREIGN KEY (`FK_SubmissionID`) REFERENCES `submission` (`submissionID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.answers: ~4 rows (approximately)
@@ -87,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `attends` (
   PRIMARY KEY (`FK_UTDID`,`FK_CourseNum`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
   CONSTRAINT `attends_ibfk_1` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
+  CONSTRAINT `attends_ibfk_2` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.attends: ~8 rows (approximately)
@@ -128,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `form` (
   `FK_CourseNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`FormID`),
   KEY `FK_CourseNum` (`FK_CourseNum`),
-  CONSTRAINT `form_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`)
+  CONSTRAINT `form_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.form: ~5 rows (approximately)
@@ -145,8 +147,8 @@ CREATE TABLE IF NOT EXISTS `has` (
   `FK_QuestionID` int(11) NOT NULL,
   PRIMARY KEY (`FK_FormID`,`FK_QuestionID`) USING BTREE,
   KEY `FK__question` (`FK_QuestionID`),
-  CONSTRAINT `FK__form` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`) ON DELETE CASCADE,
-  CONSTRAINT `FK__question` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`)
+  CONSTRAINT `FK__form` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK__question` FOREIGN KEY (`FK_QuestionID`) REFERENCES `question` (`QuestionID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='Relationship between Form and Question';
 
 -- Dumping data for table uttendance.has: ~2 rows (approximately)
@@ -166,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `instructor` (
 -- Dumping data for table uttendance.instructor: ~2 rows (approximately)
 INSERT INTO `instructor` (`INetID`, `IFName`, `ILName`, `IPassword`) VALUES
 	('mxm123456', 'Milly', 'Meron', 'h4Ga!'),
-	('sxh39228', 'Sally', 'Hemmings', 'blowupmind');
+	('sxh392287', 'Sally', 'Hemmings', 'blowupmind');
 
 -- Dumping structure for table uttendance.qbank
 CREATE TABLE IF NOT EXISTS `qbank` (
@@ -180,9 +182,9 @@ CREATE TABLE IF NOT EXISTS `qbank` (
 
 -- Dumping data for table uttendance.qbank: ~5 rows (approximately)
 INSERT INTO `qbank` (`BankID`, `BankTitle`, `FK_INetID`) VALUES
-	(1, 'Biology', 'sxh39228'),
-	(2, 'Chemistry', 'sxh39228'),
-	(3, 'Cellular', 'sxh39228'),
+	(1, 'Biology', 'sxh392287'),
+	(2, 'Chemistry', 'sxh392287'),
+	(3, 'Cellular', 'sxh392287'),
 	(4, 'Molecules', 'mxm123456'),
 	(5, 'Physics', 'mxm123456');
 
@@ -193,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `FK_BankID` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`QuestionID`),
   KEY `FK_question_qbank` (`FK_BankID`),
-  CONSTRAINT `FK_question_qbank` FOREIGN KEY (`FK_BankID`) REFERENCES `qbank` (`BankID`)
+  CONSTRAINT `FK_question_qbank` FOREIGN KEY (`FK_BankID`) REFERENCES `qbank` (`BankID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.question: ~5 rows (approximately)
@@ -235,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `submission` (
   PRIMARY KEY (`SubmissionID`),
   KEY `FK_FormID` (`FK_FormID`),
   KEY `FK_UTDID` (`FK_UTDID`),
-  CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`),
+  CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`) ON DELETE CASCADE ON UPDATE CASCADE, 
   CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
@@ -250,15 +252,15 @@ CREATE TABLE IF NOT EXISTS `teaches` (
   `FK_CourseNum` int(11) NOT NULL,
   PRIMARY KEY (`FK_CourseNum`,`FK_INetID`),
   KEY `FK_INetID` (`FK_INetID`),
-  CONSTRAINT `teaches_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`),
-  CONSTRAINT `teaches_ibfk_2` FOREIGN KEY (`FK_INetID`) REFERENCES `instructor` (`INetID`)
+  CONSTRAINT `teaches_ibfk_1` FOREIGN KEY (`FK_CourseNum`) REFERENCES `class` (`CourseNum`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `teaches_ibfk_2` FOREIGN KEY (`FK_INetID`) REFERENCES `instructor` (`INetID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Dumping data for table uttendance.teaches: ~3 rows (approximately)
 INSERT INTO `teaches` (`FK_INetID`, `FK_CourseNum`) VALUES
 	('mxm123456', 12345),
-	('SXH210003', 123456),
-	('SXH210003', 999999);
+	('sxh392287', 123456),
+	('sxh392287', 999999);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
