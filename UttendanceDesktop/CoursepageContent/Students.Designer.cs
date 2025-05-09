@@ -44,8 +44,6 @@ namespace UttendanceDesktop
             studentTable = new DataGridView();
             deleteBtn = new Button();
             addBtn = new Button();
-            deleteBtn = new Button();
-            studentTable = new DataGridView();
             studentsPagePanel.SuspendLayout();
             addPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)studentTable).BeginInit();
@@ -57,8 +55,6 @@ namespace UttendanceDesktop
             studentsPagePanel.BackColor = Color.FromArgb(166, 176, 230);
             studentsPagePanel.Controls.Add(studentsLabel);
             studentsPagePanel.Controls.Add(addPanel);
-            studentsPagePanel.Controls.Add(studentTable);
-            studentsPagePanel.Controls.Add(deleteBtn);
             studentsPagePanel.Controls.Add(addBtn);
             studentsPagePanel.Controls.Add(deleteBtn);
             studentsPagePanel.Controls.Add(studentTable);
@@ -120,37 +116,6 @@ namespace UttendanceDesktop
             addStudentsBtn.UseVisualStyleBackColor = false;
             addStudentsBtn.Click += addStudentsBtn_Click;
             // 
-            // addBtn
-            // 
-            addBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            addBtn.BackColor = Color.Transparent;
-            addBtn.Cursor = Cursors.Hand;
-            addBtn.FlatAppearance.BorderSize = 0;
-            addBtn.FlatStyle = FlatStyle.Flat;
-            addBtn.Image = Properties.Resources.add_icon;
-            addBtn.Location = new Point(726, 378);
-            addBtn.Name = "addBtn";
-            addBtn.Size = new Size(47, 50);
-            addBtn.TabIndex = 1;
-            addBtn.UseVisualStyleBackColor = false;
-            addBtn.Click += addBtn_Click;
-            // 
-            // deleteBtn
-            // 
-            deleteBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            deleteBtn.BackColor = Color.Transparent;
-            deleteBtn.Cursor = Cursors.Hand;
-            deleteBtn.FlatAppearance.BorderSize = 0;
-            deleteBtn.FlatStyle = FlatStyle.Flat;
-            deleteBtn.Image = Properties.Resources.trash_icon;
-            deleteBtn.Location = new Point(726, 378);
-            deleteBtn.Name = "deleteBtn";
-            deleteBtn.Size = new Size(47, 50);
-            deleteBtn.TabIndex = 6;
-            deleteBtn.UseVisualStyleBackColor = false;
-            deleteBtn.Visible = false;
-            deleteBtn.Click += deleteBtn_Click;
-            // 
             // studentTable
             // 
             studentTable.AllowUserToAddRows = false;
@@ -202,14 +167,31 @@ namespace UttendanceDesktop
             studentTable.CellEndEdit += studentTable_CellEndEdit;
             studentTable.DataBindingComplete += studentTable_DataBindingComplete;
             // 
+            // deleteBtn
+            // 
+            deleteBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            deleteBtn.BackColor = Color.Transparent;
+            deleteBtn.Cursor = Cursors.Hand;
+            deleteBtn.FlatAppearance.BorderSize = 0;
+            deleteBtn.FlatStyle = FlatStyle.Flat;
+            deleteBtn.Image = Properties.Resources.trash_icon;
+            deleteBtn.Location = new Point(726, 378);
+            deleteBtn.Name = "deleteBtn";
+            deleteBtn.Size = new Size(47, 50);
+            deleteBtn.TabIndex = 6;
+            deleteBtn.UseVisualStyleBackColor = false;
+            deleteBtn.Visible = false;
+            deleteBtn.Click += deleteBtn_Click;
+            // 
             // addBtn
             // 
             addBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            addBtn.BackColor = Color.Transparent;
             addBtn.Cursor = Cursors.Hand;
             addBtn.FlatAppearance.BorderSize = 0;
             addBtn.FlatStyle = FlatStyle.Flat;
             addBtn.Image = Properties.Resources.add_icon;
-            addBtn.Location = new Point(830, 504);
+            addBtn.Location = new Point(719, 370);
             addBtn.Margin = new Padding(3, 4, 3, 4);
             addBtn.Name = "addBtn";
             addBtn.Size = new Size(54, 67);
