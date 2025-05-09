@@ -24,6 +24,7 @@ A UTD Attendance Application.
 8. On the top left corner, hover to File > click on Load SQL File.
 9. Navigate through the File System to load up create_uttendance_DB.sql.
 10. Select the blue triangle on the top of HeidiSQL banner to execute the SQL Script.
+11. On the top menu, go to Tools > Preferences > Grid Formatting > uncheck local number format for commas to be removed from numbers. 
 
 ## Desktop Application Guide
 The UI display differs per screen resolution display. Some buttons may seem out of place, cropped, or hard to access.
