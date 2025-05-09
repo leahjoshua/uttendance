@@ -135,11 +135,11 @@ CREATE TABLE IF NOT EXISTS `form` (
 
 -- Dumping data for table uttendance.form: ~5 rows (approximately)
 INSERT INTO `form` (`FormID`, `PassWd`, `ReleaseDateTime`, `CloseDateTime`, `FK_CourseNum`) VALUES
-	(1, 'potato', '2025-04-12 10:00:00', '2025-05-22 11:30:00', 123456),
-	(2, 'tomato', '2025-04-14 10:00:00', '2025-06-14 11:30:00', 123456),
-	(3, 'corn', '2025-04-16 10:00:00', '2025-05-16 11:30:00', 123456),
-	(4, 'cake', '2025-05-01 10:00:00', '2025-03-18 11:30:00', 123456),
-	(5, 'broccoli', '2025-05-21 10:00:00', '2025-04-21 11:30:00', 123456);
+	(1, 'potato', '2025-04-12 10:00:00', '2025-04-12 11:30:00', 123456),
+	(2, 'tomato', '2025-04-14 10:00:00', '2025-04-14 11:30:00', 123456),
+	(3, 'corn', '2025-04-16 10:00:00', '2025-04-16 11:30:00', 123456),
+	(4, 'cake', '2025-05-01 10:00:00', '2025-05-01 11:30:00', 123456),
+	(5, 'broccoli', '2025-05-21 10:00:00', '2025-05-21 11:30:00', 123456);
 
 -- Dumping structure for table uttendance.has
 CREATE TABLE IF NOT EXISTS `has` (
@@ -180,10 +180,9 @@ CREATE TABLE IF NOT EXISTS `qbank` (
   CONSTRAINT `FK_qbank_instructor` FOREIGN KEY (`FK_INetID`) REFERENCES `instructor` (`INetID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='A question bank ';
 
--- Dumping data for table uttendance.qbank: ~5 rows (approximately)
+-- Dumping data for table uttendance.qbank: ~4 rows (approximately)
 INSERT INTO `qbank` (`BankID`, `BankTitle`, `FK_INetID`) VALUES
 	(1, 'Biology', 'sxh392287'),
-	(2, 'Chemistry', 'sxh392287'),
 	(3, 'Cellular', 'sxh392287'),
 	(4, 'Molecules', 'mxm123456'),
 	(5, 'Physics', 'mxm123456');
@@ -237,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `submission` (
   PRIMARY KEY (`SubmissionID`),
   KEY `FK_FormID` (`FK_FormID`),
   KEY `FK_UTDID` (`FK_UTDID`),
-  CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`) ON DELETE CASCADE ON UPDATE CASCADE, 
+  CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`FK_FormID`) REFERENCES `form` (`FormID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`FK_UTDID`) REFERENCES `student` (`UTDID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
