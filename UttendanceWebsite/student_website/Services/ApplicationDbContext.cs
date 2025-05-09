@@ -17,6 +17,7 @@ namespace student_website.Services
 
         }
 
+        // Entities
         public DbSet<Answerchoice> Answerchoice { get; set; }
         public DbSet<Attends> Attends { get; set; }
         public DbSet<Class> Class { get; set; }

@@ -33,6 +33,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped<HttpClient>();
 
+// End writing
+
 //Forwarded Header Middleware
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {

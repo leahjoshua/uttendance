@@ -72,8 +72,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <p class="card-text">@question.ProblemStatement</p>
-                    <!-- Written by Judy Yang, JXY200013
-                    For each question, list the answer choices -->
+                    <!-- For each question, list the answer choices -->
                     @{
                         int optionIndex = 0;
                         foreach (var choice in question.Answerchoice)
@@ -125,6 +124,11 @@
     private Class course;
     private int questionNum = 1;
 
+    /*
+     * Get the IP address.
+     * Get the associated form id, student, course, and question information
+     * Display student name, course and section, and questions when the page loads 
+     */
     protected override async Task OnInitializedAsync()
     {
         // Get user IPAddress
@@ -177,6 +181,11 @@
     /* Written by Judy Yang and Parisa Nawar for CS 4485.0w1, CS Project, starting April 14, 2025
      * NetID: JXY200013, PXN210032*/
     // Adding async allows you to use await
+    /* Checks if all questions have been answered
+     * Insert student IP address, associated form id, student id, as well as student answer choices
+     * to the database.
+     * After, navigate to the submission page
+     */
     private async Task Submit()
     {
         //Check if all the questions have been answered
@@ -193,6 +202,7 @@
 
         //Collect user chosen answers to send to Database
         var answerChoices = new List<int>();
+        // Checks if each question is answered
         foreach (var question in questions)
         {
             if (selectedAnswers.TryGetValue(question.QuestionID, out int? choiceIndex) && choiceIndex.HasValue)

@@ -17,6 +17,9 @@ namespace student_website.Services
             _context = context;
         }
 
+        // Actual insertion to the database
+        // gets the submission object in the CreateAndInsertSubmission()
+        // sets the attendance status to be "P" for present
         public async Task InsertSubmissionAsync(Submission submission)
         {
             try
@@ -38,7 +41,8 @@ namespace student_website.Services
             }
         }
 
-        // Function to insert Submission information to database
+        // Function to create Submission information to database
+        // Takes in userIp, form id, student id, and list of the student's chosen answers
         public async Task CreateAndInsertSubmissionAsync(String userIP, int form, int studentID, List<int> answerIDs)
         {
             // Create a new Submission object
